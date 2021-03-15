@@ -1,30 +1,13 @@
-# Indev phase - br4nch v1.0.7
-# desc - Buggy prototype of final graphic branching.
+# Indev phase - br4nch v1.0.8
+# desc - Prefix improvements.
 
 
 def testing_structure():
     get_branch = executor("get_branch")
 
-    last = []
-    for name in get_branch:
-        for header in get_branch[name]:
-            for module in get_branch[name][header]:
-                last.append(module)
-
-    last2 = []
-    for name in get_branch:
-        for header in get_branch[name]:
-            for module in get_branch[name][header]:
-                for subject in get_branch[name][header][module]:
-                    last2.append(subject)
-
-    last3 = []
-    for name in get_branch:
-        for header in get_branch[name]:
-            for module in get_branch[name][header]:
-                for subject in get_branch[name][header][module]:
-                    for obj in get_branch[name][header][module][subject]:
-                        last3.append(obj)
+    get_modules = executor("get_modules")
+    get_subjects = executor("get_subjects")
+    get_objects = executor("get_objects")
 
     if get_branch:
         for name in get_branch:
@@ -38,9 +21,9 @@ def testing_structure():
                         end = end + 1
 
                         if end == lenght:
-                            print("┃\n┗━━", module)
+                            print(prefix("module_end", None), module)
                         else:
-                            print("┃\n┣━━", module)
+                            print(prefix("module_extend", None), module)
 
                         if get_branch[name][header][module]:
                             end1 = 0
@@ -48,45 +31,45 @@ def testing_structure():
                             for subject in get_branch[name][header][module]:
                                 end = end + 1
 
-                                if module == last[-1]:
-                                    pipe = " "
+                                if module == get_modules[-1]:
+                                    extender = " "
                                     lenght1 = len(get_branch[name][header][module])
                                     end1 = end1 + 1
 
                                     if end1 == lenght1:
-                                        print(pipe + "   ┃\n" + pipe + "   ┗━━", subject)
+                                        print(prefix("subject_end", extender), module)
                                     else:
-                                        print(pipe + "   ┃\n" + pipe + "   ┣━━", subject)
+                                        print(prefix("subject_extend", extender), module)
                                 else:
-                                    pipe = "┃"
+                                    extender = "┃"
                                     lenght2 = len(get_branch[name][header][module])
                                     end2 = end2 + 1
 
                                     if end2 == lenght2:
-                                        print(pipe + "   ┃\n" + pipe + "   ┗━━", subject)
+                                        print(prefix("subject_end_last", extender), subject)
                                     else:
-                                        print(pipe + "   ┃\n" + pipe + "   ┣━━", subject)
+                                        print(prefix("subject_extend_last", extender), subject)
 
                                 if get_branch[name][header][module][subject]:
                                     end = 0
                                     for obj in get_branch[name][header][module][subject]:
                                         lenght = len(get_branch[name][header][module][subject])
                                         end = end + 1
-                                        if not obj == last3[-1]:
-                                            if module == last[-1]:
-                                                if subject == last2[-1]:
-                                                    pipe = " "
+                                        if not obj == get_objects[-1]:
+                                            if module == get_modules[-1]:
+                                                if subject == get_subjects[-1]:
+                                                    extender = " "
                                                 else:
-                                                    pipe = "    ┃"
+                                                    extender = "    ┃"
                                             else:
-                                                pipe = "┃    "
+                                                extender = "┃    "
                                         else:
-                                            pipe = "     "
+                                            extender = "     "
 
                                         if end == lenght:
-                                            print(pipe + "   ┃\n" + pipe + "   ┗━━", obj)
+                                            print(prefix("object_end", extender), obj)
                                         else:
-                                            print(pipe + "   ┃\n" + pipe + "   ┣━━", obj)
+                                            print(prefix("object_extend", extender), obj)
 
 
 def create_name(branch_name):
@@ -122,13 +105,71 @@ def check_existing_branch(branch_name):
 
 
 def executor(action):
-    global branch
+    global branch, modules, subjects, objects
 
     if action == "new_branch":
         branch = {}
 
+    if branch:
+        modules = []
+        subjects = []
+        objects = []
+        for name in branch:
+            for header in branch[name]:
+                for module in branch[name][header]:
+                    for subject in branch[name][header][module]:
+                        for obj in branch[name][header][module][subject]:
+                            modules.append(module)
+                            subjects.append(subject)
+                            objects.append(obj)
+
     if action == "get_branch":
         return branch
+
+    if action == "get_modules":
+        return modules
+
+    if action == "get_subjects":
+        return subjects
+
+    if action == "get_objects":
+        return objects
+
+
+def prefix(action, extender):
+    space_x3 = " "*3
+
+    if action == "module_extend":
+        prefix_module_extend = "┃\n┣━━"
+        return prefix_module_extend
+
+    if action == "subject_extend":
+        prefix_subject_extend = extender + space_x3 + "┃\n" + extender + space_x3 + "┣━━"
+        return prefix_subject_extend
+
+    if action == "subject_extend_last":
+        prefix_subject_extend_last = extender + space_x3 + "┃\n" + extender + space_x3 + "┣━━"
+        return prefix_subject_extend_last
+
+    if action == "object_extend":
+        prefix_object_extend = extender + space_x3 + "┃\n" + extender + space_x3 + "┣━━"
+        return prefix_object_extend
+
+    if action == "module_end":
+        prefix_module_end = "┃\n┗━━"
+        return prefix_module_end
+
+    if action == "subject_end":
+        prefix_subject_end = extender + space_x3 + "┃\n" + extender + space_x3 + "┗━━"
+        return prefix_subject_end
+
+    if action == "subject_end_last":
+        prefix_subject_end_last = extender + space_x3 + "┃\n" + extender + space_x3 + "┗━━"
+        return prefix_subject_end_last
+
+    if action == "object_end":
+        prefix_object_end = extender + space_x3 + "┃\n" + extender + space_x3 + "┗━━"
+        return prefix_object_end
 
 
 def initiate():
