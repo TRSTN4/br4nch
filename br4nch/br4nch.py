@@ -1,29 +1,52 @@
-# Indev phase - br4nch v1.0.3
-# desc - Checks and adds branch.
+# Indev phase - br4nch v1.0.4
+# desc - Testing info on structure.
 
 
 def executor(action):
-    global new_branch
+    global branch_list, header_list, module_list, subject_list, object_list
 
-    if action == "new_branch":
-        new_branch = []
-        return new_branch
+    if action == "new_structure":
+        branch_list = []
+        header_list = []
+        module_list = []
+        subject_list = []
+        object_list = []
 
     if action == "get_branch":
-        return new_branch
+        return branch_list
+
+    if action == "get_header":
+        return header_list
+
+    if action == "get_module":
+        return module_list
+
+    if action == "get_subject":
+        return subject_list
+
+    if action == "get_object":
+        return object_list
+
+
+def initiate():
+    executor("new_structure")
 
 
 def create_branch(branch_name):
-    add_name = executor("new_branch")
-    add_name.append(branch_name)
+    get_branch = executor("get_branch")
+    get_branch.append(branch_name)
 
 
 def create_header(branch_name, header_name):
-    check_existing_branch("my_branch")
+    if check_existing_branch(branch_name):
+        get_header = executor("get_header")
+        get_header.append(header_name)
 
 
 def create_module(branch_name, module_name):
-    pass
+    if check_existing_branch(branch_name):
+        get_module = executor("get_module")
+        get_module.append(module_name)
 
 
 def create_subject(branch_name, module_name, subject_name):
@@ -36,13 +59,14 @@ def create_object(branch_name, module_name, subject_name, object_name):
 
 def check_existing_branch(branch_name):
     if branch_name in executor("get_branch"):
-        print("yes")
+        return True
     else:
-        print("no")
+        return False
 
+
+initiate()
 
 create_branch("my_branch")
-
 create_header("my_branch", "just a header")
 create_module("my_branch", "sample header")
 create_subject("my_branch", "sample header", "some kind of subject")
