@@ -1,60 +1,45 @@
-# Indev phase - br4nch v1.0.4
-# desc - Testing info on structure.
+# Indev phase - br4nch v1.0.5
+# desc - Working with dictionaries for better structure.
 
 
 def executor(action):
-    global branch_list, header_list, module_list, subject_list, object_list
+    global branch
 
-    if action == "new_structure":
-        branch_list = []
-        header_list = []
-        module_list = []
-        subject_list = []
-        object_list = []
+    if action == "new_branch":
+        branch = {}
 
     if action == "get_branch":
-        return branch_list
-
-    if action == "get_header":
-        return header_list
-
-    if action == "get_module":
-        return module_list
-
-    if action == "get_subject":
-        return subject_list
-
-    if action == "get_object":
-        return object_list
+        return branch
 
 
 def initiate():
-    executor("new_structure")
+    executor("new_branch")
 
 
-def create_branch(branch_name):
+def create_name(branch_name):
     get_branch = executor("get_branch")
-    get_branch.append(branch_name)
+    get_branch.update({branch_name: {}})
 
 
 def create_header(branch_name, header_name):
-    if check_existing_branch(branch_name):
-        get_header = executor("get_header")
-        get_header.append(header_name)
+    get_branch = executor("get_branch")
+    get_branch[branch_name].update({header_name: {}})
 
 
-def create_module(branch_name, module_name):
-    if check_existing_branch(branch_name):
-        get_module = executor("get_module")
-        get_module.append(module_name)
+def create_module(branch_name, header_name, module_name):
+    get_branch = executor("get_branch")
+    get_branch[branch_name][header_name].update({module_name: {}})
 
 
-def create_subject(branch_name, module_name, subject_name):
-    pass
+def create_subject(branch_name, header_name, module_name, subject_name):
+    get_branch = executor("get_branch")
+    get_branch[branch_name][header_name][module_name].update({subject_name: {}})
 
 
-def create_object(branch_name, module_name, subject_name, object_name):
-    pass
+def create_object(branch_name, header_name, module_name, subject_name, object_name):
+    get_branch = executor("get_branch")
+    get_branch[branch_name][header_name][module_name][subject_name].update({object_name: {}})
+    print(get_branch)
 
 
 def check_existing_branch(branch_name):
@@ -64,16 +49,17 @@ def check_existing_branch(branch_name):
         return False
 
 
-initiate()
+if __name__ == '__main__':
+    initiate()
 
-create_branch("my_branch")
-create_header("my_branch", "just a header")
-create_module("my_branch", "sample header")
-create_subject("my_branch", "sample header", "some kind of subject")
-create_object("my_branch", "sample header", "some kind of subject", "this is a object")
+    create_name("my_branch")
+    create_header("my_branch", "just a header")
+    create_module("my_branch", "just a header", "sample header")
+    create_subject("my_branch", "just a header", "sample header", "some kind of subject")
+    create_object("my_branch", "just a header", "sample header", "some kind of subject", "this is a object")
 
 # br4nch.create(arg1)
 # br4nch.header(arg1, arg2)
-# br4nch.module(arg1, arg2)
-# br4nch.subject(arg1, arg2, arg3)
-# br4nch.object(arg1, arg2, arg3, arg4)
+# br4nch.module(arg1, arg2, arg3)
+# br4nch.subject(arg1, arg2, arg3, arg4)
+# br4nch.object(arg1, arg2, arg3, arg4, arg5)
