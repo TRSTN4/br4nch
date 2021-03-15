@@ -1,82 +1,86 @@
-# Indev phase - br4nch v1.1.1
-# desc - Added algorithm class and added a modified version of the old test_structure function to it.
+# Indev phase - br4nch v1.1.2
+# desc - Introducing: Printer. The printer prints the builded and selected branch.
 
 
 class add:
     def name(self, branch_name):
-        get_branch = utility.executor("", "get_branch")
+        get_branch = utility.executor(None, "get_branch")
         get_branch.update({branch_name: {}})
 
     def header(self, branch_name, header_name):
-        get_branch = utility.executor("", "get_branch")
+        get_branch = utility.executor(None, "get_branch")
         get_branch[branch_name].update({header_name: {}})
 
     def module(self, branch_name, header_name, module_name):
-        get_branch = utility.executor("", "get_branch")
+        get_branch = utility.executor(None, "get_branch")
         get_branch[branch_name][header_name].update({module_name: {}})
 
     def subject(self, branch_name, header_name, module_name, subject_name):
-        get_branch = utility.executor("", "get_branch")
+        get_branch = utility.executor(None, "get_branch")
         get_branch[branch_name][header_name][module_name].update({subject_name: {}})
 
     def object(self, branch_name, header_name, module_name, subject_name, object_name):
-        get_branch = utility.executor("", "get_branch")
+        get_branch = utility.executor(None, "get_branch")
         get_branch[branch_name][header_name][module_name][subject_name].update({object_name: {}})
 
 
 class set:
     class color:
         def branch(self, selected, color, special1, special2, special3):
-            paint_branch = utility.painter("", color.lower(), special1.lower(), special2.lower(), special3.lower())
+            paint_branch = utility.painter(None, color.lower(), special1.lower(), special2.lower(), special3.lower())
 
-            add_selected_branch = utility.executor("", "get_selected_branches")
-            add_branch_paint = utility.executor("", "get_branch_paint")
+            add_selected_branch = utility.executor(None, "get_selected_branches")
+            add_branch_paint = utility.executor(None, "get_branch_paint")
 
             add_selected_branch.append(selected)
             add_branch_paint.append(paint_branch)
 
         def header(self, branch_name, selected, color, special1, special2, special3):
-            paint_header = utility.painter("", color.lower(), special1.lower(), special2.lower(), special3.lower())
+            paint_header = utility.painter(None, color.lower(), special1.lower(), special2.lower(), special3.lower())
 
-            add_selected_header = utility.executor("", "get_selected_headers")
-            add_header_paint = utility.executor("", "get_header_paint")
+            add_selected_header = utility.executor(None, "get_selected_headers")
+            add_header_paint = utility.executor(None, "get_header_paint")
 
             add_selected_header.append(selected)
             add_header_paint.append(paint_header)
 
         def module(self, branch_name, selected, color, special1, special2, special3):
-            paint_module = utility.painter("", color.lower(), special1.lower(), special2.lower(), special3.lower())
+            paint_module = utility.painter(None, color.lower(), special1.lower(), special2.lower(), special3.lower())
 
-            add_selected_module = utility.executor("", "get_selected_modules")
-            add_module_paint = utility.executor("", "get_module_paint")
+            add_selected_module = utility.executor(None, "get_selected_modules")
+            add_module_paint = utility.executor(None, "get_module_paint")
 
             add_selected_module.append(selected)
             add_module_paint.append(paint_module)
 
         def subject(self, branch_name, selected, color, special1, special2, special3):
-            paint_subject = utility.painter("", color.lower(), special1.lower(), special2.lower(), special3.lower())
+            paint_subject = utility.painter(None, color.lower(), special1.lower(), special2.lower(), special3.lower())
 
-            add_selected_subject = utility.executor("", "get_selected_subjects")
-            add_subject_paint = utility.executor("", "get_subject_paint")
+            add_selected_subject = utility.executor(None, "get_selected_subjects")
+            add_subject_paint = utility.executor(None, "get_subject_paint")
 
             add_selected_subject.append(selected)
             add_subject_paint.append(paint_subject)
 
         def object(self, branch_name, selected, color, special1, special2, special3):
-            paint_object = utility.painter("", color.lower(), special1.lower(), special2.lower(), special3.lower())
+            paint_object = utility.painter(None, color.lower(), special1.lower(), special2.lower(), special3.lower())
 
-            add_selected_object = utility.executor("", "get_selected_objects")
-            add_object_paint = utility.executor("", "get_object_paint")
+            add_selected_object = utility.executor(None, "get_selected_objects")
+            add_object_paint = utility.executor(None, "get_object_paint")
 
             add_selected_object.append(selected)
             add_object_paint.append(paint_object)
 
 
 class utility:
+    def run_tasks(self):
+        utility.executor(None, "construction")
+
     def executor(self, action):
         global branch, names, headers, modules, subjects, objects
         global selected_branches, selected_headers, selected_modules, selected_subjects, selected_objects
         global branch_paint, header_paint, module_paint, subject_paint, object_paint
+        global paper
 
         if action == "construction":
             branch = {}
@@ -97,6 +101,8 @@ class utility:
             subject_paint = []
             object_paint = []
 
+            paper = []
+
         if action:
             branch_name_list = ["get_branch", "get_names", "get_headers", "get_modules", "get_subjects", "get_objects"]
             branch_action_list = [branch, names, headers, modules, subjects, objects]
@@ -116,7 +122,8 @@ class utility:
                 if action == branch_name_list[selected]:
                     return branch_action_list[selected]
 
-        paint_name_list = ["get_selected_branches", "get_selected_headers", "get_selected_modules", "get_selected_subjects",
+        paint_name_list = ["get_selected_branches", "get_selected_headers", "get_selected_modules",
+                           "get_selected_subjects",
                            "get_selected_objects", "get_branch_paint", "get_header_paint", "get_module_paint",
                            "get_subject_paint", "get_object_paint"]
         paint_action_list = [selected_branches, selected_headers, selected_modules, selected_subjects, selected_objects,
@@ -126,8 +133,15 @@ class utility:
             if action == paint_name_list[selected]:
                 return paint_action_list[selected]
 
+        print_list = ["get_paper"]
+        print_action_list = [paper]
+
+        for selected in range(1):
+            if action == print_list[selected]:
+                return print_action_list[selected]
+
     def branching(self, action, extender):
-        space_x3 = " "*3
+        space_x3 = " " * 3
 
         branching_header_end = "\n╻"
         branching_module_extend = "┃\n┣━━"
@@ -139,8 +153,10 @@ class utility:
         branching_object_extend = extender + space_x3 + "┃\n" + extender + space_x3 + "┣━━"
         branching_object_end = extender + space_x3 + "┃\n" + extender + space_x3 + "┗━━"
 
-        branching_action_list = [branching_header_end, branching_module_extend, branching_module_end, branching_subject_extend,
-                                 branching_subject_extend_last, branching_subject_end, branching_subject_end_last, branching_object_extend,
+        branching_action_list = [branching_header_end, branching_module_extend, branching_module_end,
+                                 branching_subject_extend,
+                                 branching_subject_extend_last, branching_subject_end, branching_subject_end_last,
+                                 branching_object_extend,
                                  branching_object_end]
 
         branching_name_list = ["header_end", "module_extend", "module_end", "subject_extend", "subject_extend_last",
@@ -152,18 +168,18 @@ class utility:
                     return branching_action_list[selected]
 
     def painter(self, color, special1, special2, special3):
-        black = "\u001b[30m"        # Black
-        red = "\u001b[31m"          # Red
-        green = "\u001b[32m"        # Green
-        yellow = "\u001b[33m"       # Yellow
-        blue = "\u001b[34m"         # Blue
-        magenta = "\u001b[35m"      # Magenta
-        cyan = "\u001b[36m"         # Cyan
-        white = "\u001b[37m"        # White
-        bold = "\u001b[1m"          # Bold
-        underline = "\u001b[4m"     # Underline
-        reversing = "\u001b[4m"     # Reversing
-        clear = "\u001b[0m"         # Clear
+        black = "\u001b[30m"  # Black
+        red = "\u001b[31m"  # Red
+        green = "\u001b[32m"  # Green
+        yellow = "\u001b[33m"  # Yellow
+        blue = "\u001b[34m"  # Blue
+        magenta = "\u001b[35m"  # Magenta
+        cyan = "\u001b[36m"  # Cyan
+        white = "\u001b[37m"  # White
+        bold = "\u001b[1m"  # Bold
+        underline = "\u001b[4m"  # Underline
+        reversing = "\u001b[4m"  # Reversing
+        clear = "\u001b[0m"  # Clear
 
         colors_id = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "clear"]
         colors = [black, red, green, yellow, blue, magenta, cyan, white, clear]
@@ -192,68 +208,59 @@ class utility:
 
         return selected_color + selected_special1 + selected_special2 + selected_special3
 
-    def initiate(self):
-        utility.executor("", "construction")
-
-
-class algorithm:
-    class branch:
+    class builder:
         def __init__(self):
             global end
 
             end = 0
 
-            self.all_list = ["all", "", " "]
+            self.all_list = ["all", None, " "]
 
-            self.paint_clear = utility.painter("", "clear", "", "", "")
-            self.branch_paint = utility.executor("", "get_branch_paint")
+            self.paint_clear = utility.painter(None, "clear", None, None, "")
+            self.branch_paint = utility.executor(None, "get_branch_paint")
 
-            self.selected_branches = utility.executor("", "get_selected_branches")
+            self.get_branch = utility.executor(None, "get_branch")
+            self.get_modules = utility.executor(None, "get_modules")
+            self.get_subjects = utility.executor(None, "get_subjects")
+            self.get_objects = utility.executor(None, "get_objects")
 
-            self.get_objects = utility.executor("", "get_objects")
-            self.get_subjects = utility.executor("", "get_subjects")
-            self.get_modules = utility.executor("", "get_modules")
-            self.get_headers = utility.executor("", "get_headers")
-            self.get_names = utility.executor("", "get_names")
-            self.get_branch = utility.executor("", "get_branch")
+            self.loop_names()
 
-            self.run_names()
-
-        def run_names(self):
+        def loop_names(self):
             global end
 
             if self.get_branch:
                 for name in self.get_branch:
                     paint_branch = ""
 
-                    selected_branches = utility.executor("", "get_selected_branches")
-                    branch_paint = utility.executor("", "get_branch_paint")
+                    selected_branches = utility.executor(None, "get_selected_branches")
+                    branch_paint = utility.executor(None, "get_branch_paint")
 
                     for selected_branch in range(len(selected_branches)):
                         if selected_branches[selected_branch] == name:
                             paint_branch = branch_paint[selected_branch]
 
-                    self.run_headers(paint_branch, name)
+                    self.loop_headers(paint_branch, name)
 
-        def run_headers(self, paint_branch, name):
+        def loop_headers(self, paint_branch, name):
             global end
 
             if self.get_branch[name]:
                 for header in self.get_branch[name]:
                     paint_header = ""
 
-                    selected_headers = utility.executor("", "get_selected_headers")
-                    header_paint = utility.executor("", "get_header_paint")
+                    selected_headers = utility.executor(None, "get_selected_headers")
+                    header_paint = utility.executor(None, "get_header_paint")
 
                     for selected_header in range(len(selected_headers)):
                         if selected_headers[selected_header] == header:
                             paint_header = header_paint[selected_header]
 
-                    print(paint_header + header, self.paint_clear + paint_branch + utility.branching("", "header_end", "") + self.paint_clear)
+                    paper.append(paint_header + header + " " + self.paint_clear + paint_branch + utility.branching(None, "header_end", "") + self.paint_clear)
 
-                    self.run_modules(paint_branch, name, header)
+                    self.loop_modules(paint_branch, name, header)
 
-        def run_modules(self, paint_branch, name, header):
+        def loop_modules(self, paint_branch, name, header):
             global end
 
             if self.get_branch[name][header]:
@@ -262,8 +269,8 @@ class algorithm:
                     lenght = len(self.get_branch[name][header])
                     end = end + 1
 
-                    selected_modules = utility.executor("", "get_selected_modules")
-                    module_paint = utility.executor("", "get_module_paint")
+                    selected_modules = utility.executor(None, "get_selected_modules")
+                    module_paint = utility.executor(None, "get_module_paint")
 
                     for selected_module in range(len(selected_modules)):
                         if selected_modules[selected_module] == module:
@@ -275,13 +282,13 @@ class algorithm:
                             paint_module = module_paint[all_num]
 
                     if end == lenght:
-                        print(paint_branch + utility.branching("", "module_end", ""), self.paint_clear + paint_module + module + self.paint_clear)
+                        paper.append(paint_branch + utility.branching(None, "module_end", "") + " " + self.paint_clear + paint_module + module + self.paint_clear)
                     else:
-                        print(paint_branch + utility.branching("", "module_extend", ""), self.paint_clear + paint_module + module + self.paint_clear)
+                        paper.append(paint_branch + utility.branching(None, "module_extend", "") + " " + self.paint_clear + paint_module + module + self.paint_clear)
 
-                    self.run_subjects(paint_branch, name, header, module)
+                    self.loop_subjects(paint_branch, name, header, module)
 
-        def run_subjects(self, paint_branch, name, header, module):
+        def loop_subjects(self, paint_branch, name, header, module):
             global end
 
             if self.get_branch[name][header][module]:
@@ -292,8 +299,8 @@ class algorithm:
                     end = 1
                     end = end + 1
 
-                    selected_subjects = utility.executor("", "get_selected_subjects")
-                    subject_paint = utility.executor("", "get_subject_paint")
+                    selected_subjects = utility.executor(None, "get_selected_subjects")
+                    subject_paint = utility.executor(None, "get_subject_paint")
 
                     for selected_subject in range(len(selected_subjects)):
                         if selected_subjects[selected_subject] == subject:
@@ -310,22 +317,22 @@ class algorithm:
                         end1 = end1 + 1
 
                         if end1 == lenght1:
-                            print(paint_branch + utility.branching("", "subject_end", extender), self.paint_clear + paint_subject + subject + self.paint_clear)
+                            paper.append(paint_branch + utility.branching(None, "subject_end", extender) + " " + self.paint_clear + paint_subject + subject + self.paint_clear)
                         else:
-                            print(paint_branch + utility.branching("", "subject_extend", extender), self.paint_clear + paint_subject + subject + self.paint_clear)
+                            paper.append(paint_branch + utility.branching(None, "subject_extend", extender) + " " + self.paint_clear + paint_subject + subject + self.paint_clear)
                     else:
                         extender = "┃"
                         lenght2 = len(self.get_branch[name][header][module])
                         end2 = end2 + 1
 
                         if end2 == lenght2:
-                            print(paint_branch + utility.branching("", "subject_end_last", extender), self.paint_clear + paint_subject + subject + self.paint_clear)
+                            paper.append(paint_branch + utility.branching(None, "subject_end_last", extender) + " " + self.paint_clear + paint_subject + subject + self.paint_clear)
                         else:
-                            print(paint_branch + utility.branching("", "subject_extend_last", extender), self.paint_clear + paint_subject + subject + self.paint_clear)
+                            paper.append(paint_branch + utility.branching(None, "subject_extend_last", extender) + " " + self.paint_clear + paint_subject + subject + self.paint_clear)
 
-                    self.run_objects(paint_branch, name, header, module, subject)
+                    self.loop_objects(paint_branch, name, header, module, subject)
 
-        def run_objects(self, paint_branch, name, header, module, subject):
+        def loop_objects(self, paint_branch, name, header, module, subject):
             global end
 
             if self.get_branch[name][header][module][subject]:
@@ -335,8 +342,8 @@ class algorithm:
                     lenght = len(self.get_branch[name][header][module][subject])
                     end = end + 1
 
-                    selected_objects = utility.executor("", "get_selected_objects")
-                    object_paint = utility.executor("", "get_object_paint")
+                    selected_objects = utility.executor(None, "get_selected_objects")
+                    object_paint = utility.executor(None, "get_object_paint")
 
                     for selected_object in range(len(selected_objects)):
                         if selected_objects[selected_object] == obj:
@@ -352,41 +359,49 @@ class algorithm:
                             if subject == self.get_subjects[-1]:
                                 extender = " "
                             else:
-                                extender = " "*4 + "┃"
+                                extender = " " * 4 + "┃"
                         else:
-                            extender = "┃" + " "*4
+                            extender = "┃" + " " * 4
                     else:
-                        extender = " "*5
+                        extender = " " * 5
 
                     if end == lenght:
-                        print(paint_branch + utility.branching("", "object_end", extender), self.paint_clear + paint_object + obj + self.paint_clear)
+                        paper.append(paint_branch + utility.branching(None, "object_end", extender) + " " + self.paint_clear + paint_object + obj + self.paint_clear)
                     else:
-                        print(paint_branch + utility.branching("", "object_extend", extender), self.paint_clear + paint_object + obj + self.paint_clear)
+                        paper.append(paint_branch + utility.branching(None, "object_extend", extender) + " " + self.paint_clear + paint_object + obj + self.paint_clear)
+
+    def printer(self):
+        paper = utility.executor(None, "get_paper")
+
+        for paper in paper:
+            print(paper)
 
 
 if __name__ == '__main__':
-    utility.initiate("")
+    utility.run_tasks(None)
 
-    add.name("", "Computer Branch")
-    add.header("", "Computer Branch", "Gaming")
-    add.module("", "Computer Branch", "Gaming", "Monitors")
-    add.module("", "Computer Branch", "Gaming", "Keyboard & Mouse")
-    add.subject("", "Computer Branch", "Gaming", "Monitors", "LG")
-    add.subject("", "Computer Branch", "Gaming", "Keyboard & Mouse", "Steel Series")
-    add.subject("", "Computer Branch", "Gaming", "Keyboard & Mouse", "Razer")
-    add.object("", "Computer Branch", "Gaming", "Monitors", "LG", "LG 27GN850 Ultragear")
-    add.object("", "Computer Branch", "Gaming", "Keyboard & Mouse", "Razer", "Razer Blackwindow Elite")
-    add.object("", "Computer Branch", "Gaming", "Keyboard & Mouse", "Steel Series", "SteelSeries Apex 3")
-    add.object("", "Computer Branch", "Gaming", "Keyboard & Mouse", "Steel Series", "SteelSeries Apex 5")
+    add.name(None, "Computer Branch")
+    add.header(None, "Computer Branch", "Gaming")
+    add.module(None, "Computer Branch", "Gaming", "Monitors")
+    add.module(None, "Computer Branch", "Gaming", "Keyboard & Mouse")
+    add.subject(None, "Computer Branch", "Gaming", "Monitors", "LG")
+    add.subject(None, "Computer Branch", "Gaming", "Keyboard & Mouse", "Steel Series")
+    add.subject(None, "Computer Branch", "Gaming", "Keyboard & Mouse", "Razer")
+    add.object(None, "Computer Branch", "Gaming", "Monitors", "LG", "LG 27GN850 Ultragear")
+    add.object(None, "Computer Branch", "Gaming", "Keyboard & Mouse", "Razer", "Razer Blackwindow Elite")
+    add.object(None, "Computer Branch", "Gaming", "Keyboard & Mouse", "Steel Series", "SteelSeries Apex 3")
+    add.object(None, "Computer Branch", "Gaming", "Keyboard & Mouse", "Steel Series", "SteelSeries Apex 5")
 
-    set.color.branch("", "Computer Branch", "blue", "bold", "", "")
-    set.color.header("", "Computer Branch", "Gaming", "magenta", "reversing", "bold", "underline")
-    set.color.module("", "Computer Branch", "Monitors", "yellow", "bold", "", "")
-    set.color.module("", "Computer Branch", "Keyboard & Mouse", "cyan", "underline", "", "")
-    set.color.subject("", "Computer Branch", "Razer", "blue", "underline", "bold", "")
-    set.color.subject("", "Computer Branch", "all", "green", "underline", "bold", "")
-    set.color.subject("", "Computer Branch", "LG", "red", "underline", "bold", "")
-    set.color.object("", "Computer Branch", "SteelSeries Apex 5", "red", "underline", "reversing", "")
-    set.color.object("", "Computer Branch", "LG 27GN850 Ultragear", "cyan", "", "bold", "")
+    set.color.branch(None, "Computer Branch", "blue", "bold", "", "")
+    set.color.header(None, "Computer Branch", "Gaming", "magenta", "reversing", "bold", "underline")
+    set.color.module(None, "Computer Branch", "Monitors", "yellow", "bold", "", "")
+    set.color.module(None, "Computer Branch", "Keyboard & Mouse", "cyan", "underline", "", "")
+    set.color.subject(None, "Computer Branch", "Razer", "blue", "underline", "bold", "")
+    set.color.subject(None, "Computer Branch", "all", "green", "underline", "bold", "")
+    set.color.subject(None, "Computer Branch", "LG", "red", "underline", "bold", "")
+    set.color.object(None, "Computer Branch", "SteelSeries Apex 5", "red", "underline", "reversing", "")
+    set.color.object(None, "Computer Branch", "LG 27GN850 Ultragear", "cyan", "", "bold", "")
 
-    algorithm.branch()
+    utility.builder()
+    utility.printer(None)
+    paper.clear()
