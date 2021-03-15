@@ -1,19 +1,92 @@
-# Indev phase - br4nch v1.0.6
-# desc - First prototype of the structure and testing structure with sample text.
+# Indev phase - br4nch v1.0.7
+# desc - Buggy prototype of final graphic branching.
 
 
 def testing_structure():
     get_branch = executor("get_branch")
 
+    last = []
     for name in get_branch:
         for header in get_branch[name]:
-            print("", header)
             for module in get_branch[name][header]:
-                print(" ", module)
+                last.append(module)
+
+    last2 = []
+    for name in get_branch:
+        for header in get_branch[name]:
+            for module in get_branch[name][header]:
                 for subject in get_branch[name][header][module]:
-                    print("  ", subject)
+                    last2.append(subject)
+
+    last3 = []
+    for name in get_branch:
+        for header in get_branch[name]:
+            for module in get_branch[name][header]:
+                for subject in get_branch[name][header][module]:
                     for obj in get_branch[name][header][module][subject]:
-                        print("   ", obj)
+                        last3.append(obj)
+
+    if get_branch:
+        for name in get_branch:
+            for header in get_branch[name]:
+                print(header + "\n╻")
+
+                if get_branch[name][header]:
+                    end = 0
+                    for module in get_branch[name][header]:
+                        lenght = len(get_branch[name][header])
+                        end = end + 1
+
+                        if end == lenght:
+                            print("┃\n┗━━", module)
+                        else:
+                            print("┃\n┣━━", module)
+
+                        if get_branch[name][header][module]:
+                            end1 = 0
+                            end2 = 0
+                            for subject in get_branch[name][header][module]:
+                                end = end + 1
+
+                                if module == last[-1]:
+                                    pipe = " "
+                                    lenght1 = len(get_branch[name][header][module])
+                                    end1 = end1 + 1
+
+                                    if end1 == lenght1:
+                                        print(pipe + "   ┃\n" + pipe + "   ┗━━", subject)
+                                    else:
+                                        print(pipe + "   ┃\n" + pipe + "   ┣━━", subject)
+                                else:
+                                    pipe = "┃"
+                                    lenght2 = len(get_branch[name][header][module])
+                                    end2 = end2 + 1
+
+                                    if end2 == lenght2:
+                                        print(pipe + "   ┃\n" + pipe + "   ┗━━", subject)
+                                    else:
+                                        print(pipe + "   ┃\n" + pipe + "   ┣━━", subject)
+
+                                if get_branch[name][header][module][subject]:
+                                    end = 0
+                                    for obj in get_branch[name][header][module][subject]:
+                                        lenght = len(get_branch[name][header][module][subject])
+                                        end = end + 1
+                                        if not obj == last3[-1]:
+                                            if module == last[-1]:
+                                                if subject == last2[-1]:
+                                                    pipe = " "
+                                                else:
+                                                    pipe = "    ┃"
+                                            else:
+                                                pipe = "┃    "
+                                        else:
+                                            pipe = "     "
+
+                                        if end == lenght:
+                                            print(pipe + "   ┃\n" + pipe + "   ┗━━", obj)
+                                        else:
+                                            print(pipe + "   ┃\n" + pipe + "   ┣━━", obj)
 
 
 def create_name(branch_name):
