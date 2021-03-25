@@ -5,14 +5,20 @@ from br4nch.utility.branching import branching
 
 
 # Algorithm to build all the given modules.
-def build_module(paint_branch, branch, header):
+def build_module(branch, header, paint_branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     module_package = librarian("module_package")
     paper = librarian("paper")
 
-    # Resets the paint.
-    paint_clear = "\u001b[0m"
+    # Checks if content in package.
+    if module_package:
+        # Resets the paint.
+        paint_clear = "\u001b[0m"
+    # If content not in package.
+    else:
+        # Sets the paint to nothing.
+        paint_clear = ""
 
     # Checks if header key in branch list has any value.
     if branches[branch][header]:
@@ -30,12 +36,18 @@ def build_module(paint_branch, branch, header):
             # Adds the current decider value by 1.
             decider = decider + 1
 
-            # Loops through all keys in the module > branch directory.
-            for key in module_package[branch]:
-                # Checks if the key is equal to the value of module.
-                if key == module:
-                    # Module paint is equal to the value of the key inside the module > branch package.
-                    paint_module = module_package[branch].get(key)
+            # Tries to run loop.
+            try:
+                # Loops through all keys in the module > branch directory.
+                for key in module_package[branch]:
+                    # Checks if the key is equal to the value of module.
+                    if key == module:
+                        # Module paint is equal to the value of the key inside the module > branch package.
+                        paint_module = module_package[branch].get(key)
+            # If KeyError in loop.
+            except KeyError:
+                # Passes through.
+                pass
 
             # Loops through all given packages inside the module package dictionary.
             for package in module_package:
@@ -95,4 +107,4 @@ def build_module(paint_branch, branch, header):
             module = saved_module
 
             # Runs the next task.
-            build_subject(paint_branch, branch, header, module)
+            build_subject(branch, header, module, paint_branch)

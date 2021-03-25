@@ -1,5 +1,5 @@
-# Alpha phase - br4nch v1.0.1
-# desc - Fixing imports and changing argument: "name" to "branch".
+# Alpha phase - br4nch v1.0.2
+# desc - Fixed error when using no colors and added checks for clear paint. (Terminals that not support colors.)
 
 # Imports the br4nch package.
 import br4nch

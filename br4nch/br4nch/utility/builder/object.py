@@ -4,14 +4,20 @@ from br4nch.utility.branching import branching
 
 
 # Algorithm to build all the given objects.
-def build_object(paint_branch, branch, header, module, subject, send_subject1, send_subject2, send_subject3):
+def build_object(branch, header, module, subject, paint_branch, send_subject1, send_subject2, send_subject3):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     object_package = librarian("object_package")
     paper = librarian("paper")
 
-    # Resets the paint.
-    paint_clear = "\u001b[0m"
+    # Checks if content in package.
+    if object_package:
+        # Resets the paint.
+        paint_clear = "\u001b[0m"
+    # If content not in package.
+    else:
+        # Sets the paint to nothing.
+        paint_clear = ""
 
     # Checks if subject key in branch list has any value.
     if branches[branch][header][module][subject]:
@@ -23,25 +29,31 @@ def build_object(paint_branch, branch, header, module, subject, send_subject1, s
             # Resets the paint after every loop.
             paint_object = paint_clear
 
-            # Loops through all keys in the object > branch directory.
-            for key in object_package[branch]:
-                # Checks if the key is equal to the value of object.
-                if key == obj:
-                    # Object paint is equal to the value of the key inside the object > branch package.
-                    paint_object = object_package[branch].get(key)
+            # Tries to run loop.
+            try:
+                # Loops through all keys in the object > branch directory.
+                for key in object_package[branch]:
+                    # Checks if the key is equal to the value of object.
+                    if key == obj:
+                        # Object paint is equal to the value of the key inside the object > branch package.
+                        paint_object = object_package[branch].get(key)
 
-                # Checks if the first four characters are equal to "all-".
-                if key[:4] == "all-":
-                    # Modified key removes the "all-" from the key.
-                    modified_key = key[4:]
-                    # Checks if the modified key is equal to the value of subject.
-                    if modified_key == subject:
-                        # Loops through all keys in branches > branch > header > module > subject dictionary.
-                        for package in branches[branch][header][module][subject]:
-                            # Check if the value of package is equal to the value of object.
-                            if package == obj:
-                                # Object paint is equal to the value of the key in object > branch package.
-                                paint_object = object_package[branch].get(key)
+                    # Checks if the first four characters are equal to "all-".
+                    if key[:4] == "all-":
+                        # Modified key removes the "all-" from the key.
+                        modified_key = key[4:]
+                        # Checks if the modified key is equal to the value of subject.
+                        if modified_key == subject:
+                            # Loops through all keys in branches > branch > header > module > subject dictionary.
+                            for package in branches[branch][header][module][subject]:
+                                # Check if the value of package is equal to the value of object.
+                                if package == obj:
+                                    # Object paint is equal to the value of the key in object > branch package.
+                                    paint_object = object_package[branch].get(key)
+            # If KeyError in loop.
+            except KeyError:
+                # Passes through.
+                pass
 
             # Loops through all given packages inside the object package dictionary.
             for package in object_package:

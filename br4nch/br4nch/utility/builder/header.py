@@ -5,14 +5,20 @@ from br4nch.utility.branching import branching
 
 
 # Algorithm to build all the given headers.
-def build_header(paint_branch, branch, newline):
+def build_header(branch, paint_branch, newline):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     header_package = librarian("header_package")
     paper = librarian("paper")
 
-    # Resets the paint.
-    paint_clear = "\u001b[0m"
+    # Checks if content in package.
+    if header_package:
+        # Resets the paint.
+        paint_clear = "\u001b[0m"
+    # If content not in package.
+    else:
+        # Sets the paint to nothing.
+        paint_clear = ""
 
     # Checks if branch key in branch list has any value.
     if branches[branch]:
@@ -40,4 +46,4 @@ def build_header(paint_branch, branch, newline):
                          branching("header_end", "") + paint_clear)
 
             # Runs the next task.
-            build_module(paint_branch, branch, header)
+            build_module(branch, header, paint_branch)
