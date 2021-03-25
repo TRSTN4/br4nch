@@ -1,5 +1,19 @@
+# Imports all files.
+from br4nch.utility.builder.object import build_object
+from br4nch.utility.librarian import librarian
+from br4nch.utility.branching import branching
+
+
 # Algorithm to build all the given subjects.
-def build_subjects(self, paint_branch, branch, header, module):
+def build_subject(paint_branch, branch, header, module):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+    subject_package = librarian("subject_package")
+    paper = librarian("paper")
+
+    # Resets the paint.
+    paint_clear = "\u001b[0m"
+
     # Checks if module key in branch list has any value.
     if branches[branch][header][module]:
         # Decider decides when to use the straight and end line symbol.
@@ -16,7 +30,7 @@ def build_subjects(self, paint_branch, branch, header, module):
         # Loops through all subjects in the subject list.
         for subject in branches[branch][header][module]:
             # Resets the paint after every loop.
-            paint_subject = "\u001b[0m"
+            paint_subject = paint_clear
 
             # Saves the current state of subject.
             saved_subject = subject
@@ -76,14 +90,14 @@ def build_subjects(self, paint_branch, branch, header, module):
                     # Checks decider number is equal to the length of the total number of branch module entries.
                     if decider1 == len(branches[branch][header][module]):
                         # Replaces the newline with new branching.
-                        subject = subject.replace("\n", self.paint_clear + "\n" + self.paint_clear + " " * 8 +
+                        subject = subject.replace("\n", paint_clear + "\n" + paint_clear + " " * 8 +
                                                   paint_subject)
 
                 # Checks decider number is equal to the length of the total number of branch module entries.
                 if decider1 == len(branches[branch][header][module]):
                     # Uses prefix with the end line symbol and appends the output to the paper list.
-                    paper.append(self.paint_clear + paint_branch + utility.branching("subject_end", " ") +
-                                 self.paint_clear + " " + paint_subject + subject + self.paint_clear)
+                    paper.append(paint_clear + paint_branch + branching("subject_end", " ") +
+                                 paint_clear + " " + paint_subject + subject + paint_clear)
 
                     # Reverts the old state of subject.
                     subject = saved_subject
@@ -93,8 +107,8 @@ def build_subjects(self, paint_branch, branch, header, module):
                 # If decider number is not equal to the length of the total number of branch module entries.
                 else:
                     # Uses prefix with the multi line symbol and appends the output to the paper list.
-                    paper.append(self.paint_clear + paint_branch + utility.branching("subject_multi", " ") +
-                                 self.paint_clear + " " + paint_subject + subject + self.paint_clear)
+                    paper.append(paint_clear + paint_branch + branching("subject_multi", " ") +
+                                 paint_clear + " " + paint_subject + subject + paint_clear)
 
                     # Reverts the old state of subject.
                     subject = saved_subject
@@ -109,20 +123,20 @@ def build_subjects(self, paint_branch, branch, header, module):
                     # If decider number is not equal to the length of the total number of branch module entries.
                     if not decider2 == len(branches[branch][header][module]):
                         # Replaces the newline with new branching.
-                        subject = subject.replace("\n", self.paint_clear + paint_branch + "\n┃" +
-                                                  self.paint_clear + " " * 3 + paint_branch + "┃" +
-                                                  self.paint_clear + " " * 3 + paint_subject)
+                        subject = subject.replace("\n", paint_clear + paint_branch + "\n┃" +
+                                                  paint_clear + " " * 3 + paint_branch + "┃" +
+                                                  paint_clear + " " * 3 + paint_subject)
                     # Checks decider number is equal to the length of the total number of branch module entries.
                     else:
                         # Replaces the newline with new branching.
-                        subject = subject.replace("\n", self.paint_clear + paint_branch + "\n┃" +
-                                                  self.paint_clear + " " * 7 + paint_subject)
+                        subject = subject.replace("\n", paint_clear + paint_branch + "\n┃" +
+                                                  paint_clear + " " * 7 + paint_subject)
 
                 # Checks decider number is equal to the length of the total number of branch module entries.
                 if decider2 == len(branches[branch][header][module]):
                     # Uses prefix with the end line symbol and appends the output to the paper list.
-                    paper.append(self.paint_clear + paint_branch + utility.branching("subject_end_last", "┃") +
-                                 self.paint_clear + " " + paint_subject + subject + self.paint_clear)
+                    paper.append(paint_clear + paint_branch + branching("subject_end_last", "┃") +
+                                 paint_clear + " " + paint_subject + subject + paint_clear)
 
                     # Reverts the old state of subject.
                     subject = saved_subject
@@ -132,8 +146,8 @@ def build_subjects(self, paint_branch, branch, header, module):
                 # If decider number is not equal to the length of the total number of branch module entries.
                 else:
                     # Uses prefix with the multi line symbol and appends the output to the paper list.
-                    paper.append(self.paint_clear + paint_branch + utility.branching("subject_multi_last", "┃")
-                                 + self.paint_clear + " " + paint_subject + subject + self.paint_clear)
+                    paper.append(paint_clear + paint_branch + branching("subject_multi_last", "┃")
+                                 + paint_clear + " " + paint_subject + subject + paint_clear)
 
                     # Reverts the old state of subject.
                     subject = saved_subject
@@ -142,5 +156,4 @@ def build_subjects(self, paint_branch, branch, header, module):
                     send_subject1.append(subject)
 
             # Runs the next task.
-            self.build_objects(paint_branch, branch, header, module, subject, send_subject1, send_subject2,
-                               send_subject3)
+            build_object(paint_branch, branch, header, module, subject, send_subject1, send_subject2, send_subject3)

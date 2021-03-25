@@ -1,11 +1,25 @@
+# Imports all files.
+from br4nch.utility.builder.module import build_module
+from br4nch.utility.librarian import librarian
+from br4nch.utility.branching import branching
+
+
 # Algorithm to build all the given headers.
-def build_headers(self, paint_branch, branch, newline):
+def build_header(paint_branch, branch, newline):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+    header_package = librarian("header_package")
+    paper = librarian("paper")
+
+    # Resets the paint.
+    paint_clear = "\u001b[0m"
+
     # Checks if branch key in branch list has any value.
     if branches[branch]:
         # Loops through all headers in the header list.
         for header in branches[branch]:
             # Resets the paint after every loop.
-            paint_header = "\u001b[0m"
+            paint_header = paint_clear
 
             # Loops through all given packages inside the header package dictionary.
             for key in header_package:
@@ -22,8 +36,8 @@ def build_headers(self, paint_branch, branch, newline):
                     paint_header = header_package.get("all")
 
             # Uses prefix with the end line symbol and appends the output to the paper list.
-            paper.append(self.paint_clear + paint_header + newline + header + self.paint_clear + paint_branch +
-                         utility.branching("header_end", "") + self.paint_clear)
+            paper.append(paint_clear + paint_header + newline + header + paint_clear + paint_branch +
+                         branching("header_end", "") + paint_clear)
 
             # Runs the next task.
-            self.build_modules(paint_branch, branch, header)
+            build_module(paint_branch, branch, header)

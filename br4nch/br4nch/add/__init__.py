@@ -1,6 +1,6 @@
 # Imports all files.
-from br4nch.add.name import name
-from br4nch.add.header import header
-from br4nch.add.module import module
-from br4nch.add.subject import subject
-from br4nch.add.object import object
+from br4nch.add.branch import add_branch as branch
+from br4nch.add.header import add_header as header
+from br4nch.add.module import add_module as module
+from br4nch.add.subject import add_subject as subject
+from br4nch.add.object import add_object as object

@@ -1,9 +1,11 @@
-# Alpha phase - br4nch v1.0.0
-# desc - Packing and stripping all the code and renamed executor to librarian. (Note: Code will not work this update.)
+# Alpha phase - br4nch v1.0.1
+# desc - Fixing imports and changing argument: "name" to "branch".
 
+# Imports the br4nch package.
 import br4nch
 
-br4nch.add.name("Computer")
+# Creates the Computer branch.
+br4nch.add.branch("Computer")
 br4nch.add.header("Computer", "Gaming")
 br4nch.add.module("Computer", "Gaming", "Monitors")
 br4nch.add.module("Computer", "Gaming", "Keyboard & Mouse")
@@ -15,6 +17,7 @@ br4nch.add.object("Computer", "Gaming", "Keyboard & Mouse", "Razer", "Razer Blac
 br4nch.add.object("Computer", "Gaming", "Keyboard & Mouse", "Steel Series", "SteelSeries Apex 3")
 br4nch.add.object("Computer", "Gaming", "Keyboard & Mouse", "Steel Series", "SteelSeries Apex 5")
 
+# Colors the Computer branch.
 br4nch.set.color.branch("Computer", "blue", "bold")
 br4nch.set.color.header("Computer", "red", "reversing", "bold", "underline")
 br4nch.set.color.module("Computer", "Monitors", "yellow", "bold")
@@ -25,7 +28,8 @@ br4nch.set.color.subject("Computer", "LG", "red", "underline", "bold")
 br4nch.set.color.object("Computer", "SteelSeries Apex 5", "red", "underline", "reversing")
 br4nch.set.color.object("Computer", "LG 27GN850 Ultragear", "cyan", "", "bold")
 
-br4nch.add.name("Mall")
+# Creates the Mall branch.
+br4nch.add.branch("Mall")
 br4nch.add.header("Mall", "Food\nStore")
 br4nch.add.module("Mall", "Food\nStore", "Meat")
 br4nch.add.module("Mall", "Food\nStore", "Vegetarian")
@@ -52,6 +56,7 @@ br4nch.add.object("Mall", "Food\nStore", "Vegan\nVegy", "Vegetables\nFruits", "B
 br4nch.add.object("Mall", "Food\nStore", "Vegan\nVegy", "Vegetables\nFruits", "Tomato")
 br4nch.add.object("Mall", "Food\nStore", "Vegan\nVegy", "Vegetables\nFruits", "Red Apple\nGreen Apple")
 
+# Colors the Mall branch.
 br4nch.set.color.branch("Mall", "magenta")
 br4nch.set.color.header("Mall", "magenta", "bold")
 br4nch.set.color.module("Mall", "Meat", "red", "bold", "underline")
@@ -64,4 +69,5 @@ br4nch.set.color.object("Mall", "Tomato", "red", "bold")
 br4nch.set.color.object("Mall", "Broccoli", "green")
 br4nch.set.color.object("Mall", "Blue Cheese", "blue", "underline")
 
+# Displays the branches.
 br4nch.run.display("all")

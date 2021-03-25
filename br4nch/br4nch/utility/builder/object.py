@@ -1,6 +1,18 @@
+# Imports all files.
+from br4nch.utility.librarian import librarian
+from br4nch.utility.branching import branching
+
+
 # Algorithm to build all the given objects.
-def build_objects(self, paint_branch, branch, header, module, subject, send_subject1, send_subject2,
-                  send_subject3):
+def build_object(paint_branch, branch, header, module, subject, send_subject1, send_subject2, send_subject3):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+    object_package = librarian("object_package")
+    paper = librarian("paper")
+
+    # Resets the paint.
+    paint_clear = "\u001b[0m"
+
     # Checks if subject key in branch list has any value.
     if branches[branch][header][module][subject]:
         # Decider decides when to use the straight and end line symbol.
@@ -9,7 +21,7 @@ def build_objects(self, paint_branch, branch, header, module, subject, send_subj
         # Loops through all objects in the object list.
         for obj in branches[branch][header][module][subject]:
             # Resets the paint after every loop.
-            paint_object = "\u001b[0m"
+            paint_object = paint_clear
 
             # Loops through all keys in the object > branch directory.
             for key in object_package[branch]:
@@ -96,14 +108,14 @@ def build_objects(self, paint_branch, branch, header, module, subject, send_subj
                         # If decider number not equal to the length of total number of branch subject entries.
                         if not decider == len(branches[branch][header][module][subject]):
                             # Replaces the newline with new branching.
-                            obj = obj.replace("\n", self.paint_clear + paint_branch + "\n┃" + self.paint_clear +
-                                              " " * 3 + paint_branch + "┃" + self.paint_clear + " " * 3 +
-                                              paint_branch + "┃" + self.paint_clear + " " * 3 + paint_object)
+                            obj = obj.replace("\n", paint_clear + paint_branch + "\n┃" + paint_clear +
+                                              " " * 3 + paint_branch + "┃" + paint_clear + " " * 3 +
+                                              paint_branch + "┃" + paint_clear + " " * 3 + paint_object)
                         # Checks decider number is equal to length of total number of branch subject entries.
                         else:
                             # Replaces the newline with new branching.
-                            obj = obj.replace("\n", self.paint_clear + paint_branch + "\n┃" + self.paint_clear +
-                                              " " * 3 + paint_branch + "┃" + self.paint_clear + " " * 7 +
+                            obj = obj.replace("\n", paint_clear + paint_branch + "\n┃" + paint_clear +
+                                              " " * 3 + paint_branch + "┃" + paint_clear + " " * 7 +
                                               paint_object)
 
                     # Extender is equal to one straight line, three spaces and one more straight line.
@@ -118,13 +130,13 @@ def build_objects(self, paint_branch, branch, header, module, subject, send_subj
                         # If decider number not equal to the length of total number of branch subject entries.
                         if not decider == len(branches[branch][header][module][subject]):
                             # Replaces the newline with new branching.
-                            obj = obj.replace("\n", self.paint_clear + paint_branch + "\n┃" + self.paint_clear +
-                                              " " * 7 + paint_branch + "┃" + self.paint_clear + " " * 3 +
+                            obj = obj.replace("\n", paint_clear + paint_branch + "\n┃" + paint_clear +
+                                              " " * 7 + paint_branch + "┃" + paint_clear + " " * 3 +
                                               paint_object)
                         # Checks decider number is equal to length of total number of branch subject entries.
                         else:
                             # Replaces the newline with new branching.
-                            obj = obj.replace("\n", self.paint_clear + paint_branch + "\n┃" + self.paint_clear +
+                            obj = obj.replace("\n", paint_clear + paint_branch + "\n┃" + paint_clear +
                                               " " * 11 + paint_object)
 
             # Loops through all subjects in the send subject list.
@@ -136,20 +148,20 @@ def build_objects(self, paint_branch, branch, header, module, subject, send_subj
                         # If decider number not equal to the length of total number of branch subject entries.
                         if not decider == len(branches[branch][header][module][subject]):
                             # Replaces the newline with new branching.
-                            obj = obj.replace("\n", self.paint_clear + "\n" + " " * 8 + paint_branch + "┃" +
-                                              self.paint_clear + " " * 3 + paint_object)
+                            obj = obj.replace("\n", paint_clear + "\n" + " " * 8 + paint_branch + "┃" +
+                                              paint_clear + " " * 3 + paint_object)
                         # Checks decider number is equal to length of total number of branch subject entries.
                         else:
                             # Replaces the newline with new branching.
-                            obj = obj.replace("\n", self.paint_clear + "\n" + " " * 12 + paint_object)
+                            obj = obj.replace("\n", paint_clear + "\n" + " " * 12 + paint_object)
 
             # Checks decider number is equal to the length of the total number of branch subject entries.
             if decider == len(branches[branch][header][module][subject]):
                 # Uses prefix with the end line symbol and appends the output to the paper list.
-                paper.append(self.paint_clear + paint_branch + utility.branching("object_end", extender) +
-                             self.paint_clear + " " + paint_object + obj + self.paint_clear)
+                paper.append(paint_clear + paint_branch + branching("object_end", extender) +
+                             paint_clear + " " + paint_object + obj + paint_clear)
             # If decider number is not equal to the length of the total number of branch subject entries.
             else:
                 # Uses prefix with the multi line symbol and appends the output to the paper list.
-                paper.append(self.paint_clear + paint_branch + utility.branching("object_multi", extender) +
-                             self.paint_clear + " " + paint_object + obj + self.paint_clear)
+                paper.append(paint_clear + paint_branch + branching("object_multi", extender) +
+                             paint_clear + " " + paint_object + obj + paint_clear)

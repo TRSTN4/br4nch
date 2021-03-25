@@ -1,5 +1,19 @@
+# Imports all files.
+from br4nch.utility.builder.subject import build_subject
+from br4nch.utility.librarian import librarian
+from br4nch.utility.branching import branching
+
+
 # Algorithm to build all the given modules.
-def build_modules(self, paint_branch, branch, header):
+def build_module(paint_branch, branch, header):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+    module_package = librarian("module_package")
+    paper = librarian("paper")
+
+    # Resets the paint.
+    paint_clear = "\u001b[0m"
+
     # Checks if header key in branch list has any value.
     if branches[branch][header]:
         # Decider decides when to use the straight and end line symbol.
@@ -8,7 +22,7 @@ def build_modules(self, paint_branch, branch, header):
         # Loops through all modules in the module list.
         for module in branches[branch][header]:
             # Resets the paint after every loop.
-            paint_module = "\u001b[0m"
+            paint_module = paint_clear
 
             # Saves the current state of module.
             saved_module = module
@@ -52,33 +66,33 @@ def build_modules(self, paint_branch, branch, header):
             if decider == len(branches[branch][header]):
                 # Checks if "\n"/newline in module.
                 if "\n" in module:
-                    module = module.replace("\n", self.paint_clear + "\n" + " " * 4 + paint_module)
+                    module = module.replace("\n", paint_clear + "\n" + " " * 4 + paint_module)
                 # If "\n"/newline not in module.
                 else:
-                    module = module.replace(module, self.paint_clear + paint_module + module)
+                    module = module.replace(module, paint_clear + paint_module + module)
 
                 # Uses prefix with the end line symbol and appends the output to the paper list.
-                paper.append(self.paint_clear + paint_branch + utility.branching("module_end", "") +
-                             self.paint_clear + " " + paint_module + module + self.paint_clear)
+                paper.append(paint_clear + paint_branch + branching("module_end", "") +
+                             paint_clear + " " + paint_module + module + paint_clear)
 
             # If decider number is not equal to the length of the total number of branch header entries.
             else:
                 # Checks if "\n"/newline in module.
                 if "\n" in module:
                     # Replaces the newline with new branching.
-                    module = module.replace("\n", self.paint_clear + paint_branch + "\n┃" + self.paint_clear +
+                    module = module.replace("\n", paint_clear + paint_branch + "\n┃" + paint_clear +
                                             " " * 3 + paint_module)
                 # If "\n"/newline not in module.
                 else:
                     # Replaces the newline with new branching.
-                    module = module.replace(module, self.paint_clear + paint_module + module)
+                    module = module.replace(module, paint_clear + paint_module + module)
 
                 # Uses prefix with the multi line symbol and appends the output to the paper list.
-                paper.append(self.paint_clear + paint_branch + utility.branching("module_multi", "") +
-                             self.paint_clear + " " + paint_module + module + self.paint_clear)
+                paper.append(paint_clear + paint_branch + branching("module_multi", "") +
+                             paint_clear + " " + paint_module + module + paint_clear)
 
             # Reverts the old state of module.
             module = saved_module
 
             # Runs the next task.
-            self.build_subjects(paint_branch, branch, header, module)
+            build_subject(paint_branch, branch, header, module)

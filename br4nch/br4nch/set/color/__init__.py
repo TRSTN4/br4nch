@@ -1,6 +1,6 @@
 # Imports all files.
-from br4nch.set.color.branch import branch
-from br4nch.set.color.header import header
-from br4nch.set.color.module import module
-from br4nch.set.color.subject import subject
-from br4nch.set.color.object import object
+from br4nch.set.color.branch import color_branch as branch
+from br4nch.set.color.header import color_header as header
+from br4nch.set.color.module import color_module as module
+from br4nch.set.color.subject import color_subject as subject
+from br4nch.set.color.object import color_object as object

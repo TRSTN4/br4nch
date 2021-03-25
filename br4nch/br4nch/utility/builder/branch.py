@@ -1,5 +1,17 @@
+# Imports all files.
+from br4nch.utility.builder.header import build_header
+from br4nch.utility.librarian import librarian
+
+
 # Algorithm to build all the given branches.
-def build_branches(self, branch_name):
+def build_branch(branch_name):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+    branch_package = librarian("branch_package")
+
+    # Resets the paint.
+    paint_clear = "\u001b[0m"
+
     # Checks if the branch list has any value.
     if branches:
         # "stop" is equal to false.
@@ -8,7 +20,7 @@ def build_branches(self, branch_name):
         # Loops through all branches in the branch list.
         for branch in branches:
             # Resets the paint after every loop.
-            paint_branch = "\u001b[0m"
+            paint_branch = paint_clear
 
             # Resets the newline after every loop.
             newline = ""
@@ -52,4 +64,4 @@ def build_branches(self, branch_name):
                     paint_branch = branch_package.get("all")
 
             # Runs the next task.
-            self.build_headers(paint_branch, branch, newline)
+            build_header(paint_branch, branch, newline)

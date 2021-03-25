@@ -1,6 +1,11 @@
+# Imports all files.
+from br4nch.utility.builder.branch import build_branch
+from br4nch.utility.printer import printer
+
+
 # Prints the chosen branches.
 def display(branch):
     # Builds the chosen branches.
-    utility.builder(branch)
+    build_branch(branch)
     # Prints the chosen branches.
-    utility.printer()
+    printer()
