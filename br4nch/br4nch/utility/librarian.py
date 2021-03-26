@@ -18,10 +18,19 @@ def librarian(action):
         # List to save all the output of the branches.
         paper = []
 
-    storage = [branches, branch_package, header_package, module_package, subject_package, object_package, paper]
-    identity = ["branches", "branch_package", "header_package", "module_package", "subject_package", "object_package",
-                "paper"]
+    # Checks if the action list has any value.
+    if action:
+        # Saves all the actions in a list.
+        storage = [branches, branch_package, header_package, module_package, subject_package, object_package, paper]
 
-    for number in range(len(storage)):
-        if identity[number] == action:
-            return storage[number]
+        # Saves all the action ids in a list.
+        identity = ["branches", "branch_package", "header_package", "module_package", "subject_package",
+                    "object_package",
+                    "paper"]
+
+        # Loops through total length of the storage list.
+        for number in range(len(storage)):
+            # Checks if the parsed action is equal to a id in the identity list.
+            if identity[number] == action:
+                # Returns the requested action.
+                return storage[number]

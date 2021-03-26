@@ -1,5 +1,5 @@
-# Alpha phase - br4nch v1.0.2
-# desc - Fixed error when using no colors and added checks for clear paint. (Terminals that not support colors.)
+# Alpha phase - br4nch v1.0.3
+# desc - Introducing inspector. The inspector checks code and returns the right value.
 
 # Imports the br4nch package.
 import br4nch

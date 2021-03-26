@@ -1,5 +1,8 @@
 # Imports all files.
 from br4nch.utility.builder.header import build_header
+from br4nch.utility.inspector.paint import inspect_paint_clear
+from br4nch.utility.inspector.paint import inspect_paint_base
+from br4nch.utility.inspector.paint import inspect_paint_all_base
 from br4nch.utility.librarian import librarian
 
 
@@ -9,14 +12,8 @@ def build_branch(arg_branch):
     branches = librarian("branches")
     branch_package = librarian("branch_package")
 
-    # Checks if content in package.
-    if branch_package:
-        # Resets the paint.
-        paint_clear = "\u001b[0m"
-    # If content not in package.
-    else:
-        # Sets the paint to nothing.
-        paint_clear = ""
+    # Checks if content in package and returns the right paint clear value.
+    paint_clear = inspect_paint_clear(branch_package)
 
     # Checks if the branch list has any value.
     if branches:
@@ -30,6 +27,16 @@ def build_branch(arg_branch):
 
             # Resets the newline after every loop.
             newline = ""
+
+            # Checks if inspect paint base returns a value.
+            if inspect_paint_base(branch, branch_package):
+                # Paint is equal to the returned inspect paint base value.
+                paint_branch = inspect_paint_base(branch, branch_package)
+
+            # Checks if inspect paint base all returns a value.
+            if inspect_paint_all_base(branch_package):
+                # Paint is equal to the returned inspect paint base all value.
+                paint_branch = inspect_paint_all_base(branch_package)
 
             # Checks if there are multiple branches in the list.
             if len(list(dict.keys(branches))) > 1:
@@ -54,20 +61,6 @@ def build_branch(arg_branch):
                 branch = arg_branch
                 # "stop" is set to true.
                 stop = True
-
-            # Loops through all keys in the package directory.
-            for key in branch_package:
-                # Checks if the key is equal to the value of branch.
-                if key == branch:
-                    # Branch paint is equal to the value of the key inside the branch package.
-                    paint_branch = branch_package.get(branch)
-
-            # Loops through all given packages inside the branch package dictionary.
-            for key in branch_package:
-                # Checks if the key is equal to "all" string.
-                if key == "all":
-                    # Branch paint is equal to the value of "all" inside the branch package.
-                    paint_branch = branch_package.get("all")
 
             # Runs the next task.
             build_header(branch, paint_branch, newline)

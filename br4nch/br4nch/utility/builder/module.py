@@ -1,5 +1,7 @@
 # Imports all files.
 from br4nch.utility.builder.subject import build_subject
+from br4nch.utility.inspector.paint import inspect_paint_clear
+from br4nch.utility.inspector.paint import inspect_paint_all_layer
 from br4nch.utility.librarian import librarian
 from br4nch.utility.branching import branching
 
@@ -11,14 +13,8 @@ def build_module(branch, header, paint_branch):
     module_package = librarian("module_package")
     paper = librarian("paper")
 
-    # Checks if content in package.
-    if module_package:
-        # Resets the paint.
-        paint_clear = "\u001b[0m"
-    # If content not in package.
-    else:
-        # Sets the paint to nothing.
-        paint_clear = ""
+    # Checks if content in package and returns the right paint clear value.
+    paint_clear = inspect_paint_clear(module_package)
 
     # Checks if header key in branch list has any value.
     if branches[branch][header]:
@@ -33,8 +29,10 @@ def build_module(branch, header, paint_branch):
             # Saves the current state of module.
             saved_module = module
 
-            # Adds the current decider value by 1.
-            decider = decider + 1
+            # Checks if inspect paint layer all returns a value.
+            if inspect_paint_all_layer(branch, module, module_package):
+                # Paint is equal to the returned inspect paint layer all value.
+                paint_module = inspect_paint_all_layer(branch, module, module_package)
 
             # Tries to run loop.
             try:
@@ -49,30 +47,8 @@ def build_module(branch, header, paint_branch):
                 # Passes through.
                 pass
 
-            # Loops through all given packages inside the module package dictionary.
-            for package in module_package:
-                # Checks if the package is equal to "all" string.
-                if package == "all":
-                    # Loops through all keys inside the "all" package.
-                    for key in module_package["all"]:
-                        # Checks if the key is equal to the "all" string.
-                        if key == "all":
-                            # Module paint is equal to the value of "all" inside module > "all" package.
-                            paint_module = module_package["all"].get("all")
-                        # If the key is not equal to the "all" string.
-                        else:
-                            # Checks if the key is equal to the value of module.
-                            if key == module:
-                                # Module paint is equal to the value of module inside module > "all" package.
-                                paint_module = module_package["all"].get(module)
-                # If the package is not equal to "all" string.
-                else:
-                    # Loops through all keys inside the module > branch package.
-                    for key in module_package[branch]:
-                        # Checks if the key is equal to the "all" string.
-                        if key == "all":
-                            # Module paint is equal to the value of the key in the module > branch package.
-                            paint_module = module_package[branch].get(key)
+            # Adds the current decider value by 1.
+            decider = decider + 1
 
             # Checks decider number is equal to the length of the total number of branch header entries.
             if decider == len(branches[branch][header]):

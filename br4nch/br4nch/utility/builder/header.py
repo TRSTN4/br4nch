@@ -1,5 +1,8 @@
 # Imports all files.
 from br4nch.utility.builder.module import build_module
+from br4nch.utility.inspector.paint import inspect_paint_clear
+from br4nch.utility.inspector.paint import inspect_paint_base
+from br4nch.utility.inspector.paint import inspect_paint_all_base
 from br4nch.utility.librarian import librarian
 from br4nch.utility.branching import branching
 
@@ -11,14 +14,8 @@ def build_header(branch, paint_branch, newline):
     header_package = librarian("header_package")
     paper = librarian("paper")
 
-    # Checks if content in package.
-    if header_package:
-        # Resets the paint.
-        paint_clear = "\u001b[0m"
-    # If content not in package.
-    else:
-        # Sets the paint to nothing.
-        paint_clear = ""
+    # Checks if content in package and returns the right paint clear value.
+    paint_clear = inspect_paint_clear(header_package)
 
     # Checks if branch key in branch list has any value.
     if branches[branch]:
@@ -27,19 +24,15 @@ def build_header(branch, paint_branch, newline):
             # Resets the paint after every loop.
             paint_header = paint_clear
 
-            # Loops through all given packages inside the header package dictionary.
-            for key in header_package:
-                # Checks if the key is equal to the value of branch.
-                if key == branch:
-                    # Header paint is equal to the value of the branch inside the header package.
-                    paint_header = header_package.get(branch)
+            # Checks if inspect paint base returns a value.
+            if inspect_paint_base(branch, header_package):
+                # Paint is equal to the returned inspect paint base value.
+                paint_header = inspect_paint_base(branch, header_package)
 
-            # Loops through all keys in the package directory.
-            for key in header_package:
-                # Checks if the key is equal to "all" string.
-                if key == "all":
-                    # Header paint is equal to the "all" value inside the header package.
-                    paint_header = header_package.get("all")
+            # Checks if inspect paint base all returns a value.
+            if inspect_paint_all_base(header_package):
+                # Paint is equal to the returned inspect paint base all value.
+                paint_branch = inspect_paint_all_base(header_package)
 
             # Uses prefix with the end line symbol and appends the output to the paper list.
             paper.append(paint_clear + paint_header + newline + header + paint_clear + paint_branch +

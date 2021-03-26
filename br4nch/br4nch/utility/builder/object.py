@@ -1,4 +1,6 @@
 # Imports all files.
+from br4nch.utility.inspector.paint import inspect_paint_clear
+from br4nch.utility.inspector.paint import inspect_paint_all_layer
 from br4nch.utility.librarian import librarian
 from br4nch.utility.branching import branching
 
@@ -10,14 +12,8 @@ def build_object(branch, header, module, subject, paint_branch, send_subject1, s
     object_package = librarian("object_package")
     paper = librarian("paper")
 
-    # Checks if content in package.
-    if object_package:
-        # Resets the paint.
-        paint_clear = "\u001b[0m"
-    # If content not in package.
-    else:
-        # Sets the paint to nothing.
-        paint_clear = ""
+    # Checks if content in package and returns the right paint clear value.
+    paint_clear = inspect_paint_clear(object_package)
 
     # Checks if subject key in branch list has any value.
     if branches[branch][header][module][subject]:
@@ -28,6 +24,11 @@ def build_object(branch, header, module, subject, paint_branch, send_subject1, s
         for obj in branches[branch][header][module][subject]:
             # Resets the paint after every loop.
             paint_object = paint_clear
+
+            # Checks if inspect paint layer all returns a value.
+            if inspect_paint_all_layer(branch, module, object_package):
+                # Paint is equal to the returned inspect paint layer all value.
+                paint_object = inspect_paint_all_layer(branch, module, object_package)
 
             # Tries to run loop.
             try:
@@ -54,31 +55,6 @@ def build_object(branch, header, module, subject, paint_branch, send_subject1, s
             except KeyError:
                 # Passes through.
                 pass
-
-            # Loops through all given packages inside the object package dictionary.
-            for package in object_package:
-                # Checks if the package is equal to "all" string.
-                if package == "all":
-                    # Loops through all keys inside the "all" package.
-                    for key in object_package["all"]:
-                        # Checks if the key is equal to the "all" string.
-                        if key == "all":
-                            # Object paint is equal to the value of "all" inside object > "all" package.
-                            paint_object = object_package["all"].get("all")
-                        # If the key is not equal to the "all" string.
-                        else:
-                            # Checks if the key is equal to the value of object.
-                            if key == obj:
-                                # Object paint is equal to the value of object inside object > "all" package.
-                                paint_object = object_package["all"].get(obj)
-                # If the package is not equal to "all" string.
-                else:
-                    # Loops through all keys inside the module > branch package.
-                    for key in object_package[branch]:
-                        # Checks if the key is equal to the "all" string.
-                        if key == "all":
-                            # Object paint is equal to the value of the key in the object > branch package.
-                            paint_object = object_package[branch].get(key)
 
             # Assigns the last module in the header list to a variable.
             last_module = list(dict.keys(branches[branch][header]))[-1]
