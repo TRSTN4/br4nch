@@ -3,55 +3,47 @@ from br4nch.utility.librarian import librarian
 
 
 # Adds a new module for the branch.
-def add_layer(branch="", layer="", append="", row=""):
+def add_layer(branch="", layer="", append="", row="", value=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
 
+    # todo
     header = list(branches[branch])[0]
 
-    if not type(layer) is list:
-        layer = [layer]
+    # Checks if there is no content in value.
+    if not value:
+        # Value is equal to the value of branches > branch > header > value.
+        value = branches[branch][header]
 
+    # Checks if content in append.
     if append:
-        for element in append:
-
-            for layer1 in branches[branch][header]:
-                if row:
-                    if element == layer1 and layer1 == row:
-                        for entry in layer:
-                            if not entry == element:
-                                branches[branch][header][row].update({entry: {}})
-                else:
-                    if element == layer1:
-                        for entry in layer:
-                            if not entry == element:
-                                branches[branch][header][layer1].update({entry: {}})
-
-                for layer2 in branches[branch][header][layer1]:
+        # Saves the key and value of the current value dictionary.
+        for key, value in value.items():
+            # Loops through all values in append list.
+            for element in append:
+                # Checks if current key of current value is equal to the value of element.
+                if key == element:
+                    # Checks if content in row.
                     if row:
-                        if element == layer2 and layer2 in branches[branch][header][row]:
-                            for entry in layer:
-                                if not entry == element:
-                                    branches[branch][header][row][layer2].update({entry: {}})
+                        # Loops through all values in layer.
+                        for entry in layer:
+                            # If the value of entry is not equal to the value of element.
+                            if not entry == element:
+                                # Adds value to current value dictionary.
+                                value.update({entry: {}})
+                    # If no content in row.
                     else:
-                        if element == layer2:
-                            for entry in layer:
-                                if not entry == element:
-                                    branches[branch][header][layer1][layer2].update({entry: {}})
-
-                    for layer3 in branches[branch][header][layer1][layer2]:
-                        if row:
-                            if element == layer3 and layer3 in branches[branch][header][row][layer2]:
-                                for entry in layer:
-                                    if not entry == element:
-                                        branches[branch][header][row][layer2][layer3].update({entry: {}})
-                        else:
-                            if element == layer3:
-                                for entry in layer:
-                                    if not entry == element:
-                                        branches[branch][header][layer1][layer2][layer3].update({entry: {}})
+                        # Loops through all values in layer.
+                        for entry in layer:
+                            # If the value of entry is not equal to the value of element.
+                            if not entry == element:
+                                # Adds value to current value dictionary.
+                                value.update({entry: {}})
+    # If there is no content in append, append element directly in branches > branch > header dictionary.
     else:
+        # Loops through all values in layer list.
         for element in layer:
+            # Adds value to branches > branch > header dictionary.
             branches[branch][header].update({element: {}})
 
     print(branches)

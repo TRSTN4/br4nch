@@ -1,5 +1,5 @@
-# Alpha phase - br4nch v1.0.4
-# desc - Testing new add layer structure.
+# Alpha phase - br4nch v1.0.5
+# desc - New indev add layer algorithm.
 
 # Imports the br4nch package.
 import br4nch
@@ -7,10 +7,12 @@ import br4nch
 # Creates the Test branch.
 br4nch.add.branch("Branch")
 br4nch.add.header("Branch", "Header")
-br4nch.add.layer("Branch", ["layer1.1", "layer2.1", "layer3.1"])
-br4nch.add.layer("Branch", ["layer1.2", "layer2.2", "layer3.2"], ["layer1.1", "layer2.1"])
-br4nch.add.layer("Branch", ["layer1.3", "layer2.3", "layer3.3"], ["layer1.2", "layer2.2"])
-br4nch.add.layer("Branch", ["layer1.4", "layer2.4", "layer3.4"], ["layer1.3", "layer2.3"], "layer1.1")
+br4nch.add.layer("Branch", ["First Layer", "Second Layer", "Third Layer"])
+br4nch.add.layer("Branch", ["Sublayer One", "Sublayer Two", "Sublayer Three"], ["First Layer", "Second Layer"])
+br4nch.add.layer("Branch", ["Sample One", "Sample Two", "Sample Three"], ["Sublayer One", "Sublayer Two"])
+br4nch.add.layer("Branch", ["Test One", "Test Two", "Test Three"], ["Sample One", "Sample Two"], ["First Layer",
+                                                                                                  "Sublayer Two"])
+br4nch.add.layer("Branch", ["Object One", "Object Two", "Object Three"], ["Sample Three"])
 
 # # Creates the Computer branch.
 # br4nch.add.branch("Computer")
