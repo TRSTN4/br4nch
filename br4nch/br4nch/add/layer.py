@@ -1,13 +1,16 @@
 # Imports all files.
 from br4nch.utility.librarian import librarian
 
+# Saves all the given key arguments in the keys list.
+keys = []
 
-# Adds a new module for the branch.
+
+# Adds a new layer to the branches dictionary.
 def add_layer(branch="", layer="", append="", row="", value=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
 
-    # todo
+    # Gets the header of the given branch.
     header = list(branches[branch])[0]
 
     # Checks if there is no content in value.
@@ -19,6 +22,12 @@ def add_layer(branch="", layer="", append="", row="", value=""):
     if append:
         # Saves the key and value of the current value dictionary.
         for key, value in value.items():
+            # Checks if the key value is in the keys list.
+            if key in keys:
+                # Parses all the current branch, layer, append row and value values in the add_layer function.
+                add_layer(branch, layer, append, row, value)
+                # Breaks the loop.
+                break
             # Loops through all values in append list.
             for element in append:
                 # Checks if current key of current value is equal to the value of element.
@@ -27,23 +36,22 @@ def add_layer(branch="", layer="", append="", row="", value=""):
                     if row:
                         # Loops through all values in layer.
                         for entry in layer:
-                            # If the value of entry is not equal to the value of element.
-                            if not entry == element:
-                                # Adds value to current value dictionary.
-                                value.update({entry: {}})
+                            # Adds value to current value dictionary.
+                            value.update({entry: {}})
+                            # Stores the current key value to the keys list.
+                            keys.append(key)
                     # If no content in row.
                     else:
                         # Loops through all values in layer.
                         for entry in layer:
-                            # If the value of entry is not equal to the value of element.
-                            if not entry == element:
-                                # Adds value to current value dictionary.
-                                value.update({entry: {}})
+                            # Adds value to current value dictionary.
+                            value.update({entry: {}})
+                            # Stores the current key value to the keys list.
+                            keys.append(key)
+
     # If there is no content in append, append element directly in branches > branch > header dictionary.
     else:
         # Loops through all values in layer list.
         for element in layer:
             # Adds value to branches > branch > header dictionary.
             branches[branch][header].update({element: {}})
-
-    print(branches)
