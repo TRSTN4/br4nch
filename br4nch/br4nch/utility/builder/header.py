@@ -1,5 +1,5 @@
 # Imports all files.
-from br4nch.utility.builder.module import build_module
+from br4nch.utility.builder.layer import build_layer
 from br4nch.utility.inspector.paint import inspect_paint_clear
 from br4nch.utility.inspector.paint import inspect_paint_base
 from br4nch.utility.inspector.paint import inspect_paint_all_base
@@ -13,6 +13,7 @@ def build_header(branch, paint_branch, newline):
     branches = librarian("branches")
     header_package = librarian("header_package")
     paper = librarian("paper")
+    logs = librarian("logs")
 
     # Checks if content in package and returns the right paint clear value.
     paint_clear = inspect_paint_clear(header_package)
@@ -38,5 +39,8 @@ def build_header(branch, paint_branch, newline):
             paper.append(paint_clear + paint_header + newline + header + paint_clear + paint_branch +
                          branching("header_end", "") + paint_clear)
 
+            # Adds the state of the building process to the logs dictionary.
+            logs.update({header: "[+] Header: '" + header + "' Successfully Build."})
+
             # Runs the next task.
-            build_module(branch, header, paint_branch)
+            build_layer(branch)

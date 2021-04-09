@@ -6,6 +6,10 @@ from br4nch.utility.librarian import librarian
 def add_branch(branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
+    positions = librarian("positions")
 
-    # Adds the name inside the branch dictionary.
+    # Adds the branch inside the branches dictionary.
     branches.update({branch: {}})
+
+    # Adds the branch inside the positions dictionary.
+    positions.update({branch: {}})
