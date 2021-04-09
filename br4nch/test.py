@@ -1,5 +1,5 @@
-# Alpha phase - br4nch v1.0.7
-# desc - Added log. The log logs most of the actions and stores them into a list. Added first builder script for layers.
+# Alpha phase - br4nch v1.0.8
+# desc - Code cleanup: Removed old module, subject and object files and added new color layer file.
 
 # Imports the br4nch package.
 import br4nch

@@ -4,7 +4,7 @@ from br4nch.utility.painter import painter
 
 
 # Adds the chosen paint to the chosen branch to a list.
-def color_branch(branch="", color="", special1="", special2="", special3=""):
+def color_branch(branch, color, special1="", special2="", special3=""):
     # Gets the needed lists/dictionaries.
     branch_package = librarian("branch_package")
 

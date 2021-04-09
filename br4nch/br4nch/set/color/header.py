@@ -4,7 +4,7 @@ from br4nch.utility.painter import painter
 
 
 # Adds the chosen paint to the chosen header to a list.
-def color_header(branch="", color="", special1="", special2="", special3=""):
+def color_header(branch, color, special1="", special2="", special3=""):
     # Gets the needed lists/dictionaries.
     header_package = librarian("header_package")
 
