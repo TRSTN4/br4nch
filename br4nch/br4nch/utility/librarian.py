@@ -1,8 +1,7 @@
 # The librarian class stores most of the lists and dictionary.
 def librarian(action):
     # All global statements.
-    global branches, branch_package, header_package, module_package, subject_package, object_package, paper, logs,\
-    positions
+    global branches, branch_package, header_package, layer_package, paper, logs
 
     # Checks if the action is equal to "construction". Construction creates all the lists and dictionaries.
     if action == "construction":
@@ -12,9 +11,7 @@ def librarian(action):
         # Package directories to save all paint keys and values.
         branch_package = {}
         header_package = {}
-        module_package = {}
-        subject_package = {}
-        object_package = {}
+        layer_package = {}
 
         # List to save all the output of the branches.
         paper = []
@@ -22,18 +19,13 @@ def librarian(action):
         # Saves all the logs of the actions.
         logs = {}
 
-        # Saves all the logs of the actions.
-        positions = {}
-
     # Checks if the action list has any value.
     if action:
         # Saves all the actions in a list.
-        storage = [branches, branch_package, header_package, module_package, subject_package, object_package, paper,
-                   logs, positions]
+        storage = [branches, branch_package, header_package, layer_package, paper, logs]
 
         # Saves all the action ids in a list.
-        identity = ["branches", "branch_package", "header_package", "module_package", "subject_package",
-                    "object_package", "paper", "logs", "positions"]
+        identity = ["branches", "branch_package", "header_package", "layer_package", "paper", "logs"]
 
         # Loops through total length of the storage list.
         for number in range(len(storage)):

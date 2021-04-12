@@ -6,7 +6,7 @@ keys = []
 
 
 # Adds a new layer to the branches dictionary.
-def add_layer(branch, layer, append="", row="", value="", position=0):
+def add_layer(branch, layer, append="", row="", value=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     positions = librarian("positions")
@@ -23,14 +23,11 @@ def add_layer(branch, layer, append="", row="", value="", position=0):
     if append:
         # Saves the key and value of the current value dictionary.
         for key, value in value.items():
-            # Adds the current layer with the position to the positions dictionary.
-            positions[branch].update({key: position})
             # Checks if the key value is in the keys list.
             if key in keys:
                 # Position is the value of position + 1.
-                position = position + 1
                 # Parses all the branch, layer, append, row, position and value values in the add_layer function.
-                add_layer(branch, layer, append, row, value, position)
+                add_layer(branch, layer, append, row, value)
                 # Breaks the loop.
                 break
             # Loops through all values in append list.
