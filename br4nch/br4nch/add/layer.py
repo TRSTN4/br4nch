@@ -9,7 +9,7 @@ keys = []
 def add_layer(branch, layer, append="", row="", value=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    positions = librarian("positions")
+    layer_package = librarian("layer_package")
 
     # Gets the header of the given branch.
     header = list(branches[branch])[0]
@@ -34,26 +34,35 @@ def add_layer(branch, layer, append="", row="", value=""):
             for element in append:
                 # Checks if current key of current value is equal to the value of element.
                 if key == element:
-                    # Checks if content in row.
-                    if row:
-                        # Loops through all values in layer.
-                        for entry in layer:
+                    # Checks if layer value is a instance of a list.
+                    if isinstance(layer, list):
+                        # Loops through all values in layer list.
+                        for content in layer:
                             # Adds value to current value dictionary.
-                            value.update({entry: {}})
+                            value.update({content: {}})
                             # Stores the current key value to the keys list.
                             keys.append(key)
-                    # If no content in row.
+                    # If layer value is not a instance of a list.
                     else:
-                        # Loops through all values in layer.
-                        for entry in layer:
-                            # Adds value to current value dictionary.
-                            value.update({entry: {}})
-                            # Stores the current key value to the keys list.
-                            keys.append(key)
+                        # Adds value to current value dictionary.
+                        value.update({layer: {}})
+                        # Stores the current key value to the keys list.
+                        keys.append(key)
 
     # If there is no content in append, append element directly in branches > branch > header dictionary.
     else:
-        # Loops through all values in layer list.
-        for element in layer:
+        # Checks if layer value is a instance of a list.
+        if isinstance(layer, list):
+            # Loops through all values in layer list.
+            for content in layer:
+                # Adds value to branches > branch > header dictionary.
+                branches[branch][header].update({content: {}})
+        # If layer value is not a instance of a list.
+        else:
             # Adds value to branches > branch > header dictionary.
-            branches[branch][header].update({element: {}})
+            branches[branch][header].update({layer: {}})
+
+    # Checks if the current branch value is inside the dictionary.
+    if not layer_package.get(branch):
+        # Adds the current branch value as key and a new dictionary as value to the package dictionary.
+        layer_package.update({branch: {}})

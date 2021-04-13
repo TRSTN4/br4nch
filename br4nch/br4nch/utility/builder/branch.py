@@ -2,7 +2,6 @@
 from br4nch.utility.builder.header import build_header
 from br4nch.utility.inspector.paint import inspect_paint_clear
 from br4nch.utility.inspector.paint import inspect_paint_base
-from br4nch.utility.inspector.paint import inspect_paint_all_base
 from br4nch.utility.librarian import librarian
 
 
@@ -14,7 +13,7 @@ def build_branch(arg_branch):
     logs = librarian("logs")
 
     # Checks if content in package and returns the right paint clear value.
-    paint_clear = inspect_paint_clear(branch_package)
+    paint_clear = inspect_paint_clear()
 
     # Checks if the branch list has any value.
     if branches:
@@ -33,11 +32,6 @@ def build_branch(arg_branch):
             if inspect_paint_base(branch, branch_package):
                 # Paint is equal to the returned inspect paint base value.
                 paint_branch = inspect_paint_base(branch, branch_package)
-
-            # Checks if inspect paint base all returns a value.
-            if inspect_paint_all_base(branch_package):
-                # Paint is equal to the returned inspect paint base all value.
-                paint_branch = inspect_paint_all_base(branch_package)
 
             # Checks if there are multiple branches in the list.
             if len(list(dict.keys(branches))) > 1:
