@@ -1,3 +1,5 @@
+# Part of the br4nch package.
+
 # Imports all files.
 from br4nch.utility.builder.branch import build_branch
 from br4nch.utility.printer import printer

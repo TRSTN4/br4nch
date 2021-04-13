@@ -1,3 +1,5 @@
+# Part of the br4nch package.
+
 # Imports all files.
 from br4nch.utility.inspector.paint import inspect_paint_clear
 from br4nch.utility.inspector.paint import inspect_paint_layer

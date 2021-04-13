@@ -1,3 +1,5 @@
+# Part of the br4nch package.
+
 # Returns paint with the given paint and specials.
 def painter(color="", special1="", special2="", special3=""):
     # Stores all the colors and specials.

@@ -1,5 +1,5 @@
-# Alpha phase - br4nch v1.1.0
-# desc - Removed branching utility and adding several paint updates.
+# Alpha phase - br4nch v1.1.1
+# desc - Adding part stamps.
 
 # Imports the br4nch package.
 import br4nch

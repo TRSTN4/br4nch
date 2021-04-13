@@ -1,3 +1,5 @@
+# Part of the br4nch package.
+
 # Imports all files.
 from br4nch.utility.librarian import librarian
 from br4nch.utility.painter import painter

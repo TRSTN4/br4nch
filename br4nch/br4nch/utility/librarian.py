@@ -1,3 +1,5 @@
+# Part of the br4nch package.
+
 # The librarian class stores most of the lists and dictionary.
 def librarian(action):
     # All global statements.
