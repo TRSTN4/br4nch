@@ -9,9 +9,12 @@ def add_branch(branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     branch_package = librarian("branch_package")
+    branch_symbols = librarian("branch_symbols")
 
     # Adds the branch inside the branches dictionary.
     branches.update({branch: {}})
+
+    branch_symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
 
     # Checks if the current branch value is inside the dictionary.
     if not branch_package.get(branch):

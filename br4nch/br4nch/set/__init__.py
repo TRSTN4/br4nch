@@ -2,3 +2,4 @@
 
 # Imports all files.
 import br4nch.set.color
+import br4nch.set.symbol
