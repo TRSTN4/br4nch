@@ -1,27 +1,29 @@
-# Alpha phase - br4nch v1.1.1
-# desc - Adding part stamps.
+# Alpha phase - br4nch v1.1.2
+# desc - New database branch and updating the add layer file.
 
 # Imports the br4nch package.
 import br4nch
 
-# Creates the "Test" branch.
-br4nch.add.branch("Test")
-br4nch.add.header("Test", "Layers")
-br4nch.add.layer("Test", ["First Layer", "Second Layer"])
-br4nch.add.layer("Test", "Third Layer")
-br4nch.add.layer("Test", ["Sublayer One", "Sublayer Two"], ["First Layer", "Second Layer", "Third Layer"])
-br4nch.add.layer("Test", "Sublayer Three", ["First Layer", "Second Layer"])
-br4nch.add.layer("Test", ["Sample One", "Sample Two", "Sample Three"], ["Sublayer One", "Sublayer Two"])
-br4nch.add.layer("Test", ["Test One", "Test Two", "Test Three"], ["Sample One", "Sample Two"])
-br4nch.add.layer("Test", ["Sub-Final One", "Sub-Final Two", "Sub-Final Three"], ["Test Three"])
-br4nch.add.layer("Test", ["Final One", "Final Two", "Final Three"], ["Sub-Final One", "Sub-Final Three"])
-br4nch.add.layer("Test", ["End One", "End Two", "End Three"], ["Final Two", "Final Three"])
+# Creates the "Database" branch.
+br4nch.add.branch("Database")
+br4nch.add.header("Database", "Business")
+br4nch.add.layer("Database", ["Jobs", "Employees", "Products"])
+br4nch.add.layer("Database", ["Accounting", "International Business"], "Jobs")
+br4nch.add.layer("Database", ["Bookkeepers", "Budget analysts"], ["Employees", "Accounting"])
+br4nch.add.layer("Database", ["Trade specialists", "Import/export specialist"], ["Employees", "International Business"])
+br4nch.add.layer("Database", ["John Doe", "Jane Doe"], "Bookkeepers")
+br4nch.add.layer("Database", ["Mail", "Phone"], ["John Doe", "Jane Doe"], "Employees")
+br4nch.add.layer("Database", "john.doe@email.com", "Mail", ["Employees", "John Doe"])
+br4nch.add.layer("Database", "jane.doe@email.com", "Mail", ["Employees", "Jane Doe"])
+br4nch.add.layer("Database", "01 23 45 67 89", "Phone", ["Employees", "John Doe"])
+br4nch.add.layer("Database", "98 76 54 32 10", "Phone", ["Employees", "Jane Doe"])
 
 # Paints the "Test" branch.
-br4nch.set.color.branch("Test", "blue")
-br4nch.set.color.header("Test", "red", "bold", "underline")
-br4nch.set.color.layer("Test", ["First Layer", "Sample One", "Final Three", "End Two"], "green", "bold", "underline")
-br4nch.set.color.layer("Test", "Test Two", "yellow")
+br4nch.set.color.branch("Database", "blue")
+br4nch.set.color.header("Database", "magenta", "bold")
+br4nch.set.color.layer("Database", "Jobs", "green", "bold", "underline")
+br4nch.set.color.layer("Database", ["Accounting", "International Business"], "red")
+br4nch.set.color.layer("Database", "Test Two", "yellow")
 
 # Displays the branches.
 br4nch.run.display("all")

@@ -6,9 +6,6 @@ from br4nch.utility.inspector.paint import inspect_paint_layer
 from br4nch.utility.librarian import librarian
 
 
-queue = []
-
-
 # Algorithm to build all the given headers.
 def build_layer(branch, value="", pos=0, neg=0):
     # Gets the needed lists/dictionaries.
@@ -18,8 +15,10 @@ def build_layer(branch, value="", pos=0, neg=0):
     branch_package = librarian("branch_package")
     layer_package = librarian("layer_package")
 
+    # Paint is equal to the returned inspect paint base value.
     branch_paint = branch_package[branch]
 
+    # Checks if content in package and returns the right paint clear value.
     paint_clear = inspect_paint_clear()
 
     # Gets the header of the given branch.
@@ -49,8 +48,6 @@ def build_layer(branch, value="", pos=0, neg=0):
             paint_layer = ""
 
         if value:
-            queue.append(value)
-
             if value and layer == list(reversed(list(saved_value)))[0]:
                 paper.append(branch_paint + extend + "┃" + newline + extend + "┗━━ " + paint_clear + paint_layer + layer
                              + paint_clear)
