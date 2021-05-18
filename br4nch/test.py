@@ -1,5 +1,5 @@
-# Alpha phase - br4nch v1.1.3
-# desc - Supporting layers with multiple lines and adding customizable branch/line symbols.
+# Alpha phase - br4nch v1.1.4
+# desc - Build layer and add layer files clean-up.
 
 # Imports the br4nch package.
 import br4nch
@@ -28,7 +28,7 @@ br4nch.set.color.layer("Database", ["Accounting", "International Business"], "re
 br4nch.set.color.layer("Database", "Test Two", "yellow")
 
 # Changes the branch symbols.
-br4nch.set.symbol.branch("Sample", "|", "|--", "|__")
+br4nch.set.symbol.branch("Test", "|", "|---", "|_")
 
 # Displays the branches.
 br4nch.run.display("all")

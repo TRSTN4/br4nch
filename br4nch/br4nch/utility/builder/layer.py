@@ -4,7 +4,6 @@
 from br4nch.utility.inspector.paint import inspect_paint_clear
 from br4nch.utility.inspector.paint import inspect_paint_layer
 from br4nch.utility.librarian import librarian
-from br4nch.set.symbol import branch
 
 
 # Algorithm to build all the given headers.
@@ -27,24 +26,17 @@ def build_layer(branch, value="", pos=0, neg=0):
     # Checks if content in package and returns the right paint clear value.
     paint_clear = inspect_paint_clear()
 
-    # Gets the header of the given branch.
-    header = list(branches[branch])[0]
-
-    newline = "\n"
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of branches > branch > header > value.
-        value = branches[branch][header]
+        value = branches[branch][list(branches[branch])[0]]
 
     saved_value = value.copy()
 
-    if value == branches[branch][header]:
+    if value == branches[branch][list(branches[branch])[0]]:
         extend = ""
     else:
-        pos_neg = pos - neg
-        line_tab = line + "\t"
-        extend = line_tab * pos_neg + "\t" * neg
+        extend = str(line + "\t") * int(pos - neg) + "\t" * neg
 
     for layer, value in value.items():
         # Checks if inspect paint layer all returns a value.
@@ -54,31 +46,22 @@ def build_layer(branch, value="", pos=0, neg=0):
         else:
             paint_layer = ""
 
+        if layer == list(reversed(list(saved_value)))[0]:
+            paper.append(branch_paint + extend + line + "\n" + extend + end + " " + paint_clear + paint_layer
+                         + layer.replace("\n", "\n" + branch_paint + extend + paint_clear + " " * int(len(end) + 1)
+                                         + paint_layer) + paint_clear)
+        else:
+            paper.append(branch_paint + extend + line + "\n" + extend + split + " " + paint_clear + paint_layer
+                         + layer.replace("\n", "\n" + branch_paint + extend + line + paint_clear + " " * len(split)
+                                         + paint_layer) + paint_clear)
+
         if value:
-            if value and layer == list(reversed(list(saved_value)))[0]:
-                paper.append(branch_paint + extend + line + newline + extend + end + " " + paint_clear + paint_layer
-                             + layer.replace("\n", "\n" + branch_paint + extend + paint_clear + " " * int(len(end) + 1)
-                                             + paint_layer) + paint_clear)
+            if layer == list(reversed(list(saved_value)))[0]:
                 neg = 1
             else:
-                paper.append(branch_paint + extend + line + newline + extend + split + " " + paint_clear + paint_layer
-                             + layer.replace("\n", "\n" + branch_paint + extend + line + paint_clear + " " * len(split)
-                                             + paint_layer) + paint_clear)
                 neg = 0
 
-            # Adds the state of the building process to the logs dictionary.
-            logs.update({layer: "[+] Layer: '" + layer + "' Successfully Build."})
-
             build_layer(branch, value, pos + 1, neg)
-        else:
-            if not value and layer != list(reversed(list(saved_value)))[0]:
-                paper.append(branch_paint + extend + line + newline + extend + split + " " + paint_clear + paint_layer
-                             + layer.replace("\n", "\n" + branch_paint + extend + line + paint_clear + " " * len(split)
-                                             + paint_layer) + paint_clear)
-            else:
-                paper.append(branch_paint + extend + line + newline + extend + end + " " + paint_clear + paint_layer
-                             + layer.replace("\n", "\n" + branch_paint + extend + paint_clear + " " * int(len(end) + 1)
-                                             + paint_layer) + paint_clear)
 
-            # Adds the state of the building process to the logs dictionary.
-            logs.update({layer: "[+] Layer: '" + layer + "' Successfully Build."})
+        # Adds the state of the building process to the logs dictionary.
+        logs.update({layer: "[+] Layer: '" + layer + "' Successfully Build."})
