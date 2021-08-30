@@ -3,18 +3,18 @@
 # Returns paint with the given paint and specials.
 def painter(color="", special1="", special2="", special3=""):
     # Stores all the colors and specials.
-    black = "\u001b[30m"  # Black
-    red = "\u001b[31m"  # Red
-    green = "\u001b[32m"  # Green
-    yellow = "\u001b[33m"  # Yellow
-    blue = "\u001b[34m"  # Blue
-    magenta = "\u001b[35m"  # Magenta
-    cyan = "\u001b[36m"  # Cyan
-    white = "\u001b[37m"  # White
-    bold = "\u001b[1m"  # Bold
-    underline = "\u001b[4m"  # Underline
-    reversing = "\u001b[4m"  # Reversing
-    clear = "\u001b[0m"  # Clear
+    black = "\u001b[30m"        # Black
+    red = "\u001b[31m"          # Red
+    green = "\u001b[32m"        # Green
+    yellow = "\u001b[33m"       # Yellow
+    blue = "\u001b[34m"         # Blue
+    magenta = "\u001b[35m"      # Magenta
+    cyan = "\u001b[36m"         # Cyan
+    white = "\u001b[37m"        # White
+    bold = "\u001b[1m"          # Bold
+    underline = "\u001b[4m"     # Underline
+    reversing = "\u001b[4m"     # Reversing
+    clear = "\u001b[0m"         # Clear
 
     # Saves all the color actions in a list.
     colors_action = [black, red, green, yellow, blue, magenta, cyan, white, clear]
@@ -27,6 +27,15 @@ def painter(color="", special1="", special2="", special3=""):
 
     # Saves all the special action ids in a list.
     specials_id = ["bold", "underline", "reversing"]
+
+    if color not in colors_id:
+        color = ""
+    if special1 not in specials_id:
+        special1 = ""
+    if special2 not in specials_id:
+        special2 = ""
+    if special3 not in specials_id:
+        special3 = ""
 
     # Checks if the color variable has any value.
     if color:

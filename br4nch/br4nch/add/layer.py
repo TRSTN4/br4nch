@@ -47,6 +47,11 @@ def add_layer(branch, layer, append="", position="", value=""):
                                 # Appends the current value of key inside the keys list.
                                 keys.append(key)
 
+                            for x, y in value.items():
+                                if x == append[0] and len(keys) == len(position):
+                                    y.update({layer[0]: {}})
+                                    keys.clear()
+
                 # Checks if current key of current value is equal to the value of element.
                 if key == element:
                     # Checks if content in positions.
