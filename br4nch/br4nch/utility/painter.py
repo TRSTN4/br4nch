@@ -1,7 +1,7 @@
 # Part of the br4nch package.
 
 # Returns paint with the given paint and specials.
-def painter(color="", special1="", special2="", special3=""):
+def painter(options):
     # Stores all the colors and specials.
     black = "\u001b[30m"        # Black
     red = "\u001b[31m"          # Red
@@ -22,20 +22,43 @@ def painter(color="", special1="", special2="", special3=""):
     # Saves all the color action ids in a list.
     colors_id = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "clear"]
 
-    # Saves all the special actions in a list.
-    specials_action = [bold, underline, reversing]
-
     # Saves all the special action ids in a list.
     specials_id = ["bold", "underline", "reversing"]
 
-    if color not in colors_id:
-        color = ""
-    if special1 not in specials_id:
-        special1 = ""
-    if special2 not in specials_id:
-        special2 = ""
-    if special3 not in specials_id:
-        special3 = ""
+    # Saves all the special actions in a list.
+    specials_action = [bold, underline, reversing]
+
+    # Creates the variables.
+    color = ""
+    special1 = ""
+    special2 = ""
+    special3 = ""
+
+    # Checks if options value is equal to one of the colors ids.
+    if options in colors_id:
+        # Color is equal to the value of options.
+        color = options
+    # Checks if options value is equal to one of the specials ids.
+    if options in specials_id:
+        # special1 is equal to the value of options.
+        special1 = options
+
+    # The first entry option is color.
+    if len(options) > 0 and isinstance(options, list) and options[0].lower() in colors_id:
+        # Color is the first entry of the options list.
+        color = options[0].lower()
+    # If the first entry in the options list is used. If so, the second entry option is special1.
+    if len(options) > 1 and isinstance(options, list) and options[1].lower() in specials_id:
+        # Special 1 is the second entry of the options list.
+        special1 = options[1].lower()
+    # If the first and second entry in the options list is used. If so, the third entry option is special2.
+    if len(options) > 2 and isinstance(options, list) and options[2].lower() in specials_id:
+        # Special 2 is the second entry of the options list.
+        special2 = options[2].lower()
+    # If the first, second and third entry in the options list is used. If so, the fourth entry option is special3.
+    if len(options) > 3 and isinstance(options, list) and options[3].lower() in specials_id:
+        # Special 3 is the second entry of the options list.
+        special3 = options[3].lower()
 
     # Checks if the color variable has any value.
     if color:

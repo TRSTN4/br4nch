@@ -9,10 +9,12 @@ def printer():
     # Gets the needed lists/dictionaries.
     paper = librarian("paper")
 
-    # Loops through all elements in the paper list.
-    for ink in paper:
-        # Prints the ink from the paper list.
-        print(ink)
+    # Loops through all branches in the paper dict.
+    for branch in paper.values():
+        # Loops through all the content of the current branch value.
+        for ink in branch:
+            # Prints the ink from the branch paper content.
+            print(ink)
 
     # Clears the paper list.
     paper.clear()

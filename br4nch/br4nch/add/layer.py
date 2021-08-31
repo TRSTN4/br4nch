@@ -15,14 +15,17 @@ def add_layer(branch, layer, append="", position="", value=""):
 
     # Checks if layer value is a instance of a list.
     if not isinstance(layer, list):
+        # Changes the current value to list value.
         layer = [layer]
 
     # Checks if append value is a instance of a list.
     if not isinstance(append, list) and append:
+        # Changes the current value to list value.
         append = [append]
 
     # Checks if position value is a instance of a list.
     if not isinstance(position, list) and position:
+        # Changes the current value to list value.
         position = [position]
 
     # Checks if there is no content in value.
@@ -47,11 +50,6 @@ def add_layer(branch, layer, append="", position="", value=""):
                                 # Appends the current value of key inside the keys list.
                                 keys.append(key)
 
-                            for x, y in value.items():
-                                if x == append[0] and len(keys) == len(position):
-                                    y.update({layer[0]: {}})
-                                    keys.clear()
-
                 # Checks if current key of current value is equal to the value of element.
                 if key == element:
                     # Checks if content in positions.
@@ -60,25 +58,23 @@ def add_layer(branch, layer, append="", position="", value=""):
                         if len(position) == len(keys):
                             # Loops through all entries of the layer list.
                             for content in layer:
-                                # todo
+                                # Updates the current value and adds the content with dict value.
                                 value.update({content: {}})
 
                             if key == list(value)[-1]:
                                 # Clears all content in the keys list.
                                 keys.clear()
-                                # todo
-                                return
                     # Checks if content not in positions.
                     else:
                         # Loops through all entries inside the layer list.
                         for content in layer:
-                            # todo
+                            # Updates the current value and adds the content with dict value.
                             value.update({content: {}})
                 # Checks if current key of current value is not equal to the value of element.
                 else:
                     # Checks if content in value.
                     if value:
-                        # todo
+                        # Recalls the current function with the new values.
                         add_layer(branch, layer, append, position, value)
 
     # If there is no content in append, append element directly in branches > branch > header dictionary.

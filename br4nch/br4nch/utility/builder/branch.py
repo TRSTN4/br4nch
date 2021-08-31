@@ -12,7 +12,6 @@ def build_branch(arg_branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     branch_package = librarian("branch_package")
-    logs = librarian("logs")
 
     # Checks if content in package and returns the right paint clear value.
     paint_clear = inspect_paint_clear()
@@ -48,7 +47,7 @@ def build_branch(arg_branch):
                 break
 
             # Checks the branch name argument is equal to "all".
-            if arg_branch == "all":
+            if arg_branch == "*":
                 # Passes all the break statements and stops when the loop is complete.
                 pass
 
@@ -58,9 +57,6 @@ def build_branch(arg_branch):
                 branch = arg_branch
                 # "stop" is set to true.
                 stop = True
-
-            # Adds the state of the building process to the logs dictionary.
-            logs.update({branch: "[+] Branch: '" + branch + "' Successfully Build."})
 
             # Runs the next task.
             build_header(branch, paint_branch, newline)
