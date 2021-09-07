@@ -1,20 +1,27 @@
 # Part of the br4nch package.
 
+# Imports all files.
+from br4nch.utility.handler import paint_error
+
+
 # Returns paint with the given paint and specials.
-def painter(options):
+def painter(options, branch="", layer=""):
+    # All global statements.
+    global black, red, green, yellow, blue, magenta, cyan, white, bold, underline, reversing, clear
+
     # Stores all the colors and specials.
-    black = "\u001b[30m"        # Black
-    red = "\u001b[31m"          # Red
-    green = "\u001b[32m"        # Green
-    yellow = "\u001b[33m"       # Yellow
-    blue = "\u001b[34m"         # Blue
-    magenta = "\u001b[35m"      # Magenta
-    cyan = "\u001b[36m"         # Cyan
-    white = "\u001b[37m"        # White
-    bold = "\u001b[1m"          # Bold
-    underline = "\u001b[4m"     # Underline
-    reversing = "\u001b[4m"     # Reversing
-    clear = "\u001b[0m"         # Clear
+    black = "\u001b[30m"
+    red = "\u001b[31m"
+    green = "\u001b[32m"
+    yellow = "\u001b[33m"
+    blue = "\u001b[34m"
+    magenta = "\u001b[35m"
+    cyan = "\u001b[36m"
+    white = "\u001b[37m"
+    bold = "\u001b[1m"
+    underline = "\u001b[4m"
+    reversing = "\u001b[4m"
+    clear = "\u001b[0m"
 
     # Saves all the color actions in a list.
     colors_action = [black, red, green, yellow, blue, magenta, cyan, white, clear]
@@ -42,7 +49,6 @@ def painter(options):
     if options in specials_id:
         # special1 is equal to the value of options.
         special1 = options
-
     # The first entry option is color.
     if len(options) > 0 and isinstance(options, list) and options[0].lower() in colors_id:
         # Color is the first entry of the options list.
@@ -59,6 +65,11 @@ def painter(options):
     if len(options) > 3 and isinstance(options, list) and options[3].lower() in specials_id:
         # Special 3 is the second entry of the options list.
         special3 = options[3].lower()
+
+    if not isinstance(options, list):
+        if options != "clear":
+            if options not in colors_id + specials_id:
+                paint_error(branch, layer, options)
 
     # Checks if the color variable has any value.
     if color:

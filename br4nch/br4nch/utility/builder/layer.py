@@ -1,8 +1,8 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.inspector.paint import inspect_paint_clear
-from br4nch.utility.inspector.paint import inspect_paint_layer
+from br4nch.utility.unpacker import unpack_paint_builder
+from br4nch.utility.unpacker import unpack_paint_clear
 from br4nch.utility.librarian import librarian
 
 
@@ -23,25 +23,16 @@ def configure(branch):
 
 
 # Creates the extenders/branch for the layers.
-def extenders(branches, branch, line, value, layer, prev_value):
+def extenders(branches, branch, line, split, end, value, layer, prev_value):
     # Checks if the position of the current layer is not equal to zero.
     if levels[trace[0]] != 0:
         # Checks if the position of the current layer is not equal to the position of the previous layer.
-        if levels[trace[0]] != levels[trace[0] - 1]:
-            # Checks if the latest layer is equal to the last layer inside the previous value dict.
-            if layer == list(reversed(list(prev_value)))[0]:
-                # Checks if the position of the current layer is smaller then the position of the next layer.
-                if levels[trace[0]] < levels[trace[0] + 1]:
-                    # Appends the current level-trace to the queue.
-                    queue.append(levels[trace[0]])
-                    # Appends the layer name to the name list.
-                    name.append(layer)
-
+        if levels[trace[0] - 1] != levels[trace[0]]:
             # Checks if content in queue and layer name is not equal to layer name in name list.
             if queue and layer != name[0]:
-                # Appends the spaces/tab to the chain
+                # Appends the spaces/tab to the chain.
                 chain.append("\t")
-                # Clears the queue and name lists.
+                # Clears the lists.
                 queue.clear()
                 name.clear()
             # If not content in queue and layer name is equal to layer name in name list.
@@ -52,9 +43,18 @@ def extenders(branches, branch, line, value, layer, prev_value):
             # Checks if the position of the current layer is smaller then the position of the previous layer.
             if levels[trace[0]] < levels[trace[0] - 1]:
                 # Loops the total length of the value of the current layer position minus the previous layer position.
-                for _ in range(-1, levels[trace[0] - 1] - int(levels[trace[0]])):
+                for _ in range(-1, int(levels[trace[0] - 1] - levels[trace[0]])):
                     # Removes the latest value of the chain list.
                     chain.pop()
+
+        # Checks if the latest layer is equal to the last layer inside the previous value dict.
+        if layer == list(reversed(list(prev_value)))[0]:
+            # Checks if the position of the current layer is smaller then the position of the next layer.
+            if levels[trace[0]] < levels[trace[0] + 1]:
+                # Appends the current level-trace to the queue.
+                queue.append(levels[trace[0]])
+                # Appends the layer name to the name list.
+                name.append(layer)
 
     # If the position of the current layer is equal to zero.
     else:
@@ -62,7 +62,7 @@ def extenders(branches, branch, line, value, layer, prev_value):
         chain.clear()
 
     # If current value is not equal to this branch value.
-    if value != branches[branch][list(branches[branch])[0]]:
+    if not value == branches[branch][list(branches[branch])[0]]:
         # Extend is equal to empty string.
         extend = ""
         # Loops through the chain.
@@ -88,8 +88,8 @@ def build_layer(branch, value=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paper = librarian("paper")
-    branch_package = librarian("branch_package")
-    layer_package = librarian("layer_package")
+    paint_package_branch = librarian("paint_package_branch")
+    paint_package_layer = librarian("paint_package_layer")
     branch_symbols = librarian("branch_symbols")
 
     # Branch symbols variables.
@@ -97,11 +97,8 @@ def build_layer(branch, value=""):
     split = branch_symbols[branch].get("split")
     end = branch_symbols[branch].get("end")
 
-    # Paint is equal to the returned inspect paint base value.
-    branch_paint = branch_package[branch]
-
     # Checks if content in package and returns the right paint clear value.
-    paint_clear = inspect_paint_clear()
+    paint_clear = unpack_paint_clear(branch)
 
     # Checks if there is no content in value.
     if not value:
@@ -116,17 +113,22 @@ def build_layer(branch, value=""):
     # Stores the previous value.
     prev_value = value.copy()
 
+    if unpack_paint_builder(branch, paint_package_branch):
+        branch_paint = unpack_paint_builder(branch, paint_package_branch)
+    else:
+        branch_paint = ""
+
     # Gets the layer/key and value of the current value variable.
     for layer, value in value.items():
         # Updates the latest trace and adds the current value of trace by one.
         trace[0] = trace[0] + 1
         # Extend is equal to the value returned by the extenders function.
-        extend = extenders(branches, branch, line, value, layer, prev_value)
+        extend = extenders(branches, branch, line, split, end, value, layer, prev_value)
 
         # Checks if inspect paint layer all returns a value.
-        if inspect_paint_layer(branch, layer, layer_package):
+        if unpack_paint_builder(branch, paint_package_layer, layer):
             # Paint is equal to the returned inspect paint layer all value.
-            paint_layer = inspect_paint_layer(branch, layer, layer_package)
+            paint_layer = unpack_paint_builder(branch, paint_package_layer, layer)
         # If inspect paint layer all does not returns a value.
         else:
             # Paint layer is equal to empty string.
@@ -149,4 +151,3 @@ def build_layer(branch, value=""):
         if value:
             # Recalls the current function with the current value of value variable.
             build_layer(branch, value)
-0

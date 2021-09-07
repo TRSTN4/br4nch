@@ -1,5 +1,5 @@
-# Alpha phase - br4nch v1.1.6
-# desc - Adding/updating comments to all scripts, removing the log script, adding new test branch and multiple hotfixes.
+# Alpha phase - br4nch v1.1.7
+# desc - Pre-error handling, changing inspector function to unpacker, more customizable features and hotfixes.
 
 # Imports the br4nch package.
 import br4nch
@@ -34,14 +34,15 @@ br4nch.add.layer("Test", ["Last Text 1", "Last Text 2", "Last Text 3"], "Sub Tex
 
 # Paints the "Database" branch.
 br4nch.set.color.branch("Database", "blue")
-br4nch.set.color.header("Database", ["magenta", "bold"])
+br4nch.set.color.header("Database", ["test", "bold"])
 br4nch.set.color.layer("Database", ["green", "bold", "underline"], ["Jobs", "Products"])
-br4nch.set.color.layer("Database", "red", "John\nDoe")
+br4nch.set.color.layer("Database", "test123", "John\nDoe")
 br4nch.set.color.layer("Database", ["green", "bold", "underline"], "Jane\nDoe")
-br4nch.set.color.layer("Database", "Test Two", "yellow")
+br4nch.set.color.layer("Database", ["cyan", "underline"], "Trade specialists")
 
 # Changes the branch symbols.
-br4nch.set.symbol.branch("Test", "|", "|-", "|_")
+br4nch.set.symbol.branch("Test", "|", "|--", "|__")
+# br4nch.set.symbol.branch("Test", "|||", "|-=-", "|_")
 
-# Displays the branches.
-br4nch.run.display("Database")
+# Displays the selected branches.
+br4nch.run.display(["Database", "Test"])

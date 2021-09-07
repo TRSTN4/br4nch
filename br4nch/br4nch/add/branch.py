@@ -9,17 +9,19 @@ def add_branch(branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paper = librarian("paper")
-    branch_package = librarian("branch_package")
+    error = librarian("error")
+    paint_package_branch = librarian("paint_package_branch")
     branch_symbols = librarian("branch_symbols")
 
     # Adds the branch values inside the dictionaries.
     branches.update({branch: {}})
     paper.update({branch: []})
+    error.update({branch: []})
 
     # Sets the symbols to default.
     branch_symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
 
     # Checks if the current branch value is inside the dictionary.
-    if not branch_package.get(branch):
-        # Adds the current branch value as key and a new dictionary as value to the package dictionary.
-        branch_package.update({branch: {}})
+    if not paint_package_branch.get(branch):
+        # Adds the current branch value as key and a new dictionary as value to the paint dictionary.
+        paint_package_branch.update({branch: {}})

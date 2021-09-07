@@ -2,20 +2,20 @@
 
 # Imports all files.
 from br4nch.utility.builder.layer import configure
-from br4nch.utility.inspector.paint import inspect_paint_clear
-from br4nch.utility.inspector.paint import inspect_paint_base
+from br4nch.utility.unpacker import unpack_paint_builder
+from br4nch.utility.unpacker import unpack_paint_clear
 from br4nch.utility.librarian import librarian
 
 
 # Algorithm to build all the given headers.
-def build_header(branch, paint_branch, newline):
+def build_header(branch, paint_branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    header_package = librarian("header_package")
+    paint_package_header = librarian("paint_package_header")
     paper = librarian("paper")
 
     # Checks if content in package and returns the right paint clear value.
-    paint_clear = inspect_paint_clear()
+    paint_clear = unpack_paint_clear(branch)
 
     # Checks if branch key in branch list has any value.
     if branches[branch]:
@@ -25,12 +25,12 @@ def build_header(branch, paint_branch, newline):
             paint_header = paint_clear
 
             # Checks if inspect paint base returns a value.
-            if inspect_paint_base(branch, header_package):
+            if unpack_paint_builder(branch, paint_package_header):
                 # Paint is equal to the returned inspect paint base value.
-                paint_header = inspect_paint_base(branch, header_package)
+                paint_header = unpack_paint_builder(branch, paint_package_header)
 
             # Uses prefix with the end line symbol and appends the output to the paper list.
-            paper[branch].append(paint_clear + paint_header + newline + header + paint_clear + paint_branch + paint_clear)
+            paper[branch].append(paint_clear + paint_header + header + paint_clear + paint_branch + paint_clear)
 
-            # Runs the next task.
+            # Runs the next tasks.
             configure(branch)
