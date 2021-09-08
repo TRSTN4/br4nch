@@ -1,9 +1,8 @@
-# Alpha phase - br4nch v1.1.7
-# desc - Pre-error handling, changing inspector function to unpacker, more customizable features and hotfixes.
+# Alpha phase - br4nch v1.1.8
+# desc - Adding/updating comments to code, adding symbol calculation algorithm and update to the builder algorithm.
 
 # Imports the br4nch package.
 import br4nch
-
 
 # Creates the "Database" branch.
 br4nch.add.branch("Database")
@@ -21,6 +20,8 @@ br4nch.add.layer("Database", "john.doe@email.com\njohn.doe.alt@email.com", "Emai
                  ["Employee\nContacts", "Bookkeepers", "Jane\nDoe"])
 br4nch.add.layer("Database", "01 23 45 67 89", "Phone", ["Employee\nContacts", "John\nDoe"])
 br4nch.add.layer("Database", "98 76 54 32 10", "Phone", ["Employee\nContacts", "Jane\nDoe"])
+br4nch.add.layer("Database", "Database", "Products")
+br4nch.add.layer("Database", ["MySQL", "MariaDB"], "Database")
 
 # Creates the "Test" branch.
 br4nch.add.branch("Test")
@@ -28,7 +29,7 @@ br4nch.add.branch("Test")
 br4nch.add.header("Test", "Sample")
 # Creates the layers in the "Test" branch.
 br4nch.add.layer("Test", ["Text 1", "Text 2", "Text 3"])
-br4nch.add.layer("Test", ["Sub Text 1", "Sub Text 2"], "Text 1")
+br4nch.add.layer("Test", ["Sub Text 1", "Sub Text 2"], ["Text 3"])
 br4nch.add.layer("Test", ["Sub Text 1", "Sub Text 2", "Sub Text 3"], "Text 2")
 br4nch.add.layer("Test", ["Last Text 1", "Last Text 2", "Last Text 3"], "Sub Text 2")
 
@@ -36,13 +37,12 @@ br4nch.add.layer("Test", ["Last Text 1", "Last Text 2", "Last Text 3"], "Sub Tex
 br4nch.set.color.branch("Database", "blue")
 br4nch.set.color.header("Database", ["test", "bold"])
 br4nch.set.color.layer("Database", ["green", "bold", "underline"], ["Jobs", "Products"])
-br4nch.set.color.layer("Database", "test123", "John\nDoe")
+br4nch.set.color.layer("Database", "red", "John\nDoe")
 br4nch.set.color.layer("Database", ["green", "bold", "underline"], "Jane\nDoe")
 br4nch.set.color.layer("Database", ["cyan", "underline"], "Trade specialists")
 
 # Changes the branch symbols.
-br4nch.set.symbol.branch("Test", "|", "|--", "|__")
-# br4nch.set.symbol.branch("Test", "|||", "|-=-", "|_")
+br4nch.set.symbol.branch("Test", "|", "|-----", "|__")
 
 # Displays the selected branches.
-br4nch.run.display(["Database", "Test"])
+br4nch.run.display()

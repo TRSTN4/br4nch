@@ -4,24 +4,22 @@
 from br4nch.utility.librarian import librarian
 
 
-# The printer prints all the requested actions.
+# The printer prints the output after the branch has been build.
 def printer():
     # Gets the needed lists/dictionaries.
     paper = librarian("paper")
     error = librarian("error")
 
-    # Loops through all branches in the paper dict.
-    for key, value in paper.copy().items():
-        # Loops through all the content of the current branch value.
-        for ink in value:
-            # Prints the ink from the branch paper content.
-            print(ink)
-        del paper[key]
+    # Queue for all the dictionaries that have to be printed.
+    queue = [paper, error]
 
-    for key, value in error.copy().items():
-        for ink in value:
-            print(ink)
-        del error[key]
-
-    # Clears the paper list.
-    paper.clear()
+    # Loops through all output dictionaries from the queue.
+    for output in queue:
+        # Loops through all branches in the dictionary.
+        for branch, lines in output.copy().items():
+            # Loops through all the lines of a branch.
+            for line in lines:
+                # Prints the current line.
+                print(line)
+            # Deletes the current branch from the dictionary.
+            del output[branch]

@@ -2,8 +2,10 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+from br4nch.utility.painter import painter
 
 
+# Imports the paint for the custom errors.
 def import_paint():
     # All global statements.
     global black, red, green, yellow, blue, magenta, cyan, white, bold, underline, reversing, clear, error
@@ -11,73 +13,98 @@ def import_paint():
     # Gets the needed lists/dictionaries.
     error = librarian("error")
 
-    # Stores all the colors and specials.
-    black = ""
-    red = "\u001b[31m"  # Red
-    green = "\u001b[32m"  # Green
-    yellow = "\u001b[33m"  # Yellow
-    blue = "\u001b[34m"  # Blue
-    magenta = "\u001b[35m"  # Magenta
-    cyan = "\u001b[36m"  # Cyan
-    white = "\u001b[37m"  # White
-    bold = "\u001b[1m"  # Bold
-    underline = "\u001b[4m"  # Underline
-    reversing = "\u001b[4m"  # Reversing
-    clear = "\u001b[0m"  # Clear
+    # Imports and stores all the colors and specials.
+    black = painter("black")
+    red = painter("red")
+    green = painter("green")
+    yellow = painter("yellow")
+    blue = painter("blue")
+    magenta = painter("magenta")
+    cyan = painter("cyan")
+    white = painter("white")
+    bold = painter("bold")
+    underline = painter("underline")
+    reversing = painter("reversing")
+    clear = painter("clear")
 
 
-def paint_error(branch, layer, options):
-    # Separator variable.
-    sep = clear + red + ", "
-
-    #
-    error[branch].append(red + "[-] " + bold + "Paint Error" + clear + red + ":\n" + " " * 4
-                         + "├─ Could not add the paint option: " + yellow + bold + options.lower() + clear + red
-                         + " to the " + yellow + bold + layer.replace("\n", " ") + clear + red + " layer in the "
-                         + yellow + bold + branch.replace("\n", " ") + clear + red + " branch.\n" + " " * 4
-                         + "└─ Please select one of these below:\n" + " " * 7 + "├─ Colors\n" + " " * 7 + "│"
-                         + " " * 2 + "└─ " + black + bold + "Black" + sep + bold + "Red" + sep + green + bold
-                         + "Green" + sep + yellow + bold + "Yellow" + sep + blue + bold + "Blue" + sep + magenta
-                         + bold + "Magenta" + sep + cyan + bold + "Cyan" + sep + white + bold + "White\n" + clear
-                         + red + " " * 7 + "└─ Specials\n" + " " * 10 + "└─ " + white + bold + "Bold" + sep + white
-                         + bold + "Underline" + sep + white + bold + "Reversing" + clear)
-
-
-def add_header_error(branch, header):
+# Drops the error if the parsed branch does not exists.
+def display_error(branch):
+    # Checks if pares branch exists in the error dictionary.
     if branch not in error:
+        # Adds the pared branch to the error dictionary.
         error.update({branch: []})
 
+    # Adds the errors to the error list inside the dictionary.
+    error[branch].append(red + "[-] " + bold + "Display Error" + clear + red + ":\n" + " " * 4
+                         + "└─ The " + yellow + bold + branch + clear + red
+                         + " branch does not exist and therefore cannot be displayed." + clear)
+
+
+# Drops the error if the parsed branch does not exists.
+def add_header_error(branch, header):
+    # Checks if pares branch exists in the error dictionary.
+    if branch not in error:
+        # Adds the pared branch to the error dictionary.
+        error.update({branch: []})
+
+    # Adds the errors to the error list inside the dictionary.
     error[branch].append(red + "[-] " + bold + "Add Header Error" + clear + red + ":\n" + " " * 4 + "└─ The " + yellow
                          + bold + branch + clear + red + " branch does not exist and thus the " + yellow + bold
                          + header + clear + red + " header cannot be added." + clear)
 
 
 def add_layer_error(branch, layer):
+    # Checks if pares branch exists in the error dictionary.
     if branch not in error:
+        # Adds the pared branch to the error dictionary.
         error.update({branch: []})
 
+    # Creates the required variable.
     multiple = ""
 
+    # Checks if layer value is instance of a list.
     if isinstance(layer, list):
-        layers = layer
+        # Creates the required variables.
         result = ""
-        sep = ""
+        separator = ""
+
+        # Layers is equal to the parsed layer value.
+        layers = layer
+
+        # Loops through all layers of the list.
         for layer in layers:
-            result = result + clear + red + sep + yellow + bold + layer + clear
-            sep = ", "
+            # Adds all layers in the loop to the result.
+            result = result + clear + red + separator + yellow + bold + layer + clear
+            # Updates the separator.
+            separator = ", "
+
+        # Sets the layer value to the value of result.
         layer = result
+        # Multiple adds a "s" if there are multiple layers in the previous loop.
         multiple = "s"
 
+    # Adds the errors to the error list inside the dictionary.
     error[branch].append(red + "[-] " + bold + "Add Layer Error" + clear + red + ":\n" + " " * 4
                          + "└─ The " + yellow + bold + branch + clear + red + " branch does not exist and thus the "
                          + yellow + bold + layer.replace("\n", " ") + clear + red
                          + " layer{multiple} cannot be added.".format(multiple=multiple) + clear)
 
 
-def display_error(branch):
-    if branch not in error:
-        error.update({branch: []})
+# Drops the error if the parsed colors and/or specials does not exists.
+def paint_error(branch, layer, options):
+    # Creates the separator.
+    separator = clear + red + ", "
 
-    error[branch].append(red + "[-] " + bold + "Display Error" + clear + red + ":\n" + " " * 4
-                         + "└─ The " + yellow + bold + branch + clear + red
-                         + " branch does not exist and therefore cannot be displayed." + clear)
+    # Adds the errors to the error list inside the dictionary.
+    error[branch].append(red + "[-] " + bold + "Paint Error" + clear + red + ":\n" + " " * 4
+                         + "├─ Could not add the paint option: " + yellow + bold + options.lower() + clear + red
+                         + " to the " + yellow + bold + layer.replace("\n", " ") + clear + red + " layer in the "
+                         + yellow + bold + branch.replace("\n", " ") + clear + red + " branch.\n" + " " * 4
+                         + "└─ Please select one of these below:\n" + " " * 7 + "├─ Colors\n" + " " * 7 + "│"
+                         + " " * 2 + "└─ " + black + bold + "Black" + separator + bold + "Red" + separator + green
+                         + bold + "Green" + separator + yellow + bold + "Yellow" + separator + blue + bold + "Blue"
+                         + separator + magenta + bold + "Magenta" + separator + cyan + bold + "Cyan" + separator
+                         + white + bold + "White\n" + clear + red + " " * 7 + "└─ Specials\n" + " " * 10 + "└─ "
+                         + white + bold + "Bold" + separator + white + bold + "Underline" + separator + white + bold
+                         + "Reversing" + clear)

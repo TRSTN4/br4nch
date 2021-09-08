@@ -9,7 +9,7 @@ def symbol_branch(branch, line="┃", split="┣━━", end="┗━━"):
     # Gets the needed lists/dictionaries.
     branch_symbols = librarian("branch_symbols")
 
-    # Checks if branch is in the branch_symbols dict.
+    # Checks if branch is in the branch symbols dictionary.
     if branch in branch_symbols:
         # Updates the branch line symbol to the given input.
         branch_symbols[branch].update({"line": line})

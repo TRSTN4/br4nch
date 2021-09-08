@@ -4,7 +4,7 @@
 from br4nch.utility.librarian import librarian
 from br4nch.utility.handler import add_layer_error
 
-# Saves all the given key arguments in the keys list.
+# Required list.
 keys = []
 
 
@@ -14,7 +14,8 @@ def add_layer(branch, layer, append="", position="", value=""):
     branches = librarian("branches")
     paint_package_layer = librarian("paint_package_layer")
 
-    if branch in branches and branches[branch]:
+    # Checks if the branch exists in the branches dictionary.
+    if branch in branches:
         # Checks if layer value is a instance of a list.
         if not isinstance(layer, list):
             # Changes the current value to list value.
@@ -32,12 +33,12 @@ def add_layer(branch, layer, append="", position="", value=""):
 
         # Checks if there is no content in value.
         if not value:
-            # Value is equal to the value of branches > branch > header > value.
+            # Value is equal to the value of all nested layers.
             value = branches[branch][list(branches[branch])[0]]
 
         # Checks if content in append.
         if append:
-            # Saves the key and value of the current value dictionary.
+            # Saves the key and value of the current value.
             for key, value in value.items():
                 # Loops through all entries inside the append list.
                 for element in append:
@@ -60,35 +61,32 @@ def add_layer(branch, layer, append="", position="", value=""):
                             if len(position) == len(keys):
                                 # Loops through all entries of the layer list.
                                 for content in layer:
-                                    # Updates the current value and adds the content with dict value.
+                                    # Updates the current value and adds the content with dictionary value.
                                     value.update({content: {}})
-
-                                if key == list(value)[-1]:
-                                    # Clears all content in the keys list.
-                                    keys.clear()
-                        # Checks if content not in positions.
+                        # If content not in positions.
                         else:
                             # Loops through all entries inside the layer list.
                             for content in layer:
-                                # Updates the current value and adds the content with dict value.
+                                # Updates the current value and adds the content with dictionary value.
                                 value.update({content: {}})
-                    # Checks if current key of current value is not equal to the value of element.
+                    # If current key of current value is not equal to the value of element.
                     else:
                         # Checks if content in value.
                         if value:
                             # Recalls the current function with the new values.
                             add_layer(branch, layer, append, position, value)
-
-        # If there is no content in append, append element directly in branches > branch > header dictionary.
+        # If content not in append.
         else:
-            # Loops through all values in layer list.
+            # Loops through all entries in layer list.
             for content in layer:
-                # Adds value to branches > branch > header dictionary.
+                # Adds the first layers to the branch.
                 branches[branch][list(branches[branch])[0]].update({content: {}})
 
-        # Checks if the current branch value is inside the dictionary.
+        # Checks if the current branch value is inside the paint package.
         if not paint_package_layer.get(branch):
-            # Adds the current branch value as key and a new dictionary as value to the package dictionary.
+            # Adds the current branch value as key and a new dictionary as value to the paint package.
             paint_package_layer.update({branch: {}})
+    # If the branch does not exists in the branches dictionary.
     else:
+        # Runs a custom error.
         add_layer_error(branch, layer)

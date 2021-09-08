@@ -7,30 +7,30 @@ from br4nch.utility.unpacker import unpack_paint_clear
 from br4nch.utility.librarian import librarian
 
 
-# Algorithm to build all the given headers.
+# Algorithm to build the header.
 def build_header(branch, paint_branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paint_package_header = librarian("paint_package_header")
     paper = librarian("paper")
 
-    # Checks if content in package and returns the right paint clear value.
+    # Returns the calculated paint clear value.
     paint_clear = unpack_paint_clear(branch)
+    # Paint is equal to the returned clear paint value.
+    paint_header = paint_clear
 
-    # Checks if branch key in branch list has any value.
+    # Checks if branch exists in branches dictionary.
     if branches[branch]:
-        # Loops through all headers in the header list.
-        for header in branches[branch]:
-            # Resets the paint after every loop.
-            paint_header = paint_clear
+        # Gets the header of the parsed branch.
+        header = list(branches[branch].keys())[0]
 
-            # Checks if inspect paint base returns a value.
-            if unpack_paint_builder(branch, paint_package_header):
-                # Paint is equal to the returned inspect paint base value.
-                paint_header = unpack_paint_builder(branch, paint_package_header)
+        # Checks if the unpacker returns a value.
+        if unpack_paint_builder(branch, paint_package_header):
+            # Paint is equal to the returned unpacked value.
+            paint_header = unpack_paint_builder(branch, paint_package_header)
 
-            # Uses prefix with the end line symbol and appends the output to the paper list.
-            paper[branch].append(paint_clear + paint_header + header + paint_clear + paint_branch + paint_clear)
+        # Appends the current header branch line to the branch paper list.
+        paper[branch].append(paint_clear + paint_header + header + paint_clear + paint_branch + paint_clear)
 
-            # Runs the next tasks.
-            configure(branch)
+        # Runs the next task.
+        configure(branch, paint_branch)

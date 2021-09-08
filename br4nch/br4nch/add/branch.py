@@ -15,13 +15,15 @@ def add_branch(branch):
 
     # Adds the branch values inside the dictionaries.
     branches.update({branch: {}})
+
+    # Log lists to save output with branch as key and list as value.
     paper.update({branch: []})
     error.update({branch: []})
 
-    # Sets the symbols to default.
+    # Sets the symbols to default symbols.
     branch_symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
 
-    # Checks if the current branch value is inside the dictionary.
+    # Checks if the current branch value is inside the paint package.
     if not paint_package_branch.get(branch):
-        # Adds the current branch value as key and a new dictionary as value to the paint dictionary.
+        # Adds the current branch value as key and a new dictionary as value to the paint package.
         paint_package_branch.update({branch: {}})
