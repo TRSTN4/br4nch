@@ -1,48 +1,30 @@
-# Beta phase - br4nch v1.0.0
-# desc - Entering the beta phase.
+# Beta phase - br4nch v1.0.1
+# desc - Introducing the newly redesigned "add layer" algorithm.
 
 # Imports the br4nch package.
 import br4nch
 
 # Creates the "Database" branch.
-br4nch.add.branch("Database")
-# Creates the header for the "Database" branch.
-br4nch.add.header("Database", "Business")
-# Creates the layers in the "Database" branch.
-br4nch.add.layer("Database", ["Jobs", "Employee\nContacts", "Products"])
-br4nch.add.layer("Database", ["Accounting", "International Business\nNational Business"], "Jobs")
-br4nch.add.layer("Database", ["Bookkeepers", "Budget analysts"], ["Employee\nContacts", "Accounting"])
-br4nch.add.layer("Database", ["Trade specialists", "Import Specialist\nExport Specialist"],
-                 ["Employee\nContacts", "International Business\nNational Business"])
-br4nch.add.layer("Database", ["John\nDoe", "Jane\nDoe"], "Bookkeepers")
-br4nch.add.layer("Database", ["Email", "Phone"], ["John\nDoe", "Jane\nDoe"], "Employee\nContacts")
-br4nch.add.layer("Database", "john.doe@email.com\njohn.doe.alt@email.com", "Email",
-                 ["Employee\nContacts", "Bookkeepers", "Jane\nDoe"])
-br4nch.add.layer("Database", "01 23 45 67 89", "Phone", ["Employee\nContacts", "John\nDoe"])
-br4nch.add.layer("Database", "98 76 54 32 10", "Phone", ["Employee\nContacts", "Jane\nDoe"])
-br4nch.add.layer("Database", "Database", "Products")
-br4nch.add.layer("Database", ["MySQL", "MariaDB"], "Database")
+br4nch.add.branch(branch="Database")
+br4nch.add.header(branch="Database", header="Company")
+br4nch.add.layer(branch="Database", layer=["Jobs", "Employee\nContacts", "Products"], pos="0")
+br4nch.add.layer(branch="Database", layer=["Accounting", "International Business\nNational Business"], pos="1")
+br4nch.add.layer(branch="Database", layer=["Bookkeepers", "Budget analysts"], pos=["1.1", "2"])
+br4nch.add.layer(branch="Database", layer=["Trade operators", "Import specialist\nExport specialist"], pos=["1.2", "2"])
+br4nch.add.layer(branch="Database", layer=["John\nDoe", "Jane\nDoe"], pos="2.1")
+br4nch.add.layer(branch="Database", layer=["Email", "Phone"], pos=["2.1.1", "2.1.2"])
+br4nch.add.layer(branch="Database", layer="01 23 45 67 89", pos="2.1.1.2")
+br4nch.add.layer(branch="Database", layer="jane.doe@email.com", pos="2.1.2.1")
+br4nch.add.layer(branch="Database", layer="Database", pos="3")
+br4nch.add.layer(branch="Database", layer=["MySQL", "MariaDB"], pos="3.1")
 
 # Creates the "Test" branch.
-br4nch.add.branch("Test")
-# Creates the header for the "Test" branch.
-br4nch.add.header("Test", "Sample")
-# Creates the layers in the "Test" branch.
-br4nch.add.layer("Test", ["Text 1", "Text 2", "Text 3"])
-br4nch.add.layer("Test", ["Sub Text 1", "Sub Text 2"], ["Text 3"])
-br4nch.add.layer("Test", ["Sub Text 1", "Sub Text 2", "Sub Text 3"], "Text 2")
-br4nch.add.layer("Test", ["Last Text 1", "Last Text 2", "Last Text 3"], "Sub Text 2")
+br4nch.add.branch(branch="Test")
+br4nch.add.header(branch="Test", header="Sample")
+br4nch.add.layer(branch="Test", layer=["Text 1", "Text 2", "Text 3"])
+br4nch.add.layer(branch="Test", layer=["Sub Text 1", "Sub Text 2"], pos=["2", "3"])
+br4nch.add.layer(branch="Test", layer="Sub Text 3", pos="3")
+br4nch.add.layer(branch="Test", layer=["Last Text 1", "Last Text 2", "Last Text 3"], pos="3.2")
 
-# Paints the "Database" branch.
-br4nch.set.color.branch("Database", "blue")
-br4nch.set.color.header("Database", ["test", "bold"])
-br4nch.set.color.layer("Database", ["green", "bold", "underline"], ["Jobs", "Products"])
-br4nch.set.color.layer("Database", "red", "John\nDoe")
-br4nch.set.color.layer("Database", ["green", "bold", "underline"], "Jane\nDoe")
-br4nch.set.color.layer("Database", ["cyan", "underline"], "Trade specialists")
-
-# Changes the branch symbols.
-br4nch.set.symbol.branch("Test", "|", "|-----", "|__")
-
-# Displays the selected branches.
+# Displays the branches.
 br4nch.run.display()
