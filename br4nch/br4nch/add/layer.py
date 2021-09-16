@@ -5,62 +5,94 @@ from br4nch.utility.librarian import librarian
 from br4nch.utility.handler import add_layer_error
 
 
-def calculate(branch, layer, pos, value, branches):
-    if pos[0] == "0" or not pos[0]:
-        for content in layer:
-            branches[branch][list(branches[branch])[0]].update({content: {}})
-    else:
-        num_one = 0
-        # Saves the key and value of the current value.
-        for key, value in value.items():
-            num_one = num_one + 1
+# Gets the parsed arguments.
+def arguments(branch, layer, pos=""):
+    # Parses the arguments to the first task.
+    add_layer(branch, layer, pos)
 
-            if num_one == int(pos[0]):
+
+# Calculates where to add the parsed layer in the given position.
+def calculate(branch, layer, pos, branches, value=""):
+    # Checks if there is no content in value.
+    if not value:
+        # Value is equal to the value of all nested layers.
+        value = branches[branch][list(branches[branch])[0]]
+
+    # Checks if the first entry in the pos list is equal to zero or the first entry in the pos list doesnt have a value.
+    if pos[0] == "0" or not pos[0]:
+        # Loops through all layers in layer list.
+        for layer in layer:
+            # Updates the current value and adds the layer with new dictionary as value.
+            branches[branch][list(branches[branch])[0]].update({layer: {}})
+    # If the first entry in the pos list is not equal to zero or the first entry in the pos list does have a value.
+    else:
+        # Creates the num variable.
+        num = 0
+
+        # Gets the value of the current value variable.
+        for value in value.values():
+            # Num is equal to current value of num plus one.
+            num = num + 1
+
+            # Checks if the current value of num is equal to the int of the first entry in the pos list.
+            if num == int(pos[0]):
+                # Checks if length of entries in pos is smaller then 2.
                 if len(pos) < 2:
-                    for content in layer:
-                        value.update({content: {}})
+                    # Loops through all layers in layer list.
+                    for layer in layer:
+                        # Updates the current value and adds the layer with new dictionary as value.
+                        value.update({layer: {}})
+                # If length of entries in pos is not smaller then 2.
                 else:
+                    # Removes the last entry of pos list.
                     pos.pop(0)
-                    calculate(branch, layer, pos, value, branches)
+                    # Calls the calculate function.
+                    calculate(branch, layer, pos, branches, value)
+                    # Returns nothing and stops the loop.
                     return
 
 
 # Adds a new layer to the branches dictionary.
-def add_layer(branch, layer, pos="", value="", new=False):
+def add_layer(branch, layer, pos=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paint_package_layer = librarian("paint_package_layer")
 
-    # Checks if the branch exists in the branches dictionary.
-    if branch in branches:
-        # Checks if layer value is a instance of a list.
-        if not isinstance(layer, list):
-            # Changes the current value to list value.
-            layer = [layer]
+    # Checks if branch is not a instance of list.
+    if not isinstance(branch, list):
+        # Branch will be equal to a list that contains the value of branch.
+        branch = [branch]
 
-        if not isinstance(pos, list):
-            pos = [pos]
+    # Loops through all branches in the branch list.
+    for branch in branch:
+        # Checks if the branch exists in the branches dictionary.
+        if branch in branches:
+            # Checks if layer is not a instance of list.
+            if not isinstance(layer, list):
+                # Layer will be equal to a list that contains the value of layer.
+                layer = [layer]
 
-        # Checks if there is no content in value.
-        if not value:
-            # Value is equal to the value of all nested layers.
-            value = branches[branch][list(branches[branch])[0]]
+            # Checks if pos is not a instance of list.
+            if not isinstance(pos, list):
+                # Pos will be equal to a list that contains the value of pos.
+                pos = [pos]
 
-        if not new and isinstance(pos, list) and len(pos) > 1:
+            # Gets num value based on the length of entries in pos list.
             for num in range(len(pos)):
+                # Separates the numbers from the dots in current pos value.
                 pos[num] = pos[num].split(".")
+
+            # Loops through all positions in the pos list.
+            for pos in pos:
+                # Calls the calculate function.
+                calculate(branch, layer, pos, branches)
+
+            # Checks if the current branch value is inside the paint package.
+            if not paint_package_layer.get(branch):
+                # Adds the current branch value as key and a new dictionary as value to the paint package.
+                paint_package_layer.update({branch: {}})
+
+        # If the branch does not exists in the branches dictionary.
         else:
-            pos[0] = pos[0].split(".")
-
-        for pos in pos:
-            calculate(branch, layer, pos, value, branches)
-
-        # Checks if the current branch value is inside the paint package.
-        if not paint_package_layer.get(branch):
-            # Adds the current branch value as key and a new dictionary as value to the paint package.
-            paint_package_layer.update({branch: {}})
-
-    # If the branch does not exists in the branches dictionary.
-    else:
-        # Runs a custom error.
-        add_layer_error(branch, layer)
+            # Runs a custom error.
+            add_layer_error(branch, layer)

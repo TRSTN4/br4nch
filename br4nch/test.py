@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.0.1
-# desc - Introducing the newly redesigned "add layer" algorithm.
+# Beta phase - br4nch v1.0.2
+# desc - Introducing the newly redesigned "set color" algorithm, multiple hotfixes and adding branch list support.
 
 # Imports the br4nch package.
 import br4nch
@@ -18,6 +18,15 @@ br4nch.add.layer(branch="Database", layer="jane.doe@email.com", pos="2.1.2.1")
 br4nch.add.layer(branch="Database", layer="Database", pos="3")
 br4nch.add.layer(branch="Database", layer=["MySQL", "MariaDB"], pos="3.1")
 
+# Paints the "Database" branch.
+br4nch.set.color.branch(branch="Database", paint="blue")
+br4nch.set.color.header(branch="Database", paint=["cyan"])
+br4nch.set.color.layer(branch="Database", paint=["green", "bold"], pos=["1", "2", "3"])
+br4nch.set.color.layer(branch="Database", paint=["red", "underline"], pos=["1.1.1", "2.1"])
+br4nch.set.color.layer(branch="Database", paint=["cyan", "underline"], pos=["2.1.1.2.1"])
+br4nch.set.color.layer(branch="Database", paint=["yellow", "bold"], pos=["2.1.2.1.1"])
+br4nch.set.color.layer(branch="Database", paint=["yellow", "underline"], pos=["3.1.1"])
+
 # Creates the "Test" branch.
 br4nch.add.branch(branch="Test")
 br4nch.add.header(branch="Test", header="Sample")
@@ -25,6 +34,9 @@ br4nch.add.layer(branch="Test", layer=["Text 1", "Text 2", "Text 3"])
 br4nch.add.layer(branch="Test", layer=["Sub Text 1", "Sub Text 2"], pos=["2", "3"])
 br4nch.add.layer(branch="Test", layer="Sub Text 3", pos="3")
 br4nch.add.layer(branch="Test", layer=["Last Text 1", "Last Text 2", "Last Text 3"], pos="3.2")
+
+# Changes the "Test" branch symbols.
+br4nch.set.symbol.branch(branch="Test", line="|", split="}---->", end="!-->")
 
 # Displays the branches.
 br4nch.run.display()

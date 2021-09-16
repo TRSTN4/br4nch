@@ -4,6 +4,12 @@
 from br4nch.utility.librarian import librarian
 
 
+# Gets the parsed arguments.
+def arguments(branch):
+    # Parses the arguments to the first task.
+    add_branch(branch)
+
+
 # Adds a new name for the branch.
 def add_branch(branch):
     # Gets the needed lists/dictionaries.
@@ -13,17 +19,24 @@ def add_branch(branch):
     paint_package_branch = librarian("paint_package_branch")
     branch_symbols = librarian("branch_symbols")
 
-    # Adds the branch values inside the dictionaries.
-    branches.update({branch: {}})
+    # Checks if branch is not a instance of list.
+    if not isinstance(branch, list):
+        # Branch will be equal to a list that contains the value of branch.
+        branch = [branch]
 
-    # Log lists to save output with branch as key and list as value.
-    paper.update({branch: []})
-    error.update({branch: []})
+    # Loops through all branches in the branch list.
+    for branch in branch:
+        # Adds the branch values inside the dictionaries.
+        branches.update({branch: {}})
 
-    # Sets the symbols to default symbols.
-    branch_symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+        # Log lists to save output with branch as key and list as value.
+        paper.update({branch: []})
+        error.update({branch: []})
 
-    # Checks if the current branch value is inside the paint package.
-    if not paint_package_branch.get(branch):
-        # Adds the current branch value as key and a new dictionary as value to the paint package.
-        paint_package_branch.update({branch: {}})
+        # Sets the symbols to default symbols.
+        branch_symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+
+        # Checks if the current branch value is inside the paint package.
+        if not paint_package_branch.get(branch):
+            # Adds the current branch value as key and a new dictionary as value to the paint package.
+            paint_package_branch.update({branch: {}})

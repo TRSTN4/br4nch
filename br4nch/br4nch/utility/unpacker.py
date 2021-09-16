@@ -6,14 +6,14 @@ from br4nch.utility.painter import painter
 
 
 # Unpacks the paint packages for the branch.
-def unpack_paint_builder(branch, paint_package, layer=""):
+def unpack_paint_builder(branch, paint_package, pos=""):
     # Action is equal to branch.
     action = branch
 
-    # Checks if layer has content.
-    if layer:
-        # Action is equal to layer.
-        action = layer
+    # Checks if pos has value.
+    if pos:
+        # Action is equal to pos.
+        action = pos
         # The paint package is equal to the paint package with the given branch as key.
         paint_package = paint_package[branch]
 

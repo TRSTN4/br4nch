@@ -87,13 +87,12 @@ def elevator(branch, value, pos=0):
 
 
 # Algorithm to build the layer.
-def build_layer(branch, paint_branch, value=""):
+def build_layer(branch, paint_branch, value="", pos=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paper = librarian("paper")
-    paint_package_branch = librarian("paint_package_branch")
-    paint_package_layer = librarian("paint_package_layer")
     branch_symbols = librarian("branch_symbols")
+    paint_package_layer = librarian("paint_package_layer")
 
     # Branch symbols variables.
     line = branch_symbols[branch].get("line")
@@ -118,21 +117,36 @@ def build_layer(branch, paint_branch, value=""):
     # Stores the previous value.
     prev_value = value.copy()
 
+    # Creates the num variable.
+    num = 0
+
     # Gets the layer/key and value of the current value variable.
     for layer, value in value.items():
-        # Updates the latest trace and adds the current value of trace by one.
-        trace[0] = trace[0] + 1
-        # Extend is equal to the value returned by the extenders function.
-        extend = extenders(branches, branch, line, split, end, value, layer, prev_value)
+        # Num is equal to the value of num plus one.
+        num = num + 1
+
+        # Checks if num is equal to one.
+        if num == 1:
+            # Adds the current num to pos string.
+            pos = pos.replace(pos, pos + str(num))
+        # If num is not equal to one.
+        else:
+            # Removes the last num in pos string.
+            pos = pos.replace(pos, pos[:-1] + str(num))
 
         # Checks if the unpacker returns a value.
-        if unpack_paint_builder(branch, paint_package_layer, layer):
+        if unpack_paint_builder(branch, paint_package_layer, pos):
             # Paint is equal to the returned unpacked value.
-            paint_layer = unpack_paint_builder(branch, paint_package_layer, layer)
+            paint_layer = unpack_paint_builder(branch, paint_package_layer, pos)
         # If the unpacker does not returns a value.
         else:
             # Paint is equal to empty string.
             paint_layer = ""
+
+        # Updates the latest trace and adds the current value of trace by one.
+        trace[0] = trace[0] + 1
+        # Extend is equal to the value returned by the extenders function.
+        extend = extenders(branches, branch, line, split, end, value, layer, prev_value)
 
         # Checks if the layer value is equal to the last layer inside the previous value.
         if layer == list(reversed(list(prev_value)))[0]:
@@ -150,4 +164,4 @@ def build_layer(branch, paint_branch, value=""):
         # Checks if content in value
         if value:
             # Recalls the current function with the current value of value variable.
-            build_layer(branch, paint_branch, value)
+            build_layer(branch, paint_branch, value, pos)

@@ -7,8 +7,14 @@ from br4nch.utility.printer import printer
 from br4nch.utility.handler import display_error
 
 
+# Gets the parsed arguments.
+def arguments(branch=""):
+    # Parses the arguments to the first task.
+    display(branch)
+
+
 # Prints and builds the chosen branches.
-def display(branch=""):
+def display(branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
 
