@@ -152,14 +152,15 @@ def build_layer(branch, paint_branch, value="", pos=""):
         if layer == list(reversed(list(prev_value)))[0]:
             # Appends the current layer branch line to the branch paper list.
             paper[branch].append(paint_branch + extend + line + "\n" + extend + end + " " + paint_clear + paint_layer
-                                 + layer.replace("\n", paint_clear + "\n" + paint_branch + extend + paint_clear + " "
-                                                 * int(len(end) + 1) + paint_layer) + paint_clear)
+                                 + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + paint_clear
+                                                       + " " * int(len(end) + 1) + paint_layer) + paint_clear)
         # If the layer is not equal to the last layer inside the previous value.
         else:
             # Appends the current layer branch line to the branch paper list.
             paper[branch].append(paint_branch + extend + line + "\n" + extend + split + " " + paint_clear + paint_layer
-                                 + layer.replace("\n", paint_clear + "\n" + paint_branch + extend + line + paint_clear
-                                                 + " " * int(len(split)) + paint_layer) + paint_clear)
+                                 + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + line
+                                                       + paint_clear + " " * int(len(split)) + paint_layer)
+                                 + paint_clear)
 
         # Checks if content in value
         if value:

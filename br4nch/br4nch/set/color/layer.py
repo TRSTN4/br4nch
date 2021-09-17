@@ -29,7 +29,7 @@ def calculate(branch, paint, pos, match, value=""):
         # Num is equal to current value of num plus one.
         num = num + 1
 
-        # Checks if the current value of num is equal to the int of the first entry in the pos list.
+        # Checks if the current value of num is equal to the integer of the first entry in the pos list.
         if num == int(pos[0]):
             # Checks if length of entries in pos is smaller then 2.
             if len(pos) < 2:
@@ -37,7 +37,7 @@ def calculate(branch, paint, pos, match, value=""):
                 paint_package_layer[branch].update({match: painter(paint, branch, layer)})
             # If length of entries in pos is not smaller then 2.
             else:
-                # Removes the last entry of pos list.
+                # Removes the first entry of pos list.
                 pos.pop(0)
                 # Calls the calculate function.
                 calculate(branch, paint, pos, match, value)

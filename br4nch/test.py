@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.0.2
-# desc - Introducing the newly redesigned "set color" algorithm, multiple hotfixes and adding branch list support.
+# Beta phase - br4nch v1.0.3
+# desc - Added UID generator that appends a unique id to all layers.
 
 # Imports the br4nch package.
 import br4nch

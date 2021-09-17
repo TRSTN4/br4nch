@@ -11,6 +11,35 @@ def arguments(branch, layer, pos=""):
     add_layer(branch, layer, pos)
 
 
+# Generates a unique UID.
+def get_uid(length=10):
+    # Imports the built-in python uuid package.
+    import uuid
+
+    # Gets the needed lists/dictionaries.
+    uids = librarian("uids")
+
+    # Creates the UID.
+    uid = str(uuid.uuid4()).replace("-", "")[0:length]
+
+    # Loops until a unique UID is created.
+    while True:
+        # Checks if UID in UIDS list.
+        if uid in uids:
+            # Recalls the function and creates a new UID.
+            get_uid(length)
+            # Returns nothing.
+            return
+        # If UID not in UIDS list.
+        else:
+            # Appends the UID to the UIDS list.
+            uids.append(uid)
+            # Breaks the loop.
+            break
+    # Returns the UID.
+    return ":uid=" + uid
+
+
 # Calculates where to add the parsed layer in the given position.
 def calculate(branch, layer, pos, branches, value=""):
     # Checks if there is no content in value.
@@ -22,8 +51,8 @@ def calculate(branch, layer, pos, branches, value=""):
     if pos[0] == "0" or not pos[0]:
         # Loops through all layers in layer list.
         for layer in layer:
-            # Updates the current value and adds the layer with new dictionary as value.
-            branches[branch][list(branches[branch])[0]].update({layer: {}})
+            # Updates the current value and adds the layer with uid and new dictionary as value.
+            branches[branch][list(branches[branch])[0]].update({layer + get_uid(): {}})
     # If the first entry in the pos list is not equal to zero or the first entry in the pos list does have a value.
     else:
         # Creates the num variable.
@@ -40,8 +69,8 @@ def calculate(branch, layer, pos, branches, value=""):
                 if len(pos) < 2:
                     # Loops through all layers in layer list.
                     for layer in layer:
-                        # Updates the current value and adds the layer with new dictionary as value.
-                        value.update({layer: {}})
+                        # Updates the current value and adds the layer with uid and new dictionary as value.
+                        value.update({layer + get_uid(): {}})
                 # If length of entries in pos is not smaller then 2.
                 else:
                     # Removes the last entry of pos list.
