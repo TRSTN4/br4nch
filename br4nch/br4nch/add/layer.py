@@ -2,6 +2,7 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+from br4nch.utility.positioner import build_pos
 from br4nch.utility.handler import add_layer_error
 
 
@@ -41,7 +42,7 @@ def get_uid(length=10):
 
 
 # Calculates where to add the parsed layer in the given position.
-def calculate(branch, layer, pos, branches, value=""):
+def add_position(branch, layer, pos, branches, value=""):
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -55,16 +56,16 @@ def calculate(branch, layer, pos, branches, value=""):
             branches[branch][list(branches[branch])[0]].update({layer + get_uid(): {}})
     # If the first entry in the pos list is not equal to zero or the first entry in the pos list does have a value.
     else:
-        # Creates the num variable.
-        num = 0
+        # Creates the count variable.
+        count = 0
 
         # Gets the value of the current value variable.
         for value in value.values():
-            # Num is equal to current value of num plus one.
-            num = num + 1
+            # Count is equal to current value of count plus one.
+            count = count + 1
 
-            # Checks if the current value of num is equal to the int of the first entry in the pos list.
-            if num == int(pos[0]):
+            # Checks if the current value of count is equal to the int of the first entry in the pos list.
+            if count == int(pos[0]):
                 # Checks if length of entries in pos is smaller then 2.
                 if len(pos) < 2:
                     # Loops through all layers in layer list.
@@ -76,7 +77,7 @@ def calculate(branch, layer, pos, branches, value=""):
                     # Removes the last entry of pos list.
                     pos.pop(0)
                     # Calls the calculate function.
-                    calculate(branch, layer, pos, branches, value)
+                    add_position(branch, layer, pos, branches, value)
                     # Returns nothing and stops the loop.
                     return
 
@@ -92,29 +93,27 @@ def add_layer(branch, layer, pos=""):
         # Branch will be equal to a list that contains the value of branch.
         branch = [branch]
 
+    # Checks if layer is not a instance of list.
+    if not isinstance(layer, list):
+        # Layer will be equal to a list that contains the value of layer.
+        layer = [layer]
+
+    # Checks if pos is not a instance of list.
+    if not isinstance(pos, list):
+        # Pos will be equal to a list that contains the value of pos.
+        pos = [pos]
+
     # Loops through all branches in the branch list.
     for branch in branch:
         # Checks if the branch exists in the branches dictionary.
         if branch in branches:
-            # Checks if layer is not a instance of list.
-            if not isinstance(layer, list):
-                # Layer will be equal to a list that contains the value of layer.
-                layer = [layer]
-
-            # Checks if pos is not a instance of list.
-            if not isinstance(pos, list):
-                # Pos will be equal to a list that contains the value of pos.
-                pos = [pos]
-
-            # Gets num value based on the length of entries in pos list.
-            for num in range(len(pos)):
-                # Separates the numbers from the dots in current pos value.
-                pos[num] = pos[num].split(".")
+            # Calls the operator function and gets the returned pos.
+            pos = build_pos(branch, pos)
 
             # Loops through all positions in the pos list.
             for pos in pos:
-                # Calls the calculate function.
-                calculate(branch, layer, pos, branches)
+                # Calls the calculate_position function.
+                add_position(branch, layer, pos, branches)
 
             # Checks if the current branch value is inside the paint package.
             if not paint_package_layer.get(branch):

@@ -3,6 +3,7 @@
 # Imports all files.
 from br4nch.utility.librarian import librarian
 from br4nch.utility.painter import painter
+from br4nch.utility.positioner import build_pos
 
 
 # Gets the parsed arguments.
@@ -69,6 +70,10 @@ def color_layer(branch, paint, pos):
     for branch in branch:
         # Reverts to original saved pos value for each loop.
         pos = saved_pos
+
+        # Calls the operator function and gets the returned pos.
+        pos = build_pos(branch, pos)
+
         # Loops through all positions in the pos list.
         for pos in pos:
             # Creates the match variable.
