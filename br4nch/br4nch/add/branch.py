@@ -17,7 +17,8 @@ def add_branch(branch):
     paper = librarian("paper")
     error = librarian("error")
     paint_package_branch = librarian("paint_package_branch")
-    branch_symbols = librarian("branch_symbols")
+    symbols = librarian("symbols")
+    size = librarian("size")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -33,8 +34,10 @@ def add_branch(branch):
         paper.update({branch: []})
         error.update({branch: []})
 
+        size.update({branch: 1})
+
         # Sets the symbols to default symbols.
-        branch_symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+        symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
 
         # Checks if the current branch value is inside the paint package.
         if not paint_package_branch.get(branch):

@@ -5,7 +5,10 @@ from br4nch.utility.librarian import librarian
 
 
 # Calculates the given operator(s) and replaces the operator(s) with the calculated numbers in different positions.
-def calculate_operator(branches, branch, pos, value=""):
+def calculate_operator(branch, pos, value=""):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -39,16 +42,13 @@ def calculate_operator(branches, branch, pos, value=""):
                 # Removes the first element in the pos list.
                 pos.pop(0)
                 # Recalls the function.
-                numbers = calculate_operator(branches, branch, pos, value)
+                numbers = calculate_operator(branch, pos, value)
                 # Returns the numbers list.
                 return numbers
 
 
 # Builds the pos using multiple algorithms.
 def build_pos(branch, pos):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Gets position value based on the length of entries in pos list.
     for position in range(len(pos)):
         # Checks if "." in current value of element in pos.
@@ -80,7 +80,7 @@ def build_pos(branch, pos):
             # Checks if "*" in current value of element in current pos list.
             if "*" in pos[position][element]:
                 # Gets the numbers list from the calculated_options function.
-                numbers = calculate_operator(branches, branch, pos[position])
+                numbers = calculate_operator(branch, pos[position])
                 # Loops through all numbers.
                 for num in numbers:
                     # Appends a copy of the current value of pos list in the pos list to the post list.
@@ -154,7 +154,7 @@ def build_pos(branch, pos):
                     smaller = split[1]
 
                 # Gets the numbers list from the calculated_options function.
-                numbers = calculate_operator(branches, branch, pos[position])
+                numbers = calculate_operator(branch, pos[position])
 
                 # Loops through all the numbers between the value of the smaller plus one and the bigger variable.
                 for count in range(int(bigger) + 1 - int(smaller)):

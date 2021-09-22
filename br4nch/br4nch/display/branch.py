@@ -2,20 +2,21 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
-from br4nch.utility.painter import painter
+from br4nch.utility.builder.branch import build_branch
+from br4nch.utility.printer import printer
+from br4nch.utility.handler import display_error
 
 
 # Gets the parsed arguments.
-def arguments(paint, branch=""):
+def arguments(branch=""):
     # Parses the arguments to the first task.
-    color_branch(branch, paint)
+    display_branch(branch)
 
 
-# Adds the chosen paint to the parsed branch.
-def color_branch(branch, paint):
+# Prints and builds the chosen branches.
+def display_branch(branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    paint_package_branch = librarian("paint_package_branch")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -27,11 +28,14 @@ def color_branch(branch, paint):
             branch.append(value)
         branch.pop(0)
 
-    # Loops through all branches in the branch list.
+    # Loops through all branches in the parsed branch value.
     for branch in branch:
         for y in list(branches):
             if branch.lower() == y.lower():
                 branch = y
 
-                # Adds the branch as key and the paint as value to the paint package.
-                paint_package_branch.update({branch: painter(paint, branch)})
+                # Builds the chosen branches.
+                build_branch(y)
+
+    # Prints the chosen branches.
+    printer("display_branch")

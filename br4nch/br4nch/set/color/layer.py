@@ -7,14 +7,13 @@ from br4nch.utility.positioner import build_pos
 
 
 # Gets the parsed arguments.
-def arguments(branch, paint, pos=""):
+def arguments(paint, branch="", pos=""):
     # Parses the arguments to the first task.
     color_layer(branch, paint, pos)
 
 
-def calculate(branch, paint, pos, match, value=""):
+def calculate(branches, branch, paint, pos, match, value=""):
     # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
     paint_package_layer = librarian("paint_package_layer")
 
     # Checks if there is no content in value.
@@ -41,46 +40,54 @@ def calculate(branch, paint, pos, match, value=""):
                 # Removes the first entry of pos list.
                 pos.pop(0)
                 # Calls the calculate function.
-                calculate(branch, paint, pos, match, value)
+                calculate(branches, branch, paint, pos, match, value)
                 # Returns nothing and stops the loop.
                 return
 
 
 # Adds the chosen paint to the parsed position.
-def color_layer(branch, paint, pos):
+def color_layer(branch, paint, position):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
         branch = [branch]
 
     # Checks if pos is not a instance of list.
-    if not isinstance(pos, list):
+    if not isinstance(position, list):
         # Pos will be equal to a list that contains the value of pos.
-        pos = [pos]
+        position = [position]
 
     # Gets num value based on the length of entries in pos list.
-    for num in range(len(pos)):
+    for num in range(len(position)):
         # Separates the numbers from the dots in current pos value.
-        pos[num] = pos[num].split(".")
+        position[num] = position[num].split(".")
 
-    # Saves the current pos value.
-    saved_pos = pos.copy()
+    if not branch[0]:
+        for value in list(branches):
+            branch.append(value)
+        branch.pop(0)
 
     # Loops through all branches in the branch list.
     for branch in branch:
-        # Reverts to original saved pos value for each loop.
-        pos = saved_pos
+        for y in list(branches):
+            if branch.lower() == y.lower():
+                branch = y
 
-        # Calls the operator function and gets the returned pos.
-        pos = build_pos(branch, pos)
+                # Calls the operator function and gets the returned pos.
+                pos = build_pos(branch, position.copy())
 
-        # Loops through all positions in the pos list.
-        for pos in pos:
-            # Creates the match variable.
-            match = ""
-            # Loops through all values of pos list.
-            for value in pos:
-                # Match is equal to current value of match plus the value.
-                match = match + value
-            # Calls the calculate function.
-            calculate(branch, paint, pos, match)
+                for pos in pos:
+                    match = ""
+
+                    # Loops through all values of pos list.
+                    for value in pos:
+                        # Creates the match variable.
+                        for x in value:
+                            # Match is equal to current value of match plus the value.
+                            match = match + x
+
+                    # Calls the calculate function.
+                    calculate(branches, branch, paint, pos, match)

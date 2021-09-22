@@ -28,6 +28,13 @@ def import_paint():
     clear = painter("clear")
 
 
+def get_pos_result(branch, layer, pos):
+    return green + "[+] " + bold + "Get Position Result" + clear + green + bold + ":\n" + " " * 4 + "└─ Branch: "\
+           + yellow + bold + branch + clear + red + "\n" + clear + green + bold + " " * 7 + "└─ Layer: " + clear\
+           + yellow + bold + layer.replace("\n", " ") + "\n" + " " * 10 + green + "└─ Position: " + clear + yellow\
+           + bold + pos + clear
+
+
 # Drops the error if the parsed branch does not exists.
 def display_error(branch):
     # Checks if pares branch exists in the error dictionary.

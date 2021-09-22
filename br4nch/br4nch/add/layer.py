@@ -7,7 +7,7 @@ from br4nch.utility.handler import add_layer_error
 
 
 # Gets the parsed arguments.
-def arguments(branch, layer, pos=""):
+def arguments(layer, branch="", pos=""):
     # Parses the arguments to the first task.
     add_layer(branch, layer, pos)
 
@@ -83,7 +83,7 @@ def add_position(branch, layer, pos, branches, value=""):
 
 
 # Adds a new layer to the branches dictionary.
-def add_layer(branch, layer, pos=""):
+def add_layer(branch, layer, position):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paint_package_layer = librarian("paint_package_layer")
@@ -99,28 +99,30 @@ def add_layer(branch, layer, pos=""):
         layer = [layer]
 
     # Checks if pos is not a instance of list.
-    if not isinstance(pos, list):
+    if not isinstance(position, list):
         # Pos will be equal to a list that contains the value of pos.
-        pos = [pos]
+        position = [position]
+
+    if not branch[0]:
+        for value in list(branches):
+            branch.append(value)
+        branch.pop(0)
 
     # Loops through all branches in the branch list.
     for branch in branch:
-        # Checks if the branch exists in the branches dictionary.
-        if branch in branches:
-            # Calls the operator function and gets the returned pos.
-            pos = build_pos(branch, pos)
+        for y in list(branches):
+            if branch.lower() == y.lower():
+                branch = y
 
-            # Loops through all positions in the pos list.
-            for pos in pos:
-                # Calls the calculate_position function.
-                add_position(branch, layer, pos, branches)
+                # Calls the operator function and gets the returned pos.
+                position = build_pos(branch, position)
 
-            # Checks if the current branch value is inside the paint package.
-            if not paint_package_layer.get(branch):
-                # Adds the current branch value as key and a new dictionary as value to the paint package.
-                paint_package_layer.update({branch: {}})
+                # Loops through all positions in the pos list.
+                for pos in position:
+                    # Calls the calculate_position function.
+                    add_position(branch, layer, pos.copy(), branches)
 
-        # If the branch does not exists in the branches dictionary.
-        else:
-            # Runs a custom error.
-            add_layer_error(branch, layer)
+                # Checks if the current branch value is inside the paint package.
+                if not paint_package_layer.get(branch):
+                    # Adds the current branch value as key and a new dictionary as value to the paint package.
+                    paint_package_layer.update({branch: {}})

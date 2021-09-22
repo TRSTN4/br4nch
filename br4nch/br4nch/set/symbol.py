@@ -5,7 +5,7 @@ from br4nch.utility.librarian import librarian
 
 
 # Gets the parsed arguments.
-def arguments(branch, line="┃", split="┣━━", end="┗━━"):
+def arguments(branch="", line="┃", split="┣━━", end="┗━━"):
     # Parses the arguments to the first task.
     symbol_branch(branch, line, split, end)
 
@@ -13,7 +13,8 @@ def arguments(branch, line="┃", split="┣━━", end="┗━━"):
 # Changes the symbols of the branch to the given input.
 def symbol_branch(branch, line, split, end):
     # Gets the needed lists/dictionaries.
-    branch_symbols = librarian("branch_symbols")
+    branches = librarian("branches")
+    symbols = librarian("symbols")
 
     # Checks if not line.
     if not line:
@@ -33,13 +34,22 @@ def symbol_branch(branch, line, split, end):
         # Branch will be equal to a list that contains the value of branch.
         branch = [branch]
 
+    if not branch[0]:
+        for value in list(branches):
+            branch.append(value)
+        branch.pop(0)
+
     # Loops through all branches in the branch list.
     for branch in branch:
-        # Checks if branch is in the branch symbols dictionary.
-        if branch in branch_symbols:
-            # Updates the branch line symbol to the given input.
-            branch_symbols[branch].update({"line": line})
-            # Updates the branch split symbol to the given input.
-            branch_symbols[branch].update({"split": split})
-            # Updates the branch end symbol to the given input.
-            branch_symbols[branch].update({"end": end})
+        for y in list(branches):
+            if branch.lower() == y.lower():
+                branch = y
+
+                # Checks if branch is in the symbols dictionary.
+                if branch in symbols:
+                    # Updates the branch line symbol to the given input.
+                    symbols[branch].update({"line": line})
+                    # Updates the branch split symbol to the given input.
+                    symbols[branch].update({"split": split})
+                    # Updates the branch end symbol to the given input.
+                    symbols[branch].update({"end": end})

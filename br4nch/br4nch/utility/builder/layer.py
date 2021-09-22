@@ -11,7 +11,7 @@ def configure(branch, paint_branch):
     # All global statements.
     global levels, trace, chain, queue, last
 
-    # Required lists.
+    # Sets the lists.
     levels = [0]
     trace = [0]
     chain = []
@@ -91,13 +91,14 @@ def build_layer(branch, paint_branch, value="", pos=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paper = librarian("paper")
-    branch_symbols = librarian("branch_symbols")
+    symbols = librarian("symbols")
     paint_package_layer = librarian("paint_package_layer")
+    size = librarian("size")
 
     # Branch symbols variables.
-    line = branch_symbols[branch].get("line")
-    split = branch_symbols[branch].get("split")
-    end = branch_symbols[branch].get("end")
+    line = symbols[branch].get("line")
+    split = symbols[branch].get("split")
+    end = symbols[branch].get("end")
 
     # Returns the calculated paint clear value.
     paint_clear = unpack_paint_clear(branch)
@@ -148,16 +149,20 @@ def build_layer(branch, paint_branch, value="", pos=""):
         # Extend is equal to the value returned by the extenders function.
         extend = extenders(branches, branch, line, split, end, value, layer, prev_value)
 
+        spaces = ""
+        for _ in range(size[branch]):
+             spaces = spaces + extend + line + "\n"
+
         # Checks if the layer value is equal to the last layer inside the previous value.
-        if layer == list(reversed(list(prev_value)))[0]:
+        if layer == list(prev_value)[-1]:
             # Appends the current layer branch line to the branch paper list.
-            paper[branch].append(paint_branch + extend + line + "\n" + extend + end + " " + paint_clear + paint_layer
+            paper[branch].append(paint_branch + spaces + extend + end + " " + paint_clear + paint_layer
                                  + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + paint_clear
                                                        + " " * int(len(end) + 1) + paint_layer) + paint_clear)
         # If the layer is not equal to the last layer inside the previous value.
         else:
             # Appends the current layer branch line to the branch paper list.
-            paper[branch].append(paint_branch + extend + line + "\n" + extend + split + " " + paint_clear + paint_layer
+            paper[branch].append(paint_branch + spaces + extend + split + " " + paint_clear + paint_layer
                                  + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + line
                                                        + paint_clear + " " * int(len(split)) + paint_layer)
                                  + paint_clear)
