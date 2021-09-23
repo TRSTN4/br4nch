@@ -1,12 +1,12 @@
-# Beta phase - br4nch v1.0.5
-# desc - Introducing the "size" feature that resizes the branch, "get pos" feature, adding list support and hotfixes.
+# Beta phase - br4nch v1.0.6
+# desc - Introducing the "position assist" feature that displays all current layer positions in a branch.
 
 # Imports the br4nch package.
 import br4nch
 
 # Creates the "Database" branch.
 br4nch.add.branch(branch="Database")
-br4nch.add.header(branch="database", header="Company")
+br4nch.add.header(branch="Database", header="Company")
 br4nch.add.layer(branch="Database", layer=["Jobs", "Employee\nContacts", "Products"], pos="0")
 br4nch.add.layer(branch="Database", layer=["Accounting", "International Business\nNational Business"], pos="1")
 br4nch.add.layer(branch="Database", layer=["Bookkeepers", "Budget analysts"], pos=["1.1", "2"])
@@ -44,6 +44,9 @@ br4nch.set.size(branch="Test", size=0)
 
 # Displays the given positions and/or layers.
 br4nch.display.pos(branch="Test", pos="3.2.3", layer="Sub Text 1")
+
+# Displays all layer positions in a branch.
+br4nch.display.assist()
 
 # Displays the branches.
 br4nch.display.branch()

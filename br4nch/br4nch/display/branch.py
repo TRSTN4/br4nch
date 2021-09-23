@@ -8,15 +8,16 @@ from br4nch.utility.handler import display_error
 
 
 # Gets the parsed arguments.
-def arguments(branch=""):
+def arguments(branch="", delete=False):
     # Parses the arguments to the first task.
-    display_branch(branch)
+    display_branch(branch, delete)
 
 
 # Prints and builds the chosen branches.
-def display_branch(branch):
+def display_branch(branch, delete):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
+    output = librarian("output")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -34,8 +35,9 @@ def display_branch(branch):
             if branch.lower() == y.lower():
                 branch = y
 
-                # Builds the chosen branches.
-                build_branch(y)
+                if not output[branch]:
+                    # Builds the chosen branches.
+                    build_branch(branch)
 
-    # Prints the chosen branches.
-    printer("display_branch")
+                # Prints the chosen branches.
+                printer("display_branch", branch, delete)

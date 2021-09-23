@@ -8,6 +8,7 @@ import br4nch.utility.librarian
 import br4nch.utility.painter
 import br4nch.utility.handler
 import br4nch.utility.positioner
+import br4nch.utility.generator
 
 # Manager runs all the needed tasks.
 manager.manager()

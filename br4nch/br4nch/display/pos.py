@@ -24,7 +24,7 @@ def elevator(branch, value, pos=0):
 
 def calculate(branch, layer="", pos="", action="", value="", string=""):
     # Gets the needed lists/dictionaries.
-    found_positions = librarian("found_positions")
+    positions = librarian("positions")
     branches = librarian("branches")
 
     # Checks if there is no content in value.
@@ -59,15 +59,15 @@ def calculate(branch, layer="", pos="", action="", value="", string=""):
             string = string[1:]
 
         if action == "all":
-            found_positions.update({key: {branch: string}})
+            positions.update({key: {branch: string}})
 
         if pos and action == "pos":
             if pos == string:
-                found_positions.update({key: {branch: string}})
+                positions.update({key: {branch: string}})
 
         if layer and action == "layer":
             if layer.lower() == key.lower()[:-15]:
-                found_positions.update({key: {branch: string}})
+                positions.update({key: {branch: string}})
 
         if value:
             calculate(branch, layer, pos, action, value, string)

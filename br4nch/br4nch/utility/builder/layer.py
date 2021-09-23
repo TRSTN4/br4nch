@@ -90,7 +90,7 @@ def elevator(branch, value, pos=0):
 def build_layer(branch, paint_branch, value="", pos=""):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    paper = librarian("paper")
+    output = librarian("output")
     symbols = librarian("symbols")
     paint_package_layer = librarian("paint_package_layer")
     size = librarian("size")
@@ -156,13 +156,13 @@ def build_layer(branch, paint_branch, value="", pos=""):
         # Checks if the layer value is equal to the last layer inside the previous value.
         if layer == list(prev_value)[-1]:
             # Appends the current layer branch line to the branch paper list.
-            paper[branch].append(paint_branch + spaces + extend + end + " " + paint_clear + paint_layer
+            output[branch].append(paint_branch + spaces + extend + end + " " + paint_clear + paint_layer
                                  + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + paint_clear
                                                        + " " * int(len(end) + 1) + paint_layer) + paint_clear)
         # If the layer is not equal to the last layer inside the previous value.
         else:
             # Appends the current layer branch line to the branch paper list.
-            paper[branch].append(paint_branch + spaces + extend + split + " " + paint_clear + paint_layer
+            output[branch].append(paint_branch + spaces + extend + split + " " + paint_clear + paint_layer
                                  + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + line
                                                        + paint_clear + " " * int(len(split)) + paint_layer)
                                  + paint_clear)

@@ -14,7 +14,7 @@ def arguments(branch):
 def add_branch(branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    paper = librarian("paper")
+    output = librarian("output")
     error = librarian("error")
     paint_package_branch = librarian("paint_package_branch")
     symbols = librarian("symbols")
@@ -31,7 +31,7 @@ def add_branch(branch):
         branches.update({branch: {}})
 
         # Log lists to save output with branch as key and list as value.
-        paper.update({branch: []})
+        output.update({branch: []})
         error.update({branch: []})
 
         size.update({branch: 1})

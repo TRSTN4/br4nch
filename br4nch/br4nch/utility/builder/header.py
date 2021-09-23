@@ -12,7 +12,7 @@ def build_header(branch, paint_branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     paint_package_header = librarian("paint_package_header")
-    paper = librarian("paper")
+    output = librarian("output")
 
     # Returns the calculated paint clear value.
     paint_clear = unpack_paint_clear(branch)
@@ -30,7 +30,7 @@ def build_header(branch, paint_branch):
             paint_header = unpack_paint_builder(branch, paint_package_header)
 
         # Appends the current header branch line to the branch paper list.
-        paper[branch].append(paint_clear + paint_header + header + paint_clear + paint_branch + paint_clear)
+        output[branch].append(paint_clear + paint_header + header + paint_clear + paint_branch + paint_clear)
 
         # Runs the next task.
         configure(branch, paint_branch)
