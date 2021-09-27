@@ -7,13 +7,14 @@ from br4nch.utility.positioner import build_pos
 
 
 # Gets the parsed arguments.
-def arguments(paint, branch="", pos=""):
+def arguments(branch="", pos=""):
     # Parses the arguments to the first task.
-    color_layer(branch, paint, pos)
+    color_layer(branch, pos)
 
 
-def calculate(branches, branch, paint, pos, match, value=""):
+def calculate(branch, pos, match, value=""):
     # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
     paint_package_layer = librarian("paint_package_layer")
 
     # Checks if there is no content in value.
@@ -33,22 +34,24 @@ def calculate(branches, branch, paint, pos, match, value=""):
         if num == int(pos[0]):
             # Checks if length of entries in pos is smaller then 2.
             if len(pos) < 2:
-                # Adds the current value of pos and the requested paint to the current branch paint package.
-                paint_package_layer[branch].update({match: painter(paint, branch, layer)})
+                paint_package_layer[branch].pop(match)
+                return
             # If length of entries in pos is not smaller then 2.
             else:
                 # Removes the first entry of pos list.
                 pos.pop(0)
                 # Calls the calculate function.
-                calculate(branches, branch, paint, pos, match, value)
+                calculate(branch, pos, match, value)
                 # Returns nothing and stops the loop.
                 return
 
 
 # Adds the chosen paint to the parsed position.
-def color_layer(branch, paint, position):
+def color_layer(branch, position):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
+    error = librarian("error")
+    output = librarian("output")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -77,9 +80,9 @@ def color_layer(branch, paint, position):
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
-                pos = build_pos(branch, position.copy())
+                position = build_pos(branch, position.copy())
 
-                for pos in pos:
+                for pos in position:
                     match = ""
                     # Loops through all values of pos list.
                     for value in pos:
@@ -89,4 +92,7 @@ def color_layer(branch, paint, position):
                             match = match + x
 
                     # Calls the calculate function.
-                    calculate(branches, branch, paint, pos, match)
+                    calculate(branch, pos.copy(), match)
+
+                error[branch].clear()
+                output[branch].clear()

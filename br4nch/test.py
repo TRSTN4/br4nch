@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.0.6
-# desc - Introducing the "position assist" feature that displays all current layer positions in a branch.
+# Beta phase - br4nch v1.0.7
+# desc - Release prototype of delete, replace and reset functions to layer, color, size and symbol functions.
 
 # Imports the br4nch package.
 import br4nch
@@ -37,7 +37,6 @@ br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.*.
 
 # Changes the "Test" branch symbols.
 br4nch.set.symbol(branch="Test", line="|", split="}---->", end="!-->")
-br4nch.set.symbol(branch="Database", line="┃", split="┣━━", end="┗━━")
 
 # Sets the total size of the branch.
 br4nch.set.size(branch="Test", size=0)
@@ -46,7 +45,7 @@ br4nch.set.size(branch="Test", size=0)
 br4nch.display.pos(branch="Test", pos="3.2.3", layer="Sub Text 1")
 
 # Displays all layer positions in a branch.
-br4nch.display.assist()
+br4nch.display.assist(branch="Test")
 
 # Displays the branches.
 br4nch.display.branch()

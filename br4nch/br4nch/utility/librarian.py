@@ -16,7 +16,7 @@ def librarian(action):
         paint_package_header = {}
         paint_package_layer = {}
 
-        # List to save the founded positions.
+        # Dict to save the founded positions.
         positions = {}
 
         # Stores the parsed symbols for a branch.
@@ -31,8 +31,8 @@ def librarian(action):
         # Stores the given size of the branch.
         size = {}
 
-        # List to save UIDS.
-        uids = []
+        # Dict to save UIDS.
+        uids = {}
 
     # Checks if the action list has content.
     if action:

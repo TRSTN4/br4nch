@@ -91,7 +91,7 @@ def assist(branch):
         for y in list(branches):
             if branch.lower() == y.lower():
                 branch = y
-                branch_assist = y + get_uid()
+                branch_assist = y + get_uid(branch)
 
                 # Sets the lists.
                 levels = [0]

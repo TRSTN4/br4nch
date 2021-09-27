@@ -5,7 +5,7 @@ from br4nch.utility.librarian import librarian
 
 
 # Generates a unique UID.
-def get_uid(length=10):
+def get_uid(branch, length=10):
     # Imports the built-in python uuid package.
     import uuid
 
@@ -18,15 +18,15 @@ def get_uid(length=10):
     # Loops until a unique UID is created.
     while True:
         # Checks if UID in UIDS list.
-        if uid in uids:
+        if uid in uids[branch]:
             # Recalls the function and creates a new UID.
-            get_uid(length)
+            get_uid(branch, length)
             # Returns nothing.
             return
         # If UID not in UIDS list.
         else:
             # Appends the UID to the UIDS list.
-            uids.append(uid)
+            uids[branch].append(uid)
             # Breaks the loop.
             break
 

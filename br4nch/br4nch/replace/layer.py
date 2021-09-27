@@ -8,13 +8,16 @@ from br4nch.utility.handler import add_layer_error
 
 
 # Gets the parsed arguments.
-def arguments(layer, branch="", pos=""):
+def arguments(name, pos="", branch=""):
     # Parses the arguments to the first task.
-    add_layer(branch, layer, pos)
+    add_layer(branch, name, pos)
 
 
 # Calculates where to add the parsed layer in the given position.
-def add_position(branch, layer, pos, branches, value=""):
+def replace_position(branch, pos, value=""):
+    # Gets the needed lists/dictionaries.
+    branches = librarian("branches")
+
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -23,14 +26,14 @@ def add_position(branch, layer, pos, branches, value=""):
     # Checks if the first entry in the pos list is equal to zero or the first entry in the pos list doesnt have a value.
     if pos[0] == "0" or not pos[0]:
         # Loops through all layers in layer list.
-        for layer in layer:
-            # Updates the current value and adds the layer with uid and new dictionary as value.
-            branches[branch][list(branches[branch])[0]].update({layer + get_uid(branch): {}})
+        for lay in branches[branch][list(branches[branch])[0]].copy():
+            test.update({lay: value})
         return
-    # If the first entry in the pos list is not equal to zero or the first entry in the pos list does have a value.
     else:
         # Creates the count variable.
         count = 0
+
+        prev_value = value
 
         # Gets the value of the current value variable.
         for value in value.values():
@@ -41,36 +44,39 @@ def add_position(branch, layer, pos, branches, value=""):
             if count == int(pos[0]):
                 # Checks if length of entries in pos is smaller then 2.
                 if len(pos) < 2:
+                    num = 0
                     # Loops through all layers in layer list.
-                    for layer in layer:
-                        # Updates the current value and adds the layer with uid and new dictionary as value.
-                        value.update({layer + get_uid(branch): {}})
-                    return
+                    for lay in list(prev_value):
+                        num = num + 1
+                        if num == int(pos[0]):
+                            test.update({lay: prev_value})
+                            return
+
                 # If length of entries in pos is not smaller then 2.
                 else:
                     # Removes the last entry of pos list.
                     pos.pop(0)
                     # Calls the calculate function.
-                    add_position(branch, layer, pos, branches, value)
+                    replace_position(branch, pos, value)
                     # Returns nothing and stops the loop.
                     return
 
 
-# Adds a new layer to the branches dictionary.
-def add_layer(branch, layer, position):
+def add_layer(branch, name, position):
+    global test
+    test = {}
+
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
+    output = librarian("output")
+    error = librarian("error")
+    uids = librarian("uids")
     paint_package_layer = librarian("paint_package_layer")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
         branch = [branch]
-
-    # Checks if layer is not a instance of list.
-    if not isinstance(layer, list):
-        # Layer will be equal to a list that contains the value of layer.
-        layer = [layer]
 
     # Checks if pos is not a instance of list.
     if not isinstance(position, list):
@@ -90,13 +96,15 @@ def add_layer(branch, layer, position):
 
                 # Calls the operator function and gets the returned pos.
                 position = build_pos(branch, position)
-
                 # Loops through all positions in the pos list.
                 for pos in position:
                     # Calls the calculate_position function.
-                    add_position(branch, layer, pos.copy(), branches)
+                    replace_position(branch, pos.copy())
 
-                # Checks if the current branch value is inside the paint package.
-                if not paint_package_layer.get(branch):
-                    # Adds the current branch value as key and a new dictionary as value to the paint package.
-                    paint_package_layer.update({branch: {}})
+                for key, value in test.items():
+                    uids[branch].remove(key[-10:])
+                    value[name + get_uid(branch)] = value.pop(key)
+
+                test.clear()
+                error[branch].clear()
+                output[branch].clear()

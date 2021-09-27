@@ -12,6 +12,12 @@ def printer(action, branch="", delete=False):
     positions = librarian("positions")
     output = librarian("output")
     error = librarian("error")
+    size = librarian("size")
+    symbols = librarian("symbols")
+    paint_package_branch = librarian("paint_package_branch")
+    paint_package_header = librarian("paint_package_header")
+    paint_package_layer = librarian("paint_package_layer")
+    uids = librarian("uids")
 
     if action == "display_found":
         for layer, value in positions.copy().items():
@@ -34,3 +40,9 @@ def printer(action, branch="", delete=False):
                     del output[branch]
                     del error[branch]
                     del branches[branch]
+                    del size[branch]
+                    del symbols[branch]
+                    del paint_package_branch[branch]
+                    del paint_package_header[branch]
+                    del paint_package_layer[branch]
+                    del uids[branch]
