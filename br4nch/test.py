@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.0.7
-# desc - Release prototype of delete, replace and reset functions to layer, color, size and symbol functions.
+# Beta phase - br4nch v1.0.8
+# desc - Re-introducing the executor that manages and calculates all the: add, remove, rename, set and reset functions.
 
 # Imports the br4nch package.
 import br4nch
