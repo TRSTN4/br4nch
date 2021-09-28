@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.0.8
-# desc - Re-introducing the executor that manages and calculates all the: add, remove, rename, set and reset functions.
+# Beta phase - br4nch v1.0.9
+# desc - Removed failed executor function.
 
 # Imports the br4nch package.
 import br4nch
