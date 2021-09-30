@@ -26,7 +26,6 @@ def calculate_operator(branch, pos, value=""):
     for layer, value in value.items():
         # Count is equal to the value of count plus one.
         count = count + 1
-
         # Checks if the "*", ">" or "<" exists in the current value of the first element in pos.
         if "*" in pos[0] or ">" in pos[0] or "<" in pos[0]:
             # Appends the number to the numbers list.
@@ -49,6 +48,10 @@ def calculate_operator(branch, pos, value=""):
 
 # Builds the pos using multiple algorithms.
 def build_pos(branch, pos):
+    for x in range(len(pos)):
+        if not isinstance(pos[x], list):
+           pos[x] = str(pos[x])
+
     # Gets position value based on the length of entries in pos list.
     for position in range(len(pos)):
         # Checks if "." in current value of element in pos.
@@ -81,26 +84,6 @@ def build_pos(branch, pos):
             if "*" in pos[position][element]:
                 # Gets the numbers list from the calculated_options function.
                 numbers = calculate_operator(branch, pos[position])
-                # Loops through all numbers.
-                for num in numbers:
-                    # Appends a copy of the current value of pos list in the pos list to the post list.
-                    pos.append(pos[position].copy())
-                    # current value of element in current pos list is equal to the value of num.
-                    pos[-1][element] = int(num)
-                    # Creates the variable.
-                    string = ""
-                    # Loops through all positions in the last pos list in the pos list.
-                    for position2 in pos[-1]:
-                        # Adds position2 separated by a dot to the string
-                        string = string + "." + str(position2)
-                    # Removes the last pos list from the pos list.
-                    pos.pop(-1)
-                    # Appends the created string to the pos list.
-                    pos.append(string[1:])
-                    # Removes the current pos list from the pos list.
-                pos.pop(position)
-                # Recalls the function.
-                build_pos(branch, pos)
 
             # Checks if ">" in current value of element in current pos list.
             if ">" in pos[position][element]:
@@ -117,26 +100,20 @@ def build_pos(branch, pos):
                     bigger = split[0]
                     smaller = split[1]
 
+                # Gets the numbers list from the calculated_options function.
+                numbers = calculate_operator(branch, pos[position])
+
+                test = False
                 # Loops through all the numbers between the value of the smaller plus one and the bigger variable.
-                for count in range(int(bigger) + 1 - int(smaller)):
-                    # Appends a copy of the current value of pos list in the pos list to the post list.
-                    pos.append(pos[position].copy())
-                    # current value of element in current pos list is equal to the value of count.
-                    pos[-1][element] = int(int(smaller) + count)
-                    # Creates the variable.
-                    string = ""
-                    # Loops through all positions in the last pos list in the pos list.
-                    for position2 in pos[-1]:
-                        # Adds position2 separated by a dot to the string
-                        string = string + "." + str(position2)
-                    # Removes the last pos list from the pos list.
-                    pos.pop(-1)
-                    # Appends the created string to the pos list.
-                    pos.append(string[1:])
-                    # Removes the current pos list from the pos list.
-                pos.pop(position)
-                # Recalls the function.
-                build_pos(branch, pos)
+                for count in numbers.copy():
+                    if count == int(smaller):
+                        test = True
+                    else:
+                        if count == int(bigger):
+                            test = False
+                        else:
+                            if not test:
+                                numbers.remove(count)
 
             # Checks if "<" in current value of element in current pos list.
             if "<" in pos[position][element]:
@@ -161,12 +138,13 @@ def build_pos(branch, pos):
                     # Removes the number from the numbers list.
                     numbers.remove(int(int(smaller) + count))
 
+            if "*" in pos[position][element] or ">" in pos[position][element] or "<" in pos[position][element]:
                 # Loops through all numbers.
                 for num in numbers:
                     # Appends a copy of the current value of pos list in the pos list to the post list.
                     pos.append(pos[position].copy())
                     # current value of element in current pos list is equal to the value of num.
-                    pos[-1][element] = num
+                    pos[-1][element] = int(num)
                     # Creates the variable.
                     string = ""
                     # Loops through all positions in the last pos list in the pos list.
@@ -181,5 +159,6 @@ def build_pos(branch, pos):
                 pos.pop(position)
                 # Recalls the function.
                 build_pos(branch, pos)
+
     # Returns the pos.
     return pos

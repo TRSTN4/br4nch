@@ -2,6 +2,7 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
@@ -14,8 +15,6 @@ def reset_size(branch):
     # Gets the needed lists/dictionaries.
     size = librarian("size")
     branches = librarian("branches")
-    error = librarian("error")
-    output = librarian("output")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -29,10 +28,15 @@ def reset_size(branch):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 size.update({branch: 1})
-                error[branch].clear()
-                output[branch].clear()
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

@@ -1,5 +1,8 @@
 # Part of the br4nch package.
 
+from br4nch.utility.handler import NotExistingPaintError
+
+
 # Returns the requested paint.
 def painter(options, branch="", layer=""):
     # All global statements.
@@ -33,6 +36,14 @@ def painter(options, branch="", layer=""):
     special2 = ""
     special3 = ""
 
+    if not isinstance(options, list):
+        test = [options]
+    else:
+        test = options
+    for x in test:
+        if x not in colors_id + specials_id:
+            raise NotExistingPaintError(x)
+
     # Checks if options value is equal to one of the colors ids.
     if options in colors_id:
         # Color is equal to the value of options.
@@ -57,17 +68,6 @@ def painter(options, branch="", layer=""):
     if len(options) > 3 and isinstance(options, list) and options[3].lower() in specials_id:
         # Special 3 is the fourth entry of the options list.
         special3 = options[3].lower()
-
-    # Checks if the option value is instance of a list.
-    if not isinstance(options, list):
-        # Checks if the parsed option is equal to "clear" color action.
-        if options != "clear":
-            # Checks if option value is not in colors
-            if options not in colors_id + specials_id:
-                # Imports the handler for the custom error.
-                from br4nch.utility.handler import paint_error
-                # Runs a custom error.
-                paint_error(branch, layer, options)
 
     # Checks if the color value has content.
     if color:

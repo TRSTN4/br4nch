@@ -2,10 +2,11 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+from br4nch.utility.handler import NotExistingBranchError, InvalidSizeError
 
 
 # Gets the parsed arguments.
-def arguments(branch="", size=0):
+def arguments(branch="", size=1):
     # Parses the arguments to the first task.
     set_size(branch, size)
 
@@ -28,9 +29,19 @@ def set_size(branch, number):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        number = str(number)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
+
+                if number.isdecimal():
+                    number = int(number)
+                else:
+                    raise InvalidSizeError(number)
 
                 if symbols[branch]["split"] == "┣━━":
                     symbols[branch]["split"] = "┣━" + "━" * number
@@ -38,3 +49,6 @@ def set_size(branch, number):
                     symbols[branch]["end"] = "┗━" + "━" * number
 
                 size.update({branch: number})
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

@@ -3,7 +3,7 @@
 # Imports all files.
 from br4nch.utility.librarian import librarian
 from br4nch.utility.positioner import build_pos
-from br4nch.utility.handler import add_layer_error
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
@@ -67,8 +67,6 @@ def add_layer(branch, position):
 
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    output = librarian("output")
-    error = librarian("error")
     uids = librarian("uids")
 
     # Checks if branch is not a instance of list.
@@ -88,8 +86,12 @@ def add_layer(branch, position):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
@@ -105,5 +107,5 @@ def add_layer(branch, position):
 
                 test.clear()
 
-                error[branch].clear()
-                output[branch].clear()
+        if error == 0:
+            raise NotExistingBranchError(branch)

@@ -2,11 +2,14 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
-from br4nch.utility.handler import add_header_error
+from br4nch.utility.handler import MissingHeaderError, NotExistingBranchError
 
 
 # Gets the parsed arguments.
-def arguments(header, branch=""):
+def arguments(branch="", header=""):
+    if not header:
+        raise MissingHeaderError
+
     # Parses the arguments to the first task.
     add_header(branch, header)
 
@@ -29,8 +32,12 @@ def add_header(branch, header):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 # Adds header inside the selected branch dictionary.
@@ -40,3 +47,6 @@ def add_header(branch, header):
                 if not paint_package_header.get(branch):
                     # Adds the current branch value as key and a new dictionary as value to the paint package.
                     paint_package_header.update({branch: {}})
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

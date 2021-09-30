@@ -4,11 +4,14 @@
 from br4nch.utility.librarian import librarian
 from br4nch.utility.positioner import build_pos
 from br4nch.utility.generator import get_uid
-from br4nch.utility.handler import add_layer_error
+from br4nch.utility.handler import NotExistingBranchError, MissingNameError
 
 
 # Gets the parsed arguments.
-def arguments(name, pos="", branch=""):
+def arguments(branch="", name="", pos=""):
+    if not name:
+        raise MissingNameError
+
     # Parses the arguments to the first task.
     add_layer(branch, name, pos)
 
@@ -68,10 +71,7 @@ def add_layer(branch, name, position):
 
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    output = librarian("output")
-    error = librarian("error")
     uids = librarian("uids")
-    paint_package_layer = librarian("paint_package_layer")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -90,8 +90,12 @@ def add_layer(branch, name, position):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
@@ -106,5 +110,6 @@ def add_layer(branch, name, position):
                     value[name + get_uid(branch)] = value.pop(key)
 
                 test.clear()
-                error[branch].clear()
-                output[branch].clear()
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

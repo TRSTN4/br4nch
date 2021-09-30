@@ -2,6 +2,7 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
@@ -18,7 +19,6 @@ def delete_branch(branch):
     paint_package_layer = librarian("paint_package_layer")
     symbols = librarian("symbols")
     output = librarian("output")
-    error = librarian("error")
     size = librarian("size")
     uids = librarian("uids")
 
@@ -33,8 +33,12 @@ def delete_branch(branch):
         branch.pop(0)
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 del branches[branch]
@@ -43,6 +47,8 @@ def delete_branch(branch):
                 del paint_package_layer[branch]
                 del symbols[branch]
                 del output[branch]
-                del error[branch]
                 del size[branch]
                 del uids[branch]
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

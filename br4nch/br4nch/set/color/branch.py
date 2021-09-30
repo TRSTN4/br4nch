@@ -3,10 +3,14 @@
 # Imports all files.
 from br4nch.utility.librarian import librarian
 from br4nch.utility.painter import painter
+from br4nch.utility.handler import NotExistingBranchError, MissingPaintError
 
 
 # Gets the parsed arguments.
-def arguments(paint, branch=""):
+def arguments(branch="", paint=""):
+    if not paint:
+        raise MissingPaintError
+
     # Parses the arguments to the first task.
     color_branch(branch, paint)
 
@@ -29,9 +33,16 @@ def color_branch(branch, paint):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 # Adds the branch as key and the paint as value to the paint package.
                 paint_package_branch.update({branch: painter(paint, branch)})
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

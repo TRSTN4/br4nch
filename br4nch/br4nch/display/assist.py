@@ -7,6 +7,7 @@ from br4nch.add.branch import arguments as add_branch
 from br4nch.add.header import arguments as add_header
 from br4nch.add.layer import arguments as add_layer
 from br4nch.display.branch import display_branch as build_branch
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
@@ -88,8 +89,12 @@ def assist(branch):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
                 branch_assist = y + get_uid(branch)
 
@@ -104,3 +109,6 @@ def assist(branch):
                 calculate(branch, branch_assist)
 
                 build_branch(branch_assist, True)
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

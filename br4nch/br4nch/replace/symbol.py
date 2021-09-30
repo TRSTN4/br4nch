@@ -2,6 +2,7 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
@@ -15,8 +16,6 @@ def symbol_branch(branch, line, split, end):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     symbols = librarian("symbols")
-    output = librarian("output")
-    error = librarian("error")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -30,8 +29,12 @@ def symbol_branch(branch, line, split, end):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 lineX = line
@@ -60,5 +63,5 @@ def symbol_branch(branch, line, split, end):
                     # Updates the branch end symbol to the given input.
                     symbols[branch].update({"end": endX})
 
-                error[branch].clear()
-                output[branch].clear()
+        if error == 0:
+            raise NotExistingBranchError(branch)

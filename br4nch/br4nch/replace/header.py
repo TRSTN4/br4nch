@@ -2,10 +2,14 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+from br4nch.utility.handler import NotExistingBranchError, MissingNameError
 
 
 # Gets the parsed arguments.
-def arguments(name, branch=""):
+def arguments(branch="", name=""):
+    if not name:
+        raise MissingNameError
+
     # Parses the arguments to the first task.
     replace_header(name, branch)
 
@@ -14,8 +18,6 @@ def arguments(name, branch=""):
 def replace_header(name, branch):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    output = librarian("output")
-    error = librarian("error")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -29,10 +31,15 @@ def replace_header(name, branch):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 branches[branch][name] = branches[branch].pop(list(branches[branch])[0])
-                error[branch].clear()
-                output[branch].clear()
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

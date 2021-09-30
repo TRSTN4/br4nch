@@ -4,7 +4,7 @@
 from br4nch.utility.librarian import librarian
 from br4nch.utility.positioner import build_pos
 from br4nch.utility.generator import get_uid
-from br4nch.utility.handler import add_layer_error
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
@@ -48,12 +48,13 @@ def add_position(branch, layer, pos, branches, value=""):
                     return
                 # If length of entries in pos is not smaller then 2.
                 else:
-                    # Removes the last entry of pos list.
-                    pos.pop(0)
-                    # Calls the calculate function.
-                    add_position(branch, layer, pos, branches, value)
-                    # Returns nothing and stops the loop.
-                    return
+                    if value:
+                        # Removes the last entry of pos list.
+                        pos.pop(0)
+                        # Calls the calculate function.
+                        add_position(branch, layer, pos, branches, value)
+                        # Returns nothing and stops the loop.
+                        return
 
 
 # Adds a new layer to the branches dictionary.
@@ -84,12 +85,17 @@ def add_layer(branch, layer, position):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
+
+        # Calls the operator function and gets the returned pos.
+        position = build_pos(branch, position)
+
         for y in list(branches):
             if branch.lower() == y.lower():
-                branch = y
+                error = error + 1
 
-                # Calls the operator function and gets the returned pos.
-                position = build_pos(branch, position)
+                branch = y
 
                 # Loops through all positions in the pos list.
                 for pos in position:
@@ -100,3 +106,6 @@ def add_layer(branch, layer, position):
                 if not paint_package_layer.get(branch):
                     # Adds the current branch value as key and a new dictionary as value to the paint package.
                     paint_package_layer.update({branch: {}})
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

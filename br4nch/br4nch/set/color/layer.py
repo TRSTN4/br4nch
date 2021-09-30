@@ -4,10 +4,14 @@
 from br4nch.utility.librarian import librarian
 from br4nch.utility.painter import painter
 from br4nch.utility.positioner import build_pos
+from br4nch.utility.handler import NotExistingBranchError, MissingPaintError
 
 
 # Gets the parsed arguments.
-def arguments(paint, branch="", pos=""):
+def arguments(branch="", pos="", paint=""):
+    if not paint:
+        raise MissingPaintError
+
     # Parses the arguments to the first task.
     color_layer(branch, paint, pos)
 
@@ -37,13 +41,13 @@ def calculate(branches, branch, paint, pos, match, value=""):
                 paint_package_layer[branch].update({match: painter(paint, branch, layer)})
             # If length of entries in pos is not smaller then 2.
             else:
-                # Removes the first entry of pos list.
-                pos.pop(0)
-                # Calls the calculate function.
-                calculate(branches, branch, paint, pos, match, value)
-                # Returns nothing and stops the loop.
-                return
-
+                if value:
+                    # Removes the last entry of pos list.
+                    pos.pop(0)
+                    # Calls the calculate function.
+                    calculate(branches, branch, paint, pos, match, value)
+                    # Returns nothing and stops the loop.
+                    return
 
 # Adds the chosen paint to the parsed position.
 def color_layer(branch, paint, position):
@@ -72,8 +76,12 @@ def color_layer(branch, paint, position):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
@@ -90,3 +98,6 @@ def color_layer(branch, paint, position):
 
                     # Calls the calculate function.
                     calculate(branches, branch, paint, pos, match)
+
+        if error == 0:
+            raise NotExistingBranchError(branch)

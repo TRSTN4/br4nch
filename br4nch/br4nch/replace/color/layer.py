@@ -4,10 +4,14 @@
 from br4nch.utility.librarian import librarian
 from br4nch.utility.painter import painter
 from br4nch.utility.positioner import build_pos
+from br4nch.utility.handler import NotExistingBranchError, MissingPaintError
 
 
 # Gets the parsed arguments.
 def arguments(paint, branch="", pos=""):
+    if not paint:
+        raise MissingPaintError
+
     # Parses the arguments to the first task.
     color_layer(branch, pos, paint)
 
@@ -50,8 +54,6 @@ def calculate(branch, pos, match, paint, value=""):
 def color_layer(branch, position, paint):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    output = librarian("output")
-    error = librarian("error")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -75,8 +77,12 @@ def color_layer(branch, position, paint):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
@@ -94,5 +100,5 @@ def color_layer(branch, position, paint):
                     # Calls the calculate function.
                     calculate(branch, pos.copy(), match, paint)
 
-                error[branch].clear()
-                output[branch].clear()
+        if error == 0:
+            raise NotExistingBranchError(branch)

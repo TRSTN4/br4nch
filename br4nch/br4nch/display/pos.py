@@ -4,6 +4,7 @@
 from br4nch.utility.librarian import librarian
 from br4nch.utility.printer import printer
 from br4nch.utility.positioner import build_pos
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
@@ -102,8 +103,12 @@ def get_pos(branch, layer, position):
 
     # Loops through all branches in the branch list.
     for branch in branch:
+        branch = str(branch)
+        error = 0
         for y in list(branches):
             if branch.lower() == y.lower():
+                error = error + 1
+
                 branch = y
 
                 if not position[0] and not layer[0]:
@@ -143,5 +148,8 @@ def get_pos(branch, layer, position):
                         # Loops through all positions in the pos list.
                         calculate(branch, lay, position, "layer")
 
-    # Prints the founded position(s)/layer(s).
-    printer("display_found")
+                    # Prints the founded position(s)/layer(s).
+                    printer("display_found", branch)
+
+        if error == 0:
+            raise NotExistingBranchError(branch)
