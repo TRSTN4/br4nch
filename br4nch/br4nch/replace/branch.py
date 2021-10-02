@@ -37,6 +37,8 @@ def replace_branch(branch, name):
 
             branch = y
 
+            index = list(branches).index(branch)
+
             branches[name] = branches.pop(branch)
             output[name] = output.pop(branch)
             size[name] = size.pop(branch)
@@ -46,7 +48,7 @@ def replace_branch(branch, name):
             paint_package_layer[name] = paint_package_layer.pop(branch)
             uids[name] = uids.pop(branch)
 
-            for x in list(branches)[:-1]:
+            for x in list(branches)[index:-1]:
                 branches[x] = branches.pop(x)
                 output[x] = output.pop(x)
                 size[x] = size.pop(x)

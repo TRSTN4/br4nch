@@ -129,11 +129,16 @@ def build_layer(branch, paint_branch, value="", pos=""):
         # Checks if num is equal to one.
         if num == 1:
             # Adds the current num to pos string.
-            pos = pos.replace(pos, pos + str(num))
+            pos = pos.replace(pos, pos + "." + str(num))
         # If num is not equal to one.
         else:
             # Removes the last num in pos string.
-            pos = pos.replace(pos, pos[:-1] + str(num))
+            pos = pos.replace(pos, pos[:-1] + "." + str(num))
+
+        if pos[0] == ".":
+            pos = pos[1:]
+
+        pos = pos.replace("..", ".")
 
         # Checks if the unpacker returns a value.
         if unpack_paint_builder(branch, paint_package_layer, pos):

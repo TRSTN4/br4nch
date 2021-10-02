@@ -49,7 +49,7 @@ def display_branch(branch, delete):
                     raise InvalidDeleteError(delete)
 
                 # Prints the chosen branches.
-                printer("display_branch", branch, delete)
+                printer("display_branch", [branch], delete)
 
         if error == 0:
             raise NotExistingBranchError(branch)

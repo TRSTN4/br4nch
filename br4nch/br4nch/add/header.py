@@ -18,7 +18,6 @@ def arguments(branch="", header=""):
 def add_header(branch, header):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
-    paint_package_header = librarian("paint_package_header")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -42,11 +41,6 @@ def add_header(branch, header):
 
                 # Adds header inside the selected branch dictionary.
                 branches[branch].update({header: {}})
-
-                # Checks if the current branch value is inside the paint package.
-                if not paint_package_header.get(branch):
-                    # Adds the current branch value as key and a new dictionary as value to the paint package.
-                    paint_package_header.update({branch: {}})
 
         if error == 0:
             raise NotExistingBranchError(branch)

@@ -149,7 +149,7 @@ def get_pos(branch, layer, position):
                         calculate(branch, lay, position, "layer")
 
                     # Prints the founded position(s)/layer(s).
-                    printer("display_found", branch)
+                    printer("display_found", [branch])
 
         if error == 0:
             raise NotExistingBranchError(branch)

@@ -5,7 +5,7 @@ from br4nch.utility.librarian import librarian
 
 
 # The printer prints the output after the branch has been build.
-def printer(action, branch="", delete=False):
+def printer(action, package=[], delete=False):
     # Gets the needed lists/dictionaries.
     branches = librarian("branches")
     positions = librarian("positions")
@@ -17,11 +17,21 @@ def printer(action, branch="", delete=False):
     paint_package_layer = librarian("paint_package_layer")
     uids = librarian("uids")
 
+    branch = package[0]
+
+    if action == "display_export_branch":
+        if package[2]:
+            print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "├─ Export: "
+                  + str(package[1]) + "\n" + " " * 3 + "└─ Package: " + str(package[2]))
+        else:
+            print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Export: "
+                  + str(package[1]))
+
     if action == "display_found":
         for layer, value in positions.copy().items():
             for key, pos in value.items():
-                print("Get Position Result" + ":\n" + " " * 4 + "└─ Branch: " + branch + "\n" + " " * 7 + "└─ Layer: "
-                      + layer.replace("\n", " ")[:-15] + "\n" + " " * 10 + "└─ Position: " + pos)
+                print("Get Position Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Layer: "
+                      + layer.replace("\n", " ")[:-15] + "\n" + " " * 6 + "└─ Position: " + pos)
             del positions[layer]
 
     if action == "display_branch":

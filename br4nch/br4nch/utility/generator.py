@@ -2,13 +2,11 @@
 
 # Imports all files.
 from br4nch.utility.librarian import librarian
+import uuid
 
 
 # Generates a unique UID.
 def get_uid(branch, length=10):
-    # Imports the built-in python uuid package.
-    import uuid
-
     # Gets the needed lists/dictionaries.
     uids = librarian("uids")
 

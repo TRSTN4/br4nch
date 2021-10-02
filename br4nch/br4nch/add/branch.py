@@ -20,6 +20,8 @@ def add_branch(branch):
     branches = librarian("branches")
     output = librarian("output")
     paint_package_branch = librarian("paint_package_branch")
+    paint_package_header = librarian("paint_package_header")
+    paint_package_layer = librarian("paint_package_layer")
     symbols = librarian("symbols")
     size = librarian("size")
     uids = librarian("uids")
@@ -49,7 +51,6 @@ def add_branch(branch):
         # Sets the symbols to default symbols.
         symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
 
-        # Checks if the current branch value is inside the paint package.
-        if not paint_package_branch.get(branch):
-            # Adds the current branch value as key and a new dictionary as value to the paint package.
-            paint_package_branch.update({branch: {}})
+        paint_package_branch.update({branch: {}})
+        paint_package_header.update({branch: {}})
+        paint_package_layer.update({branch: {}})

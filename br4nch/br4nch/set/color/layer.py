@@ -49,6 +49,7 @@ def calculate(branches, branch, paint, pos, match, value=""):
                     # Returns nothing and stops the loop.
                     return
 
+
 # Adds the chosen paint to the parsed position.
 def color_layer(branch, paint, position):
     # Gets the needed lists/dictionaries.
@@ -94,7 +95,10 @@ def color_layer(branch, paint, position):
                         # Creates the match variable.
                         for x in value:
                             # Match is equal to current value of match plus the value.
-                            match = match + x
+                            match = match + "." + x
+
+                    if match[0] == ".":
+                        match = match[1:]
 
                     # Calls the calculate function.
                     calculate(branches, branch, paint, pos, match)

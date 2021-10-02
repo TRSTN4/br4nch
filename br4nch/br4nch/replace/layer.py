@@ -107,7 +107,11 @@ def add_layer(branch, name, position):
 
                 for key, value in test.items():
                     uids[branch].remove(key[-10:])
+                    index = list(value).index(key)
                     value[name + get_uid(branch)] = value.pop(key)
+
+                    for x in list(value)[index:-1]:
+                        value[x] = value.pop(x)
 
                 test.clear()
 

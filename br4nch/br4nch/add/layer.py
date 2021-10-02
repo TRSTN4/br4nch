@@ -102,10 +102,5 @@ def add_layer(branch, layer, position):
                     # Calls the calculate_position function.
                     add_position(branch, layer, pos.copy(), branches)
 
-                # Checks if the current branch value is inside the paint package.
-                if not paint_package_layer.get(branch):
-                    # Adds the current branch value as key and a new dictionary as value to the paint package.
-                    paint_package_layer.update({branch: {}})
-
         if error == 0:
             raise NotExistingBranchError(branch)
