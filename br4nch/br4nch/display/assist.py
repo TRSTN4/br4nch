@@ -1,7 +1,7 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches
 from br4nch.utility.generator import get_uid
 from br4nch.add.branch import arguments as add_branch
 from br4nch.add.header import arguments as add_header
@@ -27,9 +27,6 @@ def elevator(branch, value, pos=0):
 
 
 def calculate(branch, branch_assist, value="", string=""):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -73,9 +70,6 @@ def calculate(branch, branch_assist, value="", string=""):
 def assist(branch):
     # All global statements.
     global levels, trace
-
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):

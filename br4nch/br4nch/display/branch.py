@@ -1,7 +1,7 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches
 from br4nch.utility.builder.branch import build_branch
 from br4nch.utility.printer import printer
 from br4nch.utility.handler import NotExistingBranchError, InvalidDeleteError
@@ -15,9 +15,6 @@ def arguments(branch="", delete=False):
 
 # Prints and builds the chosen branches.
 def display_branch(branch, delete):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.

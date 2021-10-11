@@ -1,8 +1,8 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
-from br4nch.utility.positioner import build_pos
+from br4nch.utility.librarian import branches, uids
+from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import get_uid
 from br4nch.utility.handler import NotExistingBranchError, MissingNameError
 
@@ -18,9 +18,6 @@ def arguments(branch="", name="", pos=""):
 
 # Calculates where to add the parsed layer in the given position.
 def replace_position(branch, pos, value=""):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -69,10 +66,6 @@ def add_layer(branch, name, position):
     global test
     test = {}
 
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    uids = librarian("uids")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
@@ -99,7 +92,7 @@ def add_layer(branch, name, position):
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
-                position = build_pos(branch, position)
+                position = format_position(branch, position)
                 # Loops through all positions in the pos list.
                 for pos in position:
                     # Calls the calculate_position function.

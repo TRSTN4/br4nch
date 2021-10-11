@@ -1,7 +1,7 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 from br4nch.utility.handler import NotExistingBranchError
 from br4nch.utility.printer import printer
 
@@ -13,15 +13,6 @@ def arguments(branch="", file="", package=""):
 
 
 def export(branch, file, package):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    paint_package_branch = librarian("paint_package_branch")
-    paint_package_header = librarian("paint_package_branch")
-    paint_package_layer = librarian("paint_package_branch")
-    symbols = librarian("symbols")
-    size = librarian("size")
-    uids = librarian("uids")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
@@ -45,8 +36,8 @@ def export(branch, file, package):
                 export_branch = {branch: branches[branch]}
 
                 if package:
-                    export_package = {branch: [paint_package_branch[branch], paint_package_header[branch],
-                                               paint_package_layer[branch], symbols[branch], size[branch],
+                    export_package = {branch: [paint_branch[branch], paint_header[branch],
+                                               paint_layer[branch], symbols[branch], sizes[branch],
                                                uids[branch]]}
                 else:
                     export_package = {}

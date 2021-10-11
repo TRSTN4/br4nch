@@ -1,7 +1,8 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, paint_branch
 from br4nch.utility.handler import NotExistingBranchError
 
 
@@ -12,10 +13,6 @@ def arguments(branch=""):
 
 
 def delete_color_branch(branch):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    paint_package_branch = librarian("paint_package_branch")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
@@ -35,7 +32,7 @@ def delete_color_branch(branch):
 
                 branch = y
 
-                paint_package_branch.update({branch: {}})
+                paint_branch.update({branch: {}})
 
         if error == 0:
             raise NotExistingBranchError(branch)

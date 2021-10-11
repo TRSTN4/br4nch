@@ -1,106 +1,105 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.librarian import librarian
-from br4nch.utility.positioner import build_pos
+from br4nch.utility.librarian import branches
+from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import get_uid
 from br4nch.utility.handler import NotExistingBranchError
 
 
-# Gets the parsed arguments.
-def arguments(layer, branch="", pos=""):
-    # Parses the arguments to the first task.
-    add_layer(branch, layer, pos)
+def arguments(branch, layer, pos):
+    """Gets the arguments and parses them to the 'AddLayer' class."""
+    AddLayer(branch, layer, pos)
 
 
-# Calculates where to add the parsed layer in the given position.
-def add_position(branch, layer, pos, branches, value=""):
-    # Checks if there is no content in value.
-    if not value:
-        # Value is equal to the value of all nested layers.
-        value = branches[branch][list(branches[branch])[0]]
+class AddLayer:
+    def __init__(self, argument_branch, argument_layer, argument_pos):
+        """Gets the arguments and parses them to the 'build_position' function."""
+        self.build_position(argument_branch, argument_layer, argument_pos)
 
-    # Checks if the first entry in the pos list is equal to zero or the first entry in the pos list doesnt have a value.
-    if pos[0] == "0" or not pos[0]:
-        # Loops through all layers in layer list.
-        for layer in layer:
-            # Updates the current value and adds the layer with uid and new dictionary as value.
-            branches[branch][list(branches[branch])[0]].update({layer + get_uid(branch): {}})
-        return
-    # If the first entry in the pos list is not equal to zero or the first entry in the pos list does have a value.
-    else:
-        # Creates the count variable.
-        count = 0
+    def build_position(self, argument_branch, argument_layer, argument_pos):
+        """
+        If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+        If the given layer argument is not an instance of a list, then the layer argument will be set as a list.
+        If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
 
-        # Gets the value of the current value variable.
-        for value in value.values():
-            # Count is equal to current value of count plus one.
-            count = count + 1
+        If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch' list.
 
-            # Checks if the current value of count is equal to the int of the first entry in the pos list.
-            if count == int(pos[0]):
-                # Checks if length of entries in pos is smaller then 2.
-                if len(pos) < 2:
-                    # Loops through all layers in layer list.
-                    for layer in layer:
-                        # Updates the current value and adds the layer with uid and new dictionary as value.
-                        value.update({layer + get_uid(branch): {}})
-                    return
-                # If length of entries in pos is not smaller then 2.
-                else:
-                    if value:
-                        # Removes the last entry of pos list.
-                        pos.pop(0)
-                        # Calls the calculate function.
-                        add_position(branch, layer, pos, branches, value)
-                        # Returns nothing and stops the loop.
+        Loops through the given 'argument_branch' list and checks if the value is already in the 'branches' dictionary. If
+        the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+        If the branch is in the 'branches' dictionary, then it runs a loop with all positions in the returned list from the
+        'format_position' function. And calls the 'add_layer' function for every looped position.
+        """
+
+        if not isinstance(argument_branch, list):
+            argument_branch = [argument_branch]
+
+        if not isinstance(argument_layer, list):
+            argument_layer = [argument_layer]
+
+        if not isinstance(argument_pos, list):
+            argument_pos = [argument_pos]
+
+        if "*" in argument_branch:
+            argument_branch.clear()
+            for branches_branch in list(branches):
+                argument_branch.append(branches_branch)
+
+        for branch in argument_branch:
+            error = 0
+            for branches_branch in list(branches):
+                if str(branch).lower() == branches_branch.lower():
+                    error = error + 1
+
+                    for position in format_position(str(branches_branch), argument_pos):
+                        self.add_layer(str(branches_branch), argument_layer, position)
+
+            if error == 0:
+                raise NotExistingBranchError(str(branch))
+
+    def add_layer(self, branch, argument_layer, position, value=""):
+        """
+        If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
+        header key in the 'branches' directory.
+
+        If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and each
+        layer of the loop is appended to the value of the header key in the branch of the 'branches' directory.
+
+        If the first value in the 'position' is not equal to a '0' then a loop is made and for each value of the 'value'
+        variable the 'count' variable is added with '1'.
+
+        If the value of the 'count' variable is equal to the first value of the 'position' variable and the length of
+        the 'position' list is equal to '1' then the 'argument_layer' variable is looped and each layer of the loop
+        will be added to the value of the 'value' dictionary.
+
+        If the value of the 'count' variable is equal to the first value of the 'position' variable and the length of
+        the 'position' list is not equal to '1' and there is a value of the 'value' variable, then removes the first
+        value from the 'position' list and calls the 'add_layer' again with the new values of the 'value' variable as
+        argument.
+        """
+
+        if not value:
+            value = branches[branch][list(branches[branch])[0]]
+
+        if position[0] == "0":
+            for layer in argument_layer:
+                branches[branch][list(branches[branch])[0]].update({str(layer) + get_uid(branch): {}})
+            return
+        else:
+            count = 0
+
+            for value in value.values():
+                count = count + 1
+
+                if count == int(position[0]):
+                    if len(position) == 1:
+                        for layer in argument_layer:
+                            value.update({str(layer) + get_uid(branch): {}})
                         return
-
-
-# Adds a new layer to the branches dictionary.
-def add_layer(branch, layer, position):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    paint_package_layer = librarian("paint_package_layer")
-
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
-
-    # Checks if layer is not a instance of list.
-    if not isinstance(layer, list):
-        # Layer will be equal to a list that contains the value of layer.
-        layer = [layer]
-
-    # Checks if pos is not a instance of list.
-    if not isinstance(position, list):
-        # Pos will be equal to a list that contains the value of pos.
-        position = [position]
-
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
-
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
-        error = 0
-
-        # Calls the operator function and gets the returned pos.
-        position = build_pos(branch, position)
-
-        for y in list(branches):
-            if branch.lower() == y.lower():
-                error = error + 1
-
-                branch = y
-
-                # Loops through all positions in the pos list.
-                for pos in position:
-                    # Calls the calculate_position function.
-                    add_position(branch, layer, pos.copy(), branches)
-
-        if error == 0:
-            raise NotExistingBranchError(branch)
+                    else:
+                        if value:
+                            position.pop(0)
+                            self.add_layer(branch, argument_layer, position, value)
+                            return

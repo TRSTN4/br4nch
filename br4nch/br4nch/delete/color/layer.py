@@ -1,8 +1,10 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
-from br4nch.utility.positioner import build_pos
+from br4nch.utility.librarian import branches, paint_layer
+from br4nch.utility.positioner import format_position
 from br4nch.utility.handler import NotExistingBranchError
 
 
@@ -13,10 +15,6 @@ def arguments(branch="", pos=""):
 
 
 def calculate(branch, pos, match, value=""):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    paint_package_layer = librarian("paint_package_layer")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -34,7 +32,7 @@ def calculate(branch, pos, match, value=""):
         if num == int(pos[0]):
             # Checks if length of entries in pos is smaller then 2.
             if len(pos) < 2:
-                paint_package_layer[branch].pop(match)
+                paint_layer[branch].pop(match)
                 return
             # If length of entries in pos is not smaller then 2.
             else:
@@ -48,9 +46,6 @@ def calculate(branch, pos, match, value=""):
 
 # Adds the chosen paint to the parsed position.
 def color_layer(branch, position):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
@@ -82,7 +77,7 @@ def color_layer(branch, position):
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
-                position = build_pos(branch, position.copy())
+                position = format_position(branch, position.copy())
 
                 for pos in position:
                     match = ""

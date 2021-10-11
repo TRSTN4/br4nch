@@ -3,11 +3,11 @@
 # Imports all files.
 from br4nch.utility.unpacker import unpack_paint_builder
 from br4nch.utility.unpacker import unpack_paint_clear
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, output, sizes, symbols, paint_layer
 
 
 # Configures the lists and resets them everytime the configure function is called.
-def configure(branch, paint_branch):
+def configure(branch, branch_paint):
     # All global statements.
     global levels, trace, chain, queue, last
 
@@ -19,7 +19,7 @@ def configure(branch, paint_branch):
     last = [0]
 
     # Runs next task.
-    build_layer(branch, paint_branch)
+    build_layer(branch, branch_paint)
 
 
 # Creates the extenders/branch line for the layers.
@@ -87,14 +87,7 @@ def elevator(branch, value, pos=0):
 
 
 # Algorithm to build the layer.
-def build_layer(branch, paint_branch, value="", pos=""):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    output = librarian("output")
-    symbols = librarian("symbols")
-    paint_package_layer = librarian("paint_package_layer")
-    size = librarian("size")
-
+def build_layer(branch, branch_paint, value="", pos=""):
     # Branch symbols variables.
     line = symbols[branch].get("line")
     split = symbols[branch].get("split")
@@ -141,13 +134,13 @@ def build_layer(branch, paint_branch, value="", pos=""):
         pos = pos.replace("..", ".")
 
         # Checks if the unpacker returns a value.
-        if unpack_paint_builder(branch, paint_package_layer, pos):
+        if unpack_paint_builder(branch, paint_layer, pos):
             # Paint is equal to the returned unpacked value.
-            paint_layer = unpack_paint_builder(branch, paint_package_layer, pos)
+            layer_paint = unpack_paint_builder(branch, paint_layer, pos)
         # If the unpacker does not returns a value.
         else:
             # Paint is equal to empty string.
-            paint_layer = ""
+            layer_paint = ""
 
         # Updates the latest trace and adds the current value of trace by one.
         trace[0] = trace[0] + 1
@@ -155,24 +148,24 @@ def build_layer(branch, paint_branch, value="", pos=""):
         extend = extenders(branches, branch, line, split, end, value, layer, prev_value)
 
         spaces = ""
-        for _ in range(size[branch]):
+        for _ in range(sizes[branch]):
              spaces = spaces + extend + line + "\n"
 
         # Checks if the layer value is equal to the last layer inside the previous value.
         if layer == list(prev_value)[-1]:
             # Appends the current layer branch line to the branch paper list.
-            output[branch].append(paint_branch + spaces + extend + end + " " + paint_clear + paint_layer
-                                 + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + paint_clear
-                                                       + " " * int(len(end) + 1) + paint_layer) + paint_clear)
+            output[branch].append(branch_paint + spaces + extend + end + " " + paint_clear + layer_paint
+                                 + layer[:-15].replace("\n", paint_clear + "\n" + branch_paint + extend + paint_clear
+                                                       + " " * int(len(end) + 1) + layer_paint) + paint_clear)
         # If the layer is not equal to the last layer inside the previous value.
         else:
             # Appends the current layer branch line to the branch paper list.
-            output[branch].append(paint_branch + spaces + extend + split + " " + paint_clear + paint_layer
-                                 + layer[:-15].replace("\n", paint_clear + "\n" + paint_branch + extend + line
-                                                       + paint_clear + " " * int(len(split)) + paint_layer)
+            output[branch].append(branch_paint + spaces + extend + split + " " + paint_clear + layer_paint
+                                 + layer[:-15].replace("\n", paint_clear + "\n" + branch_paint + extend + line
+                                                       + paint_clear + " " * int(len(split)) + layer_paint)
                                  + paint_clear)
 
         # Checks if content in value
         if value:
             # Recalls the current function with the current value of value variable.
-            build_layer(branch, paint_branch, value, pos)
+            build_layer(branch, branch_paint, value, pos)

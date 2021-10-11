@@ -1,62 +1,55 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, symbols
 from br4nch.utility.handler import NotExistingBranchError
 
 
-# Gets the parsed arguments.
-def arguments(branch="", line="┃", split="┣━━", end="┗━━"):
-    # Parses the arguments to the first task.
+def arguments(branch, line="┃", split="┣━━", end="┗━━"):
+    """Gets the arguments and parses them to the 'add_header' function."""
     symbol_branch(branch, line, split, end)
 
 
-# Changes the symbols of the branch to the given input.
-def symbol_branch(branch, line, split, end):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    symbols = librarian("symbols")
+def symbol_branch(argument_branch, line, split, end):
+    """
+    If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    # Checks if not line.
+    If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch' list.
+
+    Loops through the given 'argument_branch' list and checks if the value is already in the 'branches' dictionary. If
+    the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+    If the branch is in the 'branches' dictionary, then it will add the current branch key in the 'branches' dictionary
+    with the given header as value.
+    """
+
     if not line:
-        # Line symbol is equal to one space.
         line = " "
-    # Checks if not split.
     if not split:
-        # Split symbol is equal to one space.
         split = " "
-    # Checks if not end.
     if not end:
-        # End symbol is equal to one space.
         end = " "
 
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
 
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
+    if "*" in argument_branch:
+        argument_branch.clear()
+        for branches_branch in list(branches):
+            argument_branch.append(branches_branch)
 
-    # Loops through all branches in the branch list.
-    for branch in branch:
+    for branch in argument_branch:
         branch = str(branch)
         error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
+        for branches_branch in list(branches):
+            if branch.lower() == branches_branch.lower():
+                branch = branches_branch
                 error = error + 1
 
-                branch = y
-
-                # Checks if branch is in the symbols dictionary.
                 if branch in symbols:
-                    # Updates the branch line symbol to the given input.
                     symbols[branch].update({"line": line})
-                    # Updates the branch split symbol to the given input.
                     symbols[branch].update({"split": split})
-                    # Updates the branch end symbol to the given input.
                     symbols[branch].update({"end": end})
 
         if error == 0:

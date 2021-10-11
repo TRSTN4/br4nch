@@ -1,9 +1,9 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, paint_layer
 from br4nch.utility.handler import NotExistingBranchError
-from br4nch.utility.positioner import build_pos
+from br4nch.utility.positioner import format_position
 
 
 # Gets the parsed arguments.
@@ -74,9 +74,6 @@ def calculate(branches, branch, pos, move, delete, value="", string=""):
 
 
 def calculate2(branch, action, string="", value=""):
-    # Gets the needed lists/dictionaries.
-    paint_package_layer = librarian("paint_package_layer")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -108,8 +105,8 @@ def calculate2(branch, action, string="", value=""):
 
         if action == "three":
             for x in range(len(abc)):
-                if abc[x] in paint_package_layer[branch]:
-                    paint_package_layer[branch].update({xpo[x]: paint_package_layer[branch][abc[x]]})
+                if abc[x] in paint_layer[branch]:
+                    paint_layer[branch].update({xpo[x]: paint_layer[branch][abc[x]]})
             return
 
         if value:
@@ -122,9 +119,6 @@ def copy_layer(branch, position, moved, delete):
     test = []
     abc = []
     xpo = []
-
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -165,7 +159,7 @@ def copy_layer(branch, position, moved, delete):
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
-                position = build_pos(branch, position.copy())
+                position = format_position(branch, position.copy())
 
                 for pos in position:
                     # Calls the calculate function.

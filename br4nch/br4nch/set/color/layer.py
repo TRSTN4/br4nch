@@ -1,9 +1,9 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, paint_layer
 from br4nch.utility.painter import painter
-from br4nch.utility.positioner import build_pos
+from br4nch.utility.positioner import format_position
 from br4nch.utility.handler import NotExistingBranchError, MissingPaintError
 
 
@@ -17,9 +17,6 @@ def arguments(branch="", pos="", paint=""):
 
 
 def calculate(branches, branch, paint, pos, match, value=""):
-    # Gets the needed lists/dictionaries.
-    paint_package_layer = librarian("paint_package_layer")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -38,7 +35,7 @@ def calculate(branches, branch, paint, pos, match, value=""):
             # Checks if length of entries in pos is smaller then 2.
             if len(pos) < 2:
                 # Adds the current value of pos and the requested paint to the current branch paint package.
-                paint_package_layer[branch].update({match: painter(paint, branch, layer)})
+                paint_layer[branch].update({match: painter(paint, branch, layer)})
             # If length of entries in pos is not smaller then 2.
             else:
                 if value:
@@ -52,9 +49,6 @@ def calculate(branches, branch, paint, pos, match, value=""):
 
 # Adds the chosen paint to the parsed position.
 def color_layer(branch, paint, position):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
@@ -86,7 +80,7 @@ def color_layer(branch, paint, position):
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
-                pos = build_pos(branch, position.copy())
+                pos = format_position(branch, position.copy())
 
                 for pos in pos:
                     match = ""

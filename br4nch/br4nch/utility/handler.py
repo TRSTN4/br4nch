@@ -38,6 +38,13 @@ class DuplicateBranchError(Exception):
         return "The branch '" + str(self.branch) + "' already exists."
 
 
+class InvalidBranchError(Exception):
+    __module__ = Exception.__module__
+
+    def __str__(self):
+        return "Only numbers and/or letters may be used to add a branch."
+
+
 class NotExistingBranchError(Exception):
     __module__ = Exception.__module__
 

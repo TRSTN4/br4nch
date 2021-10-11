@@ -1,7 +1,7 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches
 from br4nch.utility.handler import NotExistingBranchError, MissingNameError
 
 
@@ -16,9 +16,6 @@ def arguments(branch="", name=""):
 
 # Adds a new name for the branch.
 def replace_header(name, branch):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.

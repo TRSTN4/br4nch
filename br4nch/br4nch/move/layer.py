@@ -1,9 +1,9 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, paint_layer
 from br4nch.utility.handler import NotExistingBranchError
-from br4nch.utility.positioner import build_pos
+from br4nch.utility.positioner import format_position
 
 
 # Gets the parsed arguments.
@@ -12,7 +12,7 @@ def arguments(branch="", pos="", move=""):
     move_layer(branch, pos, move)
 
 
-def calculate(branches, branch, pos, move, value="", string=""):
+def calculate(branch, pos, move, value="", string=""):
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -69,15 +69,12 @@ def calculate(branches, branch, pos, move, value="", string=""):
                     # Removes the last entry of pos list.
                     xyz.pop(0)
                     # Calls the calculate function.
-                    calculate(branches, branch, pos, move, value, string)
+                    calculate(branch, pos, move, value, string)
                     # Returns nothing and stops the loop.
                     return
 
 
 def calculate2(branch, action, string="", value=""):
-    # Gets the needed lists/dictionaries.
-    paint_package_layer = librarian("paint_package_layer")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -109,8 +106,8 @@ def calculate2(branch, action, string="", value=""):
 
         if action == "three":
             for x in range(len(abc)):
-                if abc[x] in paint_package_layer[branch]:
-                    paint_package_layer[branch][xpo[x]] = paint_package_layer[branch].pop(abc[x])
+                if abc[x] in paint_layer[branch]:
+                    paint_layer[branch][xpo[x]] = paint_layer[branch].pop(abc[x])
             return
 
         if value:
@@ -124,9 +121,6 @@ def move_layer(branch, position, moved):
     abc = []
     xpo = []
     deel = []
-
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
 
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
@@ -167,15 +161,15 @@ def move_layer(branch, position, moved):
                 branch = y
 
                 # Calls the operator function and gets the returned pos.
-                position = build_pos(branch, position.copy())
+                position = format_position(branch, position.copy())
 
                 for pos in position:
                     # Calls the calculate function.
-                    calculate(branches, branch, pos.copy(), "")
+                    calculate(branch, pos.copy(), "")
 
                 for move in moved:
                     # Calls the calculate function.
-                    calculate(branches, branch, "", move.copy())
+                    calculate( branch, "", move.copy())
 
                 for k, v in deel[0].items():
                     del v[k]

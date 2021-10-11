@@ -1,7 +1,7 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 from br4nch.utility.handler import NotExistingBranchError, MissingBranchError, MissingNameError
 
 
@@ -19,16 +19,6 @@ def arguments(branch="", name=""):
 
 # Adds a new name for the branch.
 def replace_branch(branch, name):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    output = librarian("output")
-    paint_package_branch = librarian("paint_package_branch")
-    paint_package_header = librarian("paint_package_header")
-    paint_package_layer = librarian("paint_package_layer")
-    symbols = librarian("symbols")
-    size = librarian("size")
-    uids = librarian("uids")
-
     branch = str(branch)
     error = 0
     for y in list(branches):
@@ -41,21 +31,21 @@ def replace_branch(branch, name):
 
             branches[name] = branches.pop(branch)
             output[name] = output.pop(branch)
-            size[name] = size.pop(branch)
+            sizes[name] = sizes.pop(branch)
             symbols[name] = symbols.pop(branch)
-            paint_package_branch[name] = paint_package_branch.pop(branch)
-            paint_package_header[name] = paint_package_header.pop(branch)
-            paint_package_layer[name] = paint_package_layer.pop(branch)
+            paint_branch[name] = paint_branch.pop(branch)
+            paint_header[name] = paint_header.pop(branch)
+            paint_layer[name] = paint_layer.pop(branch)
             uids[name] = uids.pop(branch)
 
             for x in list(branches)[index:-1]:
                 branches[x] = branches.pop(x)
                 output[x] = output.pop(x)
-                size[x] = size.pop(x)
+                sizes[x] = sizes.pop(x)
                 symbols[x] = symbols.pop(x)
-                paint_package_branch[x] = paint_package_branch.pop(x)
-                paint_package_header[x] = paint_package_header.pop(x)
-                paint_package_layer[x] = paint_package_layer.pop(x)
+                paint_branch[x] = paint_branch.pop(x)
+                paint_header[x] = paint_header.pop(x)
+                paint_layer[x] = paint_layer.pop(x)
                 uids[x] = uids.pop(x)
 
     if error == 0:

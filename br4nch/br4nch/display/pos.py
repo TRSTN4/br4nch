@@ -1,9 +1,9 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, positions
 from br4nch.utility.printer import printer
-from br4nch.utility.positioner import build_pos
+from br4nch.utility.positioner import format_position
 from br4nch.utility.handler import NotExistingBranchError
 
 
@@ -24,10 +24,6 @@ def elevator(branch, value, pos=0):
 
 
 def calculate(branch, layer="", pos="", action="", value="", string=""):
-    # Gets the needed lists/dictionaries.
-    positions = librarian("positions")
-    branches = librarian("branches")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -78,9 +74,6 @@ def get_pos(branch, layer, position):
     # All global statements.
     global levels, trace
 
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if branch is not a instance of list.
     if not isinstance(branch, list):
         # Branch will be equal to a list that contains the value of branch.
@@ -119,7 +112,7 @@ def get_pos(branch, layer, position):
                     calculate(branch, layer, position, "all")
                 else:
                     # Calls the operator function and gets the returned pos.
-                    pos = build_pos(branch, position.copy())
+                    pos = format_position(branch, position.copy())
 
                     for pos in pos:
                         # Sets the lists.

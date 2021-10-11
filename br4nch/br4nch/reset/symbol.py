@@ -1,43 +1,44 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches, symbols
 from br4nch.utility.handler import NotExistingBranchError
 
 
-# Gets the parsed arguments.
-def arguments(branch=""):
-    # Parses the arguments to the first task.
-    symbol_branch(branch)
+def arguments(branch):
+    """Gets the arguments and parses them to the 'reset_symbol' function."""
+    reset_symbol(branch)
 
 
-# Changes the symbols of the branch to the given input.
-def symbol_branch(branch):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    symbols = librarian("symbols")
+def reset_symbol(argument_branch):
+    """
+    If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+    If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch' list.
 
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
+    Loops through the given 'argument_branch' list and checks if the value is already in the 'branches' dictionary. If
+    the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
+    If the branch is in the 'branches' dictionary, then it will update the current branch key in the 'symbols'
+    dictionary with the standard values for 'line', 'split', 'end'.
+    """
+
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
+
+    if "*" in argument_branch:
+        argument_branch.clear()
+        for branches_branch in list(branches):
+            argument_branch.append(branches_branch)
+
+    for branch in argument_branch:
         error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
+        for branches_branch in list(branches):
+            if str(branch).lower() == branches_branch.lower():
                 error = error + 1
 
-                branch = y
-
-                symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+                symbols.update({str(branches_branch): {"line": "┃", "split": "┣━━", "end": "┗━━"}})
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            raise NotExistingBranchError(str(branch))

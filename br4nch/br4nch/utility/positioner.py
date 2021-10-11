@@ -1,14 +1,11 @@
 # Part of the br4nch package.
 
 # Imports all files.
-from br4nch.utility.librarian import librarian
+from br4nch.utility.librarian import branches
 
 
 # Calculates the given operator(s) and replaces the operator(s) with the calculated numbers in different positions.
 def calculate_operator(branch, pos, value=""):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-
     # Checks if there is no content in value.
     if not value:
         # Value is equal to the value of all nested layers.
@@ -47,7 +44,7 @@ def calculate_operator(branch, pos, value=""):
 
 
 # Builds the pos using multiple algorithms.
-def build_pos(branch, pos):
+def format_position(branch, pos):
     for x in range(len(pos)):
         if not isinstance(pos[x], list):
            pos[x] = str(pos[x])
@@ -158,7 +155,7 @@ def build_pos(branch, pos):
                 # Removes the current pos list from the pos list.
                 pos.pop(position)
                 # Recalls the function.
-                build_pos(branch, pos)
+                format_position(branch, pos)
 
     # Returns the pos.
     return pos

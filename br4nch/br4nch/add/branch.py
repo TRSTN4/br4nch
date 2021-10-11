@@ -1,56 +1,46 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.librarian import librarian
-from br4nch.utility.handler import MissingBranchError, DuplicateBranchError
+from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
+from br4nch.utility.handler import InvalidBranchError, DuplicateBranchError
 
 
-# Gets the parsed arguments.
-def arguments(branch=""):
-    if not branch:
-        raise MissingBranchError
-
-    # Parses the arguments to the first task.
+def arguments(branch):
+    """Gets the arguments and parses them to the 'add_branch' function."""
     add_branch(branch)
 
 
-# Adds a new name for the branch.
-def add_branch(branch):
-    # Gets the needed lists/dictionaries.
-    branches = librarian("branches")
-    output = librarian("output")
-    paint_package_branch = librarian("paint_package_branch")
-    paint_package_header = librarian("paint_package_header")
-    paint_package_layer = librarian("paint_package_layer")
-    symbols = librarian("symbols")
-    size = librarian("size")
-    uids = librarian("uids")
+def add_branch(argument_branch):
+    """
+    If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+    If the branch value contains a character that is not a letter or number, then it raises an 'InvalidBranchError'
+    error.
 
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
-        for y in list(branches):
-            if branch.lower() == y.lower():
-                raise DuplicateBranchError(branch)
+    Loops through the given branch list and checks if the branch is already in the 'branches' dictionary. If the branch
+    is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
 
-        # Adds the branch values inside the dictionaries.
-        branches.update({branch: {}})
+    If the branch is not in the 'branches' dictionary, then it will add the current branch key in all the mandatory
+    dictionaries with a empty dictionary as value
+    """
 
-        # Log lists to save output with branch as key and list as value.
-        output.update({branch: []})
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
 
-        size.update({branch: 1})
+    for branch in argument_branch:
+        if not str(branch).isalnum():
+            raise InvalidBranchError
 
-        uids.update({branch: []})
+        for branches_branch in list(branches):
+            if str(branch).lower() == branches_branch.lower():
+                raise DuplicateBranchError(str(branch))
 
-        # Sets the symbols to default symbols.
-        symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
-
-        paint_package_branch.update({branch: {}})
-        paint_package_header.update({branch: {}})
-        paint_package_layer.update({branch: {}})
+        branches.update({str(branch): {}})
+        output.update({str(branch): []})
+        uids.update({str(branch): []})
+        sizes.update({str(branch): 1})
+        symbols.update({str(branch): {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+        paint_branch.update({str(branch): {}})
+        paint_header.update({str(branch): {}})
+        paint_layer.update({str(branch): {}})
