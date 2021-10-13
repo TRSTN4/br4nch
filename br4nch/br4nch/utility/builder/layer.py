@@ -149,7 +149,7 @@ def build_layer(branch, branch_paint, value="", pos=""):
 
         spaces = ""
         for _ in range(sizes[branch]):
-             spaces = spaces + extend + line + "\n"
+            spaces = spaces + extend + line + "\n"
 
         # Checks if the layer value is equal to the last layer inside the previous value.
         if layer == list(prev_value)[-1]:

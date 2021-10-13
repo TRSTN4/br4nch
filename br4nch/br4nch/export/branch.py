@@ -1,58 +1,78 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.librarian import branches, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import NotExistingBranchError
 from br4nch.utility.printer import printer
+from br4nch.utility.handler import StringInstanceError, BooleanInstanceError, NotExistingBranchError
 
 
-# Gets the parsed arguments.
-def arguments(branch="", file="", package=""):
-    # Parses the arguments to the first task.
-    export(branch, file, package)
+def arguments(branch, package=False, beautify=True):
+    """Gets the arguments and parses them to the 'export_branch' function."""
+    export_branch(branch, package, beautify)
 
 
-def export(branch, file, package):
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+def export_branch(argument_branch, argument_package, argument_beautify):
+    """
+    Lists:
+      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
+    Errors:
+      - If the package value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
+      - If the beautify value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
 
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
+    Operators:
+      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+        list.
+
+    Argument branch list loop:
+      Errors:
+        - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+        - If and the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+      Branches list loop:
+        - If the branch is in the 'branches' dictionary, then it is checked whether the variable 'argument_package' is
+          equal to true, if the variable is equal to true, then a dictionary is created with the values of all necessary
+          dictionaries.
+        - The 'printer' function is called with the 'display_export_branch' action that prints the given
+          'branches_branch' dictionary and the 'branches_branch' package dictionary. If the 'argument_beautify' variable
+          is false, the given dictionary(s) are not represented with a branch structure.
+    """
+
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
+
+    if not isinstance(argument_package, bool):
+        raise BooleanInstanceError("package", argument_package)
+
+    if not isinstance(argument_beautify, bool):
+        raise BooleanInstanceError("beautify", argument_beautify)
+
+    if "*" in argument_branch:
+        argument_branch.clear()
+        for branches_branch in list(branches):
+            argument_branch.append(branches_branch)
+
+    for branch in argument_branch:
         error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
+
+        if not isinstance(branch, str):
+            raise StringInstanceError("branch", branch)
+
+        for branches_branch in list(branches):
+            if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                branch = y
+                export_package = {}
 
-                export_branch = {branch: branches[branch]}
+                if argument_package:
+                    export_package = {branches_branch: [uids[branches_branch], sizes[branches_branch],
+                                                        symbols[branches_branch], paint_branch[branches_branch],
+                                                        paint_header[branches_branch], paint_layer[branches_branch]]}
 
-                if package:
-                    export_package = {branch: [paint_branch[branch], paint_header[branch],
-                                               paint_layer[branch], symbols[branch], sizes[branch],
-                                               uids[branch]]}
-                else:
-                    export_package = {}
-
-                if file:
-                    export_file = open(file, "w", encoding='utf-8')
-                    export_file.write(str(export_branch) + "\n")
-                    export_file.close()
-                if package:
-                    export_file = open(package, "w", encoding='utf-8')
-                    export_file.write(str(export_package) + "\n")
-                    export_file.close()
-
-                if not file and not package:
-                    printer("display_export_branch", [branch, export_branch, export_package])
+                printer("display_export_branch", [branches_branch,
+                                                  {branches_branch: branches[branches_branch]},
+                                                  export_package, argument_beautify])
 
         if error == 0:
             raise NotExistingBranchError(branch)

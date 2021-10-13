@@ -14,6 +14,42 @@ class MissingHeaderError(Exception):
         return "The header argument is missing."
 
 
+class StringInstanceError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, argument, parsed):
+        self.argument = argument
+        self.parsed = parsed
+
+    def __str__(self):
+        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
+               + "'string' and not '" + str(type(self.parsed).__name__) + "'."
+
+
+class BooleanInstanceError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, argument, parsed):
+        self.argument = argument
+        self.parsed = parsed
+
+    def __str__(self):
+        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
+               + "'boolean' and not '" + str(type(self.parsed).__name__) + "'."
+
+
+class DictionaryInstanceError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, argument, parsed):
+        self.argument = argument
+        self.parsed = parsed
+
+    def __str__(self):
+        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
+               + "'dictionary' and not '" + str(type(self.parsed).__name__) + "'."
+
+
 class MissingNameError(Exception):
     __module__ = Exception.__module__
 

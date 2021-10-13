@@ -1,12 +1,12 @@
-# Beta phase - br4nch v1.1.2
-# desc - Code cleanup for a couple of files.
+# Beta phase - br4nch v1.1.3
+# desc - Introducing load branch function, a prototype for load json function and code clean-up for multiple files.
 
 # Imports the br4nch package.
 import br4nch
 
 # Creates the "Database" branch.
 br4nch.add.branch(branch="Database")
-br4nch.add.header(branch="*", header="Company")
+br4nch.add.header(branch="Database", header="Company")
 br4nch.add.layer(branch="Database", layer=["Jobs", "Employee\nContacts", "Products"], pos="0")
 br4nch.add.layer(branch="Database", layer=["Accounting", "International Business\nNational Business"], pos="1")
 br4nch.add.layer(branch="Database", layer=["Bookkeepers", "Budget analysts"], pos=["1.1", "2"])
@@ -17,6 +17,8 @@ br4nch.add.layer(branch="Database", layer="01 23 45 67 89", pos="2.1.1.2")
 br4nch.add.layer(branch="Database", layer="jane.doe@email.com", pos="2.1.2.1")
 br4nch.add.layer(branch="Database", layer="Database", pos="3")
 br4nch.add.layer(branch="Database", layer=["MySQL", "MariaDB"], pos="3.1")
+
+# br4nch.add.layer(branch="Database", layer=["asd", "das"], pos="2.1>1/2>2/4>4")
 
 # br4nch.delete.layer(branch="Database", pos="2.2>3")
 
@@ -44,7 +46,7 @@ br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.*.
 br4nch.set.symbol(branch="Test", line="|", split="}---->", end="!-->")
 
 # Sets the total size of the branch.
-br4nch.set.size(branch="Test", size=0)
+# br4nch.set.size(branch="Test", size=0)
 
 # Displays the given positions and/or layers.
 br4nch.display.pos(branch="Test", pos="3.2", layer="Sub Text 1")
@@ -52,8 +54,7 @@ br4nch.display.pos(branch="Test", pos="3.2", layer="Sub Text 1")
 # Displays all layer positions in a branch.
 # br4nch.display.assist(branch="Test")
 
+# br4nch.load.json(branch="json", json={"quiz": {"123": {"q1": {"question": "Which one is correct team name in NBA?", "options": ["New York Bulls", "Los Angeles Kings", "Golden State Warriros", "Huston Rocket"], "answer": "Huston Rocket"}}, "maths": {"q1": {"question": "5 + 7 = ?", "options": ["10", "11", "12", "13"], "answer": "12"}, "q2": {"question": "12 - 8 = ?", "options": ["1", "2", "3", "4"], "answer": "4"}}}})
+
 # Displays the branches.
 br4nch.display.branch()
-
-# todo
-br4nch.export.branch(branch="Database")

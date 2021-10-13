@@ -3,7 +3,7 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import InvalidBranchError, DuplicateBranchError
+from br4nch.utility.handler import StringInstanceError, InvalidBranchError, DuplicateBranchError
 
 
 def arguments(branch):
@@ -13,34 +13,41 @@ def arguments(branch):
 
 def add_branch(argument_branch):
     """
-    If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+    Lists:
+      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    If the branch value contains a character that is not a letter or number, then it raises an 'InvalidBranchError'
-    error.
+    Argument branch list loop:
+      Errors:
+        - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+        - If the branch value contains a character that is not a letter or number, then it raises an
+          'InvalidBranchError' error.
 
-    Loops through the given branch list and checks if the branch is already in the 'branches' dictionary. If the branch
-    is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
+      Branches list loop:
+        Errors:
+          - If the branch is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
 
-    If the branch is not in the 'branches' dictionary, then it will add the current branch key in all the mandatory
-    dictionaries with a empty dictionary as value
+      - Then it will add the current branch key in all the mandatory dictionaries with a empty dictionary as value
     """
 
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 
     for branch in argument_branch:
-        if not str(branch).isalnum():
+        if not isinstance(branch, str):
+            raise StringInstanceError("branch", branch)
+
+        if not branch.isalnum():
             raise InvalidBranchError
 
         for branches_branch in list(branches):
-            if str(branch).lower() == branches_branch.lower():
-                raise DuplicateBranchError(str(branch))
+            if branch.lower() == branches_branch.lower():
+                raise DuplicateBranchError(branch)
 
-        branches.update({str(branch): {}})
-        output.update({str(branch): []})
-        uids.update({str(branch): []})
-        sizes.update({str(branch): 1})
-        symbols.update({str(branch): {"line": "┃", "split": "┣━━", "end": "┗━━"}})
-        paint_branch.update({str(branch): {}})
-        paint_header.update({str(branch): {}})
-        paint_layer.update({str(branch): {}})
+        branches.update({branch: {}})
+        output.update({branch: []})
+        uids.update({branch: []})
+        sizes.update({branch: 1})
+        symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+        paint_branch.update({branch: {}})
+        paint_header.update({branch: {}})
+        paint_layer.update({branch: {}})

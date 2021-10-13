@@ -5,7 +5,7 @@
 from br4nch.utility.librarian import branches
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import get_uid
-from br4nch.utility.handler import NotExistingBranchError
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 
 
 def arguments(branch, layer, pos):
@@ -20,17 +20,23 @@ class AddLayer:
 
     def build_position(self, argument_branch, argument_layer, argument_pos):
         """
-        If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
-        If the given layer argument is not an instance of a list, then the layer argument will be set as a list.
-        If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
+        Lists:
+          - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+          - If the given layer argument is not an instance of a list, then the layer argument will be set as a list.
+          - If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
 
-        If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch' list.
+        Operators:
+          - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+            list.
 
-        Loops through the given 'argument_branch' list and checks if the value is already in the 'branches' dictionary. If
-        the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+        Argument branch list loop:
+          Errors:
+            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
-        If the branch is in the 'branches' dictionary, then it runs a loop with all positions in the returned list from the
-        'format_position' function. And calls the 'add_layer' function for every looped position.
+          Branches list loop:
+            - If the branch is in the 'branches' dictionary, then it runs a loop with all positions in the returned list
+              from the 'format_position' function. And calls the 'add_layer' function for every looped position.
         """
 
         if not isinstance(argument_branch, list):
@@ -49,35 +55,43 @@ class AddLayer:
 
         for branch in argument_branch:
             error = 0
+
+            if not isinstance(branch, str):
+                raise StringInstanceError("branch", branch)
+
             for branches_branch in list(branches):
-                if str(branch).lower() == branches_branch.lower():
+                if branch.lower() == branches_branch.lower():
                     error = error + 1
 
-                    for position in format_position(str(branches_branch), argument_pos):
-                        self.add_layer(str(branches_branch), argument_layer, position)
+                    for position in format_position(branches_branch, argument_pos):
+                        self.add_layer(branches_branch, argument_layer, position)
 
             if error == 0:
-                raise NotExistingBranchError(str(branch))
+                raise NotExistingBranchError(branch)
 
     def add_layer(self, branch, argument_layer, position, value=""):
         """
-        If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
-        header key in the 'branches' directory.
+        Values:
+          - If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
+            header key in the 'branches' directory.
 
-        If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and each
-        layer of the loop is appended to the value of the header key in the branch of the 'branches' directory.
+        Position variable equal to zero:
+          Errors:
+            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
 
-        If the first value in the 'position' is not equal to a '0' then a loop is made and for each value of the 'value'
-        variable the 'count' variable is added with '1'.
+          - If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and each
+            layer value of the loop is appended to the value of the header key in the branch of the 'branches'
+            directory.
 
-        If the value of the 'count' variable is equal to the first value of the 'position' variable and the length of
-        the 'position' list is equal to '1' then the 'argument_layer' variable is looped and each layer of the loop
-        will be added to the value of the 'value' dictionary.
+        Value dictionary loop:
+          - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
-        If the value of the 'count' variable is equal to the first value of the 'position' variable and the length of
-        the 'position' list is not equal to '1' and there is a value of the 'value' variable, then removes the first
-        value from the 'position' list and calls the 'add_layer' again with the new values of the 'value' variable as
-        argument.
+          Count variable equal to the first value of position:
+            - If the length of the 'position' list is equal to '1' then the 'argument_layer' variable is looped and each
+              layer of the loop will be added to the value of the 'value' dictionary.
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable, then the
+              first value from the 'position' list will be removed and the 'add_layer' function will be called again with the
+              new values of the 'value' variable as argument.
         """
 
         if not value:
@@ -85,7 +99,10 @@ class AddLayer:
 
         if position[0] == "0":
             for layer in argument_layer:
-                branches[branch][list(branches[branch])[0]].update({str(layer) + get_uid(branch): {}})
+                if not isinstance(layer, str):
+                    raise StringInstanceError("layer", layer)
+
+                branches[branch][list(branches[branch])[0]].update({layer + get_uid(branch): {}})
             return
         else:
             count = 0
@@ -96,7 +113,10 @@ class AddLayer:
                 if count == int(position[0]):
                     if len(position) == 1:
                         for layer in argument_layer:
-                            value.update({str(layer) + get_uid(branch): {}})
+                            if not isinstance(layer, str):
+                                raise StringInstanceError("layer", layer)
+
+                            value.update({layer + get_uid(branch): {}})
                         return
                     else:
                         if value:

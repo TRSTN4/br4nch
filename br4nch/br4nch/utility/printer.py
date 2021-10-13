@@ -1,21 +1,31 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer,\
     positions
 
 
-# The printer prints the output after the branch has been build.
-def printer(action, package=[], delete=False):
+def printer(action, package=None, delete=False):
+    if package is None:
+        package = []
+
     branch = package[0]
 
     if action == "display_export_branch":
         if package[2]:
-            print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "├─ Export: "
-                  + str(package[1]) + "\n" + " " * 3 + "└─ Package: " + str(package[2]))
+            if package[3]:
+                print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "├─ Export: "
+                      + str(package[1]) + "\n" + " " * 3 + "└─ Package: " + str(package[2]))
+            else:
+                print(str(package[1]))
+                print(str(package[2]))
         else:
-            print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Export: "
-                  + str(package[1]))
+            if package[3]:
+                print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Export: "
+                      + str(package[1]))
+            else:
+                print(str(package[1]))
 
     if action == "display_found":
         for layer, value in positions.copy().items():
