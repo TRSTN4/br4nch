@@ -35,7 +35,7 @@ def calculate(branches, branch, paint, pos, match, value=""):
             # Checks if length of entries in pos is smaller then 2.
             if len(pos) < 2:
                 # Adds the current value of pos and the requested paint to the current branch paint package.
-                paint_layer[branch].update({match: painter(paint, branch, layer)})
+                paint_layer[branch].update({match: paint})
             # If length of entries in pos is not smaller then 2.
             else:
                 if value:

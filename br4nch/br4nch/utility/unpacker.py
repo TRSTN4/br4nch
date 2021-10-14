@@ -23,6 +23,7 @@ def unpack_paint_builder(branch, paint, pos=""):
         for key, p in paint.items():
             # Checks if the key is equal to the value of action.
             if key == action:
+                print(p)
                 # Returns the paint.
                 return p
 

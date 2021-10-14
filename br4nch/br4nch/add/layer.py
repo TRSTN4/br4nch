@@ -4,7 +4,7 @@
 
 from br4nch.utility.librarian import branches
 from br4nch.utility.positioner import format_position
-from br4nch.utility.generator import get_uid
+from br4nch.utility.generator import generate_uid
 from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 
 
@@ -102,7 +102,7 @@ class AddLayer:
                 if not isinstance(layer, str):
                     raise StringInstanceError("layer", layer)
 
-                branches[branch][list(branches[branch])[0]].update({layer + get_uid(branch): {}})
+                branches[branch][list(branches[branch])[0]].update({layer + generate_uid(branch): {}})
             return
         else:
             count = 0
@@ -116,7 +116,7 @@ class AddLayer:
                             if not isinstance(layer, str):
                                 raise StringInstanceError("layer", layer)
 
-                            value.update({layer + get_uid(branch): {}})
+                            value.update({layer + generate_uid(branch): {}})
                         return
                     else:
                         if value:

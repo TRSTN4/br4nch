@@ -3,7 +3,6 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.generator import get_uid
 from br4nch.utility.handler import DictionaryInstanceError, DuplicateBranchError
 
 

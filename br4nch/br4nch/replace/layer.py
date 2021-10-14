@@ -3,7 +3,7 @@
 # Imports all files.
 from br4nch.utility.librarian import branches, uids
 from br4nch.utility.positioner import format_position
-from br4nch.utility.generator import get_uid
+from br4nch.utility.generator import generate_uid
 from br4nch.utility.handler import NotExistingBranchError, MissingNameError
 
 
@@ -101,7 +101,7 @@ def add_layer(branch, name, position):
                 for key, value in test.items():
                     uids[branch].remove(key[-10:])
                     index = list(value).index(key)
-                    value[name + get_uid(branch)] = value.pop(key)
+                    value[name + generate_uid(branch)] = value.pop(key)
 
                     for x in list(value)[index:-1]:
                         value[x] = value.pop(x)

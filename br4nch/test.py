@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.1.3
-# desc - Introducing load branch function, a prototype for load json function and code clean-up for multiple files.
+# Beta phase - br4nch v1.1.4
+# desc - Update load and export functions, new export text function and hotfixes.
 
 # Imports the br4nch package.
 import br4nch

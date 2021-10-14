@@ -38,7 +38,7 @@ def color_header(branch, paint):
                 branch = y
 
                 # Adds the branch as key and the paint as value to the paint package.
-                paint_header.update({branch: painter(paint, branch)})
+                paint_header.update({branch: paint})
 
         if error == 0:
             raise NotExistingBranchError(branch)

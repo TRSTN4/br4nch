@@ -38,7 +38,7 @@ def color_branch(branch, paint):
                 branch = y
 
                 # Adds the branch as key and the paint as value to the paint package.
-                paint_branch.update({branch: painter(paint, branch)})
+                paint_branch.update({branch: paint})
 
         if error == 0:
             raise NotExistingBranchError(branch)

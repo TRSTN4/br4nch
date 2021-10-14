@@ -2,7 +2,7 @@
 
 # Imports all files.
 from br4nch.utility.librarian import branches
-from br4nch.utility.generator import get_uid
+from br4nch.utility.generator import generate_uid
 from br4nch.add.branch import arguments as add_branch
 from br4nch.add.header import arguments as add_header
 from br4nch.add.layer import arguments as add_layer
@@ -90,7 +90,7 @@ def assist(branch):
                 error = error + 1
 
                 branch = y
-                branch_assist = y + get_uid(branch)
+                branch_assist = y + generate_uid(branch)
 
                 # Sets the lists.
                 levels = [0]

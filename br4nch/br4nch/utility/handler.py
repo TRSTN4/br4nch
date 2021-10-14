@@ -119,3 +119,33 @@ class InvalidDeleteError(Exception):
 
     def __str__(self):
         return "The delete argument '" + str(self.delete) + "' is not equal to true or false."
+
+
+class InvalidDirectoryError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, directory):
+        self.directory = directory
+
+    def __str__(self):
+        return "The directory '" + str(self.directory) + "' does not exist."
+
+
+class InvalidBranchFileError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, file):
+        self.file = file
+
+    def __str__(self):
+        return "The branch file '" + str(self.file) + "' does not exist."
+
+
+class InvalidPackageFileError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, file):
+        self.file = file
+
+    def __str__(self):
+        return "The package file '" + str(self.file) + "' does not exist."

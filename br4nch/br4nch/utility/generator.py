@@ -1,29 +1,31 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.librarian import uids
 import uuid
 
+from br4nch.utility.librarian import uids
 
-# Generates a unique UID.
-def get_uid(branch, length=10):
-    # Creates the UID.
+
+def generate_uid(branch, length=10):
+    """
+    - Generates the uid.
+
+    While loop:
+      - If the uid exists in the current branch uids list, a new one is generated.
+      - If the uid does not exist in the current branch uids list, then the uid is added to the branch uids list.
+
+    - Returns the generated uid.
+    """
+
     uid = str(uuid.uuid4()).replace("-", "")[0:length]
 
-    # Loops until a unique UID is created.
     while True:
-        # Checks if UID in UIDS list.
         if uid in uids[branch]:
-            # Recalls the function and creates a new UID.
-            get_uid(branch, length)
-            # Returns nothing.
+            generate_uid(branch, length)
             return
-        # If UID not in UIDS list.
         else:
-            # Appends the UID to the UIDS list.
             uids[branch].append(uid)
-            # Breaks the loop.
             break
 
-    # Returns the UID.
     return ":uid=" + uid

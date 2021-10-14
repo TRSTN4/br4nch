@@ -4,10 +4,11 @@
 from br4nch.utility.unpacker import unpack_paint_builder
 from br4nch.utility.unpacker import unpack_paint_clear
 from br4nch.utility.librarian import branches, output, sizes, symbols, paint_layer
+from br4nch.utility.painter import painter
 
 
 # Configures the lists and resets them everytime the configure function is called.
-def configure(branch, branch_paint):
+def configure(branch, branch_paint, colors):
     # All global statements.
     global levels, trace, chain, queue, last
 
@@ -19,7 +20,7 @@ def configure(branch, branch_paint):
     last = [0]
 
     # Runs next task.
-    build_layer(branch, branch_paint)
+    build_layer(branch, branch_paint, colors)
 
 
 # Creates the extenders/branch line for the layers.
@@ -87,14 +88,17 @@ def elevator(branch, value, pos=0):
 
 
 # Algorithm to build the layer.
-def build_layer(branch, branch_paint, value="", pos=""):
+def build_layer(branch, branch_paint, colors, value="", pos=""):
     # Branch symbols variables.
     line = symbols[branch].get("line")
     split = symbols[branch].get("split")
     end = symbols[branch].get("end")
 
-    # Returns the calculated paint clear value.
-    paint_clear = unpack_paint_clear(branch)
+    if colors:
+        # Returns the calculated paint clear value.
+        paint_clear = unpack_paint_clear(branch)
+    else:
+        paint_clear = ""
 
     # Checks if there is no content in value.
     if not value:
@@ -133,15 +137,10 @@ def build_layer(branch, branch_paint, value="", pos=""):
 
         pos = pos.replace("..", ".")
 
-        # Checks if the unpacker returns a value.
-        if unpack_paint_builder(branch, paint_layer, pos):
-            # Paint is equal to the returned unpacked value.
-            layer_paint = unpack_paint_builder(branch, paint_layer, pos)
-        # If the unpacker does not returns a value.
+        if pos in paint_layer[branch] and colors:
+            layer_paint = painter(paint_layer[branch][pos], branch)
         else:
-            # Paint is equal to empty string.
             layer_paint = ""
-
         # Updates the latest trace and adds the current value of trace by one.
         trace[0] = trace[0] + 1
         # Extend is equal to the value returned by the extenders function.
@@ -168,4 +167,4 @@ def build_layer(branch, branch_paint, value="", pos=""):
         # Checks if content in value
         if value:
             # Recalls the current function with the current value of value variable.
-            build_layer(branch, branch_paint, value, pos)
+            build_layer(branch, branch_paint, colors, value, pos)
