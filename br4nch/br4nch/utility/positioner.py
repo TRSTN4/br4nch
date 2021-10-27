@@ -6,57 +6,55 @@ from br4nch.utility.librarian import branches
 from br4nch.utility.handler import StringInstanceError
 
 
-def calculate_operator(branch, pos, value=""):
+def calculate_operator(branch, position, value=""):
     if not value:
         value = branches[branch][list(branches[branch])[0]]
 
-    numbers = []
     count = 0
+    numbers = []
 
-    pos = pos.copy()
-    prev_value = value.copy()
+    position = position.copy()
+    previous_value = value
 
     for layer, value in value.items():
         count = count + 1
 
-        if "*" in pos[0] or ">" in pos[0] or "<" in pos[0]:
+        if position[0] or ">" in position[0] or "<" in position[0]:
             numbers.append(count)
 
-            if layer == list(prev_value)[-1]:
+            if layer == list(previous_value)[-1]:
                 return numbers
         else:
-            if count == int(pos[0]):
-                pos.pop(0)
-                numbers = calculate_operator(branch, pos, value)
+            if count == int(position[0]):
+                position.pop(0)
+                numbers = calculate_operator(branch, position, value)
                 return numbers
 
 
-def format_position(branch, pos):
-    for position in range(len(pos)):
-        if "." in pos[position]:
-            pos[position] = pos[position].split(".")
+def format_position(branch, position):
+    for length in range(len(position)):
+        # raise StringInstanceError("pos", x)
+
+        if "." in position[length]:
+            position[length] = position[length].split(".")
         else:
-            if not isinstance(pos[position], list):
-                pos[position] = [pos[position]]
+            if not isinstance(position[length], list):
+                position[length] = [position[length]]
 
-        for x in range(len(pos[position])):
-            if not isinstance(pos[position][x], str):
-                raise StringInstanceError(x)
-
-        for element in range(len(pos[position])):
-            if "/" in pos[position][element]:
-                split = pos[position][element].split("/")
+        for element in range(len(position[length])):
+            if "/" in position[length][element]:
+                split = position[length][element].split("/")
 
                 for count in range(len(split)):
-                    pos.append(pos[position].copy())
-                    pos[-1][element] = split[count]
-                pos.pop(position)
+                    position.append(position[length].copy())
+                    position[-1][element] = split[count]
+                position.pop(length)
 
-            if "*" in pos[position][element]:
-                numbers = calculate_operator(branch, pos[position])
+            if "*" in position[length][element]:
+                numbers = calculate_operator(branch, position[length])
 
-            if ">" in pos[position][element]:
-                split = pos[position][element].split(">")
+            if ">" in position[length][element]:
+                split = position[length][element].split(">")
 
                 if split[0] < split[1]:
                     bigger = split[1]
@@ -65,7 +63,7 @@ def format_position(branch, pos):
                     bigger = split[0]
                     smaller = split[1]
 
-                numbers = calculate_operator(branch, pos[position])
+                numbers = calculate_operator(branch, position[length])
 
                 test = False
 
@@ -79,8 +77,8 @@ def format_position(branch, pos):
                             if not test:
                                 numbers.remove(count)
 
-            if "<" in pos[position][element]:
-                split = pos[position][element].split("<")
+            if "<" in position[length][element]:
+                split = position[length][element].split("<")
 
                 if split[0] < split[1]:
                     bigger = split[1]
@@ -89,22 +87,22 @@ def format_position(branch, pos):
                     bigger = split[0]
                     smaller = split[1]
 
-                numbers = calculate_operator(branch, pos[position])
+                numbers = calculate_operator(branch, position[length])
 
                 for count in range(int(bigger) + 1 - int(smaller)):
                     numbers.remove(int(int(smaller) + count))
 
-            if "*" in pos[position][element] or ">" in pos[position][element] or "<" in pos[position][element]:
+            if "*" in position[length][element] or ">" in position[length][element] or "<" in position[length][element]:
                 for num in numbers:
-                    pos.append(pos[position].copy())
-                    pos[-1][element] = int(num)
+                    position.append(position[length].copy())
+                    position[-1][element] = int(num)
                     string = ""
 
-                    for position2 in pos[-1]:
+                    for position2 in position[-1]:
                         string = string + "." + str(position2)
-                    pos.pop(-1)
-                    pos.append(string[1:])
+                    position.pop(-1)
+                    position.append(string[1:])
 
-                pos.pop(position)
-                format_position(branch, pos)
-    return pos
+                position.pop(length)
+                format_position(branch, position)
+    return position

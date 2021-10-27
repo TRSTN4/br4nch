@@ -3,36 +3,62 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, symbols
-from br4nch.utility.handler import NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, line="┃", split="┣━━", end="┗━━"):
-    """Gets the arguments and parses them to the 'add_header' function."""
-    symbol_branch(branch, line, split, end)
+    """Gets the arguments and parses them to the 'set_symbol' function."""
+    set_symbol(branch, line, split, end)
 
 
-def symbol_branch(argument_branch, line, split, end):
+def set_symbol(argument_branch, argument_line, argument_split, argument_end):
     """
-    If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+    Check if value:
+      - If there is no value in the variable 'argument_line', the value is equal to one space.
+      - If there is no value in the variable 'argument_split', the value is equal to one space.
+      - If there is no value in the variable 'argument_end', the value is equal to one space.
 
-    If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch' list.
+    Lists:
+      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    Loops through the given 'argument_branch' list and checks if the value is already in the 'branches' dictionary. If
-    the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+    Errors:
+      - If the line value is not an instance of a string, then it raises an 'StringInstanceError' error.
+      - If the split value is not an instance of a string, then it raises an 'StringInstanceError' error.
+      - If the end value is not an instance of a string, then it raises an 'StringInstanceError' error.
 
-    If the branch is in the 'branches' dictionary, then it will add the current branch key in the 'branches' dictionary
-    with the given header as value.
+    Operators:
+      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+        list.
+
+    Argument branch list loop:
+      Errors:
+        - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+        - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+      Branches list loop:
+        - If the branch is in the 'branches' dictionary, then all values of the line arguments are added to the required
+          directories.
     """
 
-    if not line:
-        line = " "
-    if not split:
-        split = " "
-    if not end:
-        end = " "
+    if not argument_line:
+        argument_line = " "
+    if not argument_split:
+        argument_split = " "
+    if not argument_end:
+
+        argument_end = " "
 
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
+
+    if not isinstance(argument_line, str):
+        raise StringInstanceError("line", argument_line)
+
+    if not isinstance(argument_split, str):
+        raise StringInstanceError("split", argument_split)
+
+    if not isinstance(argument_end, str):
+        raise StringInstanceError("end", argument_end)
 
     if "*" in argument_branch:
         argument_branch.clear()
@@ -40,17 +66,19 @@ def symbol_branch(argument_branch, line, split, end):
             argument_branch.append(branches_branch)
 
     for branch in argument_branch:
-        branch = str(branch)
         error = 0
+
+        if not isinstance(branch, str):
+            raise StringInstanceError("branch", branch)
+
         for branches_branch in list(branches):
             if branch.lower() == branches_branch.lower():
-                branch = branches_branch
                 error = error + 1
 
-                if branch in symbols:
-                    symbols[branch].update({"line": line})
-                    symbols[branch].update({"split": split})
-                    symbols[branch].update({"end": end})
+                if branches_branch in symbols:
+                    symbols[branches_branch].update({"line": argument_line})
+                    symbols[branches_branch].update({"split": argument_split})
+                    symbols[branches_branch].update({"end": argument_end})
 
         if error == 0:
             raise NotExistingBranchError(branch)

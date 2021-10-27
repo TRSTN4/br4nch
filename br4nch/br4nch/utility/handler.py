@@ -1,4 +1,6 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
 class MissingBranchError(Exception):
     __module__ = Exception.__module__
@@ -24,6 +26,18 @@ class StringInstanceError(Exception):
     def __str__(self):
         return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
                + "'string' and not '" + str(type(self.parsed).__name__) + "'."
+
+
+class IntegerInstanceError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, argument, parsed):
+        self.argument = argument
+        self.parsed = parsed
+
+    def __str__(self):
+        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
+               + "'integer' and not '" + str(type(self.parsed).__name__) + "'."
 
 
 class BooleanInstanceError(Exception):

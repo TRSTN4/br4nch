@@ -2,7 +2,7 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.librarian import branches
+from br4nch.utility.librarian import branches, paint_layer
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import generate_uid
 from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
@@ -69,7 +69,7 @@ class AddLayer:
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def add_layer(self, branch, argument_layer, position, value=""):
+    def add_layer(self, branch, argument_layer, position, position_structure="", value=""):
         """
         Values:
           - If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
@@ -77,7 +77,7 @@ class AddLayer:
 
         Position variable equal to zero:
           Errors:
-            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the layer value is not an instance of a string, then it raises an 'StringInstanceError' error.
 
           - If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and each
             layer value of the loop is appended to the value of the header key in the branch of the 'branches'
@@ -87,11 +87,16 @@ class AddLayer:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
           Count variable equal to the first value of position:
-            - If the length of the 'position' list is equal to '1' then the 'argument_layer' variable is looped and each
-              layer of the loop will be added to the value of the 'value' dictionary.
-            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable, then the
-              first value from the 'position' list will be removed and the 'add_layer' function will be called again with the
-              new values of the 'value' variable as argument.
+            If the length of the 'position' list is equal to '1':
+              Errors:
+                - If the layer value is not an instance of a string, then it raises an 'StringInstanceError' error.
+
+              - Then it will add the current branch key in the 'branches' dictionary with an empty string as value to
+                the 'paint_layer' directory.
+
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
+              then the first value from the 'position' list will be removed and the 'add_layer' function will be called
+              again with the new values of the 'value' variable as argument.
         """
 
         if not value:
@@ -110,6 +115,10 @@ class AddLayer:
             for value in value.values():
                 count = count + 1
 
+                position_structure = position_structure + "." + str(count)
+                if position_structure[0] == ".":
+                    position_structure = position_structure[1:]
+
                 if count == int(position[0]):
                     if len(position) == 1:
                         for layer in argument_layer:
@@ -117,9 +126,10 @@ class AddLayer:
                                 raise StringInstanceError("layer", layer)
 
                             value.update({layer + generate_uid(branch): {}})
+                            paint_layer[branch].update({position_structure: ""})
                         return
                     else:
                         if value:
                             position.pop(0)
-                            self.add_layer(branch, argument_layer, position, value)
+                            self.add_layer(branch, argument_layer, position, position_structure, value)
                             return

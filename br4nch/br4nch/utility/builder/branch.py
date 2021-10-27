@@ -1,6 +1,7 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.builder.header import build_header
 from br4nch.utility.unpacker import unpack_paint_builder
 from br4nch.utility.unpacker import unpack_paint_clear
@@ -8,12 +9,9 @@ from br4nch.utility.librarian import paint_branch
 from br4nch.utility.painter import painter
 
 
-# Algorithm to build the branch.
 def build_branch(branch, colors=True):
     if colors:
-        # Returns the calculated paint clear value.
         paint_clear = unpack_paint_clear(branch)
-        # Paint is equal to the returned clear paint value.
         branch_paint = paint_clear
     else:
         paint_clear = ""
@@ -24,5 +22,4 @@ def build_branch(branch, colors=True):
     else:
         branch_paint = ""
 
-    # Runs the next task.
     build_header(branch, branch_paint, colors)

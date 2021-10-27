@@ -1,44 +1,54 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.librarian import branches, paint_branch
-from br4nch.utility.painter import painter
-from br4nch.utility.handler import NotExistingBranchError, MissingPaintError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
-# Gets the parsed arguments.
-def arguments(branch="", paint=""):
-    if not paint:
-        raise MissingPaintError
-
-    # Parses the arguments to the first task.
-    color_branch(branch, paint)
+def arguments(branch, paint):
+    """Gets the arguments and parses them to the 'set_color_branch' function."""
+    set_color_branch(branch, paint)
 
 
-# Adds the chosen paint to the parsed branch.
-def color_branch(branch, paint):
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+def set_color_branch(argument_branch, argument_paint):
+    """
+    Lists:
+      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
+    Operators:
+      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+        list.
 
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
+    Argument branch list loop:
+      Errors:
+        - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+        - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+      Branches list loop:
+        - If the branch is in the 'branches' dictionary, then it will add the current branch key in the 'branches'
+          dictionary with the given paint as value to the 'paint_branch' directory.
+    """
+
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
+
+    if "*" in argument_branch:
+        argument_branch.clear()
+        for branches_branch in list(branches):
+            argument_branch.append(branches_branch)
+
+    for branch in argument_branch:
         error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
+
+        if not isinstance(branch, str):
+            raise StringInstanceError("branch", branch)
+
+        for branches_branch in list(branches):
+            if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                branch = y
-
-                # Adds the branch as key and the paint as value to the paint package.
-                paint_branch.update({branch: paint})
+                paint_branch.update({branches_branch: argument_paint})
 
         if error == 0:
             raise NotExistingBranchError(branch)

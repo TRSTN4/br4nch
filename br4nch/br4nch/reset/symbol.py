@@ -22,7 +22,7 @@ def reset_symbol(argument_branch):
     Argument branch list loop:
       Errors:
         - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
-        - If and the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+        - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
       Branches list loop:
         - If the branch is in the 'branches' dictionary, then it will update the current branch key in the 'symbols'

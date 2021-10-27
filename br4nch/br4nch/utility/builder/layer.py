@@ -1,25 +1,21 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.unpacker import unpack_paint_builder
 from br4nch.utility.unpacker import unpack_paint_clear
 from br4nch.utility.librarian import branches, output, sizes, symbols, paint_layer
 from br4nch.utility.painter import painter
 
 
-# Configures the lists and resets them everytime the configure function is called.
 def configure(branch, branch_paint, colors):
-    # All global statements.
     global levels, trace, chain, queue, last
 
-    # Sets the lists.
     levels = [0]
     trace = [0]
     chain = []
     queue = []
     last = [0]
 
-    # Runs next task.
     build_layer(branch, branch_paint, colors)
 
 
@@ -77,59 +73,44 @@ def extenders(branches, branch, line, split, end, value, layer, prev_value):
         return extend
 
 
-# Calculates the level of all the layers.
 def elevator(branch, value, pos=0):
-    # Gets the layer/key and value of the current value variable.
+    """
+    """
+
     for layer, value in value.items():
-        # Appends position to the levels list.
         levels.append(pos)
-        # Recalls the current function and adds the current value of position by one.
+
         elevator(branch, value, pos + 1)
 
 
-# Algorithm to build the layer.
 def build_layer(branch, branch_paint, colors, value="", pos=""):
-    # Branch symbols variables.
     line = symbols[branch].get("line")
     split = symbols[branch].get("split")
     end = symbols[branch].get("end")
 
     if colors:
-        # Returns the calculated paint clear value.
         paint_clear = unpack_paint_clear(branch)
     else:
         paint_clear = ""
 
-    # Checks if there is no content in value.
     if not value:
-        # Value is equal to the value of all nested layers.
         value = branches[branch][list(branches[branch])[0]]
 
-    # Checks if the length of levels is equal to one.
     if len(levels) == 1:
-        # Calls the elevator function to calculate all the positions of all the layers.
         elevator(branch, value)
-        # Appends zero to the end of the levels list to prevent index error.
         levels.append(0)
 
-    # Stores the previous value.
-    prev_value = value.copy()
+    previous_value = value
 
-    # Creates the num variable.
     num = 0
 
-    # Gets the layer/key and value of the current value variable.
     for layer, value in value.items():
-        # Num is equal to the value of num plus one.
+        trace[0] = trace[0] + 1
         num = num + 1
 
-        # Checks if num is equal to one.
         if num == 1:
-            # Adds the current num to pos string.
             pos = pos.replace(pos, pos + "." + str(num))
-        # If num is not equal to one.
         else:
-            # Removes the last num in pos string.
             pos = pos.replace(pos, pos[:-1] + "." + str(num))
 
         if pos[0] == ".":
@@ -141,30 +122,17 @@ def build_layer(branch, branch_paint, colors, value="", pos=""):
             layer_paint = painter(paint_layer[branch][pos], branch)
         else:
             layer_paint = ""
-        # Updates the latest trace and adds the current value of trace by one.
-        trace[0] = trace[0] + 1
-        # Extend is equal to the value returned by the extenders function.
-        extend = extenders(branches, branch, line, split, end, value, layer, prev_value)
 
-        spaces = ""
+        extend = extenders(branches, branch, line, split, end, value, layer, previous_value)
+
+        size = ""
         for _ in range(sizes[branch]):
-            spaces = spaces + extend + line + "\n"
+            size = size + extend + line + "\n"
 
-        # Checks if the layer value is equal to the last layer inside the previous value.
-        if layer == list(prev_value)[-1]:
-            # Appends the current layer branch line to the branch paper list.
-            output[branch].append(branch_paint + spaces + extend + end + " " + paint_clear + layer_paint
-                                 + layer[:-15].replace("\n", paint_clear + "\n" + branch_paint + extend + paint_clear
-                                                       + " " * int(len(end) + 1) + layer_paint) + paint_clear)
-        # If the layer is not equal to the last layer inside the previous value.
+        if layer == list(previous_value)[-1]:
+            output[branch].append(branch_paint + size + extend + end + " " + paint_clear + layer_paint + layer[:-15].replace("\n", paint_clear + "\n" + branch_paint + extend + paint_clear + " " * int(len(end) + 1) + layer_paint) + paint_clear)
         else:
-            # Appends the current layer branch line to the branch paper list.
-            output[branch].append(branch_paint + spaces + extend + split + " " + paint_clear + layer_paint
-                                 + layer[:-15].replace("\n", paint_clear + "\n" + branch_paint + extend + line
-                                                       + paint_clear + " " * int(len(split)) + layer_paint)
-                                 + paint_clear)
+            output[branch].append(branch_paint + size + extend + split + " " + paint_clear + layer_paint + layer[:-15].replace("\n", paint_clear + "\n" + branch_paint + extend + line + paint_clear + " " * int(len(split)) + layer_paint) + paint_clear)
 
-        # Checks if content in value
         if value:
-            # Recalls the current function with the current value of value variable.
             build_layer(branch, branch_paint, colors, value, pos)

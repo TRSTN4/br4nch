@@ -41,7 +41,7 @@ def painter(options, branch="", layer=""):
     else:
         test = options
     for x in test:
-        if x not in colors_id + specials_id:
+        if x not in colors_id + specials_id + [""]:
             raise NotExistingPaintError(x)
 
     # Checks if options value is equal to one of the colors ids.
@@ -97,3 +97,6 @@ def painter(options, branch="", layer=""):
 
     # Returns the requested paint.
     return color + special1 + special2 + special3
+
+    # if not isinstance(argument_paint, str):
+    #     raise StringInstanceError("paint", argument_paint)

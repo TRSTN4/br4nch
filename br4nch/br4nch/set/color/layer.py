@@ -1,101 +1,108 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.librarian import branches, paint_layer
-from br4nch.utility.painter import painter
 from br4nch.utility.positioner import format_position
-from br4nch.utility.handler import NotExistingBranchError, MissingPaintError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
-# Gets the parsed arguments.
-def arguments(branch="", pos="", paint=""):
-    if not paint:
-        raise MissingPaintError
-
-    # Parses the arguments to the first task.
-    color_layer(branch, paint, pos)
+def arguments(branch, pos, paint):
+    """Gets the arguments and parses them to the 'SetColorLayer' class."""
+    SetColorLayer(branch, pos, paint)
 
 
-def calculate(branches, branch, paint, pos, match, value=""):
-    # Checks if there is no content in value.
-    if not value:
-        # Value is equal to the value of all nested layers.
-        value = branches[branch][list(branches[branch])[0]]
+class SetColorLayer:
+    def __init__(self, argument_branch, argument_pos, argument_paint):
+        """Gets the arguments and parses them to the 'build_position' function."""
+        self.build_position(argument_branch, argument_pos, argument_paint)
 
-    # Creates the num variable.
-    num = 0
+    def build_position(self, argument_branch, argument_pos, argument_paint):
+        """
+        Lists:
+          - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+          - If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
 
-    # Gets the layer/key and value of the current value variable.
-    for layer, value in value.items():
-        # Num is equal to current value of num plus one.
-        num = num + 1
+        Operators:
+          - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+            list.
 
-        # Checks if the current value of num is equal to the integer of the first entry in the pos list.
-        if num == int(pos[0]):
-            # Checks if length of entries in pos is smaller then 2.
-            if len(pos) < 2:
-                # Adds the current value of pos and the requested paint to the current branch paint package.
-                paint_layer[branch].update({match: paint})
-            # If length of entries in pos is not smaller then 2.
-            else:
-                if value:
-                    # Removes the last entry of pos list.
-                    pos.pop(0)
-                    # Calls the calculate function.
-                    calculate(branches, branch, paint, pos, match, value)
-                    # Returns nothing and stops the loop.
-                    return
+        Argument branch list loop:
+          Errors:
+            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
+          Branches list loop:
+            - Loops through the obtained values of the current value of the 'position' variable and adds all values of the
+              variable to the 'position_structure' variable.
+            - Calls the 'color_layer' function with the current value of 'position' and 'position_structure' as arguments.
+        """
 
-# Adds the chosen paint to the parsed position.
-def color_layer(branch, paint, position):
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+        if not isinstance(argument_branch, list):
+            argument_branch = [argument_branch]
 
-    # Checks if pos is not a instance of list.
-    if not isinstance(position, list):
-        # Pos will be equal to a list that contains the value of pos.
-        position = [position]
+        if not isinstance(argument_pos, list):
+            argument_pos = [argument_pos]
 
-    # Gets num value based on the length of entries in pos list.
-    for num in range(len(position)):
-        # Separates the numbers from the dots in current pos value.
-        position[num] = position[num].split(".")
+        for length in range(len(argument_pos)):
+            argument_pos[length] = argument_pos[length].split(".")
 
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
+        if "*" in argument_branch:
+            argument_branch.clear()
+            for branches_branch in list(branches):
+                argument_branch.append(branches_branch)
 
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
-        error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
-                error = error + 1
+        for branch in argument_branch:
+            error = 0
 
-                branch = y
+            if not isinstance(branch, str):
+                raise StringInstanceError("branch", branch)
 
-                # Calls the operator function and gets the returned pos.
-                pos = format_position(branch, position.copy())
+            for branches_branch in list(branches):
+                if branch.lower() == branches_branch.lower():
+                    error = error + 1
 
-                for pos in pos:
-                    match = ""
-                    # Loops through all values of pos list.
-                    for value in pos:
-                        # Creates the match variable.
-                        for x in value:
-                            # Match is equal to current value of match plus the value.
-                            match = match + "." + x
+                    for position in format_position(branch, argument_pos.copy()):
+                        position_structure = ""
+                        for value in position:
+                            for x in value:
+                                position_structure = position_structure + "." + x
 
-                    if match[0] == ".":
-                        match = match[1:]
+                        self.set_color_layer(branch, argument_paint, position, position_structure[1:])
 
-                    # Calls the calculate function.
-                    calculate(branches, branch, paint, pos, match)
+            if error == 0:
+                raise NotExistingBranchError(branch)
 
-        if error == 0:
-            raise NotExistingBranchError(branch)
+    def set_color_layer(self, branch, paint, position, position_structure, value=""):
+        """
+        Values:
+          - If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
+            header key in the 'branches' directory.
+
+        Value dictionary loop:
+          - For each value of the 'value' variable the 'count' variable is added with plus '1'.
+
+          Count variable equal to the first value of position:
+            - If the length of the 'position' list is equal to '1' then it will add the current branch key in the
+              'values' dictionary with the given paint as value to the 'paint_layer' directory.
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
+              then the first value from the 'position' list will be removed and the 'add_layer' function will be called
+              again with the new values of the 'value' variable as argument.
+        """
+
+        if not value:
+            value = branches[branch][list(branches[branch])[0]]
+
+        count = 0
+
+        for layer, value in value.items():
+            count = count + 1
+
+            if count == int(position[0]):
+                if len(position) < 2:
+                    paint_layer[branch].update({position_structure: paint})
+                else:
+                    if value:
+                        position.pop(0)
+                        self.set_color_layer(branch, paint, position, position_structure, value)
+                        return

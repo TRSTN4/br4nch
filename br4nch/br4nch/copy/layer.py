@@ -1,4 +1,6 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
 # Imports all files.
 from br4nch.utility.librarian import branches, paint_layer
@@ -6,84 +8,108 @@ from br4nch.utility.handler import NotExistingBranchError
 from br4nch.utility.positioner import format_position
 
 
-# Gets the parsed arguments.
-def arguments(branch="", pos="", move="", delete=False):
-    # Parses the arguments to the first task.
-    copy_layer(branch, pos, move, delete)
+def arguments(branch, copy, pos, delete=False):
+    copy_layer(branch, copy, pos, delete)
 
 
-def calculate(branches, branch, pos, move, delete, value="", string=""):
-    # Checks if there is no content in value.
-    if not value:
-        # Value is equal to the value of all nested layers.
-        value = branches[branch][list(branches[branch])[0]]
+def copy_layer(argument_branch, argument_copy, argument_pos, argument_delete):
+    global test, abc, xpo
+    test = []
+    abc = []
+    xpo = []
 
-    # Creates the num variable.
-    num = 0
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
 
+    if not isinstance(argument_copy, list):
+        argument_copy = [argument_copy]
+
+    for length in range(len(argument_copy)):
+        argument_copy[length] = argument_copy[length].split(".")
+
+    if not isinstance(argument_pos, list):
+        argument_pos = [argument_pos]
+
+    for num in range(len(argument_pos)):
+        argument_pos[num] = argument_pos[num].split(".")
+
+    if not argument_branch[0]:
+        for value in list(branches):
+            argument_branch.append(value)
+        argument_branch.pop(0)
+
+    for branch in argument_branch:
+        error = 0
+
+        for branches_branch in list(branches):
+            if branch.lower() == branches_branch.lower():
+                error = error + 1
+
+                for copy in format_position(branches_branch, argument_copy.copy()):
+                    calculate(branches_branch, copy.copy(), "", argument_delete)
+
+                for position in argument_pos:
+                    calculate(branches_branch, "", position.copy(), argument_delete)
+
+        if error == 0:
+            raise NotExistingBranchError(branch)
+
+
+def calculate(branch, copy, pos, delete, value="", string=""):
+
+    if copy:
+        xyz = copy
     if pos:
         xyz = pos
-    if move:
-        xyz = move
 
+    if not value:
+        value = branches[branch][list(branches[branch])[0]]
+
+    count = 0
     prev_value = value
 
-    # Gets the layer/key and value of the current value variable.
     for layer, value in value.copy().items():
-        # Num is equal to current value of num plus one.
-        num = num + 1
+        count = count + 1
 
         if layer != list(prev_value)[0]:
             string = string[:-1]
 
-        string = string + "." + str(num)
+        string = string + "." + str(count)
         string = string.replace("..", ".")
 
-        if string[0] == ".":
-            string = string[1:]
-
-        # Checks if the current value of num is equal to the integer of the first entry in the pos list.
-        if num == int(xyz[0]):
-            # Checks if length of entries in pos is smaller then 2.
+        if count == int(xyz[0]):
             if len(xyz) < 2:
-                if pos:
+                if copy:
                     string = string[:-1]
-                    test.append({list(prev_value)[num - 1]: value})
-                    calculate2(branch, "one", str(string))
+                    test.append({list(prev_value)[count - 1]: value})
+                    calculate2(branch, "one", string[0:])
                     if delete:
                         del prev_value[layer]
 
-                if move:
+                if pos:
                     for x in range(len(test)):
                         value.update({list(test[x])[0]: list(test[x].items())[0][1]})
-                    calculate2(branch, "two", str(string))
 
-                    calculate2(branch, "three", str(string))
+                    calculate2(branch, "two", string[0:])
+                    calculate2(branch, "three", string[0:])
+
                     test.clear()
                     abc.clear()
                     xpo.clear()
-            # If length of entries in pos is not smaller then 2.
             else:
                 if value:
-                    # Removes the last entry of pos list.
                     xyz.pop(0)
-                    # Calls the calculate function.
-                    calculate(branches, branch, pos, move, delete, value, string)
-                    # Returns nothing and stops the loop.
+                    calculate(branch, copy, pos, delete, value, string)
                     return
 
 
 def calculate2(branch, action, string="", value=""):
-    # Checks if there is no content in value.
     if not value:
-        # Value is equal to the value of all nested layers.
         value = test[0]
 
     count = 0
 
     prev_value = value
-
-    # Gets the layer/key and value of the current value variable.
     for key, value in value.items():
         count = count + 1
 
@@ -111,63 +137,3 @@ def calculate2(branch, action, string="", value=""):
 
         if value:
             calculate2(branch, action, string, value)
-
-
-def copy_layer(branch, position, moved, delete):
-    # All global statements.
-    global test, abc, xpo
-    test = []
-    abc = []
-    xpo = []
-
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
-
-    # Checks if pos is not a instance of list.
-    if not isinstance(position, list):
-        # Pos will be equal to a list that contains the value of pos.
-        position = [position]
-
-    # Gets num value based on the length of entries in pos list.
-    for num in range(len(position)):
-        # Separates the numbers from the dots in current pos value.
-        position[num] = position[num].split(".")
-
-    if not isinstance(moved, list):
-        moved = [moved]
-
-    # Gets num value based on the length of entries in pos list.
-    for num in range(len(moved)):
-        # Separates the numbers from the dots in current pos value.
-        moved[num] = moved[num].split(".")
-
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
-
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
-        error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
-                error = error + 1
-
-                branch = y
-
-                # Calls the operator function and gets the returned pos.
-                position = format_position(branch, position.copy())
-
-                for pos in position:
-                    # Calls the calculate function.
-                    calculate(branches, branch, pos.copy(), "", delete)
-
-                for move in moved:
-                    # Calls the calculate function.
-                    calculate(branches, branch, "", move.copy(), delete)
-
-        if error == 0:
-            raise NotExistingBranchError(branch)

@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.1.4
-# desc - Update load and export functions, new export text function and hotfixes.
+# Beta phase - br4nch v1.1.5
+# desc - Code clean-up for multiple files.
 
 # Imports the br4nch package.
 import br4nch
@@ -18,9 +18,8 @@ br4nch.add.layer(branch="Database", layer="jane.doe@email.com", pos="2.1.2.1")
 br4nch.add.layer(branch="Database", layer="Database", pos="3")
 br4nch.add.layer(branch="Database", layer=["MySQL", "MariaDB"], pos="3.1")
 
-# br4nch.add.layer(branch="Database", layer=["asd", "das"], pos="2.1>1/2>2/4>4")
-
-# br4nch.delete.layer(branch="Database", pos="2.2>3")
+# br4nch.add.layer(branch="Database", layer=["asd", "das"], pos="2.1>3")
+# br4nch.add.layer(branch="Database", layer=["asd", "das"], pos="2.1>2/3>3")
 
 # Creates the "Test" branch.
 br4nch.add.branch(branch="Test")
@@ -38,9 +37,18 @@ br4nch.set.color.layer(branch="Database", paint=["red", "underline"], pos=["1.1.
 br4nch.set.color.layer(branch="Database", paint=["cyan", "underline"], pos="2.1.1.2.1")
 br4nch.set.color.layer(branch="Database", paint=["red", "underline"], pos="2.1.1.2.1")
 br4nch.set.color.layer(branch="Database", paint=["yellow", "bold"], pos=["2.1.2.1.1", "3.1.1"])
-br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.*.1>2")
+br4nch.set.color.layer(branch="Database", paint=["red", "bold"], pos="2.1.2")
+br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.1.1")
+# br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.*.1>2")
 
-# br4nch.move.layer(branch="Database", pos="2", move="3.1.1")
+br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.1")
+br4nch.set.color.layer(branch="Database", paint=["red", "underline"], pos="2.2")
+br4nch.set.color.layer(branch="Database", paint=["yellow", "underline"], pos="2.3")
+br4nch.set.color.layer(branch="Database", paint=["green", "underline"], pos="2.4")
+
+# br4nch.delete.layer(branch="Database", pos=3)
+
+br4nch.copy.layer(branch="Database", copy="1.2", pos="3.1.1")
 
 # Changes the "Test" branch symbols.
 br4nch.set.symbol(branch="Test", line="|", split="}---->", end="!-->")

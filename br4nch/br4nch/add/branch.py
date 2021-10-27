@@ -26,7 +26,7 @@ def add_branch(argument_branch):
         Errors:
           - If the branch is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
 
-      - Then it will add the current branch key in all the mandatory dictionaries with a empty dictionary as value
+      - Then it will add the current branch key in all the mandatory dictionaries with a empty dictionary as value.
     """
 
     if not isinstance(argument_branch, list):

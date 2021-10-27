@@ -2,7 +2,7 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.librarian import branches, uids
+from br4nch.utility.librarian import branches, uids, paint_layer
 from br4nch.utility.positioner import format_position
 from br4nch.utility.handler import NotExistingBranchError
 
@@ -46,28 +46,23 @@ class DeleteLayer:
         for branch in argument_branch:
             branch = str(branch)
             error = 0
-
             for branches_branch in list(branches):
                 if branch.lower() == branches_branch.lower():
                     branch = branches_branch
                     error = error + 1
 
-                    global test
-                    test = {}
-
-                    for position in format_position(branch, argument_pos):
-                        self.delete_layer(branch, position)
-
                     count = 0
-                    for k, v in test.items():
-                        self.delete_sublayer(branch, v, k - count)
+                    for position in format_position(branch, argument_pos.copy()):
+                        print(position)
+                        position[-1] = str(int(position[-1]) - count)
+                        package = self.delete_layer(branch, position)
+                        self.delete_sublayer(branch, package[0], position, package[1])
                         count = count + 1
-                    test.clear()
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def delete_layer(self, branch, position, value=""):
+    def delete_layer(self, branch, position, position_structure="", value=""):
         """
         If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
         header key in the 'branches' directory.
@@ -103,16 +98,19 @@ class DeleteLayer:
                 count = count + 1
 
                 if count == int(position[0]):
+                    position_structure = position_structure + "." + str(count)
+                    if position_structure[0] == ".":
+                        position_structure = position_structure[1:]
+
                     if len(position) == 1:
-                        test.update({int(position[0]): previous_value})
-                        return
+                        return [previous_value, position_structure]
                     else:
                         if value:
                             position.pop(0)
-                            self.delete_layer(branch, position, value)
-                            return
+                            position_structure = self.delete_layer(branch, position, position_structure, value)
+                            return position_structure
 
-    def delete_sublayer(self, branch, value, num=0):
+    def delete_sublayer(self, branch, value, pos, position_structure):
         """
         Loops through the given value and deletes all uids from the layers and deletes the values from the 'branches'
         directory. todo
@@ -123,13 +121,18 @@ class DeleteLayer:
 
         for layer, value in value.copy().items():
             count = count + 1
+            if pos[0]:
+                if count == int(pos[0]):
+                    if len(pos) == 1:
+                        for x in range(len(previous_value)):
+                            if int(x + 1) >= int(position_structure[-1]) and int(x + 1) != len(previous_value):
+                                paint_layer[branch].update({position_structure[:-1] + str(x + 1): paint_layer[branch][position_structure[:-1] + str(x + 2)]})
 
-            if num:
-                print(count, num)
-                if count == num:
-                    uids[branch].remove(layer[-10:])
-                    del previous_value[layer]
-                    return 1
+                            if int(x + 1) == len(previous_value):
+                                del paint_layer[branch][position_structure[:-1] + str(x + 1)]
 
-            if value:
-                self.delete_sublayer(branch, value)
+                        uids[branch].remove(layer[-10:])
+                        del previous_value[layer]
+                    else:
+                        if value:
+                            self.delete_sublayer(branch, value, pos, position_structure)

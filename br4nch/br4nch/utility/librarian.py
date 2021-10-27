@@ -3,11 +3,11 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 branches = {}
+output = {}
+uids = {}
+sizes = {}
+symbols = {}
 paint_branch = {}
 paint_header = {}
 paint_layer = {}
 positions = {}
-symbols = {}
-output = {}
-sizes = {}
-uids = {}
