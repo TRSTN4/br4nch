@@ -39,7 +39,6 @@ def set_symbol(argument_branch, argument_line, argument_split, argument_end):
         - If the branch is in the 'branches' dictionary, then all values of the line arguments are added to the required
           directories.
     """
-
     if not argument_line:
         argument_line = " "
     if not argument_split:

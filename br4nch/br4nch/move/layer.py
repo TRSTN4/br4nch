@@ -3,147 +3,135 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, paint_layer
-from br4nch.utility.handler import NotExistingBranchError
 from br4nch.utility.positioner import format_position
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
-def arguments(branch="", move="", pos=""):
-    move_layer(branch, move, pos)
+def arguments(branch, move, pos):
+    """Gets the arguments and parses them to the 'MoveLayer' class."""
+    MoveLayer(branch, move, pos)
 
 
-def move_layer(argument_branch, argument_move, argument_pos):
-    global test, abc, xpo, deel
-    test = []
-    abc = []
-    xpo = []
-    deel = []
+class MoveLayer:
+    def __init__(self, argument_branch, argument_move, argument_pos):
+        """Gets the arguments and parses them to the 'build_structure' function."""
+        self.build_structure(argument_branch, argument_move, argument_pos)
 
-    if not isinstance(argument_branch, list):
-        argument_branch = [argument_branch]
+    def build_structure(self, argument_branch, argument_move, argument_pos):
+        if not isinstance(argument_branch, list):
+            argument_branch = [argument_branch]
 
-    if not isinstance(argument_move, list):
-        argument_move = [argument_move]
+        if not isinstance(argument_move, list):
+            argument_move = [argument_move]
 
-    for length in range(len(argument_move)):
-        argument_move[length] = argument_move[length].split(".")
+        if not isinstance(argument_pos, str):
+            raise StringInstanceError("pos", argument_pos)
 
-    if not isinstance(argument_pos, list):
-        argument_pos = [argument_pos]
+        if "*" in argument_branch:
+            argument_branch.clear()
+            for branches_branch in list(branches):
+                argument_branch.append(branches_branch)
 
-    for num in range(len(argument_pos)):
-        argument_pos[num] = argument_pos[num].split(".")
+        for branch in argument_branch:
+            error = 0
 
-    if not argument_branch[0]:
-        for value in list(branches):
-            argument_branch.append(value)
-        argument_branch.pop(0)
+            if not isinstance(branch, str):
+                raise StringInstanceError("branch", branch)
 
-    for branch in argument_branch:
-        error = 0
+            for branches_branch in list(branches):
+                if branch.lower() == branches_branch.lower():
+                    error = error + 1
 
-        for branches_branch in list(branches):
-            if branch.lower() == branches_branch.lower():
-                error = error + 1
+                    for loop_move in argument_move:
+                        if not isinstance(loop_move, str):
+                            raise StringInstanceError("move", loop_move)
 
-                for move in argument_pos:
-                    calculate(branches_branch, move.copy(), "")
+                        move_extend = ""
+                        for pos in loop_move.split("."):
+                            move_extend = move_extend + "." + pos
 
-                for pos in format_position(branches_branch, argument_move.copy()):
-                    calculate(branches_branch, "", pos.copy())
+                        package = self.task_manager(branches_branch, loop_move.split("."), move_extend[1:], [], "", {},
+                                                    [], branches[branches_branch][list(branches[branches_branch])[0]])
 
-                for k, v in deel[0].items():
-                    print(deel)
-                    del v[k]
+                        self.task_manager(branches_branch, [], "", format_position(branches_branch, [argument_pos])[0],
+                                          argument_pos, package[0].copy(), package[1].copy(),
+                                          branches[branches_branch][list(branches[branches_branch])[0]])
 
-        if error == 0:
-            raise NotExistingBranchError(branch)
+            if error == 0:
+                raise NotExistingBranchError(branch)
 
+    def task_manager(self, branch, argument_move, move_extend, position, position_extend, copied_layer,
+                     copied_positions, value, string=""):
+        count = 0
+        previous_value = value
 
-def calculate(branch, move, pos, value="", string=""):
-    if not value:
-        value = branches[branch][list(branches[branch])[0]]
+        for layer, value in value.copy().items():
+            count = count + 1
 
-    num = 0
+            if layer != list(previous_value)[0]:
+                string = string[:-1]
 
-    if move:
-        xyz = move
-    if pos:
-        xyz = pos
+            string = string + "." + str(count)
+            string = string.replace("..", ".")
 
-    prev_value = value
+            if argument_move and count == int(argument_move[0]):
+                if argument_move and len(argument_move) < 2:
+                    if argument_move:
+                        previous_value.pop(layer)
+                        return [{layer: value}, self.copy_positions(branch, value, move_extend, [move_extend])]
+                else:
+                    if value:
+                        argument_move.pop(0)
+                        return self.task_manager(branch, argument_move, move_extend, position, position_extend,
+                                                 copied_layer, copied_positions, value, string)
 
-    for layer, value in value.copy().items():
-        num = num + 1
+            if position and count == int(position[0]):
+                if position and len(position) < 2:
+                    if position:
+                        value.update(copied_layer)
+                        self.set_paint(branch, value, position_extend, copied_positions.copy())
+                else:
+                    if value:
+                        position.pop(0)
+                        return self.task_manager(branch, argument_move, move_extend, position, position_extend,
+                                                 copied_layer, copied_positions, value, string)
 
-        if layer != list(prev_value)[0]:
-            string = string[:-1]
+    def copy_positions(self, branch, value, extend, copied_positions, string=""):
+        count = 0
+        previous_value = value
 
-        string = string + "." + str(num)
-        string = string.replace("..", ".")
+        for layer, value in value.items():
+            count = count + 1
 
-        if string[0] == ".":
-            string = string[1:]
+            if layer != list(previous_value)[0]:
+                string = string[:-1]
 
-        if num == int(xyz[0]):
-            if len(xyz) < 2:
-                if move:
-                    for x in range(len(test)):
-                        value.update({list(test[x])[0]: list(test[x].items())[0][1]})
-                    xpo.append(string)
-                    calculate2(branch, "two", str(string))
+            string = string + "." + str(count)
+            string = string.replace("..", ".")
 
-                    calculate2(branch, "three", str(string))
-                    test.clear()
-                    abc.clear()
-                    xpo.clear()
-                if pos:
-                    string = string[:-1]
-                    deel.append({layer: prev_value})
-                    test.append({list(prev_value)[num - 1]: value})
-                    abc.append(string)
-                    calculate2(branch, "one", str(string))
+            copied_positions.append(extend + string)
 
-            else:
-                if value:
-                    xyz.pop(0)
-                    calculate(branch, move, pos, value, string)
-                    return
+            if value:
+                self.copy_positions(branch, value, extend, copied_positions, string)
 
+        return copied_positions
 
-def calculate2(branch, action, string="", value=""):
-    if not value:
-        value = test[0]
+    def set_paint(self, branch, value, extend, copied_positions, string=""):
+        count = 0
+        previous_value = value
 
-    count = 0
+        for layer, value in value.items():
+            count = count + 1
 
-    prev_value = value
+            if layer != list(previous_value)[0]:
+                string = string[:-1]
 
-    for key, value in value.items():
-        count = count + 1
+            string = string + "." + str(count)
+            string = string.replace("..", ".")
 
-        if key != list(prev_value)[0]:
-            string = string[:-1]
+            print(extend + string, copied_positions)
+            paint_layer[branch].update({extend + string: paint_layer[branch][copied_positions[0]]})
+            copied_positions.pop(0)
 
-        string = string + "." + str(count)
-
-        if string[0] == ".":
-            string = string[1:]
-
-        string = string.replace("..", ".")
-
-        if action == "one":
-            abc.append(string)
-
-        if action == "two":
-            xpo.append(string)
-
-        if action == "three":
-            for x in range(len(abc)):
-                if abc[x] in paint_layer[branch]:
-                    paint_layer[branch][xpo[x]] = paint_layer[branch].pop(abc[x])
-            return
-
-        if value:
-            calculate2(branch, action, string, value)
-
-
+            if value:
+                self.set_paint(branch, value, extend, copied_positions, string)

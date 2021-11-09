@@ -2,17 +2,11 @@
 
 # Imports all files.
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import NotExistingBranchError, MissingBranchError, MissingNameError
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
 def arguments(branch="", name=""):
-    if not branch:
-        raise MissingBranchError
-
-    if not name:
-        raise MissingNameError
-
     # Parses the arguments to the first task.
     replace_branch(branch, name)
 

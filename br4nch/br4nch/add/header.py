@@ -3,7 +3,7 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches
-from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, header):
@@ -32,7 +32,6 @@ def add_header(argument_branch, argument_header):
         - If the branch is in the 'branches' dictionary, then it will add the current branch key in the 'branches'
           dictionary with the given header as value to the 'branches' directory.
     """
-
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 

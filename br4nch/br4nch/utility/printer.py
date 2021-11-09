@@ -2,8 +2,7 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer,\
-    positions
+from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 
 
 def printer(action, package=None, delete=False):
@@ -27,12 +26,19 @@ def printer(action, package=None, delete=False):
             else:
                 print(str(package[1]))
 
-    if action == "display_found":
-        for layer, value in positions.copy().items():
-            for key, pos in value.items():
-                print("Get Position Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Layer: "
-                      + layer.replace("\n", " ")[:-15] + "\n" + " " * 6 + "└─ Position: " + pos)
-            del positions[layer]
+    if action == "display_pos":
+        if package[3]:
+            print("Get Position Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Layer: "
+                  + package[1].replace("\n", " ") + "\n" + " " * 6 + "└─ Position: " + package[2])
+        else:
+            print(package[1])
+
+    if action == "display_layer":
+        if package[3]:
+            print("Get Layer Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Layer: "
+                  + package[1].replace("\n", " ") + "\n" + " " * 6 + "└─ Position: " + package[2])
+        else:
+            print(package[2])
 
     if action == "display_branch":
         for y in list(branches):

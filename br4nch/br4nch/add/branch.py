@@ -3,7 +3,7 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import StringInstanceError, InvalidBranchError, DuplicateBranchError
+from br4nch.utility.handler import InvalidBranchError, DuplicateBranchError, StringInstanceError
 
 
 def arguments(branch):
@@ -28,7 +28,6 @@ def add_branch(argument_branch):
 
       - Then it will add the current branch key in all the mandatory dictionaries with a empty dictionary as value.
     """
-
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 

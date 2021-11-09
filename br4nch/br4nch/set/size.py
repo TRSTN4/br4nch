@@ -32,7 +32,6 @@ def set_size(argument_branch, argument_size):
         - If the branch is in the 'branches' dictionary, it checks if the rule variables are default and if so, the
           horizontal line is added times the value of the variable 'argument_size'.
     """
-
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 

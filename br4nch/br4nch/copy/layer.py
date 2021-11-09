@@ -2,41 +2,35 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.librarian import branches, paint_layer
 from br4nch.utility.handler import NotExistingBranchError
 from br4nch.utility.positioner import format_position
 
 
-def arguments(branch, copy, pos, delete=False):
-    copy_layer(branch, copy, pos, delete)
+def arguments(branch, copy, pos):
+    build_position_structure(branch, copy, pos)
 
 
-def copy_layer(argument_branch, argument_copy, argument_pos, argument_delete):
-    global test, abc, xpo
-    test = []
-    abc = []
-    xpo = []
-
+def build_position_structure(argument_branch, argument_copy, argument_pos):
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 
     if not isinstance(argument_copy, list):
         argument_copy = [argument_copy]
 
-    for length in range(len(argument_copy)):
-        argument_copy[length] = argument_copy[length].split(".")
-
     if not isinstance(argument_pos, list):
         argument_pos = [argument_pos]
 
-    for num in range(len(argument_pos)):
-        argument_pos[num] = argument_pos[num].split(".")
+    for length in range(len(argument_copy)):
+        argument_copy[length] = argument_copy[length].split(".")
 
-    if not argument_branch[0]:
-        for value in list(branches):
-            argument_branch.append(value)
-        argument_branch.pop(0)
+    for length in range(len(argument_pos)):
+        argument_pos[length] = argument_pos[length].split(".")
+
+    if "*" in argument_branch:
+        argument_branch.clear()
+        for branches_branch in list(branches):
+            argument_branch.append(branches_branch)
 
     for branch in argument_branch:
         error = 0
@@ -45,26 +39,19 @@ def copy_layer(argument_branch, argument_copy, argument_pos, argument_delete):
             if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                for copy in format_position(branches_branch, argument_copy.copy()):
-                    calculate(branches_branch, copy.copy(), "", argument_delete)
+                for copy_loop in format_position(branches_branch, argument_copy.copy()):
+                    package = copy_layer(branches_branch, copy_loop.copy(), [], [], [],
+                                         branches[branch][list(branches[branch])[0]])
 
-                for position in argument_pos:
-                    calculate(branches_branch, "", position.copy(), argument_delete)
+                for position_loop in argument_pos:
+                    copy_layer(branches_branch, [], position_loop.copy(), package[0], package[1],
+                               branches[branch][list(branches[branch])[0]])
 
         if error == 0:
             raise NotExistingBranchError(branch)
 
 
-def calculate(branch, copy, pos, delete, value="", string=""):
-
-    if copy:
-        xyz = copy
-    if pos:
-        xyz = pos
-
-    if not value:
-        value = branches[branch][list(branches[branch])[0]]
-
+def copy_layer(branch, copy, position, copied_layers, copied_positions, value, string=""):
     count = 0
     prev_value = value
 
@@ -77,39 +64,36 @@ def calculate(branch, copy, pos, delete, value="", string=""):
         string = string + "." + str(count)
         string = string.replace("..", ".")
 
-        if count == int(xyz[0]):
-            if len(xyz) < 2:
+        if copy and count == int(copy[0]) or position and count == int(position[0]):
+            if copy and len(copy) < 2 or position and len(position) < 2:
                 if copy:
-                    string = string[:-1]
-                    test.append({list(prev_value)[count - 1]: value})
-                    calculate2(branch, "one", string[0:])
-                    if delete:
-                        del prev_value[layer]
+                    copied_layers.append({list(prev_value)[count - 1]: value})
+                    package = set_layer_paint(branch, "one", [], string[1:], copied_layers[0], [], copy)
+                    return [copied_layers, package[0]]
 
-                if pos:
-                    for x in range(len(test)):
-                        value.update({list(test[x])[0]: list(test[x].items())[0][1]})
+                if position:
+                    for length in range(len(copied_layers)):
+                        value.update({list(copied_layers[length])[0]: list(copied_layers[length].items())[0][1]})
 
-                    calculate2(branch, "two", string[0:])
-                    calculate2(branch, "three", string[0:])
+                    package = set_layer_paint(branch, "two", [], string[0:], copied_layers[0], [], [])
+                    set_layer_paint(branch, "three", package[1], string[0:], copied_layers[0], copied_positions, [])
 
-                    test.clear()
-                    abc.clear()
-                    xpo.clear()
+                    copied_layers.clear()
             else:
                 if value:
-                    xyz.pop(0)
-                    calculate(branch, copy, pos, delete, value, string)
-                    return
+                    if copy:
+                        copy.pop(0)
+                    if position:
+                        position.pop(0)
+
+                    package = copy_layer(branch, copy, position, copied_layers, copied_positions, value, string)
+                    return package
 
 
-def calculate2(branch, action, string="", value=""):
-    if not value:
-        value = test[0]
-
+def set_layer_paint(branch, action, positions, string, value, copied_positions, copy):
     count = 0
-
     prev_value = value
+
     for key, value in value.items():
         count = count + 1
 
@@ -117,23 +101,28 @@ def calculate2(branch, action, string="", value=""):
             string = string[:-1]
 
         string = string + "." + str(count)
-
-        if string[0] == ".":
-            string = string[1:]
-
         string = string.replace("..", ".")
 
         if action == "one":
-            abc.append(string)
+            copied_positions.append(string)
 
         if action == "two":
-            xpo.append(string)
+            print(copy)
+            if len(copy) < 2:
+                positions.append(string[1:])
+
+            if value:
+                copy.pop(0)
+                set_layer_paint(branch, action, positions, string, value, copied_positions, copy)
+                return [copied_positions, positions]
 
         if action == "three":
-            for x in range(len(abc)):
-                if abc[x] in paint_layer[branch]:
-                    paint_layer[branch].update({xpo[x]: paint_layer[branch][abc[x]]})
+            print(copied_positions, positions)
+            for x in copied_positions:
+                paint_layer[branch].update({positions[0]: paint_layer[branch][x]})
+                positions.pop(0)
             return
 
         if value:
-            calculate2(branch, action, string, value)
+            set_layer_paint(branch, action, positions, string, value, copied_positions, [])
+            return [copied_positions, positions]

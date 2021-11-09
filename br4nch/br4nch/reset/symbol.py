@@ -3,7 +3,7 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, symbols
-from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch):
@@ -28,7 +28,6 @@ def reset_symbol(argument_branch):
         - If the branch is in the 'branches' dictionary, then it will update the current branch key in the 'symbols'
           dictionary with the standard values for 'line', 'split', 'end'.
     """
-
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 

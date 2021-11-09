@@ -3,7 +3,6 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.builder.header import build_header
-from br4nch.utility.unpacker import unpack_paint_builder
 from br4nch.utility.unpacker import unpack_paint_clear
 from br4nch.utility.librarian import paint_branch
 from br4nch.utility.painter import painter

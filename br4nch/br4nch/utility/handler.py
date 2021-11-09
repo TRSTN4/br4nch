@@ -2,20 +2,6 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-class MissingBranchError(Exception):
-    __module__ = Exception.__module__
-
-    def __str__(self):
-        return "The branch argument is missing."
-
-
-class MissingHeaderError(Exception):
-    __module__ = Exception.__module__
-
-    def __str__(self):
-        return "The header argument is missing."
-
-
 class StringInstanceError(Exception):
     __module__ = Exception.__module__
 
@@ -40,18 +26,6 @@ class IntegerInstanceError(Exception):
                + "'integer' and not '" + str(type(self.parsed).__name__) + "'."
 
 
-class BooleanInstanceError(Exception):
-    __module__ = Exception.__module__
-
-    def __init__(self, argument, parsed):
-        self.argument = argument
-        self.parsed = parsed
-
-    def __str__(self):
-        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
-               + "'boolean' and not '" + str(type(self.parsed).__name__) + "'."
-
-
 class DictionaryInstanceError(Exception):
     __module__ = Exception.__module__
 
@@ -64,18 +38,16 @@ class DictionaryInstanceError(Exception):
                + "'dictionary' and not '" + str(type(self.parsed).__name__) + "'."
 
 
-class MissingNameError(Exception):
+class BooleanInstanceError(Exception):
     __module__ = Exception.__module__
 
-    def __str__(self):
-        return "The name argument is missing."
-
-
-class MissingPaintError(Exception):
-    __module__ = Exception.__module__
+    def __init__(self, argument, parsed):
+        self.argument = argument
+        self.parsed = parsed
 
     def __str__(self):
-        return "The paint argument is missing."
+        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
+               + "'boolean' and not '" + str(type(self.parsed).__name__) + "'."
 
 
 class DuplicateBranchError(Exception):

@@ -14,10 +14,10 @@ def arguments(branch, pos, paint):
 
 class SetColorLayer:
     def __init__(self, argument_branch, argument_pos, argument_paint):
-        """Gets the arguments and parses them to the 'build_position' function."""
-        self.build_position(argument_branch, argument_pos, argument_paint)
+        """Gets the arguments and parses them to the 'build_position_structure' function."""
+        self.build_position_structure(argument_branch, argument_pos, argument_paint)
 
-    def build_position(self, argument_branch, argument_pos, argument_paint):
+    def build_position_structure(self, argument_branch, argument_pos, argument_paint):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -33,11 +33,11 @@ class SetColorLayer:
             - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Branches list loop:
-            - Loops through the obtained values of the current value of the 'position' variable and adds all values of the
-              variable to the 'position_structure' variable.
-            - Calls the 'color_layer' function with the current value of 'position' and 'position_structure' as arguments.
+            - Loops through the obtained values of the current value of the 'position' variable and adds all values of
+              the variable to the 'position_structure' variable.
+            - Calls the 'color_layer' function with the current value of the whole branch dictionary, the 'position'
+              variable and 'position_structure' variable as arguments.
         """
-
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
 
@@ -68,17 +68,14 @@ class SetColorLayer:
                             for x in value:
                                 position_structure = position_structure + "." + x
 
-                        self.set_color_layer(branch, argument_paint, position, position_structure[1:])
+                        self.set_color_layer(branch, argument_paint, position, position_structure[1:],
+                                             branches[branch][list(branches[branch])[0]])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def set_color_layer(self, branch, paint, position, position_structure, value=""):
+    def set_color_layer(self, branch, paint, position, position_structure, value):
         """
-        Values:
-          - If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
-            header key in the 'branches' directory.
-
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
@@ -89,10 +86,6 @@ class SetColorLayer:
               then the first value from the 'position' list will be removed and the 'add_layer' function will be called
               again with the new values of the 'value' variable as argument.
         """
-
-        if not value:
-            value = branches[branch][list(branches[branch])[0]]
-
         count = 0
 
         for layer, value in value.items():

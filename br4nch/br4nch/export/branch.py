@@ -52,7 +52,6 @@ def export_branch(argument_branch, argument_package, argument_beautify, argument
 
           - If the given directory argument does not exist, it will throw a 'InvalidDirectoryError' error.
     """
-
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 

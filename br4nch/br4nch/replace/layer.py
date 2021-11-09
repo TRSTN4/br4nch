@@ -4,14 +4,11 @@
 from br4nch.utility.librarian import branches, uids
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import generate_uid
-from br4nch.utility.handler import NotExistingBranchError, MissingNameError
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
 def arguments(branch="", name="", pos=""):
-    if not name:
-        raise MissingNameError
-
     # Parses the arguments to the first task.
     add_layer(branch, name, pos)
 

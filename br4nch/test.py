@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.1.5
-# desc - Code clean-up for multiple files.
+# Beta phase - br4nch v1.1.6
+# desc - Code clean-up for multiple scripts.
 
 # Imports the br4nch package.
 import br4nch
@@ -12,6 +12,8 @@ br4nch.add.layer(branch="Database", layer=["Accounting", "International Business
 br4nch.add.layer(branch="Database", layer=["Bookkeepers", "Budget analysts"], pos=["1.1", "2"])
 br4nch.add.layer(branch="Database", layer=["Trade operators", "Import specialist\nExport specialist"], pos=["1.2", "2"])
 br4nch.add.layer(branch="Database", layer=["John\nDoe", "Jane\nDoe"], pos="2.1")
+# br4nch.add.layer(branch="Database", layer="test", pos="2.1/3>4")
+
 br4nch.add.layer(branch="Database", layer=["Email", "Phone"], pos=["2.1.1", "2.1.2"])
 br4nch.add.layer(branch="Database", layer="01 23 45 67 89", pos="2.1.1.2")
 br4nch.add.layer(branch="Database", layer="jane.doe@email.com", pos="2.1.2.1")
@@ -46,23 +48,28 @@ br4nch.set.color.layer(branch="Database", paint=["red", "underline"], pos="2.2")
 br4nch.set.color.layer(branch="Database", paint=["yellow", "underline"], pos="2.3")
 br4nch.set.color.layer(branch="Database", paint=["green", "underline"], pos="2.4")
 
+br4nch.set.color.layer(branch="Database", paint=["yellow", "underline"], pos="1.2")
+br4nch.set.color.layer(branch="Database", paint=["green", "bold"], pos="1.2.2")
+
 # br4nch.delete.layer(branch="Database", pos=3)
 
-br4nch.copy.layer(branch="Database", copy="1.2", pos="3.1.1")
+# br4nch.copy.layer(branch="Database", copy="1.2", pos="3.1.1")
+
+br4nch.move.layer(branch="database", move=["1.2", "2.1"], pos="3.1.2")
 
 # Changes the "Test" branch symbols.
 br4nch.set.symbol(branch="Test", line="|", split="}---->", end="!-->")
 
 # Sets the total size of the branch.
-# br4nch.set.size(branch="Test", size=0)
+br4nch.set.size(branch="Test", size=0)
 
 # Displays the given positions and/or layers.
-br4nch.display.pos(branch="Test", pos="3.2", layer="Sub Text 1")
+br4nch.display.layer(branch="Test", layer="Sub Text 1")
 
 # Displays all layer positions in a branch.
-# br4nch.display.assist(branch="Test")
+br4nch.display.assist(branch="Test")
 
-# br4nch.load.json(branch="json", json={"quiz": {"123": {"q1": {"question": "Which one is correct team name in NBA?", "options": ["New York Bulls", "Los Angeles Kings", "Golden State Warriros", "Huston Rocket"], "answer": "Huston Rocket"}}, "maths": {"q1": {"question": "5 + 7 = ?", "options": ["10", "11", "12", "13"], "answer": "12"}, "q2": {"question": "12 - 8 = ?", "options": ["1", "2", "3", "4"], "answer": "4"}}}})
+# br4nch.load.json(branch="json", header="test", json={"quiz": {"123": {"q1": {"question": "Which one is correct team name in NBA?", "options": ["New York Bulls", "Los Angeles Kings", "Golden State Warriros", "Huston Rocket"], "answer": "Huston Rocket"}}, "maths": {"q1": {"question": "5 + 7 = ?", "options": ["10", "11", "12", "13"], "answer": "12"}, "q2": {"question": "12 - 8 = ?", "options": ["1", "2", "3", "4"], "answer": "4"}}}})
 
 # Displays the branches.
-br4nch.display.branch()
+br4nch.display.branch("*")

@@ -2,14 +2,11 @@
 
 # Imports all files.
 from br4nch.utility.librarian import branches
-from br4nch.utility.handler import NotExistingBranchError, MissingNameError
+from br4nch.utility.handler import NotExistingBranchError
 
 
 # Gets the parsed arguments.
 def arguments(branch="", name=""):
-    if not name:
-        raise MissingNameError
-
     # Parses the arguments to the first task.
     replace_header(name, branch)
 

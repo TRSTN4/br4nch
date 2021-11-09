@@ -5,7 +5,7 @@
 from br4nch.utility.librarian import branches, paint_layer
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import generate_uid
-from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, layer, pos):
@@ -15,10 +15,10 @@ def arguments(branch, layer, pos):
 
 class AddLayer:
     def __init__(self, argument_branch, argument_layer, argument_pos):
-        """Gets the arguments and parses them to the 'build_position' function."""
-        self.build_position(argument_branch, argument_layer, argument_pos)
+        """Gets the arguments and parses them to the 'build_position_structure' function."""
+        self.build_position_structure(argument_branch, argument_layer, argument_pos)
 
-    def build_position(self, argument_branch, argument_layer, argument_pos):
+    def build_position_structure(self, argument_branch, argument_layer, argument_pos):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -36,9 +36,9 @@ class AddLayer:
 
           Branches list loop:
             - If the branch is in the 'branches' dictionary, then it runs a loop with all positions in the returned list
-              from the 'format_position' function. And calls the 'add_layer' function for every looped position.
+              from the 'format_position' function. And calls the 'add_layer' function with the whole branch dictionary
+              as value for every looped position.
         """
-
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
 
@@ -64,17 +64,14 @@ class AddLayer:
                     error = error + 1
 
                     for position in format_position(branches_branch, argument_pos):
-                        self.add_layer(branches_branch, argument_layer, position)
+                        self.add_layer(branches_branch, argument_layer, position,
+                                       branches[branch][list(branches[branch])[0]])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def add_layer(self, branch, argument_layer, position, position_structure="", value=""):
+    def add_layer(self, branch, argument_layer, position, value, position_structure=""):
         """
-        Values:
-          - If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
-            header key in the 'branches' directory.
-
         Position variable equal to zero:
           Errors:
             - If the layer value is not an instance of a string, then it raises an 'StringInstanceError' error.
@@ -98,10 +95,6 @@ class AddLayer:
               then the first value from the 'position' list will be removed and the 'add_layer' function will be called
               again with the new values of the 'value' variable as argument.
         """
-
-        if not value:
-            value = branches[branch][list(branches[branch])[0]]
-
         if position[0] == "0":
             for layer in argument_layer:
                 if not isinstance(layer, str):
@@ -131,5 +124,5 @@ class AddLayer:
                     else:
                         if value:
                             position.pop(0)
-                            self.add_layer(branch, argument_layer, position, position_structure, value)
+                            self.add_layer(branch, argument_layer, position, value, position_structure)
                             return

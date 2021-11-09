@@ -4,21 +4,20 @@
 
 from br4nch.utility.librarian import branches
 from br4nch.utility.printer import printer
-from br4nch.utility.positioner import format_position
 from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError
 
 
-def arguments(branch, pos, beautify=True):
+def arguments(branch, layer, beautify=True):
     """Gets the arguments and parses them to the 'DisplayPos' class."""
-    DisplayPos(branch, pos, beautify)
+    DisplayPos(branch, layer, beautify)
 
 
 class DisplayPos:
-    def __init__(self, argument_branch, argument_pos, argument_beautify):
-        """Gets the arguments and parses them to the 'build_position_structure' function."""
-        self.build_position_structure(argument_branch, argument_pos, argument_beautify)
+    def __init__(self, argument_branch, argument_layer, argument_beautify):
+        """Gets the arguments and parses them to the 'display_pos' function."""
+        self.display_pos(argument_branch, argument_layer, argument_beautify)
 
-    def build_position_structure(self, argument_branch, argument_pos, argument_beautify):
+    def display_pos(self, argument_branch, argument_layer, argument_beautify):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -38,14 +37,14 @@ class DisplayPos:
 
           Branches list loop:
             - If the branch is in the 'branches' dictionary, it will loop with all positions in the returned list of the
-              'format_position' function. And calls the 'display_pos' function for each loop with the built position
+              'format_position' function. And calls the 'add_layer' function for each loop with the built position
               structure of the 'position' as argument
         """
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
 
-        if not isinstance(argument_pos, list):
-            argument_pos = [argument_pos]
+        if not isinstance(argument_layer, list):
+            argument_layer = [argument_layer]
 
         if not isinstance(argument_beautify, bool):
             raise BooleanInstanceError("beautify", argument_beautify)
@@ -65,20 +64,14 @@ class DisplayPos:
                 if branch.lower() == branches_branch.lower():
                     error = error + 1
 
-                    for position in format_position(branch, argument_pos.copy()):
-                        position_structure = ""
-
-                        for stage in position:
-                            for pos in stage:
-                                position_structure = position_structure + "." + pos
-
-                        self.display_pos(branches_branch, position_structure[1:], argument_beautify, [0], [0],
-                                         branches[branch][list(branches[branch])[0]])
+                    for layer in argument_layer:
+                        self.calculate(branches_branch, layer, argument_beautify, [0], [0],
+                                       branches[branch][list(branches[branch])[0]])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def display_pos(self, branch, position, argument_beautify, levels, trace, value, position_structure=""):
+    def calculate(self, branch, loop_layer, argument_beautify, levels, trace, value, position_structure=""):
         """
         - First, it is checked whether the 'levels' list is "empty". If the list is "empty", the 'elevator' function is
           called with the 'levels' and 'trace' list as arguments.
@@ -98,7 +91,7 @@ class DisplayPos:
               values in it that are needed. If the 'argument_beautify' variable is false, the given positions are not
               represented with a branch structure.
 
-          - Checks whether the 'value' variable has a value. If there is a value, then the 'display_pos' function is
+          - Checks whether the 'value' variable has a value. If there is a value, then the 'update_layer' function is
             called again with the current values of 'value', 'trace' and 'levels' as arguments.
         """
         if len(levels) == 1:
@@ -116,12 +109,12 @@ class DisplayPos:
 
             position_structure = position_structure + "." + str(count)
 
-            if position == position_structure[1:]:
-                printer("display_pos", [branch, layer[:-15], position, argument_beautify])
+            if layer[:-15] == loop_layer:
+                printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
                 return
 
             if value:
-                self.display_pos(branch, position, argument_beautify, levels, trace, value, position_structure)
+                self.calculate(branch, loop_layer, argument_beautify, levels, trace, value, position_structure)
 
     def elevator(self, branch, levels, trace, value, pos=0):
         """

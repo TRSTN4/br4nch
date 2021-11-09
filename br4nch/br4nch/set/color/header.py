@@ -32,7 +32,6 @@ def set_color_header(argument_branch, argument_paint):
         - If the branch is in the 'branches' dictionary, then it will add the current branch key in the 'branches'
           dictionary with the given paint as value to the 'paint_header' directory.
     """
-
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 

@@ -33,21 +33,20 @@ def calculate_operator(branch, position, value=""):
 
 def format_position(branch, position):
     for length in range(len(position)):
-        # raise StringInstanceError("pos", x)
-
         if "." in position[length]:
             position[length] = position[length].split(".")
         else:
             if not isinstance(position[length], list):
                 position[length] = [position[length]]
 
+    for length in range(len(position)):
         for element in range(len(position[length])):
             if "/" in position[length][element]:
                 split = position[length][element].split("/")
-
                 for count in range(len(split)):
                     position.append(position[length].copy())
                     position[-1][element] = split[count]
+
                 position.pop(length)
 
             if "*" in position[length][element]:
@@ -105,4 +104,5 @@ def format_position(branch, position):
 
                 position.pop(length)
                 format_position(branch, position)
+
     return position

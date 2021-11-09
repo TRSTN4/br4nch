@@ -10,4 +10,3 @@ symbols = {}
 paint_branch = {}
 paint_header = {}
 paint_layer = {}
-positions = {}
