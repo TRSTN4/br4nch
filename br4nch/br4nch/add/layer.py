@@ -70,7 +70,7 @@ class AddLayer:
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def add_layer(self, branch, argument_layer, position, value, position_structure=""):
+    def add_layer(self, branch, argument_layer, position, value):
         """
         Position variable equal to zero:
           Errors:
@@ -83,7 +83,7 @@ class AddLayer:
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
-          Count variable equal to the first value of position:
+          Count variable equal to the first value of 'position':
             If the length of the 'position' list is equal to '1':
               Errors:
                 - If the layer value is not an instance of a string, then it raises an 'StringInstanceError' error.
@@ -93,7 +93,7 @@ class AddLayer:
 
             - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
               then the first value from the 'position' list will be removed and the 'add_layer' function will be called
-              again with the new values of the 'value' variable as argument.
+              again with the new value of the 'value' variable as argument.
         """
         if position[0] == "0":
             for layer in argument_layer:
@@ -105,12 +105,8 @@ class AddLayer:
         else:
             count = 0
 
-            for value in value.values():
+            for key, value in value.items():
                 count = count + 1
-
-                position_structure = position_structure + "." + str(count)
-                if position_structure[0] == ".":
-                    position_structure = position_structure[1:]
 
                 if count == int(position[0]):
                     if len(position) == 1:
@@ -119,10 +115,10 @@ class AddLayer:
                                 raise StringInstanceError("layer", layer)
 
                             value.update({layer + generate_uid(branch): {}})
-                            paint_layer[branch].update({position_structure: ""})
+                            paint_layer[branch].update({key: ""})
                         return
                     else:
                         if value:
                             position.pop(0)
-                            self.add_layer(branch, argument_layer, position, value, position_structure)
+                            self.add_layer(branch, argument_layer, position, value)
                             return

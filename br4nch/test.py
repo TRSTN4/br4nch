@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.1.6
-# desc - Code clean-up for multiple scripts.
+# Beta phase - br4nch v1.1.7
+# desc - Multiple files revisited, changed 'paint_layer' dict keys to layers instead position and code cleanup.
 
 # Imports the br4nch package.
 import br4nch
@@ -53,9 +53,7 @@ br4nch.set.color.layer(branch="Database", paint=["green", "bold"], pos="1.2.2")
 
 # br4nch.delete.layer(branch="Database", pos=3)
 
-# br4nch.copy.layer(branch="Database", copy="1.2", pos="3.1.1")
-
-br4nch.move.layer(branch="database", move=["1.2", "2.1"], pos="3.1.2")
+br4nch.copy.layer(branch="database", copy=["1", "2.1"], pos="3.1.2", paint=True)
 
 # Changes the "Test" branch symbols.
 br4nch.set.symbol(branch="Test", line="|", split="}---->", end="!-->")
@@ -65,9 +63,6 @@ br4nch.set.size(branch="Test", size=0)
 
 # Displays the given positions and/or layers.
 br4nch.display.layer(branch="Test", layer="Sub Text 1")
-
-# Displays all layer positions in a branch.
-br4nch.display.assist(branch="Test")
 
 # br4nch.load.json(branch="json", header="test", json={"quiz": {"123": {"q1": {"question": "Which one is correct team name in NBA?", "options": ["New York Bulls", "Los Angeles Kings", "Golden State Warriros", "Huston Rocket"], "answer": "Huston Rocket"}}, "maths": {"q1": {"question": "5 + 7 = ?", "options": ["10", "11", "12", "13"], "answer": "12"}, "q2": {"question": "12 - 8 = ?", "options": ["1", "2", "3", "4"], "answer": "4"}}}})
 

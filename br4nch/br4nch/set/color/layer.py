@@ -36,7 +36,7 @@ class SetColorLayer:
             - Loops through the obtained values of the current value of the 'position' variable and adds all values of
               the variable to the 'position_structure' variable.
             - Calls the 'color_layer' function with the current value of the whole branch dictionary, the 'position'
-              variable and 'position_structure' variable as arguments.
+              and 'argument_paint' variables as arguments.
         """
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
@@ -63,24 +63,19 @@ class SetColorLayer:
                     error = error + 1
 
                     for position in format_position(branch, argument_pos.copy()):
-                        position_structure = ""
-                        for value in position:
-                            for x in value:
-                                position_structure = position_structure + "." + x
-
-                        self.set_color_layer(branch, argument_paint, position, position_structure[1:],
+                        self.set_color_layer(branch, argument_paint, position,
                                              branches[branch][list(branches[branch])[0]])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def set_color_layer(self, branch, paint, position, position_structure, value):
+    def set_color_layer(self, branch, paint, position, value):
         """
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
-          Count variable equal to the first value of position:
-            - If the length of the 'position' list is equal to '1' then it will add the current branch key in the
+          Count variable equal to the first value of 'position':
+            - If the length of the 'position' list is equal to '1' then it will add the current branch layer in the
               'values' dictionary with the given paint as value to the 'paint_layer' directory.
             - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
               then the first value from the 'position' list will be removed and the 'add_layer' function will be called
@@ -93,9 +88,9 @@ class SetColorLayer:
 
             if count == int(position[0]):
                 if len(position) < 2:
-                    paint_layer[branch].update({position_structure: paint})
+                    paint_layer[branch].update({layer: paint})
                 else:
                     if value:
                         position.pop(0)
-                        self.set_color_layer(branch, paint, position, position_structure, value)
+                        self.set_color_layer(branch, paint, position, value)
                         return

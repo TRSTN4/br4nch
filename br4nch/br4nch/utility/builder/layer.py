@@ -118,8 +118,8 @@ def build_layer(branch, branch_paint, colors, value="", pos=""):
 
         pos = pos.replace("..", ".")
 
-        if pos in paint_layer[branch] and colors:
-            layer_paint = painter(paint_layer[branch][pos], branch)
+        if layer in paint_layer[branch] and colors:
+            layer_paint = painter(paint_layer[branch][layer], branch)
         else:
             layer_paint = ""
 

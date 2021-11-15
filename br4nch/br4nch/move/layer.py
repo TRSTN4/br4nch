@@ -2,9 +2,8 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.librarian import branches, paint_layer
-from br4nch.utility.positioner import format_position
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
+from br4nch.utility.librarian import branches, uids
+from br4nch.utility.handler import NotExistingBranchError, InvalidPositionError, StringInstanceError
 
 
 def arguments(branch, move, pos):
@@ -18,6 +17,32 @@ class MoveLayer:
         self.build_structure(argument_branch, argument_move, argument_pos)
 
     def build_structure(self, argument_branch, argument_move, argument_pos):
+        """
+        Lists:
+          - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+          - If the given move argument is not an instance of a list, then the move argument will be set as a list.
+
+        Errors:
+          - If the pos argument is not an instance of a string, then it raises an 'StringInstanceError' error.
+          - If the pos argument contains a character that is not a letter or number, then it raises an
+            'InvalidPositionError' error.
+
+        Operators:
+          - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+            list.
+
+        Argument branch list loop:
+          Errors:
+            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+          Branches list loop:
+            - The function 'task_manager' is called to perform the necessary tasks for the variable 'argument_move'.
+            - Then last value in the package variable returned from the 'task_manager' function is added to the
+              'queue_delete' list.
+            - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_pos'.
+            - Loops through the list 'queue_delete' and deletes all given layers from the dictionary 'branches'.
+        """
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
 
@@ -26,6 +51,10 @@ class MoveLayer:
 
         if not isinstance(argument_pos, str):
             raise StringInstanceError("pos", argument_pos)
+
+        for pos in argument_pos.split("."):
+            if not pos.isnumeric():
+                raise InvalidPositionError("pos")
 
         if "*" in argument_branch:
             argument_branch.clear()
@@ -42,96 +71,64 @@ class MoveLayer:
                 if branch.lower() == branches_branch.lower():
                     error = error + 1
 
+                    queue_delete = []
+
                     for loop_move in argument_move:
-                        if not isinstance(loop_move, str):
-                            raise StringInstanceError("move", loop_move)
+                        package = self.task_manager(branches_branch, loop_move.split("."), [], {},
+                                                    branches[branches_branch][list(branches[branches_branch])[0]])
 
-                        move_extend = ""
-                        for pos in loop_move.split("."):
-                            move_extend = move_extend + "." + pos
+                        queue_delete.append(package[1])
 
-                        package = self.task_manager(branches_branch, loop_move.split("."), move_extend[1:], [], "", {},
-                                                    [], branches[branches_branch][list(branches[branches_branch])[0]])
-
-                        self.task_manager(branches_branch, [], "", format_position(branches_branch, [argument_pos])[0],
-                                          argument_pos, package[0].copy(), package[1].copy(),
+                        self.task_manager(branches_branch, [], argument_pos.split("."), package[0],
                                           branches[branches_branch][list(branches[branches_branch])[0]])
+
+                    for delete_value in queue_delete:
+                        for layer, value in delete_value.items():
+                            del value[layer]
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def task_manager(self, branch, argument_move, move_extend, position, position_extend, copied_layer,
-                     copied_positions, value, string=""):
+    def task_manager(self, branch, argument_move, position, copied_layer, value):
+        """
+        Value dictionary loop:
+          - For each value of the 'value' variable the 'count' variable is added with plus '1'.
+
+          Count variable equal to the first value of 'argument_move':
+            If the length of the 'argument_move' list is equal to '1':
+              - Adds the current layer and value to a dictionary and adds the current layer and previous value to a
+                dictionary and returns these two values as a package.
+
+            - If the length of the 'argument_move' list is not equal to '1' and there is a value of the 'value'
+              variable, then the first value from the 'argument_move' list will be removed and the 'task_manager'
+              function will be called again with the new value of the 'value' variable as argument.
+
+          Count variable equal to the first value of 'position':
+            If the length of the 'position' list is equal to '1':
+              - Adds the value of 'copied_layer' to the current value of 'value' in the 'branches' dictionary.
+
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
+              then the first value from the 'position' list will be removed and the 'task_manager' function will be
+              called again with the new value of the 'value' variable as argument.
+        """
         count = 0
         previous_value = value
 
-        for layer, value in value.copy().items():
+        for layer, value in value.items():
             count = count + 1
 
-            if layer != list(previous_value)[0]:
-                string = string[:-1]
-
-            string = string + "." + str(count)
-            string = string.replace("..", ".")
-
             if argument_move and count == int(argument_move[0]):
-                if argument_move and len(argument_move) < 2:
-                    if argument_move:
-                        previous_value.pop(layer)
-                        return [{layer: value}, self.copy_positions(branch, value, move_extend, [move_extend])]
+                if len(argument_move) < 2:
+                    return [{layer: value}, {layer: previous_value}]
                 else:
                     if value:
                         argument_move.pop(0)
-                        return self.task_manager(branch, argument_move, move_extend, position, position_extend,
-                                                 copied_layer, copied_positions, value, string)
+                        return self.task_manager(branch, argument_move, position, copied_layer, value)
 
             if position and count == int(position[0]):
-                if position and len(position) < 2:
-                    if position:
-                        value.update(copied_layer)
-                        self.set_paint(branch, value, position_extend, copied_positions.copy())
+                if len(position) < 2:
+                    value.update(copied_layer)
                 else:
                     if value:
                         position.pop(0)
-                        return self.task_manager(branch, argument_move, move_extend, position, position_extend,
-                                                 copied_layer, copied_positions, value, string)
-
-    def copy_positions(self, branch, value, extend, copied_positions, string=""):
-        count = 0
-        previous_value = value
-
-        for layer, value in value.items():
-            count = count + 1
-
-            if layer != list(previous_value)[0]:
-                string = string[:-1]
-
-            string = string + "." + str(count)
-            string = string.replace("..", ".")
-
-            copied_positions.append(extend + string)
-
-            if value:
-                self.copy_positions(branch, value, extend, copied_positions, string)
-
-        return copied_positions
-
-    def set_paint(self, branch, value, extend, copied_positions, string=""):
-        count = 0
-        previous_value = value
-
-        for layer, value in value.items():
-            count = count + 1
-
-            if layer != list(previous_value)[0]:
-                string = string[:-1]
-
-            string = string + "." + str(count)
-            string = string.replace("..", ".")
-
-            print(extend + string, copied_positions)
-            paint_layer[branch].update({extend + string: paint_layer[branch][copied_positions[0]]})
-            copied_positions.pop(0)
-
-            if value:
-                self.set_paint(branch, value, extend, copied_positions, string)
+                        return self.task_manager(branch, argument_move, position, copied_layer, value)

@@ -2,127 +2,204 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.librarian import branches, paint_layer
-from br4nch.utility.handler import NotExistingBranchError
+import copy as copy_lib
+
+from br4nch.utility.librarian import branches, uids, paint_layer
+from br4nch.utility.generator import generate_uid
 from br4nch.utility.positioner import format_position
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError
 
 
-def arguments(branch, copy, pos):
-    build_position_structure(branch, copy, pos)
+def arguments(branch, copy, pos, paint=False, delete=False):
+    """Gets the arguments and parses them to the 'CopyLayer' class."""
+    CopyLayer(branch, copy, pos, paint, delete)
 
 
-def build_position_structure(argument_branch, argument_copy, argument_pos):
-    if not isinstance(argument_branch, list):
-        argument_branch = [argument_branch]
+class CopyLayer:
+    def __init__(self, argument_branch, argument_copy, argument_pos, argument_paint, argument_delete):
+        """Gets the arguments and parses them to the 'build_structure' function."""
+        self.build_structure(argument_branch, argument_copy, argument_pos, argument_paint, argument_delete)
 
-    if not isinstance(argument_copy, list):
-        argument_copy = [argument_copy]
+    def build_structure(self, argument_branch, argument_copy, argument_pos, argument_paint, argument_delete):
+        """
+        Lists:
+          - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+          - If the given copy argument is not an instance of a list, then the copy argument will be set as a list.
+          - If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
 
-    if not isinstance(argument_pos, list):
-        argument_pos = [argument_pos]
+        Errors:
+          - If the paint value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
+          - If the delete value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
 
-    for length in range(len(argument_copy)):
-        argument_copy[length] = argument_copy[length].split(".")
+        Operators:
+          - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+            list.
 
-    for length in range(len(argument_pos)):
-        argument_pos[length] = argument_pos[length].split(".")
+        Argument branch list loop:
+          Errors:
+            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
-    if "*" in argument_branch:
-        argument_branch.clear()
-        for branches_branch in list(branches):
-            argument_branch.append(branches_branch)
+          Branches list loop:
+            Argument copy list loop:
+              Argument pos list loop:
+                - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_copy'.
+                - Adds the second value in the returned package to the list 'queue_delete'.
+                - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_pos'.
+                - Adds the first value in the returned package and the returned 'add_value' dictionary in a list to the
+                  list 'queue_add'.
 
-    for branch in argument_branch:
-        error = 0
+            - Loops through the list 'queue_delete' and deletes all given layers from the dictionary 'branches'.
+            - Loops through the list 'queue_add' and adds all given layers from the dictionary 'branches'.
+        """
+        if not isinstance(argument_branch, list):
+            argument_branch = [argument_branch]
 
-        for branches_branch in list(branches):
-            if branch.lower() == branches_branch.lower():
-                error = error + 1
+        if not isinstance(argument_copy, list):
+            argument_copy = [argument_copy]
 
-                for copy_loop in format_position(branches_branch, argument_copy.copy()):
-                    package = copy_layer(branches_branch, copy_loop.copy(), [], [], [],
-                                         branches[branch][list(branches[branch])[0]])
+        if not isinstance(argument_pos, list):
+            argument_pos = [argument_pos]
 
-                for position_loop in argument_pos:
-                    copy_layer(branches_branch, [], position_loop.copy(), package[0], package[1],
-                               branches[branch][list(branches[branch])[0]])
+        if not isinstance(argument_delete, bool):
+            raise BooleanInstanceError("paint", argument_paint)
 
-        if error == 0:
-            raise NotExistingBranchError(branch)
+        if not isinstance(argument_delete, bool):
+            raise BooleanInstanceError("delete", argument_delete)
 
+        if "*" in argument_branch:
+            argument_branch.clear()
+            for branches_branch in list(branches):
+                argument_branch.append(branches_branch)
 
-def copy_layer(branch, copy, position, copied_layers, copied_positions, value, string=""):
-    count = 0
-    prev_value = value
+        for branch in argument_branch:
+            error = 0
 
-    for layer, value in value.copy().items():
-        count = count + 1
+            if not isinstance(branch, str):
+                raise StringInstanceError("branch", branch)
 
-        if layer != list(prev_value)[0]:
-            string = string[:-1]
+            for branches_branch in list(branches):
+                if branch.lower() == branches_branch.lower():
+                    error = error + 1
 
-        string = string + "." + str(count)
-        string = string.replace("..", ".")
+                    queue_delete = []
+                    queue_add = []
 
-        if copy and count == int(copy[0]) or position and count == int(position[0]):
-            if copy and len(copy) < 2 or position and len(position) < 2:
-                if copy:
-                    copied_layers.append({list(prev_value)[count - 1]: value})
-                    package = set_layer_paint(branch, "one", [], string[1:], copied_layers[0], [], copy)
-                    return [copied_layers, package[0]]
+                    for loop_copy in format_position(branches_branch, argument_copy.copy()):
+                        for loop_pos in format_position(branches_branch, argument_pos.copy()):
+                            package = self.task_manager(branches_branch, loop_copy, [], argument_paint,
+                                                        branches[branches_branch][list(branches[branches_branch])[0]])
 
-                if position:
-                    for length in range(len(copied_layers)):
-                        value.update({list(copied_layers[length])[0]: list(copied_layers[length].items())[0][1]})
+                            queue_delete.append(package[1])
 
-                    package = set_layer_paint(branch, "two", [], string[0:], copied_layers[0], [], [])
-                    set_layer_paint(branch, "three", package[1], string[0:], copied_layers[0], copied_positions, [])
+                            add_value = self.task_manager(branches_branch, [], loop_pos, argument_paint,
+                                                          branches[branches_branch][list(branches[branches_branch])[0]])
 
-                    copied_layers.clear()
-            else:
-                if value:
-                    if copy:
-                        copy.pop(0)
-                    if position:
+                            queue_add.append([package[0], add_value])
+
+                    if argument_delete:
+                        for delete_value in queue_delete:
+                            for layer, value in delete_value.items():
+                                uids[branches_branch].remove(str(layer[-10:]))
+                                self.delete_layer_uid(branches_branch, value[layer])
+
+                                del value[layer]
+
+                    for add_value in queue_add:
+                        self.change_layer_uid(branches_branch, argument_paint, add_value[0])
+                        add_value[1].update(add_value[0])
+
+            if error == 0:
+                raise NotExistingBranchError(branch)
+
+    def task_manager(self, branch, argument_copy, position, argument_paint, value):
+        """
+        Value dictionary loop:
+          - For each value of the 'value' variable the 'count' variable is added with plus '1'.
+          - Builds the 'build_position' separating all positions with dots.
+
+          Count variable equal to the first value of 'argument_copy':
+            If the length of the 'argument_copy' list is equal to '1':
+              - Adds the current layer and aa deepcopy of the 'value' variable to a dictionary and adds the current
+                layer and previous value to a dictionary and returns these two values as a package.
+
+            - If the length of the 'argument_copy' list is not equal to '1' and there is a value of the 'value'
+              variable, then the first value from the 'argument_move' list will be removed and the 'task_manager'
+              function will be called again with the new value of the 'value' variable as argument.
+
+          Count variable equal to the first value of 'position':
+            If the length of the 'position' list is equal to '1':
+              - Returns the current value of the 'value' variable.
+
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
+              then the first value from the 'position' list will be removed and the 'task_manager' function will be
+              called again with the new value of the 'value' variable as argument.
+        """
+        count = 0
+        previous_value = value
+
+        for layer, value in value.items():
+            count = count + 1
+
+            if argument_copy and count == int(argument_copy[0]):
+                if len(argument_copy) < 2:
+                    return [{layer: copy_lib.deepcopy(value)}, {layer: previous_value}]
+                else:
+                    if value:
+                        argument_copy.pop(0)
+                        return self.task_manager(branch, argument_copy, position, argument_paint, value)
+
+            if position and count == int(position[0]):
+                if len(position) < 2:
+                    return value
+                else:
+                    if value:
                         position.pop(0)
+                        return self.task_manager(branch, argument_copy, position, argument_paint, value)
 
-                    package = copy_layer(branch, copy, position, copied_layers, copied_positions, value, string)
-                    return package
-
-
-def set_layer_paint(branch, action, positions, string, value, copied_positions, copy):
-    count = 0
-    prev_value = value
-
-    for key, value in value.items():
-        count = count + 1
-
-        if key != list(prev_value)[0]:
-            string = string[:-1]
-
-        string = string + "." + str(count)
-        string = string.replace("..", ".")
-
-        if action == "one":
-            copied_positions.append(string)
-
-        if action == "two":
-            print(copy)
-            if len(copy) < 2:
-                positions.append(string[1:])
+    def delete_layer_uid(self, branch, value):
+        """
+        Value dictionary loop:
+          - Checks if the UID of the current value of 'layer' exists in the 'uids' list. If the UID is in the 'uids'
+            list, it will be removed from the list.
+          - If there is a value of the 'value' variable, the 'delete_layer_uid' function will be called again with the
+            new value of the 'value' variable as argument.
+        """
+        for layer, value in value.items():
+            if layer[-10:] in uids[branch]:
+                uids[branch].remove(str(layer[-10:]))
 
             if value:
-                copy.pop(0)
-                set_layer_paint(branch, action, positions, string, value, copied_positions, copy)
-                return [copied_positions, positions]
+                self.delete_layer_uid(branch, value)
 
-        if action == "three":
-            print(copied_positions, positions)
-            for x in copied_positions:
-                paint_layer[branch].update({positions[0]: paint_layer[branch][x]})
-                positions.pop(0)
-            return
+    def change_layer_uid(self, branch, argument_paint, value):
+        """
+        Value dictionary loop:
+          - Generates a new UID for the copied 'layer' variable. Then the old layer is deleted and replaced with the new
+            generated layer with the new UID.
 
-        if value:
-            set_layer_paint(branch, action, positions, string, value, copied_positions, [])
-            return [copied_positions, positions]
+          - Checks if the current value of 'layer' exists in the branch's 'paint_layer' list. Then it is checked whether
+            the variable 'argument_paint' is true. If the value exists in the list and the 'argument_paint' is true,
+            then the newly generated layer with UID is added to the list with the value of the value of the variable
+            'layer'.
+          - If the current value of 'layer' does not exist in the branch's 'paint_layer' list. Then the newly generated
+            layer with UID is added to the list with the value of an empty string.
+
+          - If there is a value of the 'value' variable, the 'change_layer_uid' function will be called again with the
+            new value of the 'value' variable as argument.
+        """
+        previous_value = value
+
+        for layer, value in value.copy().items():
+            new_layer = layer[:-15] + generate_uid(branch)
+
+            previous_value[new_layer] = previous_value.pop(layer)
+
+            if layer in paint_layer[branch]:
+                if argument_paint:
+                    paint_layer[branch].update({new_layer: paint_layer[branch][layer]})
+            else:
+                paint_layer[branch].update({new_layer: ""})
+
+            if value:
+                self.change_layer_uid(branch, argument_paint, value)

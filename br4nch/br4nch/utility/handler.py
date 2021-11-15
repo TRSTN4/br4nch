@@ -2,6 +2,43 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+class NotExistingBranchError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, branch):
+        self.branch = branch
+
+    def __str__(self):
+        return "The branch '" + str(self.branch) + "' does not exists."
+
+
+class DuplicateBranchError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, branch):
+        self.branch = branch
+
+    def __str__(self):
+        return "The branch '" + str(self.branch) + "' already exists."
+
+
+class InvalidBranchError(Exception):
+    __module__ = Exception.__module__
+
+    def __str__(self):
+        return "Only numbers and/or letters may be used to add a branch."
+
+
+class InvalidPositionError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, argument):
+        self.argument = argument
+
+    def __str__(self):
+        return "Only numbers and/or letters may be used to add a position to the '" + self.argument + "' argument."
+
+
 class StringInstanceError(Exception):
     __module__ = Exception.__module__
 
@@ -48,33 +85,6 @@ class BooleanInstanceError(Exception):
     def __str__(self):
         return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
                + "'boolean' and not '" + str(type(self.parsed).__name__) + "'."
-
-
-class DuplicateBranchError(Exception):
-    __module__ = Exception.__module__
-
-    def __init__(self, branch):
-        self.branch = branch
-
-    def __str__(self):
-        return "The branch '" + str(self.branch) + "' already exists."
-
-
-class InvalidBranchError(Exception):
-    __module__ = Exception.__module__
-
-    def __str__(self):
-        return "Only numbers and/or letters may be used to add a branch."
-
-
-class NotExistingBranchError(Exception):
-    __module__ = Exception.__module__
-
-    def __init__(self, branch):
-        self.branch = branch
-
-    def __str__(self):
-        return "The branch '" + str(self.branch) + "' does not exists."
 
 
 class NotExistingPaintError(Exception):
