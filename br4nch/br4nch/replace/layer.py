@@ -1,109 +1,117 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
-from br4nch.utility.librarian import branches, uids
+from br4nch.utility.librarian import branches, uids, paint_layer
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import generate_uid
-from br4nch.utility.handler import NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
-# Gets the parsed arguments.
-def arguments(branch="", name="", pos=""):
-    # Parses the arguments to the first task.
-    add_layer(branch, name, pos)
+def arguments(branch, pos, name):
+    """Gets the arguments and parses them to the 'ReplaceLayer' class."""
+    ReplaceLayer(branch, pos, name)
 
 
-# Calculates where to add the parsed layer in the given position.
-def replace_position(branch, pos, value=""):
-    # Checks if there is no content in value.
-    if not value:
-        # Value is equal to the value of all nested layers.
-        value = branches[branch][list(branches[branch])[0]]
+class ReplaceLayer:
+    def __init__(self, argument_branch, argument_pos, argument_name):
+        """Gets the arguments and parses them to the 'replace_layer' function."""
+        self.replace_layer(argument_branch, argument_pos, argument_name)
 
-    # Checks if the first entry in the pos list is equal to zero or the first entry in the pos list doesnt have a value.
-    if pos[0] == "0" or not pos[0]:
-        # Loops through all layers in layer list.
-        for lay in branches[branch][list(branches[branch])[0]].copy():
-            test.update({lay: value})
-        return
-    else:
-        # Creates the count variable.
+    def replace_layer(self, argument_branch, argument_pos, argument_name):
+        """
+        Lists:
+          - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+          - If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
+
+        Errors:
+          - If the name argument is not an instance of a string, then it raises an 'StringInstanceError' error.
+
+        Operators:
+          - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+            list.
+
+        Branches list loop:
+          Errors:
+            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+          Argument copy list loop:
+            - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_copy' and
+              stores the returned output in the 'queue_replace' list.
+
+            - Loops through the list 'queue_replace' and replaces all given layers from the mandatory dictionaries.
+        """
+        if not isinstance(argument_branch, list):
+            argument_branch = [argument_branch]
+
+        if not isinstance(argument_pos, list):
+            argument_pos = [argument_pos]
+
+        if not isinstance(argument_name, str):
+            raise StringInstanceError("name", argument_name)
+
+        if "*" in argument_branch:
+            argument_branch.clear()
+            for branches_branch in list(branches):
+                argument_branch.append(branches_branch)
+
+        for branch in argument_branch:
+            error = 0
+
+            if not isinstance(branch, str):
+                raise StringInstanceError("branch", branch)
+
+            for branches_branch in list(branches):
+                if branch.lower() == branches_branch.lower():
+                    error = error + 1
+
+                    queue_replace = []
+
+                    for position in format_position(branches_branch, argument_pos.copy()):
+                        queue_replace.append(self.get_layers(branches_branch, position,
+                                                             branches[branches_branch][list(branches[branches_branch])[0]]))
+
+                    for replace_value in queue_replace:
+                        for layer, value in replace_value.items():
+                            new_layer = argument_name + generate_uid(branches_branch)
+
+                            uids[branches_branch].remove(layer[-10:])
+                            paint_layer[branches_branch][new_layer] = paint_layer[branches_branch].pop(layer)
+
+                            index = list(value).index(layer)
+                            value[new_layer] = value.pop(layer)
+
+                            for position in list(value)[index:-1]:
+                                value[position] = value.pop(position)
+                                paint_layer[branches_branch][position] = paint_layer[branches_branch].pop(position)
+
+            if error == 0:
+                raise NotExistingBranchError(branch)
+
+    def get_layers(self, branch, position, value):
+        """
+        Value dictionary loop:
+          - For each value of the 'value' variable the 'count' variable is added with plus '1'.
+
+          Count variable equal to the first value of 'position':
+            If the length of the 'position' list is equal to '1':
+              - Returns the current layer and previous value in an dictionary.
+
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
+              then the first value from the 'argument_move' list will be removed and the 'task_manager' function will be
+              called again with the new value of the 'value' variable as argument.
+        """
         count = 0
+        previous_value = value
 
-        prev_value = value
-
-        # Gets the value of the current value variable.
-        for value in value.values():
-            # Count is equal to current value of count plus one.
+        for layer, value in value.items():
             count = count + 1
 
-            # Checks if the current value of count is equal to the int of the first entry in the pos list.
-            if count == int(pos[0]):
-                # Checks if length of entries in pos is smaller then 2.
-                if len(pos) < 2:
-                    num = 0
-                    # Loops through all layers in layer list.
-                    for lay in list(prev_value):
-                        num = num + 1
-                        if num == int(pos[0]):
-                            test.update({lay: prev_value})
-                            return
-
-                # If length of entries in pos is not smaller then 2.
+            if count == int(position[0]):
+                if len(position) < 2:
+                    return {layer: previous_value}
                 else:
-                    # Removes the last entry of pos list.
-                    pos.pop(0)
-                    # Calls the calculate function.
-                    replace_position(branch, pos, value)
-                    # Returns nothing and stops the loop.
-                    return
-
-
-def add_layer(branch, name, position):
-    global test
-    test = {}
-
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
-
-    # Checks if pos is not a instance of list.
-    if not isinstance(position, list):
-        # Pos will be equal to a list that contains the value of pos.
-        position = [position]
-
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
-
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
-        error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
-                error = error + 1
-
-                branch = y
-
-                # Calls the operator function and gets the returned pos.
-                position = format_position(branch, position)
-                # Loops through all positions in the pos list.
-                for pos in position:
-                    # Calls the calculate_position function.
-                    replace_position(branch, pos.copy())
-
-                for key, value in test.items():
-                    uids[branch].remove(key[-10:])
-                    index = list(value).index(key)
-                    value[name + generate_uid(branch)] = value.pop(key)
-
-                    for x in list(value)[index:-1]:
-                        value[x] = value.pop(x)
-
-                test.clear()
-
-        if error == 0:
-            raise NotExistingBranchError(branch)
+                    if value:
+                        position.pop(0)
+                        return self.get_layers(branch, position, value)

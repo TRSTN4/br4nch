@@ -2,38 +2,51 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.librarian import branches, paint_header
-from br4nch.utility.handler import NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
-# Gets the parsed arguments.
-def arguments(branch=""):
-    # Parses the arguments to the first task.
+def arguments(branch):
+    """Gets the arguments and parses them to the 'delete_color_header' function."""
     delete_color_header(branch)
 
 
-def delete_color_header(branch):
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+def delete_color_header(argument_branch):
+    """
+    Lists:
+      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
+    Operators:
+      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+        list.
+
+    Branches list loop:
+      Errors:
+        - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+        - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+      - If the branch is in the 'branches' dictionary, then the value of the current branch key in the 'paint_header'
+        dictionary is updated to an empty string.
+    """
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
+
+    if "*" in argument_branch:
+        argument_branch.clear()
+        for branches_branch in list(branches):
+            argument_branch.append(branches_branch)
+
+    for branch in argument_branch:
         error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
+
+        if not isinstance(branch, str):
+            raise StringInstanceError("branch", branch)
+
+        for branches_branch in list(branches):
+            if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                branch = y
-
-                paint_header.update({branch: {}})
+                paint_header.update({branch: ""})
 
         if error == 0:
             raise NotExistingBranchError(branch)

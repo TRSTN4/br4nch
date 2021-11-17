@@ -5,8 +5,8 @@
 import copy as copy_lib
 
 from br4nch.utility.librarian import branches, uids, paint_layer
-from br4nch.utility.generator import generate_uid
 from br4nch.utility.positioner import format_position
+from br4nch.utility.generator import generate_uid
 from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError
 
 
@@ -17,10 +17,10 @@ def arguments(branch, copy, pos, paint=False, delete=False):
 
 class CopyLayer:
     def __init__(self, argument_branch, argument_copy, argument_pos, argument_paint, argument_delete):
-        """Gets the arguments and parses them to the 'build_structure' function."""
-        self.build_structure(argument_branch, argument_copy, argument_pos, argument_paint, argument_delete)
+        """Gets the arguments and parses them to the 'copy_layer' function."""
+        self.copy_layer(argument_branch, argument_copy, argument_pos, argument_paint, argument_delete)
 
-    def build_structure(self, argument_branch, argument_copy, argument_pos, argument_paint, argument_delete):
+    def copy_layer(self, argument_branch, argument_copy, argument_pos, argument_paint, argument_delete):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -101,7 +101,9 @@ class CopyLayer:
                         for delete_value in queue_delete:
                             for layer, value in delete_value.items():
                                 uids[branches_branch].remove(str(layer[-10:]))
-                                self.delete_layer_uid(branches_branch, value[layer])
+                                paint_layer[branches_branch].pop(layer)
+
+                                self.delete_layer_additions(branches_branch, value[layer])
 
                                 del value[layer]
 
@@ -116,7 +118,6 @@ class CopyLayer:
         """
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
-          - Builds the 'build_position' separating all positions with dots.
 
           Count variable equal to the first value of 'argument_copy':
             If the length of the 'argument_copy' list is equal to '1':
@@ -157,20 +158,25 @@ class CopyLayer:
                         position.pop(0)
                         return self.task_manager(branch, argument_copy, position, argument_paint, value)
 
-    def delete_layer_uid(self, branch, value):
+    def delete_layer_additions(self, branch, value):
         """
         Value dictionary loop:
           - Checks if the UID of the current value of 'layer' exists in the 'uids' list. If the UID is in the 'uids'
-            list, it will be removed from the list.
-          - If there is a value of the 'value' variable, the 'delete_layer_uid' function will be called again with the
+            list, then it will be removed from the list.
+          - Checks if the 'layer' value exists in the 'paint_layer' branch list. If the layer is in the 'paint_layer'
+            branch list, then the value of the current layer key in the 'paint_layer' dictionary will be removed.
+          - If there is a value of the 'value' variable, the 'delete_layer_additions' function will be called again with the
             new value of the 'value' variable as argument.
         """
         for layer, value in value.items():
             if layer[-10:] in uids[branch]:
                 uids[branch].remove(str(layer[-10:]))
 
+            if layer in paint_layer[branch]:
+                paint_layer[branch].pop(layer)
+
             if value:
-                self.delete_layer_uid(branch, value)
+                self.delete_layer_additions(branch, value)
 
     def change_layer_uid(self, branch, argument_paint, value):
         """

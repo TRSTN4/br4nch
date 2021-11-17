@@ -4,7 +4,7 @@
 
 from br4nch.utility.librarian import branches, uids, paint_layer
 from br4nch.utility.positioner import format_position
-from br4nch.utility.handler import NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, pos):
@@ -14,24 +14,31 @@ def arguments(branch, pos):
 
 class DeleteLayer:
     def __init__(self, argument_branch, argument_pos):
-        """Gets the arguments and parses them to the 'build_position' function."""
-        self.build_position(argument_branch, argument_pos)
+        """Gets the arguments and parses them to the 'build_structure' function."""
+        self.build_structure(argument_branch, argument_pos)
 
-    def build_position(self, argument_branch, argument_pos):
+    def build_structure(self, argument_branch, argument_pos):
         """
-        If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
-        If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
+        Lists:
+          - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+          - If the given pos argument is not an instance of a list, then the pos argument will be set as a list.
 
-        If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
-        list.
+        Operators:
+          - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+            list.
 
-        Loops through the given 'argument_branch' list and checks if the value is already in the 'branches' dictionary.
-        If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+        Argument branch list loop:
+          Errors:
+            - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
-        If the branch is in the 'branches' dictionary, then it runs a loop with all positions in the returned list from
-        the 'format_position' function. And calls the 'delete_layer' function for every looped position.
+          Branches list loop:
+            Argument pos list loop:
+              - Calls the function 'get_layers' to get the needed values from the 'argument_pos' variable.
+              - Adds the returned value to the list 'queue_delete'.
+
+          - Loops through the list 'queue_delete' and deletes all given layers from the dictionary 'branches'.
         """
-
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
 
@@ -44,95 +51,78 @@ class DeleteLayer:
                 argument_branch.append(branches_branch)
 
         for branch in argument_branch:
-            branch = str(branch)
             error = 0
+
+            if not isinstance(branch, str):
+                raise StringInstanceError("branch", branch)
+
             for branches_branch in list(branches):
                 if branch.lower() == branches_branch.lower():
-                    branch = branches_branch
                     error = error + 1
 
-                    count = 0
-                    for position in format_position(branch, argument_pos.copy()):
-                        print(position)
-                        position[-1] = str(int(position[-1]) - count)
-                        package = self.delete_layer(branch, position)
-                        self.delete_sublayer(branch, package[0], position, package[1])
-                        count = count + 1
+                    queue_delete = []
+
+                    for position in format_position(branches_branch, argument_pos.copy()):
+                        value = self.get_layers(branches_branch, position,
+                                                branches[branches_branch][list(branches[branches_branch])[0]])
+
+                        queue_delete.append(value)
+
+                    for delete_value in queue_delete:
+                        for layer, value in delete_value.items():
+                            uids[branches_branch].remove(str(layer[-10:]))
+                            paint_layer[branches_branch].pop(layer)
+
+                            self.delete_layer_additions(branches_branch, value[layer])
+
+                            del value[layer]
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def delete_layer(self, branch, position, position_structure="", value=""):
+    def get_layers(self, branch, position, value):
         """
-        If there is no value in the 'value' variable, then the 'value' variable is equal to the value of the branch
-        header key in the 'branches' directory.
+        Value dictionary loop:
+          - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
-        If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and each
-        layer of the loop is appended to the value of the header key in the branch of the 'branches' directory. todo
+          Count variable equal to the first value of 'position':
+            If the length of the 'position' list is equal to '1':
+              - Returns the current layer and previous value in an dictionary.
 
-        If the first value in the 'position' is not equal to a '0' then a loop is made and for each value of the 'value'
-        variable the 'count' variable is added with '1'.
-
-        If the value of the 'count' variable is equal to the first value of the 'position' variable and the length of
-        the 'position' list is equal to '1' then the 'delete_sublayer' function is used which removes all sub-layers.
-
-        If the value of the 'count' variable is equal to the first value of the 'position' variable and the length of
-        the 'position' list is not equal to '1' and there is a value of the 'value' variable, then removes the first
-        value from the 'position' list and calls the 'delete_layer' again with the new values of the 'value' variable as
-        argument.
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
+              then the first value from the 'argument_move' list will be removed and the 'get_layers' function will be
+              called again with the new value of the 'value' variable as argument.
         """
-
-        if not value:
-            value = branches[branch][list(branches[branch])[0]]
-
-        if position[0] == "0":
-            for layer in branches[branch][list(branches[branch])[0]].copy():
-                uids[branch].remove(layer[-10:])
-                del branches[branch][list(branches[branch])[0]][layer]
-            return
-        else:
-            count = 0
-            previous_value = value
-
-            for value in value.values():
-                count = count + 1
-
-                if count == int(position[0]):
-                    position_structure = position_structure + "." + str(count)
-                    if position_structure[0] == ".":
-                        position_structure = position_structure[1:]
-
-                    if len(position) == 1:
-                        return [previous_value, position_structure]
-                    else:
-                        if value:
-                            position.pop(0)
-                            position_structure = self.delete_layer(branch, position, position_structure, value)
-                            return position_structure
-
-    def delete_sublayer(self, branch, value, pos, position_structure):
-        """
-        Loops through the given value and deletes all uids from the layers and deletes the values from the 'branches'
-        directory. todo
-        """
-
         count = 0
         previous_value = value
 
-        for layer, value in value.copy().items():
+        for layer, value in value.items():
             count = count + 1
-            if pos[0]:
-                if count == int(pos[0]):
-                    if len(pos) == 1:
-                        for x in range(len(previous_value)):
-                            if int(x + 1) >= int(position_structure[-1]) and int(x + 1) != len(previous_value):
-                                paint_layer[branch].update({position_structure[:-1] + str(x + 1): paint_layer[branch][position_structure[:-1] + str(x + 2)]})
 
-                            if int(x + 1) == len(previous_value):
-                                del paint_layer[branch][position_structure[:-1] + str(x + 1)]
+            if count == int(position[0]):
+                if len(position) < 2:
+                    return {layer: previous_value}
+                else:
+                    if value:
+                        position.pop(0)
+                        return self.get_layers(branch, position, value)
 
-                        uids[branch].remove(layer[-10:])
-                        del previous_value[layer]
-                    else:
-                        if value:
-                            self.delete_sublayer(branch, value, pos, position_structure)
+    def delete_layer_additions(self, branch, value):
+        """
+        Value dictionary loop:
+          - Checks if the UID of the current value of 'layer' exists in the 'uids' list. If the UID is in the 'uids'
+            list, then it will be removed from the list.
+          - Checks if the 'layer' value exists in the 'paint_layer' branch list. If the layer is in the 'paint_layer'
+            branch list, then the value of the current layer key in the 'paint_layer' dictionary will be removed.
+          - If there is a value of the 'value' variable, the 'delete_layer_additions' function will be called again with the
+            new value of the 'value' variable as argument.
+        """
+        for layer, value in value.items():
+            if layer[-10:] in uids[branch]:
+                uids[branch].remove(str(layer[-10:]))
+
+            if layer in paint_layer[branch]:
+                paint_layer[branch].pop(layer)
+
+            if value:
+                self.delete_layer_additions(branch, value)

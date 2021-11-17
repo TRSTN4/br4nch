@@ -6,12 +6,12 @@ from br4nch.utility.librarian import branches, output, uids, sizes, symbols, pai
 from br4nch.utility.handler import InvalidBranchError, DuplicateBranchError, StringInstanceError
 
 
-def arguments(branch):
+def arguments(branch, header):
     """Gets the arguments and parses them to the 'add_branch' function."""
-    add_branch(branch)
+    add_branch(branch, header)
 
 
-def add_branch(argument_branch):
+def add_branch(argument_branch, argument_header):
     """
     Lists:
       - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -26,7 +26,8 @@ def add_branch(argument_branch):
         Errors:
           - If the branch is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
 
-      - Then it will add the current branch key in all the mandatory dictionaries with a empty dictionary as value.
+      - Then it will add the current branch key in all the mandatory dictionaries with a empty dictionary as value and
+        adds the given header as header value to the branches dictionary.
     """
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
@@ -42,11 +43,11 @@ def add_branch(argument_branch):
             if branch.lower() == branches_branch.lower():
                 raise DuplicateBranchError(branch)
 
-        branches.update({branch: {}})
+        branches.update({branch: {argument_header: {}}})
         output.update({branch: []})
         uids.update({branch: []})
         sizes.update({branch: 1})
         symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
-        paint_branch.update({branch: {}})
-        paint_header.update({branch: {}})
+        paint_branch.update({branch: ""})
+        paint_header.update({branch: ""})
         paint_layer.update({branch: {}})

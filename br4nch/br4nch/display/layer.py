@@ -132,5 +132,4 @@ class DisplayPos:
             self.elevator(branch, levels, trace, value, pos + 1)
 
         levels.append(0)
-
         return levels

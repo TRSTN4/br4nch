@@ -3,5 +3,4 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.add.branch import arguments as branch
-from br4nch.add.header import arguments as header
 from br4nch.add.layer import arguments as layer

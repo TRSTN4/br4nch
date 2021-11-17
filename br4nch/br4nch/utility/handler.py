@@ -87,6 +87,13 @@ class BooleanInstanceError(Exception):
                + "'boolean' and not '" + str(type(self.parsed).__name__) + "'."
 
 
+class RequiredChangeError(Exception):
+    __module__ = Exception.__module__
+
+    def __str__(self):
+        return "Change at least one of the given symbols: 'line', 'split' or 'end'."
+
+
 class NotExistingPaintError(Exception):
     __module__ = Exception.__module__
 

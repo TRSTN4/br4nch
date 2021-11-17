@@ -3,9 +3,9 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 import br4nch.utility.builder
-import br4nch.utility.unpacker
 import br4nch.utility.librarian
-import br4nch.utility.painter
-import br4nch.utility.handler
-import br4nch.utility.positioner
 import br4nch.utility.generator
+import br4nch.utility.positioner
+import br4nch.utility.painter
+import br4nch.utility.unpacker
+import br4nch.utility.handler

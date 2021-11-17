@@ -1,39 +1,58 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-# Imports all files.
 from br4nch.utility.librarian import branches
-from br4nch.utility.handler import NotExistingBranchError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
-# Gets the parsed arguments.
-def arguments(branch="", name=""):
-    # Parses the arguments to the first task.
-    replace_header(name, branch)
+def arguments(branch, name):
+    """Gets the arguments and parses them to the 'replace_header' function."""
+    replace_header(branch, name)
 
 
-# Adds a new name for the branch.
-def replace_header(name, branch):
-    # Checks if branch is not a instance of list.
-    if not isinstance(branch, list):
-        # Branch will be equal to a list that contains the value of branch.
-        branch = [branch]
+def replace_header(argument_branch, argument_name):
+    """
+    Lists:
+      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
-    if not branch[0]:
-        for value in list(branches):
-            branch.append(value)
-        branch.pop(0)
+    Errors:
+      - If the name argument is not an instance of a string, then it raises an 'StringInstanceError' error.
 
-    # Loops through all branches in the branch list.
-    for branch in branch:
-        branch = str(branch)
+    Operators:
+      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+        list.
+
+    Branches list loop:
+      Errors:
+        - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+        - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
+      - Deletes the given header and creates a new one with the given name and the copied values from the given header.
+    """
+    if not isinstance(argument_branch, list):
+        argument_branch = [argument_branch]
+
+    if not isinstance(argument_name, str):
+        raise StringInstanceError("name", argument_name)
+
+    if "*" in argument_branch:
+        argument_branch.clear()
+        for branches_branch in list(branches):
+            argument_branch.append(branches_branch)
+
+    for branch in argument_branch:
         error = 0
-        for y in list(branches):
-            if branch.lower() == y.lower():
+
+        if not isinstance(branch, str):
+            raise StringInstanceError("branch", branch)
+
+        for branches_branch in list(branches):
+            if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                branch = y
-
-                branches[branch][name] = branches[branch].pop(list(branches[branch])[0])
+                branches[branches_branch][argument_name] = \
+                    branches[branches_branch].pop(list(branches[branches_branch])[0])
 
         if error == 0:
             raise NotExistingBranchError(branch)

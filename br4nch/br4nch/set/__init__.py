@@ -3,5 +3,6 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 import br4nch.set.color
-from br4nch.set.symbol import arguments as symbol
+
 from br4nch.set.size import arguments as size
+from br4nch.set.symbol import arguments as symbol

@@ -13,10 +13,10 @@ def arguments(branch, move, pos):
 
 class MoveLayer:
     def __init__(self, argument_branch, argument_move, argument_pos):
-        """Gets the arguments and parses them to the 'build_structure' function."""
-        self.build_structure(argument_branch, argument_move, argument_pos)
+        """Gets the arguments and parses them to the 'move_layer' function."""
+        self.move_layer(argument_branch, argument_move, argument_pos)
 
-    def build_structure(self, argument_branch, argument_move, argument_pos):
+    def move_layer(self, argument_branch, argument_move, argument_pos):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.

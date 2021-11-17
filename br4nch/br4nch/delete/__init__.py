@@ -3,6 +3,6 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 import br4nch.delete.color
+
 from br4nch.delete.branch import arguments as branch
-from br4nch.delete.header import arguments as header
 from br4nch.delete.layer import arguments as layer

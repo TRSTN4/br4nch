@@ -6,8 +6,8 @@ import os
 import ast
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import DictionaryInstanceError, DuplicateBranchError, InvalidBranchFileError,\
-    InvalidPackageFileError
+from br4nch.utility.handler import DuplicateBranchError, InvalidBranchFileError, InvalidPackageFileError,\
+    DictionaryInstanceError
 
 
 def arguments(branch, package=""):

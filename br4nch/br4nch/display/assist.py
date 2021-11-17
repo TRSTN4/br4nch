@@ -62,7 +62,7 @@ class DisplayAssist:
                     error = error + 1
 
                     while True:
-                        branch_uid = branches_branch + generate_uid(branch)
+                        branch_uid = branches_branch + generate_uid(branches_branch)
 
                         if branch_uid in list(branches):
                             continue
@@ -71,7 +71,7 @@ class DisplayAssist:
 
                     branches.update({branch_uid: copy.deepcopy(branches[branches_branch])})
 
-                    header = str("0: " + list(branches[branch_uid])[0])
+                    header = str("0: " + list(branches[branch_uid])[0].copy())
                     branches[branch_uid][header] = branches[branch_uid].pop(list(branches[branch_uid])[0])
                     output.update({branch_uid: []})
                     uids.update({branch_uid: []})
@@ -81,14 +81,14 @@ class DisplayAssist:
                     paint_header.update({branch_uid: {}})
                     paint_layer.update({branch_uid: {}})
 
-                    self.update_layer(branch_uid, [0], [0], branches[branch_uid][list(branches[branch_uid])[0]])
+                    self.set_layer_pos_name(branch_uid, [0], [0], branches[branch_uid][list(branches[branch_uid])[0]])
 
                     build_branch(branch_uid, True)
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def update_layer(self, branch, levels, trace, value, position_structure=""):
+    def set_layer_pos_name(self, branch, levels, trace, value, position_structure=""):
         """
         - First, it is checked whether the 'levels' list is "empty". If the list is "empty", the 'elevator' function is
           called with the 'levels' and 'trace' list as arguments.
@@ -104,8 +104,8 @@ class DisplayAssist:
             - Then the current value of the 'position_structure' variable is added with the value of 'count' separated
               by a dot to the 'position_structure' variable.
 
-          - Checks whether the 'value' variable has a value. If there is a value, then the 'update_layer' function is
-            called again with the current values of 'value', 'trace' and 'levels' as arguments.
+          - Checks whether the 'value' variable has a value. If there is a value, then the 'set_layer_pos_name' function
+            is called again with the current values of 'value', 'trace' and 'levels' as arguments.
         """
         if len(levels) == 1:
             levels = self.elevator(branch, levels, trace, value)
@@ -126,7 +126,7 @@ class DisplayAssist:
             previous_value[position_structure[1:] + ": " + key] = previous_value.pop(key)
 
             if value:
-                self.update_layer(branch, levels, trace, value, position_structure)
+                self.set_layer_pos_name(branch, levels, trace, value, position_structure)
 
     def elevator(self, branch, levels, trace, value, pos=0):
         """
@@ -144,5 +144,4 @@ class DisplayAssist:
             self.elevator(branch, levels, trace, value, pos + 1)
 
         levels.append(0)
-
         return levels

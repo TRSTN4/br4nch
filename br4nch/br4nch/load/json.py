@@ -4,53 +4,85 @@
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 from br4nch.utility.generator import generate_uid
-from br4nch.utility.handler import DictionaryInstanceError, DuplicateBranchError
+from br4nch.utility.handler import DictionaryInstanceError, DuplicateBranchError, StringInstanceError
 
 
 def arguments(branch, header, json):
-    json = {branch: json}
-
-    output.update({list(json)[0]: []})
-    uids.update({list(json)[0]: []})
-    sizes.update({list(json)[0]: 1})
-    symbols.update({list(json)[0]: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
-    paint_branch.update({list(json)[0]: {}})
-    paint_header.update({list(json)[0]: {}})
-    paint_layer.update({list(json)[0]: {}})
-
-    loop(branch, json)
-
-    load_json(branch, header, json)
+    """Gets the arguments and parses them to the 'LoadJson' class."""
+    LoadJson(branch, header, json)
 
 
-def loop(branch, value):
-    previous_value = value
+class LoadJson:
+    def __init__(self, argument_branch, argument_header, argument_json):
+        """Gets the arguments and parses them to the 'task_manager' function."""
+        self.task_manager(argument_branch, argument_header, argument_json)
 
-    for key, value in value.copy().items():
-        if isinstance(value, list):
-            copy_value = value
-            previous_value.update({key: {}})
-            value = previous_value
+    def task_manager(self, argument_branch, argument_header, argument_json):
+        if not isinstance(argument_branch, str):
+            raise StringInstanceError("branch", argument_branch)
 
-            for x in list(copy_value):
-                previous_value[key].update({x: {}})
+        if not isinstance(argument_header, str):
+            raise StringInstanceError("header", argument_header)
 
-        if not isinstance(value, dict):
-            previous_value.update({key: {value: {}}})
+        if not isinstance(argument_json, dict):
+            raise DictionaryInstanceError("json", argument_json)
 
-        previous_value[key + generate_uid(branch)] = previous_value.pop(key)
+        for branches_branch in list(branches):
+            if argument_branch.lower() == branches_branch.lower():
+                raise DuplicateBranchError(argument_branch)
 
-        if value and not isinstance(value, str) and not isinstance(value, list):
-            loop(branch, value)
+        self.illegal_values_manager(argument_branch, argument_json)
 
+        output.update({argument_branch: []})
+        uids.update({argument_branch: []})
+        sizes.update({argument_branch: 1})
+        symbols.update({argument_branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+        paint_branch.update({argument_branch: {}})
+        paint_header.update({argument_branch: {}})
+        paint_layer.update({argument_branch: {}})
 
-def load_json(branch, header, formatted_json):
-    if not isinstance(formatted_json, dict):
-        raise DictionaryInstanceError("branch", formatted_json)
+        self.change_layer_uid(argument_branch, {argument_branch: argument_json})
 
-    for branches_branch in list(branches):
-        if list(formatted_json)[0].lower() == branches_branch.lower():
-            raise DuplicateBranchError(list(formatted_json)[0])
+        branches.update({argument_branch: {argument_header: argument_json}})
 
-    branches.update({branch: {header: list(formatted_json.values())[0]}})
+    def illegal_values_manager(self, branch, value):
+        previous_value = value
 
+        for layer, value in value.items():
+            if isinstance(value, list):
+                copy_value = value
+                previous_value.update({layer: {}})
+                value = previous_value
+
+                for x in list(copy_value):
+                    previous_value[layer].update({x: {}})
+
+            if not isinstance(value, dict):
+                previous_value.update({layer: {value: {}}})
+
+            if value and not isinstance(value, str) and not isinstance(value, list):
+                self.illegal_values_manager(branch, value)
+
+    def change_layer_uid(self, branch, value):
+        """
+        Value dictionary loop:
+          - Generates a new UID for the copied 'layer' variable. Then the old layer is deleted and replaced with the new
+            generated layer with the new UID.
+
+          - Checks if the current value of 'layer' exists in the branch's 'paint_layer' list. Then it is checked whether
+            the variable 'argument_paint' is true. If the value exists in the list and the 'argument_paint' is true,
+            then the newly generated layer with UID is added to the list with the value of the value of the variable
+            'layer'.
+          - If the current value of 'layer' does not exist in the branch's 'paint_layer' list. Then the newly generated
+            layer with UID is added to the list with the value of an empty string.
+
+          - If there is a value of the 'value' variable, the 'change_layer_uid' function will be called again with the
+            new value of the 'value' variable as argument.
+        """
+        previous_value = value
+
+        for layer, value in value.copy().items():
+            previous_value[layer + generate_uid(branch)] = previous_value.pop(layer)
+
+            if value:
+                self.change_layer_uid(branch, value)

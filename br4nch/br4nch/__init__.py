@@ -3,13 +3,13 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 import br4nch.add
-import br4nch.delete
 import br4nch.replace
-import br4nch.reset
+import br4nch.delete
 import br4nch.set
-import br4nch.move
-import br4nch.display
+import br4nch.reset
 import br4nch.copy
+import br4nch.move
 import br4nch.load
 import br4nch.export
+import br4nch.display
 import br4nch.utility
