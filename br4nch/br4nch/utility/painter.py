@@ -1,102 +1,51 @@
-# Part of the br4nch package.
+# Copyright 2021 by TRSTN4. All rights reserved.
+# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
+# Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.handler import NotExistingPaintError
+from br4nch.utility.handler import MaximumPaintSlots, NotExistingPaintError
 
 
-# Returns the requested paint.
-def painter(options, branch="", layer=""):
-    # All global statements.
-    global black, red, green, yellow, blue, magenta, cyan, white, bold, underline, reversing, clear
+def painter(paint):
+    """
+    Lists:
+      - If the given paint argument is not an instance of a list, then the paint argument will be set as a list.
 
-    # Stores all the colors and specials.
-    black = "\u001b[30m"
-    red = "\u001b[31m"
-    green = "\u001b[32m"
-    yellow = "\u001b[33m"
-    blue = "\u001b[34m"
-    magenta = "\u001b[35m"
-    cyan = "\u001b[36m"
-    white = "\u001b[37m"
-    bold = "\u001b[1m"
-    underline = "\u001b[4m"
-    reversing = "\u001b[4m"
-    clear = "\u001b[0m"
+    Errors:
+      - If the length of the 'paint' list is bigger than '4', then it raises a 'MaximumPaintSlots' error.
 
-    # Saves all the lists and dictionaries in storage list.
-    colors_action = [black, red, green, yellow, blue, magenta, cyan, white, clear]
-    specials_action = [bold, underline, reversing]
+    - Then is calculated how many times the loop should be run and adding element with an empty string as value to the
+      list 'paint' until the length of the list is equal to '4'.
 
-    # Saves all the lists and dictionaries in identity list.
-    colors_id = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "clear"]
-    specials_id = ["bold", "underline", "reversing"]
+    Length 'paint' list loop:
+      - If the current value of the position in the 'paint' list is equal to one of the values in the 'paint_id' list,
+        then the current value of position in the 'paint' list becomes the value of the given index of the position in
+        the 'paint' list for the given list.
 
-    # Creates the required variables.
-    color = ""
-    special1 = ""
-    special2 = ""
-    special3 = ""
+      Errors:
+        - If the current value of the position in the 'paint' list is not equal to any of the values in the 'paint_id'
+          list, then it raises a 'NotExistingPaintError' error.
 
-    if not isinstance(options, list):
-        test = [options]
-    else:
-        test = options
-    for x in test:
-        if x not in colors_id + specials_id + [""]:
-            raise NotExistingPaintError(x)
+    - Then all paint is returned.
+    """
+    if not isinstance(paint, list):
+        paint = [paint]
 
-    # Checks if options value is equal to one of the colors ids.
-    if options in colors_id:
-        # Color is equal to the value of options.
-        color = options
-    # Checks if options value is equal to one of the specials ids.
-    if options in specials_id:
-        # special1 is equal to the value of options.
-        special1 = options
-    # The first entry option is color.
-    if len(options) > 0 and isinstance(options, list) and options[0].lower() in colors_id:
-        # Color is the first entry of the options list.
-        color = options[0].lower()
-    # If the first entry in the options list is used. If so, the second entry option is special1.
-    if len(options) > 1 and isinstance(options, list) and options[1].lower() in specials_id:
-        # Special 1 is the second entry of the options list.
-        special1 = options[1].lower()
-    # If the first and second entry in the options list is used. If so, the third entry option is special2.
-    if len(options) > 2 and isinstance(options, list) and options[2].lower() in specials_id:
-        # Special 2 is the third entry of the options list.
-        special2 = options[2].lower()
-    # If the first, second and third entry in the options list is used. If so, the fourth entry option is special3.
-    if len(options) > 3 and isinstance(options, list) and options[3].lower() in specials_id:
-        # Special 3 is the fourth entry of the options list.
-        special3 = options[3].lower()
+    if len(paint) > 4:
+        raise MaximumPaintSlots
 
-    # Checks if the color value has content.
-    if color:
-        # Loops through total length of the colors action list.
-        for number in range(len(colors_action)):
-            # Checks if the parsed action is equal to the action identity given by the length number.
-            if color == colors_id[number]:
-                # Colors is equal to the requested color.
-                color = colors_action[number]
+    for _ in range(4 - len(paint)):
+        paint.append("")
 
-    # Checks if the special1, special2 or special3 variables has content.
-    if special1 or special2 or special3:
-        # Loops through total length of the specials action list.
-        for number in range(len(specials_action)):
-            # Checks if the parsed action is equal to the action identity given by the length number.
-            if special1 == specials_id[number]:
-                # Sets the requested special1 action to the special1 variable.
-                special1 = specials_action[number]
-            # Checks if the parsed action is equal to the action identity given by the length number.
-            if special2 == specials_id[number]:
-                # Sets the requested special2 action to the special2 variable.
-                special2 = specials_action[number]
-            # Checks if the parsed action is equal to the action identity given by the length number.
-            if special3 == specials_id[number]:
-                # Sets the requested special3 action to the special3 variable.
-                special3 = specials_action[number]
+    paint_id = ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white", "bold", "underline", "reversing",
+                "clear"]
 
-    # Returns the requested paint.
-    return color + special1 + special2 + special3
+    for position in range(len(paint)):
+        if paint[position].lower() in paint_id:
+            paint[position] = ["\u001b[30m", "\u001b[31m", "\u001b[32m", "\u001b[33m", "\u001b[34m", "\u001b[35m",
+                               "\u001b[36m", "\u001b[37m", "\u001b[1m", "\u001b[4m", "\u001b[4m",
+                               "\u001b[0m"][paint_id.index(paint[position])]
+        else:
+            if paint[position]:
+                raise NotExistingPaintError(paint[position])
 
-    # if not isinstance(argument_paint, str):
-    #     raise StringInstanceError("paint", argument_paint)
+    return paint[0] + paint[1] + paint[2] + paint[3]

@@ -36,6 +36,8 @@ class DisplayPos:
             - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Branches list loop:
+            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the levels
+              list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided.
             - If the branch is in the 'branches' dictionary, it will loop with all positions in the returned list of the
               'format_position' function. And calls the 'add_layer' function for each loop with the built position
               structure of the 'position' as argument
@@ -64,6 +66,10 @@ class DisplayPos:
                 if branch.lower() == branches_branch.lower():
                     error = error + 1
 
+                    levels = [0]
+                    self.elevator(levels, branches[branch][list(branches[branch])[0]])
+                    levels.append(0)
+
                     for layer in argument_layer:
                         self.calculate(branches_branch, layer, argument_beautify, [0], [0],
                                        branches[branch][list(branches[branch])[0]])
@@ -71,11 +77,20 @@ class DisplayPos:
             if error == 0:
                 raise NotExistingBranchError(branch)
 
+    def elevator(self, levels, value, pos=0):
+        """
+        Value dictionary loop:
+          - Loops through each "height" of the value dictionary and adds the value of the 'pos' variable to the 'levels'
+            list.
+          - Then the 'elevator' function is called again with the current value of the 'value' dictionary.
+        """
+        for value in value.values():
+            levels.append(pos)
+
+            self.elevator(levels, value, pos + 1)
+
     def calculate(self, branch, loop_layer, argument_beautify, levels, trace, value, position_structure=""):
         """
-        - First, it is checked whether the 'levels' list is "empty". If the list is "empty", the 'elevator' function is
-          called with the 'levels' and 'trace' list as arguments.
-
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable and the first element of the 'trace' list is
             added with plus '1'.
@@ -94,9 +109,6 @@ class DisplayPos:
           - Checks whether the 'value' variable has a value. If there is a value, then the 'update_layer' function is
             called again with the current values of 'value', 'trace' and 'levels' as arguments.
         """
-        if len(levels) == 1:
-            levels = self.elevator(branch, levels, trace, value)
-
         count = 0
 
         for layer, value in value.items():
@@ -115,21 +127,3 @@ class DisplayPos:
 
             if value:
                 self.calculate(branch, loop_layer, argument_beautify, levels, trace, value, position_structure)
-
-    def elevator(self, branch, levels, trace, value, pos=0):
-        """
-        Value dictionary loop:
-          - Loops through each "height" of the value dictionary and adds the value of the 'pos' variable to the 'levels'
-            list.
-          - Then the 'elevator' function is called again with the current value of the 'value' dictionary.
-
-        - Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided and after that the new
-          value from the 'levels' list is returned.
-        """
-        for layer, value in value.items():
-            levels.append(pos)
-
-            self.elevator(branch, levels, trace, value, pos + 1)
-
-        levels.append(0)
-        return levels

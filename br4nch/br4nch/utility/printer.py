@@ -5,10 +5,7 @@
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 
 
-def printer(action, package=None, delete=False):
-    if package is None:
-        package = []
-
+def printer(action, package, delete=False):
     branch = package[0]
 
     if action == "display_export_branch":
@@ -41,19 +38,15 @@ def printer(action, package=None, delete=False):
             print(package[2])
 
     if action == "display_branch":
-        for y in list(branches):
-            if branch.lower() == y.lower():
-                branch = y
+        for line in output[branch]:
+            print(line)
 
-                for x in output[branch]:
-                    print(x)
-
-                if delete:
-                    del output[branch]
-                    del branches[branch]
-                    del sizes[branch]
-                    del symbols[branch]
-                    del paint_branch[branch]
-                    del paint_header[branch]
-                    del paint_layer[branch]
-                    del uids[branch]
+        if delete:
+            del output[branch]
+            del branches[branch]
+            del sizes[branch]
+            del symbols[branch]
+            del paint_branch[branch]
+            del paint_header[branch]
+            del paint_layer[branch]
+            del uids[branch]

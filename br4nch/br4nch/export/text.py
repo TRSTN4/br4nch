@@ -5,7 +5,7 @@
 import os
 
 from br4nch.utility.librarian import branches, output
-from br4nch.utility.builder.branch import build_branch
+from br4nch.utility.builder import Builder
 from br4nch.utility.handler import StringInstanceError, InvalidDirectoryError, NotExistingBranchError
 
 
@@ -37,7 +37,7 @@ def export_text(argument_branch, argument_directory):
 
         If the given directory exists:
           - Creates a new file with a custom name of the value of branch
-          - Calls the 'build_branch' function to create the branch's 'output' variable.
+          - Calls the 'Builder' class to create the branch's 'output' variable.
           - Loops through the output of the branch and appends each element in the last to the file with a new line.
           - Clears the output list from the value of branch.
     """
@@ -65,7 +65,7 @@ def export_text(argument_branch, argument_directory):
 
                 if os.path.isdir(argument_directory):
                     with open(argument_directory + "/branch-" + branch + ".txt", 'w', encoding='utf-8') as file:
-                        build_branch(branch, False)
+                        Builder(branch, False)
                         for line in output[branch]:
                             file.write(line + "\n")
                         output[branch].clear()

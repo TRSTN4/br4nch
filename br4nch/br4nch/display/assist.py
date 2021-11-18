@@ -6,7 +6,7 @@ import copy
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 from br4nch.utility.generator import generate_uid
-from br4nch.display.branch import display_branch as build_branch
+from br4nch.display.branch import display_branch
 from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
@@ -35,6 +35,9 @@ class DisplayAssist:
             - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Branches list loop:
+            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the levels
+              list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided and after that
+              the new value from the 'levels' list is returned.
             - If the branch is in the 'branches' dictionary, then a new name is generated for the value of the
               'branches_branch' variable. If the name already exists in the 'branches' dictionary, the loop starts again
               until a unique branch name is generated that does not yet exist in the 'branches' dictionary.
@@ -42,6 +45,8 @@ class DisplayAssist:
               directory and it is added as value to the 'branches' dictionary with the unique branch name as the key.
             - Then the unique branch name is added to the corresponding dictionaries with the default values as the
               value.
+            - Calls the function 'set_layer_pos_name' to add all positions to the corresponding layers.
+            - Calls the 'display_branch' function to build and print the current branch.
         """
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
@@ -61,38 +66,39 @@ class DisplayAssist:
                 if branch.lower() == branches_branch.lower():
                     error = error + 1
 
+                    levels = [0]
+                    self.elevator(levels, branches[branches_branch][list(branches[branches_branch])[0]])
+                    levels.append(0)
+
                     while True:
                         branch_uid = branches_branch + generate_uid(branches_branch)
 
                         if branch_uid in list(branches):
                             continue
                         else:
+                            uids[branches_branch].remove(branch_uid[-10:])
                             break
 
                     branches.update({branch_uid: copy.deepcopy(branches[branches_branch])})
-
-                    header = str("0: " + list(branches[branch_uid])[0].copy())
-                    branches[branch_uid][header] = branches[branch_uid].pop(list(branches[branch_uid])[0])
+                    branches[branch_uid][str("0: " + list(branches[branches_branch])[0])] = \
+                        branches[branch_uid].pop(list(branches[branch_uid])[0])
                     output.update({branch_uid: []})
                     uids.update({branch_uid: []})
                     sizes.update({branch_uid: 1})
                     symbols.update({branch_uid: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
-                    paint_branch.update({branch_uid: {}})
-                    paint_header.update({branch_uid: {}})
+                    paint_branch.update({branch_uid: ""})
+                    paint_header.update({branch_uid: ""})
                     paint_layer.update({branch_uid: {}})
 
-                    self.set_layer_pos_name(branch_uid, [0], [0], branches[branch_uid][list(branches[branch_uid])[0]])
+                    self.set_layer_pos_name(branch_uid, levels, [0], branches[branch_uid][list(branches[branch_uid])[0]])
 
-                    build_branch(branch_uid, True)
+                    display_branch(branch_uid, True)
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
     def set_layer_pos_name(self, branch, levels, trace, value, position_structure=""):
         """
-        - First, it is checked whether the 'levels' list is "empty". If the list is "empty", the 'elevator' function is
-          called with the 'levels' and 'trace' list as arguments.
-
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable and the first element of the 'trace' list is
             added with plus '1'.
@@ -104,44 +110,35 @@ class DisplayAssist:
             - Then the current value of the 'position_structure' variable is added with the value of 'count' separated
               by a dot to the 'position_structure' variable.
 
+          - Adds the position to the layer in the current value of 'previous_value'.
           - Checks whether the 'value' variable has a value. If there is a value, then the 'set_layer_pos_name' function
             is called again with the current values of 'value', 'trace' and 'levels' as arguments.
         """
-        if len(levels) == 1:
-            levels = self.elevator(branch, levels, trace, value)
-
         count = 0
         previous_value = value
 
-        for key, value in value.copy().items():
+        for layer, value in value.copy().items():
             count = count + 1
 
             trace[0] = trace[0] + 1
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
                 position_structure = position_structure[:-2]
-
             position_structure = position_structure + "." + str(count)
 
-            previous_value[position_structure[1:] + ": " + key] = previous_value.pop(key)
+            previous_value[position_structure[1:] + ": " + layer] = previous_value.pop(layer)
 
             if value:
                 self.set_layer_pos_name(branch, levels, trace, value, position_structure)
 
-    def elevator(self, branch, levels, trace, value, pos=0):
+    def elevator(self, levels, value, pos=0):
         """
         Value dictionary loop:
           - Loops through each "height" of the value dictionary and adds the value of the 'pos' variable to the 'levels'
             list.
           - Then the 'elevator' function is called again with the current value of the 'value' dictionary.
-
-        - Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided and after that the new
-          value from the 'levels' list is returned.
         """
-        for layer, value in value.items():
+        for value in value.values():
             levels.append(pos)
 
-            self.elevator(branch, levels, trace, value, pos + 1)
-
-        levels.append(0)
-        return levels
+            self.elevator(levels, value, pos + 1)

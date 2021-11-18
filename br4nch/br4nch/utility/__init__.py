@@ -7,5 +7,4 @@ import br4nch.utility.librarian
 import br4nch.utility.generator
 import br4nch.utility.positioner
 import br4nch.utility.painter
-import br4nch.utility.unpacker
 import br4nch.utility.handler

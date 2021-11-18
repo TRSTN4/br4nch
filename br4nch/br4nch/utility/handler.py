@@ -63,18 +63,6 @@ class IntegerInstanceError(Exception):
                + "'integer' and not '" + str(type(self.parsed).__name__) + "'."
 
 
-class DictionaryInstanceError(Exception):
-    __module__ = Exception.__module__
-
-    def __init__(self, argument, parsed):
-        self.argument = argument
-        self.parsed = parsed
-
-    def __str__(self):
-        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
-               + "'dictionary' and not '" + str(type(self.parsed).__name__) + "'."
-
-
 class BooleanInstanceError(Exception):
     __module__ = Exception.__module__
 
@@ -85,6 +73,18 @@ class BooleanInstanceError(Exception):
     def __str__(self):
         return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
                + "'boolean' and not '" + str(type(self.parsed).__name__) + "'."
+
+
+class DictionaryInstanceError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, argument, parsed):
+        self.argument = argument
+        self.parsed = parsed
+
+    def __str__(self):
+        return "The " + str(self.argument) + " argument '" + str(self.parsed) + "' must be an instance of a "\
+               + "'dictionary' and not '" + str(type(self.parsed).__name__) + "'."
 
 
 class RequiredChangeError(Exception):
@@ -102,26 +102,6 @@ class NotExistingPaintError(Exception):
 
     def __str__(self):
         return "The paint '" + str(self.paint) + "' does not exists."
-
-
-class InvalidSizeError(Exception):
-    __module__ = Exception.__module__
-
-    def __init__(self, size):
-        self.size = size
-
-    def __str__(self):
-        return "The size argument '" + str(self.size) + "' is not a integer."
-
-
-class InvalidDeleteError(Exception):
-    __module__ = Exception.__module__
-
-    def __init__(self, delete):
-        self.delete = delete
-
-    def __str__(self):
-        return "The delete argument '" + str(self.delete) + "' is not equal to true or false."
 
 
 class InvalidDirectoryError(Exception):
@@ -152,3 +132,10 @@ class InvalidPackageFileError(Exception):
 
     def __str__(self):
         return "The package file '" + str(self.file) + "' does not exist."
+
+
+class MaximumPaintSlots(Exception):
+    __module__ = Exception.__module__
+
+    def __str__(self):
+        return "You can use a maximum of 4 paint slots."
