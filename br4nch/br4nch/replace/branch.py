@@ -7,7 +7,9 @@ from br4nch.utility.handler import DuplicateBranchError, InvalidBranchError, Str
 
 
 def arguments(branch, name):
-    """Gets the arguments and parses them to the 'replace_branch' function."""
+    """
+    - Gets the arguments and parses them to the 'replace_branch' function.
+    """
     replace_branch(branch, name)
 
 

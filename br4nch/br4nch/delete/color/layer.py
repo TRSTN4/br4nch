@@ -8,12 +8,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, pos):
+    """
+    - Gets the arguments and parses them to the 'DeleteColorLayer' class.
+    """
     DeleteColorLayer(branch, pos)
 
 
 class DeleteColorLayer:
     def __init__(self, argument_branch, argument_pos):
-        """Gets the arguments and parses them to the 'build_position_structure' function."""
+        """
+        - Gets the arguments and parses them to the 'build_position_structure' function.
+        """
         self.color_layer(argument_branch, argument_pos)
 
     def color_layer(self, argument_branch, argument_pos):

@@ -3,4 +3,3 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.load.branch import arguments as branch
-from br4nch.load.json import arguments as json

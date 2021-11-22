@@ -1,5 +1,5 @@
-# Beta phase - br4nch v1.1.9
-# desc - Removed the 'builder' folder and changed to a single 'builder' file and code clean-up for multiple files.
+# Beta phase - br4nch v1.2.0
+# desc - Delayed load and export 'json' script until full release and code clean-up for the remaining files.
 
 # Imports the br4nch package.
 import br4nch
@@ -11,16 +11,11 @@ br4nch.add.layer(branch="Database", layer=["Accounting", "International Business
 br4nch.add.layer(branch="Database", layer=["Bookkeepers", "Budget analysts"], pos=["1.1", "2"])
 br4nch.add.layer(branch="Database", layer=["Trade operators", "Import specialist\nExport specialist"], pos=["1.2", "2"])
 br4nch.add.layer(branch="Database", layer=["John\nDoe", "Jane\nDoe"], pos="2.1")
-
 br4nch.add.layer(branch="Database", layer=["Email", "Phone"], pos=["2.1.1", "2.1.2"])
 br4nch.add.layer(branch="Database", layer="01 23 45 67 89", pos="2.1.1.2")
 br4nch.add.layer(branch="Database", layer="jane.doe@email.com", pos="2.1.2.1")
 br4nch.add.layer(branch="Database", layer="Database", pos="3")
 br4nch.add.layer(branch="Database", layer=["MySQL", "MariaDB"], pos="3.1")
-
-# br4nch.add.layer(branch="Database", layer="test", pos="2.1/3>4")
-# br4nch.add.layer(branch="Database", layer=["asd", "das"], pos="2.1>3")
-# br4nch.add.layer(branch="Database", layer=["asd", "das"], pos="2.1>2/3>3")
 
 # Creates the "Test" branch.
 br4nch.add.branch(branch="Test", header="Sample")
@@ -39,14 +34,10 @@ br4nch.set.color.layer(branch="Database", paint=["red", "underline"], pos="2.1.1
 br4nch.set.color.layer(branch="Database", paint=["yellow", "bold"], pos=["2.1.2.1.1", "3.1.1"])
 br4nch.set.color.layer(branch="Database", paint=["red", "bold"], pos="2.1.2")
 br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.1.1")
-
-# br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.*.1>2")
-
 br4nch.set.color.layer(branch="Database", paint=["blue", "underline"], pos="2.1")
 br4nch.set.color.layer(branch="Database", paint=["red", "underline"], pos="2.2")
 br4nch.set.color.layer(branch="Database", paint=["yellow", "underline"], pos="2.3")
 br4nch.set.color.layer(branch="Database", paint=["green", "underline"], pos="2.4")
-
 br4nch.set.color.layer(branch="Database", paint=["yellow", "underline"], pos="1.2")
 br4nch.set.color.layer(branch="Database", paint=["green", "bold"], pos="1.2.2")
 
@@ -55,8 +46,6 @@ br4nch.set.symbol(branch="Test", line="|", split="}---->", end="!-->")
 
 # Sets the total size of the branch.
 br4nch.set.size(branch="Test", size=0)
-
-# br4nch.load.json(branch="json", header="test", json={"123": {"q1": {"question": "Which one is correct team name in NBA?", "options": ["New York Bulls", "Los Angeles Kings", "Golden State Warriros", "Huston Rocket"], "answer": "Huston Rocket"}}, "maths": {"q1": {"question": "5 + 7 = ?", "options": ["10", "11", "12", "13"], "answer": "12"}, "q2": {"question": "12 - 8 = ?", "options": ["1", "2", "3", "4"], "answer": "4"}}})
 
 # Displays the branches.
 br4nch.display.branch("*")

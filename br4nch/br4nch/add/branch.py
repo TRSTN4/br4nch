@@ -7,7 +7,9 @@ from br4nch.utility.handler import InvalidBranchError, DuplicateBranchError, Str
 
 
 def arguments(branch, header):
-    """Gets the arguments and parses them to the 'add_branch' function."""
+    """
+    - Gets the arguments and parses them to the 'add_branch' function.
+    """
     add_branch(branch, header)
 
 

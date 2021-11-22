@@ -11,13 +11,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch):
-    """Gets the arguments and parses them to the 'DisplayAssist' class."""
+    """
+    - Gets the arguments and parses them to the 'DisplayAssist' class.
+    """
     DisplayAssist(branch)
 
 
 class DisplayAssist:
     def __init__(self, argument_branch):
-        """Gets the arguments and parses them to the 'display_assist' function."""
+        """
+        - Gets the arguments and parses them to the 'display_assist' function.
+        """
         self.display_assist(argument_branch)
 
     def display_assist(self, argument_branch):

@@ -10,7 +10,9 @@ from br4nch.utility.painter import painter
 
 class Builder:
     def __init__(self, branch, colored):
-        """Gets the arguments and parses them to the 'manager' function."""
+        """
+        - Gets the arguments and parses them to the 'manager' function.
+        """
         self.manager(branch, colored)
 
     def manager(self, branch, colored):

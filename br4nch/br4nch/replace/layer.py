@@ -9,13 +9,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, pos, name):
-    """Gets the arguments and parses them to the 'ReplaceLayer' class."""
+    """
+    - Gets the arguments and parses them to the 'ReplaceLayer' class.
+    """
     ReplaceLayer(branch, pos, name)
 
 
 class ReplaceLayer:
     def __init__(self, argument_branch, argument_pos, argument_name):
-        """Gets the arguments and parses them to the 'replace_layer' function."""
+        """
+        - Gets the arguments and parses them to the 'replace_layer' function.
+        """
         self.replace_layer(argument_branch, argument_pos, argument_name)
 
     def replace_layer(self, argument_branch, argument_pos, argument_name):

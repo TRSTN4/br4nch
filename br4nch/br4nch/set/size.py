@@ -6,8 +6,10 @@ from br4nch.utility.librarian import branches, sizes, symbols
 from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, IntegerInstanceError
 
 
-def arguments(branch, size=1):
-    """Gets the arguments and parses them to the 'set_size' function."""
+def arguments(branch, size):
+    """
+    - Gets the arguments and parses them to the 'set_size' function.
+    """
     set_size(branch, size)
 
 

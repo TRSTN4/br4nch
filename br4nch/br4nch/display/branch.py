@@ -9,7 +9,9 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, 
 
 
 def arguments(branch, delete=False):
-    """Gets the arguments and parses them to the 'display_branch' function."""
+    """
+    - Gets the arguments and parses them to the 'display_branch' function.
+    """
     display_branch(branch, delete)
 
 

@@ -8,13 +8,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, pos, paint):
-    """Gets the arguments and parses them to the 'SetColorLayer' class."""
+    """
+    - Gets the arguments and parses them to the 'SetColorLayer' class.
+    """
     SetColorLayer(branch, pos, paint)
 
 
 class SetColorLayer:
     def __init__(self, argument_branch, argument_pos, argument_paint):
-        """Gets the arguments and parses them to the 'build_position_structure' function."""
+        """
+        - Gets the arguments and parses them to the 'build_position_structure' function.
+        """
         self.build_position_structure(argument_branch, argument_pos, argument_paint)
 
     def build_position_structure(self, argument_branch, argument_pos, argument_paint):
@@ -92,5 +96,4 @@ class SetColorLayer:
                 else:
                     if value:
                         position.pop(0)
-                        self.set_color_layer(branch, paint, position, value)
-                        return
+                        return self.set_color_layer(branch, paint, position, value)

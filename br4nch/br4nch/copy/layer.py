@@ -11,13 +11,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, 
 
 
 def arguments(branch, copy, pos, paint=False, delete=False):
-    """Gets the arguments and parses them to the 'CopyLayer' class."""
+    """
+    - Gets the arguments and parses them to the 'CopyLayer' class.
+    """
     CopyLayer(branch, copy, pos, paint, delete)
 
 
 class CopyLayer:
     def __init__(self, argument_branch, argument_copy, argument_pos, argument_paint, argument_delete):
-        """Gets the arguments and parses them to the 'copy_layer' function."""
+        """
+        - Gets the arguments and parses them to the 'copy_layer' function.
+        """
         self.copy_layer(argument_branch, argument_copy, argument_pos, argument_paint, argument_delete)
 
     def copy_layer(self, argument_branch, argument_copy, argument_pos, argument_paint, argument_delete):

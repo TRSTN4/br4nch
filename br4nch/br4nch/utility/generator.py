@@ -22,8 +22,7 @@ def generate_uid(branch, length=10):
 
     while True:
         if uid in uids[branch]:
-            generate_uid(branch, length)
-            return
+            return generate_uid(branch, length)
         else:
             uids[branch].append(uid)
             break

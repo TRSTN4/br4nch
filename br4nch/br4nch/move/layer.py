@@ -2,18 +2,22 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.librarian import branches, uids
+from br4nch.utility.librarian import branches
 from br4nch.utility.handler import NotExistingBranchError, InvalidPositionError, StringInstanceError
 
 
 def arguments(branch, move, pos):
-    """Gets the arguments and parses them to the 'MoveLayer' class."""
+    """
+    - Gets the arguments and parses them to the 'MoveLayer' class.
+    """
     MoveLayer(branch, move, pos)
 
 
 class MoveLayer:
     def __init__(self, argument_branch, argument_move, argument_pos):
-        """Gets the arguments and parses them to the 'move_layer' function."""
+        """
+        - Gets the arguments and parses them to the 'move_layer' function.
+        """
         self.move_layer(argument_branch, argument_move, argument_pos)
 
     def move_layer(self, argument_branch, argument_move, argument_pos):
@@ -24,8 +28,8 @@ class MoveLayer:
 
         Errors:
           - If the pos argument is not an instance of a string, then it raises an 'StringInstanceError' error.
-          - If the pos argument contains a character that is not a letter or number, then it raises an
-            'InvalidPositionError' error.
+          - If the pos argument is not equal to a number and/or operator, then it raises an 'InvalidPositionError'
+            error.
 
         Operators:
           - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
@@ -54,7 +58,7 @@ class MoveLayer:
 
         for pos in argument_pos.split("."):
             if not pos.isnumeric():
-                raise InvalidPositionError("pos")
+                raise InvalidPositionError(argument_pos, "pos")
 
         if "*" in argument_branch:
             argument_branch.clear()

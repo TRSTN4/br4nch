@@ -7,7 +7,9 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, paint):
-    """Gets the arguments and parses them to the 'set_color_header' function."""
+    """
+    - Gets the arguments and parses them to the 'set_color_header' function.
+    """
     set_color_header(branch, paint)
 
 

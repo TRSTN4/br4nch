@@ -8,13 +8,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, pos):
-    """Gets the arguments and parses them to the 'DeleteLayer' class."""
+    """
+    - Gets the arguments and parses them to the 'DeleteLayer' class.
+    """
     DeleteLayer(branch, pos)
 
 
 class DeleteLayer:
     def __init__(self, argument_branch, argument_pos):
-        """Gets the arguments and parses them to the 'build_structure' function."""
+        """
+        - Gets the arguments and parses them to the 'build_structure' function.
+        """
         self.build_structure(argument_branch, argument_pos)
 
     def build_structure(self, argument_branch, argument_pos):

@@ -3,6 +3,9 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 class NotExistingBranchError(Exception):
+    """
+    - If the branch is not in the 'branches' dictionary, it raises a 'NotExistingBranchError' error.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, branch):
@@ -13,6 +16,9 @@ class NotExistingBranchError(Exception):
 
 
 class DuplicateBranchError(Exception):
+    """
+    - If the branch value is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, branch):
@@ -22,24 +28,10 @@ class DuplicateBranchError(Exception):
         return "The branch '" + str(self.branch) + "' already exists."
 
 
-class InvalidBranchError(Exception):
-    __module__ = Exception.__module__
-
-    def __str__(self):
-        return "Only numbers and/or letters may be used to add a branch."
-
-
-class InvalidPositionError(Exception):
-    __module__ = Exception.__module__
-
-    def __init__(self, argument):
-        self.argument = argument
-
-    def __str__(self):
-        return "Only numbers and/or letters may be used to add a position to the '" + self.argument + "' argument."
-
-
 class StringInstanceError(Exception):
+    """
+    - If the given argument value is not an instance of a string, then it raises an 'StringInstanceError' error.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, argument, parsed):
@@ -52,6 +44,9 @@ class StringInstanceError(Exception):
 
 
 class IntegerInstanceError(Exception):
+    """
+    - If the given argument value is not an instance of a integer, then it raises an 'IntegerInstanceError' error.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, argument, parsed):
@@ -64,6 +59,9 @@ class IntegerInstanceError(Exception):
 
 
 class BooleanInstanceError(Exception):
+    """
+    - If the given argument value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, argument, parsed):
@@ -76,6 +74,9 @@ class BooleanInstanceError(Exception):
 
 
 class DictionaryInstanceError(Exception):
+    """
+    - If the given argument value is not an instance of a dictionary, then it raises an 'DictionaryInstanceError' error.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, argument, parsed):
@@ -88,33 +89,46 @@ class DictionaryInstanceError(Exception):
 
 
 class RequiredChangeError(Exception):
+    """
+    - If there is no value in the 'line', 'split' and 'end' arguments, then it raises an 'RequiredChangeError' error.
+    """
     __module__ = Exception.__module__
 
     def __str__(self):
         return "Change at least one of the given symbols: 'line', 'split' or 'end'."
 
 
-class NotExistingPaintError(Exception):
+class InvalidBranchError(Exception):
+    """
+    - If the branch value contains a character that is not a letter or number, then it raises an 'InvalidBranchError'
+      error.
+    """
     __module__ = Exception.__module__
 
-    def __init__(self, paint):
-        self.paint = paint
-
     def __str__(self):
-        return "The paint '" + str(self.paint) + "' does not exists."
+        return "Only numbers and/or letters may be used to add a branch."
 
 
-class InvalidDirectoryError(Exception):
+class InvalidPositionError(Exception):
+    """
+    - If the pos argument is not equal to a number and/or operator, then it raises an 'InvalidPositionError' error.
+    """
     __module__ = Exception.__module__
 
-    def __init__(self, directory):
-        self.directory = directory
+    def __init__(self, position, argument):
+        self.position = position
+        self.argument = argument
 
     def __str__(self):
-        return "The directory '" + str(self.directory) + "' does not exist."
+        return "The position: '" + self.position + "' is not valid. Only numbers and operators may be used to add a " \
+                                                   "position to the '" + self.argument + "' argument."
 
 
 class InvalidBranchFileError(Exception):
+    """
+    - Raises an 'InvalidBranchFileError' error if the instance of the 'argument_branch' variable is a string and the
+      given directory does not exists.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, file):
@@ -125,6 +139,10 @@ class InvalidBranchFileError(Exception):
 
 
 class InvalidPackageFileError(Exception):
+    """
+    - Raises an 'InvalidPackageFileError' error if there is value in the the 'argument_package' variable and is instance
+      of string and the given directory does not exists.
+    """
     __module__ = Exception.__module__
 
     def __init__(self, file):
@@ -134,8 +152,38 @@ class InvalidPackageFileError(Exception):
         return "The package file '" + str(self.file) + "' does not exist."
 
 
+class InvalidDirectoryError(Exception):
+    """
+    - If the given directory argument does not exist, it will throw a 'InvalidDirectoryError' error.
+    """
+    __module__ = Exception.__module__
+
+    def __init__(self, directory):
+        self.directory = directory
+
+    def __str__(self):
+        return "The directory '" + str(self.directory) + "' does not exist."
+
+
 class MaximumPaintSlots(Exception):
+    """
+    - If the length of the 'paint' list is bigger than '4', then it raises a 'MaximumPaintSlots' error.
+    """
     __module__ = Exception.__module__
 
     def __str__(self):
         return "You can use a maximum of 4 paint slots."
+
+
+class NotExistingPaintError(Exception):
+    """
+    - If the current value of the position in the 'paint' list is not equal to any of the values in the 'paint_id' list,
+      then it raises a 'NotExistingPaintError' error.
+    """
+    __module__ = Exception.__module__
+
+    def __init__(self, paint):
+        self.paint = paint
+
+    def __str__(self):
+        return "The paint '" + str(self.paint) + "' does not exists."

@@ -10,7 +10,9 @@ from br4nch.utility.handler import StringInstanceError, InvalidDirectoryError, N
 
 
 def arguments(branch, directory):
-    """Gets the arguments and parses them to the 'export_text' function."""
+    """
+    - Gets the arguments and parses them to the 'export_text' function.
+    """
     export_text(branch, directory)
 
 
@@ -64,11 +66,12 @@ def export_text(argument_branch, argument_directory):
                 error = error + 1
 
                 if os.path.isdir(argument_directory):
-                    with open(argument_directory + "/branch-" + branch + ".txt", 'w', encoding='utf-8') as file:
-                        Builder(branch, False)
-                        for line in output[branch]:
+                    with open(argument_directory + "/branch-" + branches_branch + ".txt", 'w', encoding='utf-8')\
+                            as file:
+                        Builder(branches_branch, False)
+                        for line in output[branches_branch]:
                             file.write(line + "\n")
-                        output[branch].clear()
+                        output[branches_branch].clear()
                 else:
                     raise InvalidDirectoryError(argument_directory)
 

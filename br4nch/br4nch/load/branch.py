@@ -11,7 +11,9 @@ from br4nch.utility.handler import DuplicateBranchError, InvalidBranchFileError,
 
 
 def arguments(branch, package=""):
-    """Gets the arguments and parses them to the 'load_branch' function."""
+    """
+    - Gets the arguments and parses them to the 'load_branch' function.
+    """
     load_branch(branch, package)
 
 

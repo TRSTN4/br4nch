@@ -3,106 +3,177 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches
-from br4nch.utility.handler import StringInstanceError
+from br4nch.utility.handler import InvalidPositionError, StringInstanceError
 
 
-def calculate_operator(branch, position, value=""):
-    if not value:
-        value = branches[branch][list(branches[branch])[0]]
+def format_position(branch, position_package):
+    """
+    position_package range loop:
+      - If the position value is an instance of a list.
+        position_package[number] range loop:
+          - If the position value is not an instance of a string, then it raises an 'StringInstanceError' error.
+          - If the character variable in the position loop is not equal to a number and/or operator, the error
+            'InvalidPositionError' is displayed.
 
+      - If the position value is not an instance of a list.
+          - If the position_package[number] value is not an instance of a string, then it raises an
+            'StringInstanceError' error.
+          - If the character variable in the position_package[number] loop is not equal to a number and/or operator, the
+            error 'InvalidPositionError' is displayed.
+
+      - If there is a '.' in the 'position_package[number]', then the 'position_package[number]' variable is equal to
+        the split 'position_package[number]' list.
+      - If there is no '.' in the 'position_package[number]', if the given pos argument is not an instance of a list,
+        then the pos argument is set as a list.
+
+    position_package range loop:
+      position_package[number] range loop:
+        - If there is a '/' in the 'position_package[number][position]' variable, then a loop is made with the value of
+          the length of the split values. Then in each loop it makes a copy of the current value of the
+          'position_package[number][position]' variable and adds the value to the 'position_package' list and changes
+          the position to the copied value with the position value of the split 'position_package[number][position]'
+          value. Then the value of 'number' is removed in the 'position_package' list.
+        - Calls the 'format_position' function again.
+
+    position_package range loop:
+      position_package[number] range loop:
+        - If there is a '*' in the 'position_package[number][position]' variable, then a loop is made with the value of
+          the length of the returned total layers value in the 'calculate_operator' function. Then in each loop it makes
+          a copy of the current value of the 'position_package[number][position]' variable and adds the value to the
+          'position_package' list. Then it changes the position to the copied value with the current number of
+          'count + 1' value. Then the value of 'number' is removed in the 'position_package' list.
+
+        - If there is a '>' in the variable 'position_package[number][position]', then the
+          'position_package[number][position]' is split and stored in the variable 'including_positions'. Then the
+          length of 'including_positions' is also stored in a variable called 'total_including_positions'.
+        - A loop is made with the lowest value of 'include_positions' and the highest value of 'include_positions' plus
+          one. In each loop, the value 'count' is added to the list 'including_positions'.
+        - Then a loop is made of the length of the 'including_positions' variable. In each loop, the first value of the
+          'including_positions' list will be removed.
+        - A loop is made with the value of the length of the total length of the 'including_positions' variable. Then in
+          each loop it makes a copy of the current value of the 'position_package[number][position]' variable and adds
+          the value to the 'position_package' list. Then it changes the position to the copied value with the current
+          number of 'count' in the 'including_positions' list. Then the value of 'number' is removed in the
+          'position_package' list.
+
+        - If there is a '<' in the 'position_package[number][position]' variable, then a loop is made with the value of
+          the length of the returned total layers value in the 'calculate_operator' function. Then in each loop it
+          appends the string 'count + 1' to the 'excluding_positions' list.
+        - A loop is made with the lowest value of the split 'position_package[number][position]' and the highest value
+          of the split 'position_package[number][position]' plus one. In each loop, the string value of 'count' will be
+          removed from the 'excluding_positions' list.
+        - A loop is made with the value of the length of the total length of the 'excluding_positions' variable. Then in
+          each loop it makes a copy of the current value of the 'position_package[number][position]' variable and adds
+          the value to the 'position_package' list. Then it changes the position to the copied value with the current
+          number of 'count' in the 'excluding_positions' list. Then the value of 'number' is removed in the
+          'position_package' list.
+
+    - Calls the 'format_position' function to manage the rest of the operators if there is a '/', '*', '>' or '<' in the
+      'position_package[number][position]' variable.
+
+    - Returns the 'position_package' variable.
+    """
+    for number in range(len(position_package)):
+        if isinstance(position_package[number], list):
+            for position in position_package[number]:
+                if not isinstance(position, str):
+                    raise StringInstanceError(position, "pos")
+                else:
+                    for character in position:
+                        if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">", "<"]:
+                            raise InvalidPositionError(position_package[number], "pos")
+        else:
+            if not isinstance(position_package[number], str):
+                raise StringInstanceError(position_package[number], "pos")
+            else:
+                for character in position_package[number]:
+                    if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">", "<"]:
+                        raise InvalidPositionError(position_package[number], "pos")
+
+        if "." in position_package[number]:
+            position_package[number] = position_package[number].split(".")
+        else:
+            if not isinstance(position_package[number], list):
+                position_package[number] = [position_package[number]]
+
+    for number in range(len(position_package)):
+        for position in range(len(position_package[number])):
+            if "/" in position_package[number][position]:
+                for count in range(len(position_package[number][position].split("/"))):
+                    position_package.append(position_package[number].copy())
+                    position_package[-1][position] = position_package[number][position].split("/")[count]
+                position_package.pop(number)
+
+                format_position(branch, position_package)
+
+    for number in range(len(position_package)):
+        for position in range(len(position_package[number])):
+            if "*" in position_package[number][position]:
+                for count in range(calculate_operator(position_package[number].copy(),
+                                                      branches[branch][list(branches[branch])[0]])):
+                    position_package.append(position_package[number].copy())
+                    position_package[-1][position] = str(count + 1)
+                position_package.pop(number)
+
+            if ">" in position_package[number][position]:
+                including_positions = position_package[number][position].split(">")
+                total_including_positions = len(including_positions)
+
+                for count in range(int(min(including_positions)), int(max(including_positions)) + 1):
+                    including_positions.append(str(count))
+
+                for _ in range(total_including_positions):
+                    including_positions.pop(0)
+
+                for count in range(len(including_positions)):
+                    position_package.append(position_package[number].copy())
+                    position_package[-1][position] = including_positions[count]
+                position_package.pop(number)
+
+            if "<" in position_package[number][position]:
+                excluding_positions = []
+
+                for count in range(calculate_operator(position_package[number].copy(),
+                                                      branches[branch][list(branches[branch])[0]])):
+                    excluding_positions.append(str(count + 1))
+
+                for count in range(int(min(position_package[number][position].split("<"))),
+                               int(max(position_package[number][position].split("<"))) + 1):
+                    excluding_positions.remove(str(count))
+
+                for count in range(len(excluding_positions)):
+                    position_package.append(position_package[number].copy())
+                    position_package[-1][position] = excluding_positions[count]
+                position_package.pop(number)
+
+            if "/" in position_package[number][position] or "*" in position_package[number][position]\
+                    or ">" in position_package[number][position] or "<" in position_package[number][position]:
+                format_position(branch, position_package)
+
+    return position_package
+
+
+def calculate_operator(position, value):
+    """
+    Value dictionary loop:
+      - For each value of the 'value' variable the 'count' variable is added with plus '1'.
+
+      - If the '*' or '<' is in the first element in the 'position' list, or if the 'count' variable is equal to the
+        first element in the 'position' list, then all layers are returned.
+
+      - If there is a value of the 'value' variable and the 'count' variable is equal to the first element in the
+        'position' list as an integer, then the first value is removed from the 'position' list and the
+        'calculate_operator' function is called again with the new values of the variable 'value' as argument.
+    """
     count = 0
-    numbers = []
-
-    position = position.copy()
     previous_value = value
 
     for layer, value in value.items():
         count = count + 1
 
-        if position[0] or ">" in position[0] or "<" in position[0]:
-            numbers.append(count)
+        if "*" in position[0] or "<" in position[0] or count == position[0]:
+            return len(previous_value)
 
-            if layer == list(previous_value)[-1]:
-                return numbers
-        else:
-            if count == int(position[0]):
-                position.pop(0)
-                numbers = calculate_operator(branch, position, value)
-                return numbers
-
-
-def format_position(branch, position):
-    for length in range(len(position)):
-        if "." in position[length]:
-            position[length] = position[length].split(".")
-        else:
-            if not isinstance(position[length], list):
-                position[length] = [position[length]]
-
-    for length in range(len(position)):
-        for element in range(len(position[length])):
-            if "/" in position[length][element]:
-                split = position[length][element].split("/")
-                for count in range(len(split)):
-                    position.append(position[length].copy())
-                    position[-1][element] = split[count]
-
-                position.pop(length)
-
-            if "*" in position[length][element]:
-                numbers = calculate_operator(branch, position[length])
-
-            if ">" in position[length][element]:
-                split = position[length][element].split(">")
-
-                if split[0] < split[1]:
-                    bigger = split[1]
-                    smaller = split[0]
-                else:
-                    bigger = split[0]
-                    smaller = split[1]
-
-                numbers = calculate_operator(branch, position[length])
-
-                test = False
-
-                for count in numbers.copy():
-                    if count == int(smaller):
-                        test = True
-                    else:
-                        if count == int(bigger):
-                            test = False
-                        else:
-                            if not test:
-                                numbers.remove(count)
-
-            if "<" in position[length][element]:
-                split = position[length][element].split("<")
-
-                if split[0] < split[1]:
-                    bigger = split[1]
-                    smaller = split[0]
-                else:
-                    bigger = split[0]
-                    smaller = split[1]
-
-                numbers = calculate_operator(branch, position[length])
-
-                for count in range(int(bigger) + 1 - int(smaller)):
-                    numbers.remove(int(int(smaller) + count))
-
-            if "*" in position[length][element] or ">" in position[length][element] or "<" in position[length][element]:
-                for num in numbers:
-                    position.append(position[length].copy())
-                    position[-1][element] = int(num)
-                    string = ""
-
-                    for position2 in position[-1]:
-                        string = string + "." + str(position2)
-                    position.pop(-1)
-                    position.append(string[1:])
-
-                position.pop(length)
-                format_position(branch, position)
-
-    return position
+        if value and count == int(position[0]):
+            position.pop(0)
+            return calculate_operator(position, value)

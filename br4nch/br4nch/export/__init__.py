@@ -3,4 +3,4 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.export.branch import arguments as branch
-from br4nch.export.text import arguments as text
+from br4nch.export.txt import arguments as txt

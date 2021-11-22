@@ -9,13 +9,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, layer, pos):
-    """Gets the arguments and parses them to the 'AddLayer' class."""
+    """
+    - Gets the arguments and parses them to the 'AddLayer' class.
+    """
     AddLayer(branch, layer, pos)
 
 
 class AddLayer:
     def __init__(self, argument_branch, argument_layer, argument_pos):
-        """Gets the arguments and parses them to the 'build_position_structure' function."""
+        """
+        - Gets the arguments and parses them to the 'build_position_structure' function.
+        """
         self.build_position_structure(argument_branch, argument_layer, argument_pos)
 
     def build_position_structure(self, argument_branch, argument_layer, argument_pos):
@@ -35,6 +39,10 @@ class AddLayer:
             - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Branches list loop:
+            Errors:
+              - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
+              - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+
             - If the branch is in the 'branches' dictionary, then it runs a loop with all positions in the returned list
               from the 'format_position' function. And calls the 'add_layer' function with the whole branch dictionary
               as value for every looped position.
@@ -74,7 +82,7 @@ class AddLayer:
         """
         Position variable equal to zero:
           Errors:
-            - If the layer value is not an instance of a string, then it raises an 'StringInstanceError' error.
+            - If the 'loop_layer' value is not an instance of a string, then it raises an 'StringInstanceError' error.
 
           - If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and each
             layer value of the loop is appended to the value of the header key in the branch of the 'branches'
@@ -88,37 +96,38 @@ class AddLayer:
               Errors:
                 - If the layer value is not an instance of a string, then it raises an 'StringInstanceError' error.
 
-              - Then it will add the current branch key in the 'branches' dictionary with an empty string as value to
-                the 'paint_layer' directory.
+              - Then it will add the current layer with a generated UID to the value to the 'paint_layer' list and to
+                the 'value' dictionary from the 'branches' dictionary.
 
             - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
               then the first value from the 'position' list will be removed and the 'add_layer' function will be called
               again with the new value of the 'value' variable as argument.
         """
         if position[0] == "0":
-            for layer in argument_layer:
-                if not isinstance(layer, str):
-                    raise StringInstanceError("layer", layer)
+            for loop_layer in argument_layer:
+                if not isinstance(loop_layer, str):
+                    raise StringInstanceError("layer", loop_layer)
 
-                branches[branch][list(branches[branch])[0]].update({layer + generate_uid(branch): {}})
+                branches[branch][list(branches[branch])[0]].update({loop_layer + generate_uid(branch): {}})
             return
         else:
             count = 0
 
-            for key, value in value.items():
+            for value in value.values():
                 count = count + 1
 
                 if count == int(position[0]):
                     if len(position) == 1:
-                        for layer in argument_layer:
-                            if not isinstance(layer, str):
-                                raise StringInstanceError("layer", layer)
+                        for loop_layer in argument_layer:
+                            if not isinstance(loop_layer, str):
+                                raise StringInstanceError("layer", loop_layer)
 
-                            value.update({layer + generate_uid(branch): {}})
-                            paint_layer[branch].update({key: ""})
+                            layer_uid = loop_layer + generate_uid(branch)
+
+                            value.update({layer_uid: {}})
+                            paint_layer[branch].update({layer_uid: ""})
                         return
                     else:
                         if value:
                             position.pop(0)
-                            self.add_layer(branch, argument_layer, position, value)
-                            return
+                            return self.add_layer(branch, argument_layer, position, value)

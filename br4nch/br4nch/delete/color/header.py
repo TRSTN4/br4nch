@@ -7,7 +7,9 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch):
-    """Gets the arguments and parses them to the 'delete_color_header' function."""
+    """
+    - Gets the arguments and parses them to the 'delete_color_header' function.
+    """
     delete_color_header(branch)
 
 

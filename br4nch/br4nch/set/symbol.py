@@ -7,7 +7,9 @@ from br4nch.utility.handler import NotExistingBranchError, RequiredChangeError, 
 
 
 def arguments(branch, line="", split="", end=""):
-    """Gets the arguments and parses them to the 'set_symbol' function."""
+    """
+    - Gets the arguments and parses them to the 'set_symbol' function.
+    """
     set_symbol(branch, line, split, end)
 
 

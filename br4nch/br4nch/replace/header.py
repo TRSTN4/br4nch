@@ -7,7 +7,9 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, name):
-    """Gets the arguments and parses them to the 'replace_header' function."""
+    """
+    - Gets the arguments and parses them to the 'replace_header' function.
+    """
     replace_header(branch, name)
 
 

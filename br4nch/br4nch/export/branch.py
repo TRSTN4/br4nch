@@ -11,7 +11,9 @@ from br4nch.utility.handler import StringInstanceError, BooleanInstanceError, In
 
 
 def arguments(branch, package=False, beautify=True, directory=""):
-    """Gets the arguments and parses them to the 'export_branch' function."""
+    """
+    - Gets the arguments and parses them to the 'export_branch' function.
+    """
     export_branch(branch, package, beautify, directory)
 
 
@@ -39,7 +41,7 @@ def export_branch(argument_branch, argument_package, argument_beautify, argument
           equal to true, if the variable is equal to true, then a dictionary is created with the values of all necessary
           dictionaries.
         - Then it is checked whether the variable 'argument_directory' is equal to false, the 'printer' function is
-          called with the 'display_export_branch' action that prints the given 'branches_branch' dictionary and the
+          called with the 'export_branch' action that prints the given 'branches_branch' dictionary and the
           'branches_branch' package dictionary. If the 'argument_beautify' variable is false, the given dictionary(s)
           are not represented with a branch structure.
 
@@ -87,18 +89,19 @@ def export_branch(argument_branch, argument_package, argument_beautify, argument
                                                         paint_header[branches_branch], paint_layer[branches_branch]]}
 
                 if not argument_directory:
-                    printer("display_export_branch", [branches_branch, {branches_branch: branches[branches_branch]},
-                                                      export_package, argument_beautify])
+                    printer("export_branch", [branches_branch, {branches_branch: branches[branches_branch]},
+                                              export_package, argument_beautify])
                 else:
                     if os.path.isdir(argument_directory):
-                        if not os.path.isdir(argument_directory + "/br4nch-" + branch):
-                            os.mkdir(argument_directory + "/br4nch-" + branch)
+                        if not os.path.isdir(argument_directory + "/br4nch-" + branches_branch):
+                            os.mkdir(argument_directory + "/br4nch-" + branches_branch)
 
-                        with open(argument_directory + "/br4nch-" + branch + "/branch-" + branch, 'w') as file:
+                        with open(argument_directory + "/br4nch-" + branches_branch + "/branch-" + branches_branch,
+                                  'w') as file:
                             file.write(str({branches_branch: branches[branches_branch]}))
 
                         if argument_package:
-                            with open(argument_directory + "/br4nch-" + branch + "/package-" + branch, 'w',
+                            with open(argument_directory + "/br4nch-" + branches_branch + "/package-" + branches_branch, 'w',
                                       encoding='utf-8') as file:
                                 file.write(str(export_package))
                     else:

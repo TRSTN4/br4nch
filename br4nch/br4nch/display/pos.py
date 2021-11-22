@@ -9,13 +9,17 @@ from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, 
 
 
 def arguments(branch, pos, beautify=True):
-    """Gets the arguments and parses them to the 'DisplayPos' class."""
+    """
+    - Gets the arguments and parses them to the 'DisplayPos' class.
+    """
     DisplayPos(branch, pos, beautify)
 
 
 class DisplayPos:
     def __init__(self, argument_branch, argument_pos, argument_beautify):
-        """Gets the arguments and parses them to the 'build_position_structure' function."""
+        """
+        - Gets the arguments and parses them to the 'build_position_structure' function.
+        """
         self.build_position_structure(argument_branch, argument_pos, argument_beautify)
 
     def build_position_structure(self, argument_branch, argument_pos, argument_beautify):
@@ -129,8 +133,7 @@ class DisplayPos:
             position_structure = position_structure + "." + str(count)
 
             if position == position_structure[1:]:
-                printer("display_pos", [branch, layer[:-15], position, argument_beautify])
-                return
+                return printer("display_pos", [branch, layer[:-15], position, argument_beautify])
 
             if value:
                 self.display_pos(branch, position, argument_beautify, levels, trace, value, position_structure)
