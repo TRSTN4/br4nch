@@ -5,9 +5,9 @@
 import os
 import ast
 
+from br4nch.utility.handler import NotExistingBranchFileError, InvalidBranchFileError, DictionaryInstanceError, \
+    NotExistingPackageFileError, InvalidPackageFileError, DuplicateBranchError
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import DuplicateBranchError, InvalidBranchFileError, InvalidPackageFileError,\
-    DictionaryInstanceError
 
 
 def arguments(branch, package=""):
@@ -19,43 +19,70 @@ def arguments(branch, package=""):
 
 def load_branch(argument_branch, argument_package):
     """
-    Errors:
-      - Raises an 'InvalidBranchFileError' error if the instance of the 'argument_branch' variable is a string and the
-        given directory does not exists.
-      - Raises an 'InvalidPackageFileError' error if there is value in the the 'argument_package' variable and is
-        instance of string and the given directory does not exists.
-      - If the branch value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
-      - If the package value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
+    Load branch:
+      Errors:
+        - Raises an 'NotExistingBranchFileError' error if the instance of the 'argument_branch' variable is a string and
+          the given directory does not exists.
+        - If given branch file does not have the required branch id tag or the length of the total lines is less than
+          '2', then it raises an 'InvalidBranchFileError' error.
+        - If the 'argument_branch' is not a instance of a string and/or the given directory does not exists, the content
+          of the branch file will be assigned to the 'argument_branch' variable. then it raises an
+          'DictionaryInstanceError' error.
 
-    - If the 'argument_branch' is instance of a string and the given directory exists, the content of the branch file
-      will be assigned to the 'argument_branch' variable.
-    - If there is a value in the 'argument_package' variable and instance of a string and the given directory exists,
-      the content of the file package file will be assigned to the 'argument_package' variable.
+      - If the 'argument_branch' is instance of a string and the given directory exists, the content of the branch file
+        will be assigned to the 'argument_branch' variable.
+
+    Load package:
+      Errors:
+        - Raises an 'NotExistingPackageFileError' error if there is value in the the 'argument_package' variable and is
+          instance of string and the given directory does not exists.
+        - If given package file does not have the required package id tag or the length of the total lines is less than
+          '2', then it raises an 'InvalidPackageFileError' error.
+        - If there is a value in the 'argument_package' variable and is not a instance of a string and/or the given
+          directory does not exists, then it raises an 'DictionaryInstanceError' error.
+
+      - If there is a value in the 'argument_package' variable and instance of a string and the given directory exists,
+        the content of the file package file will be assigned to the 'argument_package' variable.
 
     Branches list loop:
-        Errors:
-          - If the branch is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
+      Errors:
+        - If the branch is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
 
     - If the value of the 'argument_package' variable is true, then update the values of all required dictionaries with
       the values of the given package argument.
     - If the value of the 'argument_package' variable is false, then update the values of all required dictionaries with
       the default values for a new branch.
     """
-
     if isinstance(argument_branch, str) and not os.path.isfile(argument_branch):
-        raise InvalidBranchFileError(argument_branch)
+        raise NotExistingBranchFileError(argument_branch)
     elif isinstance(argument_branch, str) and os.path.isfile(argument_branch):
-        with open(argument_branch, 'r') as file:
-            argument_branch = ast.literal_eval(file.read())
+        with open(argument_branch, 'r', encoding="utf8") as file:
+            file = file.readlines()
+
+            if len(file) < 2:
+                raise InvalidBranchFileError(argument_branch)
+
+            if str(file[0][:-1]) != "id=:br4nch-branch:":
+                raise InvalidBranchFileError(argument_branch)
+
+            argument_branch = ast.literal_eval(file[1])
     else:
         if not isinstance(argument_branch, dict):
             raise DictionaryInstanceError("branch", argument_branch)
 
     if argument_package and isinstance(argument_branch, str) and not os.path.isfile(argument_package):
-        raise InvalidPackageFileError(argument_package)
+        raise NotExistingPackageFileError(argument_package)
     elif argument_package and isinstance(argument_package, str) and os.path.isfile(argument_package):
         with open(argument_package, 'r', encoding="utf8") as file:
-            argument_package = ast.literal_eval(file.read())
+            file = file.readlines()
+
+            if len(file) < 2:
+                raise InvalidPackageFileError(argument_package)
+
+            if str(file[0][:-1]) != "id=:br4nch-package:":
+                raise InvalidPackageFileError(argument_package)
+
+            argument_package = ast.literal_eval(file[1])
     else:
         if argument_package and not isinstance(argument_package, dict):
             raise DictionaryInstanceError("package", argument_package)

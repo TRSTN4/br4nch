@@ -3,8 +3,8 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, uids, paint_layer
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError, PositionNotAllowedError
 from br4nch.utility.positioner import format_position
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, pos):
@@ -73,19 +73,22 @@ class DeleteLayer:
                         queue_delete.append(value)
 
                     for delete_value in queue_delete:
-                        for layer, value in delete_value.items():
-                            uids[branches_branch].remove(str(layer[-10:]))
-                            paint_layer[branches_branch].pop(layer)
+                        if delete_value:
+                            for layer, value in delete_value.items():
+                                uids[branches_branch].remove(str(layer[-10:]))
+                                paint_layer[branches_branch].pop(layer)
 
-                            self.delete_layer_additions(branches_branch, value[layer])
-
-                            del value[layer]
+                                self.delete_layer_additions(branches_branch, value[layer])
+                                del value[layer]
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
     def get_layers(self, branch, position, value):
         """
+        Errors:
+          - If the value of position is equal to '0', then it raises a 'PositionNotAllowedError' error.
+
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
@@ -100,11 +103,14 @@ class DeleteLayer:
         count = 0
         previous_value = value
 
+        if position[0] == "0":
+            raise PositionNotAllowedError("pos")
+
         for layer, value in value.items():
             count = count + 1
 
             if count == int(position[0]):
-                if len(position) < 2:
+                if len(position) == 1:
                     return {layer: previous_value}
                 else:
                     if value:
@@ -118,8 +124,8 @@ class DeleteLayer:
             list, then it will be removed from the list.
           - Checks if the 'layer' value exists in the 'paint_layer' branch list. If the layer is in the 'paint_layer'
             branch list, then the value of the current layer key in the 'paint_layer' dictionary will be removed.
-          - If there is a value of the 'value' variable, the 'delete_layer_additions' function will be called again with the
-            new value of the 'value' variable as argument.
+          - If there is a value of the 'value' variable, the 'delete_layer_additions' function will be called again with
+            the new value of the 'value' variable as argument.
         """
         for layer, value in value.items():
             if layer[-10:] in uids[branch]:

@@ -2,33 +2,34 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+from br4nch.utility.handler import BooleanInstanceError, StringInstanceError, NotExistingBranchError
 from br4nch.utility.librarian import branches
 from br4nch.utility.printer import printer
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError
 
 
-def arguments(branch, layer, beautify=True):
+def arguments(branch, layer, sensitive=False, beautify=True):
     """
     - Gets the arguments and parses them to the 'DisplayPos' class.
     """
-    DisplayPos(branch, layer, beautify)
+    DisplayPos(branch, layer, sensitive, beautify)
 
 
 class DisplayPos:
-    def __init__(self, argument_branch, argument_layer, argument_beautify):
+    def __init__(self, argument_branch, argument_layer, argument_sensitive, argument_beautify):
         """
-        - Gets the arguments and parses them to the 'display_pos' function.
+        - Gets the arguments and parses them to the 'build_position_structure' function.
         """
-        self.display_pos(argument_branch, argument_layer, argument_beautify)
+        self.build_position_structure(argument_branch, argument_layer, argument_sensitive, argument_beautify)
 
-    def display_pos(self, argument_branch, argument_layer, argument_beautify):
+    def build_position_structure(self, argument_branch, argument_layer, argument_sensitive, argument_beautify):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
           - If the given pos argument is not an instance of a list, then the branch argument will be set as a list.
 
         Errors:
-          - If the branch value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
+          - If the sensitive value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
+          - If the beautify value is not an instance of a boolean, then it raises an 'BooleanInstanceError' error.
 
         Operators:
           - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
@@ -40,10 +41,10 @@ class DisplayPos:
             - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Branches list loop:
-            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the levels
-              list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided.
+            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the
+              levels list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided.
             - If the branch is in the 'branches' dictionary, it will loop with all positions in the returned list of the
-              'format_position' function. And calls the 'add_layer' function for each loop with the built position
+              'format_position' function. And calls the 'display_layer' function for each loop with the built position
               structure of the 'position' as argument
         """
         if not isinstance(argument_branch, list):
@@ -51,6 +52,9 @@ class DisplayPos:
 
         if not isinstance(argument_layer, list):
             argument_layer = [argument_layer]
+
+        if not isinstance(argument_sensitive, bool):
+            raise BooleanInstanceError("sensitive", argument_sensitive)
 
         if not isinstance(argument_beautify, bool):
             raise BooleanInstanceError("beautify", argument_beautify)
@@ -75,8 +79,8 @@ class DisplayPos:
                     levels.append(0)
 
                     for layer in argument_layer:
-                        self.calculate(branches_branch, layer, argument_beautify, [0], [0],
-                                       branches[branch][list(branches[branch])[0]])
+                        self.display_layer(branches_branch, layer, argument_sensitive, argument_beautify, levels, [0],
+                                           branches[branch][list(branches[branch])[0]])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
@@ -93,7 +97,8 @@ class DisplayPos:
 
             self.elevator(levels, value, pos + 1)
 
-    def calculate(self, branch, loop_layer, argument_beautify, levels, trace, value, position_structure=""):
+    def display_layer(self, branch, loop_layer, argument_sensitive, argument_beautify, levels, trace, value,
+                      position_structure=""):
         """
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable and the first element of the 'trace' list is
@@ -105,12 +110,15 @@ class DisplayPos:
               last position and dot in the 'position_structure' variable is removed.
             - Then the current value of the 'position_structure' variable is added with the value of 'count' separated
               by a dot to the 'position_structure' variable.
-            - Then it is checked whether the current value of 'position' is equal to the value of 'position_structure'.
-              If the values are equal, then the 'printer' function is called and a package is supplied with all the
+
+          - If the 'argument_sensitive' is 'True', then is checked if the current value of 'layer' is equal to the value
+            of 'loop_layer'. If the 'argument_sensitive' is 'False', then is checked if the current value of 'layer' in
+            lower text is equal to the value of 'loop_layer' in lower text.
+            - If the values are equal, then the 'printer' function is called and a package is supplied with all the
               values in it that are needed. If the 'argument_beautify' variable is false, the given positions are not
               represented with a branch structure.
 
-          - Checks whether the 'value' variable has a value. If there is a value, then the 'update_layer' function is
+          - Checks whether the 'value' variable has a value. If there is a value, then the 'display_layer' function is
             called again with the current values of 'value', 'trace' and 'levels' as arguments.
         """
         count = 0
@@ -125,8 +133,13 @@ class DisplayPos:
 
             position_structure = position_structure + "." + str(count)
 
-            if layer[:-15] == loop_layer:
-                return printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
+            if argument_sensitive:
+                if layer[:-15] == loop_layer:
+                    printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
+            else:
+                if layer[:-15].lower() == loop_layer.lower():
+                    printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
 
             if value:
-                self.calculate(branch, loop_layer, argument_beautify, levels, trace, value, position_structure)
+                self.display_layer(branch, loop_layer, argument_sensitive, argument_beautify, levels, trace, value,
+                                   position_structure)

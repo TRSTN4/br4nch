@@ -2,8 +2,8 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+from br4nch.utility.handler import StringInstanceError, InvalidPositionError
 from br4nch.utility.librarian import branches
-from br4nch.utility.handler import InvalidPositionError, StringInstanceError
 
 
 def format_position(branch, position_package):
@@ -77,18 +77,19 @@ def format_position(branch, position_package):
         if isinstance(position_package[number], list):
             for position in position_package[number]:
                 if not isinstance(position, str):
-                    raise StringInstanceError(position, "pos")
+                    raise StringInstanceError("pos", position)
                 else:
                     for character in position:
                         if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">", "<"]:
-                            raise InvalidPositionError(position_package[number], "pos")
+                            print(position_package[number])
+                            raise InvalidPositionError("pos", position_package[number])
         else:
             if not isinstance(position_package[number], str):
-                raise StringInstanceError(position_package[number], "pos")
+                raise StringInstanceError("pos", position_package[number])
             else:
                 for character in position_package[number]:
                     if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">", "<"]:
-                        raise InvalidPositionError(position_package[number], "pos")
+                        raise InvalidPositionError("pos", position_package[number])
 
         if "." in position_package[number]:
             position_package[number] = position_package[number].split(".")
@@ -138,7 +139,7 @@ def format_position(branch, position_package):
                     excluding_positions.append(str(count + 1))
 
                 for count in range(int(min(position_package[number][position].split("<"))),
-                               int(max(position_package[number][position].split("<"))) + 1):
+                                   int(max(position_package[number][position].split("<"))) + 1):
                     excluding_positions.remove(str(count))
 
                 for count in range(len(excluding_positions)):
@@ -159,7 +160,7 @@ def calculate_operator(position, value):
       - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
       - If the '*' or '<' is in the first element in the 'position' list, or if the 'count' variable is equal to the
-        first element in the 'position' list, then all layers are returned.
+        first element in the 'position' list as an integer, then all layers are returned.
 
       - If there is a value of the 'value' variable and the 'count' variable is equal to the first element in the
         'position' list as an integer, then the first value is removed from the 'position' list and the
@@ -171,7 +172,7 @@ def calculate_operator(position, value):
     for layer, value in value.items():
         count = count + 1
 
-        if "*" in position[0] or "<" in position[0] or count == position[0]:
+        if "*" in position[0] or "<" in position[0] or count == int(position[0]):
             return len(previous_value)
 
         if value and count == int(position[0]):

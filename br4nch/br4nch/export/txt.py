@@ -4,9 +4,9 @@
 
 import os
 
+from br4nch.utility.handler import StringInstanceError, InvalidDirectoryError, NotExistingBranchError
 from br4nch.utility.librarian import branches, output
 from br4nch.utility.builder import Builder
-from br4nch.utility.handler import StringInstanceError, InvalidDirectoryError, NotExistingBranchError
 
 
 def arguments(branch, directory):
@@ -66,7 +66,7 @@ def export_text(argument_branch, argument_directory):
                 error = error + 1
 
                 if os.path.isdir(argument_directory):
-                    with open(argument_directory + "/branch-" + branches_branch + ".txt", 'w', encoding='utf-8')\
+                    with open(argument_directory + "/br4nch-" + branches_branch + ".txt", 'w', encoding='utf-8')\
                             as file:
                         Builder(branches_branch, False)
                         for line in output[branches_branch]:

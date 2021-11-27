@@ -2,8 +2,8 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.utility.librarian import branches, sizes, symbols
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, IntegerInstanceError
+from br4nch.utility.handler import IntegerInstanceError, MaximumSizeError, StringInstanceError, NotExistingBranchError
+from br4nch.utility.librarian import branches, symbols, sizes
 
 
 def arguments(branch, size):
@@ -39,6 +39,9 @@ def set_size(argument_branch, argument_size):
 
     if not isinstance(argument_size, int):
         raise IntegerInstanceError("size", argument_size)
+
+    if argument_size < 0 or argument_size > 20:
+        raise MaximumSizeError
 
     if "*" in argument_branch:
         argument_branch.clear()

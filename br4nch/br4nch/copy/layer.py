@@ -4,10 +4,11 @@
 
 import copy as copy_lib
 
+from br4nch.utility.handler import BooleanInstanceError, StringInstanceError, NotExistingBranchError, \
+    PositionNotAllowedError
 from br4nch.utility.librarian import branches, uids, paint_layer
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import generate_uid
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError
 
 
 def arguments(branch, copy, pos, paint=False, delete=False):
@@ -49,9 +50,9 @@ class CopyLayer:
               Argument pos list loop:
                 - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_copy'.
                 - Adds the second value in the returned package to the list 'queue_delete'.
-                - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_pos'.
-                - Adds the first value in the returned package and the returned 'add_value' dictionary in a list to the
-                  list 'queue_add'.
+                - Adds the first value in the returned package and calls the function 'task_manager' to perform the
+                  necessary tasks for the variable 'argument_pos' and adds the returned dictionary in a list to the list
+                  'queue_add'.
 
             - Loops through the list 'queue_delete' and deletes all given layers from the dictionary 'branches'.
             - Loops through the list 'queue_add' and adds all given layers from the dictionary 'branches'.
@@ -94,43 +95,52 @@ class CopyLayer:
                             package = self.task_manager(branches_branch, loop_copy, [], argument_paint,
                                                         branches[branches_branch][list(branches[branches_branch])[0]])
 
-                            queue_delete.append(package[1])
+                            if package:
+                                queue_delete.append(package[1])
 
-                            add_value = self.task_manager(branches_branch, [], loop_pos, argument_paint,
-                                                          branches[branches_branch][list(branches[branches_branch])[0]])
-
-                            queue_add.append([package[0], add_value])
+                                queue_add.append([package[0], self.task_manager(branches_branch, [], loop_pos,
+                                                                                argument_paint,
+                                                                                branches[branches_branch]
+                                                                                [list(branches[branches_branch])[0]])])
 
                     if argument_delete:
                         for delete_value in queue_delete:
-                            for layer, value in delete_value.items():
-                                uids[branches_branch].remove(str(layer[-10:]))
-                                paint_layer[branches_branch].pop(layer)
+                            if delete_value:
+                                for layer, value in delete_value.items():
+                                    uids[branches_branch].remove(str(layer[-10:]))
+                                    paint_layer[branches_branch].pop(layer)
 
-                                self.delete_layer_additions(branches_branch, value[layer])
+                                    self.delete_layer_additions(branches_branch, value[layer])
 
-                                del value[layer]
+                                    del value[layer]
 
                     for add_value in queue_add:
-                        self.change_layer_uid(branches_branch, argument_paint, add_value[0])
-                        add_value[1].update(add_value[0])
+                        if add_value:
+                            self.change_layer_uid(branches_branch, argument_paint, add_value[0])
+                            add_value[1].update(add_value[0])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def task_manager(self, branch, argument_copy, position, argument_paint, value):
+    def task_manager(self, branch, copy, position, argument_paint, value):
         """
+        Errors:
+          - If the value of copy is equal to '0', then it raises a 'PositionNotAllowedError' error.
+
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
-          Count variable equal to the first value of 'argument_copy':
-            If the length of the 'argument_copy' list is equal to '1':
+          Count variable equal to the first value of 'copy':
+            If the length of the 'copy' list is equal to '1':
               - Adds the current layer and aa deepcopy of the 'value' variable to a dictionary and adds the current
                 layer and previous value to a dictionary and returns these two values as a package.
 
-            - If the length of the 'argument_copy' list is not equal to '1' and there is a value of the 'value'
+            - If the length of the 'copy' list is not equal to '1' and there is a value of the 'value'
               variable, then the first value from the 'argument_move' list will be removed and the 'task_manager'
               function will be called again with the new value of the 'value' variable as argument.
+
+          - If the first 'position' element variable is equal to '0', then it returns the whole branch from the
+            'branches' dictionary.
 
           Count variable equal to the first value of 'position':
             If the length of the 'position' list is equal to '1':
@@ -143,24 +153,30 @@ class CopyLayer:
         count = 0
         previous_value = value
 
+        if copy and copy[0] == "0":
+            raise PositionNotAllowedError("copy")
+
         for layer, value in value.items():
             count = count + 1
 
-            if argument_copy and count == int(argument_copy[0]):
-                if len(argument_copy) < 2:
+            if copy and count == int(copy[0]):
+                if len(copy) == 1:
                     return [{layer: copy_lib.deepcopy(value)}, {layer: previous_value}]
                 else:
                     if value:
-                        argument_copy.pop(0)
-                        return self.task_manager(branch, argument_copy, position, argument_paint, value)
+                        copy.pop(0)
+                        return self.task_manager(branch, copy, position, argument_paint, value)
+
+            if position and position[0] == "0":
+                return branches[branch][list(branches[branch])[0]]
 
             if position and count == int(position[0]):
-                if len(position) < 2:
+                if len(position) == 1:
                     return value
                 else:
                     if value:
                         position.pop(0)
-                        return self.task_manager(branch, argument_copy, position, argument_paint, value)
+                        return self.task_manager(branch, copy, position, argument_paint, value)
 
     def delete_layer_additions(self, branch, value):
         """
@@ -169,8 +185,8 @@ class CopyLayer:
             list, then it will be removed from the list.
           - Checks if the 'layer' value exists in the 'paint_layer' branch list. If the layer is in the 'paint_layer'
             branch list, then the value of the current layer key in the 'paint_layer' dictionary will be removed.
-          - If there is a value of the 'value' variable, the 'delete_layer_additions' function will be called again with the
-            new value of the 'value' variable as argument.
+          - If there is a value of the 'value' variable, the 'delete_layer_additions' function will be called again with
+            the new value of the 'value' variable as argument.
         """
         for layer, value in value.items():
             if layer[-10:] in uids[branch]:
@@ -193,7 +209,7 @@ class CopyLayer:
             then the newly generated layer with UID is added to the list with the value of the value of the variable
             'layer'.
           - If the current value of 'layer' does not exist in the branch's 'paint_layer' list. Then the newly generated
-            layer with UID is added to the list with the value of an empty string.
+            layer with UID is added to the list with the value of an empty list.
 
           - If there is a value of the 'value' variable, the 'change_layer_uid' function will be called again with the
             new value of the 'value' variable as argument.
@@ -209,7 +225,7 @@ class CopyLayer:
                 if argument_paint:
                     paint_layer[branch].update({new_layer: paint_layer[branch][layer]})
             else:
-                paint_layer[branch].update({new_layer: ""})
+                paint_layer[branch].update({new_layer: []})
 
             if value:
                 self.change_layer_uid(branch, argument_paint, value)

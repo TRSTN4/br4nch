@@ -2,6 +2,6 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
-from br4nch.delete.color.branch import arguments as branch
-from br4nch.delete.color.header import arguments as header
-from br4nch.delete.color.layer import arguments as layer
+from br4nch.set.paint.branch import arguments as branch
+from br4nch.set.paint.header import arguments as header
+from br4nch.set.paint.layer import arguments as layer

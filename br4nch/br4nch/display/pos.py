@@ -5,7 +5,8 @@
 from br4nch.utility.librarian import branches
 from br4nch.utility.printer import printer
 from br4nch.utility.positioner import format_position
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError
+from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError,\
+    PositionNotAllowedError
 
 
 def arguments(branch, pos, beautify=True):
@@ -41,11 +42,9 @@ class DisplayPos:
             - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Branches list loop:
-            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the levels
-              list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided.
             - If the branch is in the 'branches' dictionary, it will loop with all positions in the returned list of the
               'format_position' function. And calls the 'display_pos' function for each loop with the built position
-              structure of the 'position' as argument
+              structure and the built 'string_position' variable as arguments.
         """
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
@@ -71,69 +70,48 @@ class DisplayPos:
                 if branch.lower() == branches_branch.lower():
                     error = error + 1
 
-                    levels = [0]
-                    self.elevator(levels, branches[branch][list(branches[branch])[0]])
-                    levels.append(0)
+                    for position in format_position(branches_branch, argument_pos.copy()):
+                        string_position = ""
 
-                    for position in format_position(branch, argument_pos.copy()):
-                        position_structure = ""
+                        for character in position:
+                            string_position = string_position + "." + character
 
-                        for stage in position:
-                            for pos in stage:
-                                position_structure = position_structure + "." + pos
-
-                        self.display_pos(branches_branch, position_structure[1:], argument_beautify, [0], [0],
-                                         branches[branch][list(branches[branch])[0]])
+                        self.display_pos(branches_branch, position, string_position[1:], argument_beautify,
+                                         branches[branches_branch][list(branches[branches_branch])[0]])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
-    def elevator(self, levels, value, pos=0):
+    def display_pos(self, branch, position, string_position, argument_beautify, value):
         """
+        Errors:
+          - If the value of position is equal to '0', then it raises a 'PositionNotAllowedError' error.
+
         Value dictionary loop:
-          - Loops through each "height" of the value dictionary and adds the value of the 'pos' variable to the 'levels'
-            list.
-          - Then the 'elevator' function is called again with the current value of the 'value' dictionary.
-        """
-        for value in value.values():
-            levels.append(pos)
+          - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
-            self.elevator(levels, value, pos + 1)
+          Count variable equal to the first value of 'position':
+            If the length of the 'position' list is equal to '1':
+              - The 'printer' function is called and a package is supplied with all the values in it that are needed.
+                If the 'argument_beautify' variable is false, the given positions are not represented with a branch
+                structure.
 
-    def display_pos(self, branch, position, argument_beautify, levels, trace, value, position_structure=""):
-        """
-        Value dictionary loop:
-          - For each value of the 'value' variable the 'count' variable and the first element of the 'trace' list is
-            added with plus '1'.
-
-          Position structure:
-            - Then it is checked whether the "level"/"height" of the current value of the loop is equal to or smaller
-              than the previous "level"/"height" value of the loop. If the instantaneous value is equal or less, the
-              last position and dot in the 'position_structure' variable is removed.
-            - Then the current value of the 'position_structure' variable is added with the value of 'count' separated
-              by a dot to the 'position_structure' variable.
-            - Then it is checked whether the current value of 'position' is equal to the value of 'position_structure'.
-              If the values are equal, then the 'printer' function is called and a package is supplied with all the
-              values in it that are needed. If the 'argument_beautify' variable is false, the given positions are not
-              represented with a branch structure.
-
-          - Checks whether the 'value' variable has a value. If there is a value, then the 'display_pos' function is
-            called again with the current values of 'value', 'trace' and 'levels' as arguments.
+            - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
+              then the first value from the 'position' list will be removed and the 'display_pos' function will be
+              called again with the new value of the 'value' variable as argument.
         """
         count = 0
+
+        if position[0] == "0":
+            raise PositionNotAllowedError("pos")
 
         for layer, value in value.items():
             count = count + 1
 
-            trace[0] = trace[0] + 1
-
-            if levels[trace[0]] <= levels[trace[0] - 1]:
-                position_structure = position_structure[:-2]
-
-            position_structure = position_structure + "." + str(count)
-
-            if position == position_structure[1:]:
-                return printer("display_pos", [branch, layer[:-15], position, argument_beautify])
-
-            if value:
-                self.display_pos(branch, position, argument_beautify, levels, trace, value, position_structure)
+            if count == int(position[0]):
+                if len(position) == 1:
+                    return printer("display_pos", [branch, layer[:-15], string_position, argument_beautify])
+                else:
+                    if value:
+                        position.pop(0)
+                        return self.display_pos(branch, position, string_position, argument_beautify, value)

@@ -6,14 +6,14 @@ from br4nch.utility.handler import StringInstanceError, InvalidBranchError, Dupl
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 
 
-def arguments(branch, name):
+def arguments(branch, name, package=False):
     """
-    - Gets the arguments and parses them to the 'replace_branch' function.
+    - Gets the arguments and parses them to the 'copy_branch' function.
     """
-    replace_branch(branch, name)
+    copy_branch(branch, name, package)
 
 
-def replace_branch(argument_branch, argument_name):
+def copy_branch(argument_branch, argument_name, argument_package):
     """
     Errors:
       - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
@@ -30,10 +30,10 @@ def replace_branch(argument_branch, argument_name):
         - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
         - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
-      - The index of the given branch in the 'branches' list is stored in the variable 'index'.
-      - Deletes the given branch and creates a new one with the given name and the copied values from the given branch.
-      - To keep the order the same, a loop will be made that loops through the branches with the given slice values,
-        removing all values and adding them again.
+    - If the value of the 'argument_package' variable is true, then update the values of all required dictionaries with
+      the values of the given package argument.
+    - If the value of the 'argument_package' variable is false, then update the values of all required dictionaries with
+      the default values for a new branch.
     """
     if not isinstance(argument_branch, str):
         raise StringInstanceError("branch", argument_branch)
@@ -53,26 +53,23 @@ def replace_branch(argument_branch, argument_name):
         if argument_branch.lower() == branches_branch.lower():
             error = error + 1
 
-            index = list(branches).index(branches_branch)
+            branches.update({argument_name: branches[argument_branch]})
+            output.update({argument_name: []})
 
-            branches[argument_name] = branches.pop(branches_branch)
-            output[argument_name] = output.pop(branches_branch)
-            sizes[argument_name] = sizes.pop(branches_branch)
-            symbols[argument_name] = symbols.pop(branches_branch)
-            paint_branch[argument_name] = paint_branch.pop(branches_branch)
-            paint_header[argument_name] = paint_header.pop(branches_branch)
-            paint_layer[argument_name] = paint_layer.pop(branches_branch)
-            uids[argument_name] = uids.pop(branches_branch)
-
-            for position in list(branches)[index:-1]:
-                branches[position] = branches.pop(position)
-                output[position] = output.pop(position)
-                sizes[position] = sizes.pop(position)
-                symbols[position] = symbols.pop(position)
-                paint_branch[position] = paint_branch.pop(position)
-                paint_header[position] = paint_header.pop(position)
-                paint_layer[position] = paint_layer.pop(position)
-                uids[position] = uids.pop(position)
+            if argument_package:
+                uids.update({argument_name: uids[branches_branch]})
+                sizes.update({argument_name: sizes[branches_branch]})
+                symbols.update({argument_name: symbols[branches_branch]})
+                paint_branch.update({argument_name: paint_branch[branches_branch]})
+                paint_header.update({argument_name: paint_header[branches_branch]})
+                paint_layer.update({argument_name: paint_layer[branches_branch]})
+            else:
+                uids.update({argument_name: []})
+                sizes.update({argument_name: 1})
+                symbols.update({argument_name: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+                paint_branch.update({argument_name: {}})
+                paint_header.update({argument_name: {}})
+                paint_layer.update({argument_name: {}})
 
     if error == 0:
         raise NotExistingBranchError(argument_branch)

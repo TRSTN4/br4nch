@@ -2,8 +2,8 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 from br4nch.utility.librarian import branches
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, name):

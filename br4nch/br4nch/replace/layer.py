@@ -2,10 +2,10 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError, PositionNotAllowedError
 from br4nch.utility.librarian import branches, uids, paint_layer
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import generate_uid
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, pos, name):
@@ -42,9 +42,10 @@ class ReplaceLayer:
 
           Argument copy list loop:
             - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_copy' and
-              stores the returned output in the 'queue_replace' list.
-
-            - Loops through the list 'queue_replace' and replaces all given layers from the mandatory dictionaries.
+              loops through the items from the returned dictionary and replaces all given layers from the mandatory
+              dictionaries.
+            - To keep the order the same, a loop will be made that loops through the 'value' dictionary and
+              'paint_layer' list with the given slice values, removing all values and adding them again.
         """
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
@@ -70,31 +71,30 @@ class ReplaceLayer:
                 if branch.lower() == branches_branch.lower():
                     error = error + 1
 
-                    queue_replace = []
-
                     for position in format_position(branches_branch, argument_pos.copy()):
-                        queue_replace.append(self.get_layers(branches_branch, position,
-                                                             branches[branches_branch][list(branches[branches_branch])[0]]))
+                        returned_value = self.get_layers(branches_branch, position,
+                                                         branches[branches_branch][list(branches[branches_branch])[0]])
+                        if returned_value:
+                            for layer, value in returned_value:
+                                new_layer = argument_name + generate_uid(branches_branch)
+                                uids[branches_branch].remove(layer[-10:])
+                                paint_layer[branches_branch][new_layer] = paint_layer[branches_branch].pop(layer)
 
-                    for replace_value in queue_replace:
-                        for layer, value in replace_value.items():
-                            new_layer = argument_name + generate_uid(branches_branch)
+                                index = list(value).index(layer)
+                                value[new_layer] = value.pop(layer)
 
-                            uids[branches_branch].remove(layer[-10:])
-                            paint_layer[branches_branch][new_layer] = paint_layer[branches_branch].pop(layer)
-
-                            index = list(value).index(layer)
-                            value[new_layer] = value.pop(layer)
-
-                            for position in list(value)[index:-1]:
-                                value[position] = value.pop(position)
-                                paint_layer[branches_branch][position] = paint_layer[branches_branch].pop(position)
+                                for number in list(value)[index:-1]:
+                                    value[number] = value.pop(number)
+                                    paint_layer[branches_branch][number] = paint_layer[branches_branch].pop(number)
 
             if error == 0:
                 raise NotExistingBranchError(branch)
 
     def get_layers(self, branch, position, value):
         """
+        Errors:
+          - If the value of position is equal to '0', then it raises a 'PositionNotAllowedError' error.
+
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
@@ -103,17 +103,20 @@ class ReplaceLayer:
               - Returns the current layer and previous value in an dictionary.
 
             - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
-              then the first value from the 'argument_move' list will be removed and the 'task_manager' function will be
+              then the first value from the 'argument_move' list will be removed and the 'get_layers' function will be
               called again with the new value of the 'value' variable as argument.
         """
         count = 0
         previous_value = value
 
+        if position[0] == "0":
+            raise PositionNotAllowedError("pos")
+
         for layer, value in value.items():
             count = count + 1
 
             if count == int(position[0]):
-                if len(position) < 2:
+                if len(position) == 1:
                     return {layer: previous_value}
                 else:
                     if value:

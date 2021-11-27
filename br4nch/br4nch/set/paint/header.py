@@ -3,20 +3,21 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, paint_header
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
+from br4nch.utility.handler import StringInstanceError, NotExistingPaintError, NotExistingBranchError
 
 
 def arguments(branch, paint):
     """
-    - Gets the arguments and parses them to the 'set_color_header' function.
+    - Gets the arguments and parses them to the 'set_paint_header' function.
     """
-    set_color_header(branch, paint)
+    set_paint_header(branch, paint)
 
 
-def set_color_header(argument_branch, argument_paint):
+def set_paint_header(argument_branch, argument_paint):
     """
     Lists:
       - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+      - If the given paint argument is not an instance of a list, then the paint argument will be set as a list.
 
     Errors:
       - If the paint value is not an instance of a string, then it raises an 'StringInstanceError' error.
@@ -31,14 +32,18 @@ def set_color_header(argument_branch, argument_paint):
         - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
       Branches list loop:
-        - If the branch is in the 'branches' dictionary, then it will add the current branch key in the 'branches'
-          dictionary with the given paint as value to the 'paint_header' directory.
+        Errors:
+          - If the paint element argument is not an instance of a string, then it raises an 'StringInstanceError' error.
+
+        - If the branch is in the 'branches' dictionary, then it check if the 'paint' exists in the given list. If it
+          does not exists, it raises a 'NotExistingPaintError' error. If it does exists in the list, it will add the
+          'argument_paint' list to the 'paint_header' list.
     """
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
 
-    if not isinstance(argument_paint, str):
-        raise StringInstanceError("paint", argument_paint)
+    if not isinstance(argument_paint, list):
+        argument_paint = [argument_paint]
 
     if "*" in argument_branch:
         argument_branch.clear()
@@ -54,6 +59,14 @@ def set_color_header(argument_branch, argument_paint):
         for branches_branch in list(branches):
             if branch.lower() == branches_branch.lower():
                 error = error + 1
+
+                for paint in argument_paint:
+                    if not isinstance(paint, str):
+                        raise StringInstanceError("paint", paint)
+
+                    if paint.lower() not in ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white",
+                                             "bold", "underline", "reversing"]:
+                        raise NotExistingPaintError(paint)
 
                 paint_header.update({branches_branch: argument_paint})
 

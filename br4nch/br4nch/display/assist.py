@@ -5,9 +5,9 @@
 import copy
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 from br4nch.utility.generator import generate_uid
 from br4nch.display.branch import display_branch
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch):
@@ -39,9 +39,9 @@ class DisplayAssist:
             - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Branches list loop:
-            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the levels
-              list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided and after that
-              the new value from the 'levels' list is returned.
+            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the
+              levels list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided and
+              after that the new value from the 'levels' list is returned.
             - If the branch is in the 'branches' dictionary, then a new name is generated for the value of the
               'branches_branch' variable. If the name already exists in the 'branches' dictionary, the loop starts again
               until a unique branch name is generated that does not yet exist in the 'branches' dictionary.
@@ -94,7 +94,8 @@ class DisplayAssist:
                     paint_header.update({branch_uid: ""})
                     paint_layer.update({branch_uid: {}})
 
-                    self.set_layer_pos_name(branch_uid, levels, [0], branches[branch_uid][list(branches[branch_uid])[0]])
+                    self.set_layer_pos_name(branch_uid, levels, [0],
+                                            branches[branch_uid][list(branches[branch_uid])[0]])
 
                     display_branch(branch_uid, True)
 

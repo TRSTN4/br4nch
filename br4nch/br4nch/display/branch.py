@@ -2,10 +2,10 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+from br4nch.utility.handler import BooleanInstanceError, StringInstanceError, NotExistingBranchError
 from br4nch.utility.librarian import branches, paint_branch, paint_header, paint_layer
 from br4nch.utility.builder import Builder
 from br4nch.utility.printer import printer
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError, BooleanInstanceError
 
 
 def arguments(branch, delete=False):
@@ -39,7 +39,7 @@ def display_branch(argument_branch, argument_delete):
           - If there is a value in the value of the key branch of the 'paint_header' dictionary, then the first element
             in the list 'total' is updated with the value + 1.
           - Then the 'paint_layer' is looped through with the value of the key branch. For each 'layer' value, it is
-            checked whether that layer/value has a value in the 'paint_layer' dicitonary with the key branch. If there
+            checked whether that layer/value has a value in the 'paint_layer' dictionary with the key branch. If there
             is no value in the 'layer' key, then the 'no_paint' variable is added with the value + 1. If the value of
             the 'no_paint' variable is equal to the value of the length of the 'paint_layer' dictionary with the key
             branch, then the first element in the list 'total' is updated with the value + 1.
@@ -72,18 +72,18 @@ def display_branch(argument_branch, argument_delete):
                 error = error + 1
 
                 total = [0]
-                if not paint_branch[branch]:
+                if not paint_branch[branches_branch]:
                     total[0] = total[0] + 1
 
-                if not paint_header[branch]:
+                if not paint_header[branches_branch]:
                     total[0] = total[0] + 1
 
                 no_paint = 0
-                for layer in paint_layer[branch]:
-                    if not paint_layer[branch][layer]:
+                for layer in paint_layer[branches_branch]:
+                    if not paint_layer[branches_branch][layer]:
                         no_paint = no_paint + 1
 
-                if no_paint == len(paint_layer[branch]):
+                if no_paint == len(paint_layer[branches_branch]):
                     total[0] = total[0] + 1
 
                 if total[0] == 3:

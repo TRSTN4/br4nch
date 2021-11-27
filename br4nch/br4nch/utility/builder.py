@@ -4,33 +4,33 @@
 
 import copy
 
-from br4nch.utility.librarian import branches, output, sizes, symbols, paint_branch, paint_header, paint_layer
 from br4nch.utility.painter import painter
+from br4nch.utility.librarian import paint_branch, paint_header, output, branches, paint_layer, sizes, symbols
 
 
 class Builder:
-    def __init__(self, branch, colored):
+    def __init__(self, branch, paint):
         """
         - Gets the arguments and parses them to the 'manager' function.
         """
-        self.manager(branch, colored)
+        self.manager(branch, paint)
 
-    def manager(self, branch, colored):
+    def manager(self, branch, paint):
         """
-        - If the 'colored' variable is 'True', then the 'branch_paint', 'header_paint' and 'clear_paint' will be equal
-          to the returned values of the painter class.
-        - If the 'colored' variable is 'False', then the 'branch_paint', 'header_paint' and 'clear_paint' will be equal
-          to empty strings.
+        - If the 'paint' variable is 'True', then the 'branch_paint', 'header_paint' and 'clear_paint' will be equal to
+          the returned values of the painter class.
+        - If the 'paint' variable is 'False', then the 'branch_paint', 'header_paint' and 'clear_paint' will be equal to
+          empty strings.
 
         - dictionary, then the corresponding line/output is made for the current value of 'layer'.
         - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the levels
           list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided.
         - Calls the 'build_layer' function to create the corresponding output for all layers.
         """
-        if colored:
-            branch_paint = painter(paint_branch[branch])
-            header_paint = painter(paint_header[branch])
-            clear_paint = painter("clear")
+        if paint:
+            branch_paint = painter(copy.deepcopy(paint_branch[branch]))
+            header_paint = painter(copy.deepcopy(paint_header[branch]))
+            clear_paint = painter(["clear"])
         else:
             branch_paint = ""
             header_paint = ""
@@ -43,7 +43,7 @@ class Builder:
         self.elevator(levels, branches[branch][list(branches[branch])[0]])
         levels.append(0)
 
-        self.build_layer(branch, colored, [branch_paint, clear_paint], [levels, [0], [], [], [0]],
+        self.build_layer(branch, paint, [branch_paint, clear_paint], [levels, [0], [], [], [0]],
                          branches[branch][list(branches[branch])[0]])
 
     def elevator(self, levels, value, pos=0):

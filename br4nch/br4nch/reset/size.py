@@ -3,7 +3,7 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, sizes
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 
 
 def arguments(branch):
@@ -19,7 +19,8 @@ def reset_size(argument_branch):
       - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
     Operators:
-      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch' list.
+      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
+        list.
 
     Argument branch list loop:
       Errors:

@@ -3,7 +3,7 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 
 
 def arguments(branch):
@@ -48,14 +48,14 @@ def delete_branch(argument_branch):
             if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                del branches[branch]
-                del output[branch]
-                del uids[branch]
-                del sizes[branch]
-                del symbols[branch]
-                del paint_branch[branch]
-                del paint_header[branch]
-                del paint_layer[branch]
+                del branches[branches_branch]
+                del output[branches_branch]
+                del uids[branches_branch]
+                del sizes[branches_branch]
+                del symbols[branches_branch]
+                del paint_branch[branches_branch]
+                del paint_header[branches_branch]
+                del paint_layer[branches_branch]
 
         if error == 0:
             raise NotExistingBranchError(branch)

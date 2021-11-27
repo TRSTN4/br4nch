@@ -2,8 +2,8 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+from br4nch.utility.handler import StringInstanceError, InvalidBranchError, DuplicateBranchError
 from br4nch.utility.librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, paint_layer
-from br4nch.utility.handler import InvalidBranchError, DuplicateBranchError, StringInstanceError
 
 
 def arguments(branch, header):
@@ -18,6 +18,9 @@ def add_branch(argument_branch, argument_header):
     Lists:
       - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
 
+    Errors:
+      - If the header value is not an instance of a string, then it raises an 'StringInstanceError' error.
+
     Argument branch list loop:
       Errors:
         - If the branch value is not an instance of a string, then it raises an 'StringInstanceError' error.
@@ -28,11 +31,13 @@ def add_branch(argument_branch, argument_header):
         Errors:
           - If the branch is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
 
-      - Then it will add the current branch key in all the mandatory dictionaries with a empty dictionary as value and
-        adds the given header as header value to the branches dictionary.
+      - Then it will add the current branch key in all the mandatory dictionaries with the needed value.
     """
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
+
+    if not isinstance(argument_header, str):
+        raise StringInstanceError("header", argument_header)
 
     for branch in argument_branch:
         if not isinstance(branch, str):
@@ -50,6 +55,6 @@ def add_branch(argument_branch, argument_header):
         uids.update({branch: []})
         sizes.update({branch: 1})
         symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
-        paint_branch.update({branch: ""})
-        paint_header.update({branch: ""})
+        paint_branch.update({branch: []})
+        paint_header.update({branch: []})
         paint_layer.update({branch: {}})

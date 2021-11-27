@@ -3,17 +3,17 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, paint_header
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 
 
 def arguments(branch):
     """
-    - Gets the arguments and parses them to the 'delete_color_header' function.
+    - Gets the arguments and parses them to the 'delete_paint_header' function.
     """
-    delete_color_header(branch)
+    delete_paint_header(branch)
 
 
-def delete_color_header(argument_branch):
+def delete_paint_header(argument_branch):
     """
     Lists:
       - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -28,7 +28,7 @@ def delete_color_header(argument_branch):
         - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
       - If the branch is in the 'branches' dictionary, then the value of the current branch key in the 'paint_header'
-        dictionary is updated to an empty string.
+        dictionary is updated to an empty list.
     """
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
@@ -48,7 +48,7 @@ def delete_color_header(argument_branch):
             if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                paint_header.update({branch: ""})
+                paint_header.update({branches_branch: []})
 
         if error == 0:
             raise NotExistingBranchError(branch)

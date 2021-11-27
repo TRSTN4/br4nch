@@ -124,34 +124,6 @@ class InvalidPositionError(Exception):
                                                    "position to the '" + self.argument + "' argument."
 
 
-class InvalidBranchFileError(Exception):
-    """
-    - Raises an 'InvalidBranchFileError' error if the instance of the 'argument_branch' variable is a string and the
-      given directory does not exists.
-    """
-    __module__ = Exception.__module__
-
-    def __init__(self, file):
-        self.file = file
-
-    def __str__(self):
-        return "The branch file '" + str(self.file) + "' does not exist."
-
-
-class InvalidPackageFileError(Exception):
-    """
-    - Raises an 'InvalidPackageFileError' error if there is value in the the 'argument_package' variable and is instance
-      of string and the given directory does not exists.
-    """
-    __module__ = Exception.__module__
-
-    def __init__(self, file):
-        self.file = file
-
-    def __str__(self):
-        return "The package file '" + str(self.file) + "' does not exist."
-
-
 class InvalidDirectoryError(Exception):
     """
     - If the given directory argument does not exist, it will throw a 'InvalidDirectoryError' error.
@@ -165,14 +137,93 @@ class InvalidDirectoryError(Exception):
         return "The directory '" + str(self.directory) + "' does not exist."
 
 
-class MaximumPaintSlots(Exception):
+class InvalidBranchFileError(Exception):
     """
-    - If the length of the 'paint' list is bigger than '4', then it raises a 'MaximumPaintSlots' error.
+    - If given branch file does not have the required branch id tag or the length of the total lines is less than '2',
+      then it raises an 'InvalidBranchFileError' error.
+    """
+    __module__ = Exception.__module__
+
+    def __init__(self, file):
+        self.file = file
+
+    def __str__(self):
+        return "The file: '" + self.file + "' is not valid as a branch file."
+
+
+class InvalidPackageFileError(Exception):
+    """
+    - If given package file does not have the required branch id tag or the length of the total lines is less than '2',
+      then it raises an 'InvalidPackageFileError' error.
+    """
+    __module__ = Exception.__module__
+
+    def __init__(self, file):
+        self.file = file
+
+    def __str__(self):
+        return "The file: '" + self.file + "' is not valid as a package file."
+
+
+class NotExistingBranchFileError(Exception):
+    """
+    - Raises an 'NotExistingBranchFileError' error if the instance of the 'argument_branch' variable is a string and the
+      given directory does not exists.
+    """
+    __module__ = Exception.__module__
+
+    def __init__(self, file):
+        self.file = file
+
+    def __str__(self):
+        return "The branch file '" + str(self.file) + "' does not exist."
+
+
+class NotExistingPackageFileError(Exception):
+    """
+    - Raises an 'NotExistingPackageFileError' error if there is value in the the 'argument_package' variable and is
+      instance of string and the given directory does not exists.
+    """
+    __module__ = Exception.__module__
+
+    def __init__(self, file):
+        self.file = file
+
+    def __str__(self):
+        return "The package file '" + str(self.file) + "' does not exist."
+
+
+class PositionNotAllowedError(Exception):
+    """
+    - If the value of position is equal to '0', then it raises a 'PositionNotAllowedError' error.
+    """
+    __module__ = Exception.__module__
+
+    def __init__(self, argument):
+        self.argument = argument
+
+    def __str__(self):
+        return "The position '0' is not allowed to use in the '" + self.argument + "' argument."
+
+
+class MaximumPaintSlotsError(Exception):
+    """
+    - If the length of the 'paint' list is bigger than '4', then it raises a 'MaximumPaintSlotsError' error.
     """
     __module__ = Exception.__module__
 
     def __str__(self):
-        return "You can use a maximum of 4 paint slots."
+        return "The maximum paint slots that can be used is '4'."
+
+
+class MaximumSizeError(Exception):
+    """
+    - If the length of the 'size' argument is bigger than '20', then it raises a 'MaximumSizeError' error.
+    """
+    __module__ = Exception.__module__
+
+    def __str__(self):
+        return "The sizes that can be used is '0-20'."
 
 
 class NotExistingPaintError(Exception):

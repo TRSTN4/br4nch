@@ -4,10 +4,10 @@
 
 import os
 
+from br4nch.utility.handler import BooleanInstanceError, StringInstanceError, InvalidDirectoryError, \
+    NotExistingBranchError
 from br4nch.utility.librarian import branches, uids, sizes, symbols, paint_branch, paint_header, paint_layer
 from br4nch.utility.printer import printer
-from br4nch.utility.handler import StringInstanceError, BooleanInstanceError, InvalidDirectoryError,\
-    NotExistingBranchError
 
 
 def arguments(branch, package=False, beautify=True, directory=""):
@@ -48,9 +48,10 @@ def export_branch(argument_branch, argument_package, argument_beautify, argument
         If argument directory is equal to true:
           If the given directory exists:
             - Creates the custom br4nch directory if it does not exist in the given directory argument.
-            - Appends the value of the branch in the 'branches' directory to a custom file in the custom br4nch folder.
+            - Appends the value of the branch in the 'branches' directory to a custom file with the id line for a
+              exported branch file in the custom br4nch folder.
             - If there is a value in the 'argument_package' argument, then adds the values of all required directories
-              to a custom file in the custom br4nch folder.
+              to a custom file with the id line for a exported package file in the custom br4nch folder.
 
           - If the given directory argument does not exist, it will throw a 'InvalidDirectoryError' error.
     """
@@ -97,12 +98,14 @@ def export_branch(argument_branch, argument_package, argument_beautify, argument
                             os.mkdir(argument_directory + "/br4nch-" + branches_branch)
 
                         with open(argument_directory + "/br4nch-" + branches_branch + "/branch-" + branches_branch,
-                                  'w') as file:
+                                  'w', encoding='utf-8') as file:
+                            file.write("id=:br4nch-branch:\n")
                             file.write(str({branches_branch: branches[branches_branch]}))
 
                         if argument_package:
-                            with open(argument_directory + "/br4nch-" + branches_branch + "/package-" + branches_branch, 'w',
-                                      encoding='utf-8') as file:
+                            with open(argument_directory + "/br4nch-" + branches_branch + "/package-" + branches_branch,
+                                      'w', encoding='utf-8') as file:
+                                file.write("id=:br4nch-package:\n")
                                 file.write(str(export_package))
                     else:
                         raise InvalidDirectoryError(argument_directory)

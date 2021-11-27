@@ -2,8 +2,8 @@
 # This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
 # Please see the LICENSE file that should have been included as part of this package.
 
+from br4nch.utility.handler import StringInstanceError, RequiredChangeError, NotExistingBranchError
 from br4nch.utility.librarian import branches, symbols
-from br4nch.utility.handler import NotExistingBranchError, RequiredChangeError, StringInstanceError
 
 
 def arguments(branch, line="", split="", end=""):
@@ -70,15 +70,13 @@ def set_symbol(argument_branch, argument_line, argument_split, argument_end):
                 error = error + 1
 
                 if not argument_line:
-                    argument_line = symbols[branch]["line"]
+                    argument_line = symbols[branches_branch]["line"]
                 if not argument_split:
-                    argument_split = symbols[branch]["split"]
+                    argument_split = symbols[branches_branch]["split"]
                 if not argument_end:
-                    argument_end = symbols[branch]["end"]
+                    argument_end = symbols[branches_branch]["end"]
 
-                symbols[branches_branch].update({"line": argument_line})
-                symbols[branches_branch].update({"split": argument_split})
-                symbols[branches_branch].update({"end": argument_end})
+                symbols[branches_branch].update({"line": argument_line, "split": argument_split, "end": argument_end})
 
         if error == 0:
             raise NotExistingBranchError(branch)

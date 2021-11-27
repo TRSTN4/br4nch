@@ -3,9 +3,9 @@
 # Please see the LICENSE file that should have been included as part of this package.
 
 from br4nch.utility.librarian import branches, paint_layer
+from br4nch.utility.handler import StringInstanceError, NotExistingBranchError
 from br4nch.utility.positioner import format_position
 from br4nch.utility.generator import generate_uid
-from br4nch.utility.handler import NotExistingBranchError, StringInstanceError
 
 
 def arguments(branch, layer, pos):
@@ -73,7 +73,7 @@ class AddLayer:
 
                     for position in format_position(branches_branch, argument_pos):
                         self.add_layer(branches_branch, argument_layer, position,
-                                       branches[branch][list(branches[branch])[0]])
+                                       branches[branches_branch][list(branches[branches_branch])[0]])
 
             if error == 0:
                 raise NotExistingBranchError(branch)
@@ -84,9 +84,9 @@ class AddLayer:
           Errors:
             - If the 'loop_layer' value is not an instance of a string, then it raises an 'StringInstanceError' error.
 
-          - If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and each
-            layer value of the loop is appended to the value of the header key in the branch of the 'branches'
-            directory.
+          - If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and in
+            each loop it will add the current layer with a generated UID to the value to the 'paint_layer' list and to
+            the 'value' dictionary from the 'branches' dictionary.
 
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
@@ -108,26 +108,29 @@ class AddLayer:
                 if not isinstance(loop_layer, str):
                     raise StringInstanceError("layer", loop_layer)
 
-                branches[branch][list(branches[branch])[0]].update({loop_layer + generate_uid(branch): {}})
+                uid_layer = loop_layer + generate_uid(branch)
+
+                paint_layer[branch].update({uid_layer: []})
+                branches[branch][list(branches[branch])[0]].update({uid_layer: {}})
             return
-        else:
-            count = 0
 
-            for value in value.values():
-                count = count + 1
+        count = 0
 
-                if count == int(position[0]):
-                    if len(position) == 1:
-                        for loop_layer in argument_layer:
-                            if not isinstance(loop_layer, str):
-                                raise StringInstanceError("layer", loop_layer)
+        for value in value.values():
+            count = count + 1
 
-                            layer_uid = loop_layer + generate_uid(branch)
+            if count == int(position[0]):
+                if len(position) == 1:
+                    for loop_layer in argument_layer:
+                        if not isinstance(loop_layer, str):
+                            raise StringInstanceError("layer", loop_layer)
 
-                            value.update({layer_uid: {}})
-                            paint_layer[branch].update({layer_uid: ""})
-                        return
-                    else:
-                        if value:
-                            position.pop(0)
-                            return self.add_layer(branch, argument_layer, position, value)
+                        uid_layer = loop_layer + generate_uid(branch)
+
+                        paint_layer[branch].update({uid_layer: []})
+                        value.update({uid_layer: {}})
+                    return
+                else:
+                    if value:
+                        position.pop(0)
+                        return self.add_layer(branch, argument_layer, position, value)
