@@ -54,7 +54,7 @@ Movies & Series
       ┗━ The Walking Dead
 ```
 
-See [the documentation](https://br4nch.readthedocs.io/) for more examples.
+See [the documentation](https://docs.br4nch.com) for more examples.
 
 ## Installation
 
@@ -68,7 +68,7 @@ pip install br4nch
 
 Jump straight to the documentation:
 
-https://br4nch.readthedocs.io/
+https://docs.br4nch.com
 
 ## Contributing
 
@@ -82,7 +82,7 @@ We are always happy to answer questions! Here are some good places to ask them:
 
 - For general questions about **br4nch**, try [br4nch discussions](https://github.com/TRSTN4/br4nch/discussions)
 
-If you're just getting started, [the documentation](https://mypy.readthedocs.io/en/stable/introduction.html) can help answer questions.
+If you're just getting started, [the documentation](https://docs.br4nch.com) can help answer questions.
 
 If you think you've found a bug or want to request a feature:
 
