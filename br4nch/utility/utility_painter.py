@@ -29,6 +29,6 @@ def painter(paint):
             paint[position] = ["\u001b[31m", "\u001b[33m", "\u001b[32m", "\u001b[36m", "\u001b[34m", "\u001b[35m",
                                "\u001b[30m", "\u001b[37m", "\u001b[1m", "\u001b[4m", "\u001b[7m", "\u001b[0m"][
                 ["red", "yellow", "green", "cyan", "blue", "magenta", "black", "white", "bold", "underline",
-                 "reversing", "clear"].index(paint[position])]
+                 "reversing", "clear"].index(paint[position].lower())]
 
     return paint[0] + paint[1] + paint[2] + paint[3]
