@@ -20,8 +20,10 @@
   <a href="#Documentation">Documentation</a> •
   <a href="#Contributing">Contributing</a> •
   <a href="#Got a question?">Questions</a> •
-  <a href="#Support me?">Support</a>
+  <a href="#Support me?">Donate</a>
 </p>
+
+
 
 ## What is br4nch?
 
