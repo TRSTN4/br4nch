@@ -15,12 +15,12 @@
          alt="GitHub pull requests closed">
 </p>
 <p align="center">
-  <a href="#What is br4nch?">About</a> •
-  <a href="#Installation">Installation</a> •
-  <a href="#Documentation">Documentation</a> •
-  <a href="#Contributing">Contributing</a> •
-  <a href="#Got a question?">Questions</a> •
-  <a href="#Support me?">Donate</a>
+  <a href="#what-is-br4nch">About</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#documentation">Documentation</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#got-a-question">Questions</a> •
+  <a href="#support-me">Donate</a>
 </p>
 
 
