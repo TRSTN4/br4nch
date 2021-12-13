@@ -72,11 +72,11 @@ def reset_symbol(argument_branch, argument_line, argument_split, argument_end):
                 else:
                     argument_line = symbols[branches_branch]["line"]
                 if argument_split:
-                    argument_split = "┣━━"
+                    argument_split = "┣━"
                 else:
                     argument_split = symbols[branches_branch]["split"]
                 if argument_end:
-                    argument_end = "┗━━"
+                    argument_end = "┗━"
                 else:
                     argument_end = symbols[branches_branch]["end"]
 

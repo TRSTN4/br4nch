@@ -60,9 +60,9 @@ def set_size(argument_branch, argument_size):
             if branch.lower() == branches_branch.lower():
                 error = error + 1
 
-                if symbols[branches_branch]["split"] == "┣━━":
+                if symbols[branches_branch]["split"] == "┣━":
                     symbols[branches_branch]["split"] = "┣━" + "━" * argument_size
-                if symbols[branches_branch]["end"] == "┗━━":
+                if symbols[branches_branch]["end"] == "┗━":
                     symbols[branches_branch]["end"] = "┗━" + "━" * argument_size
 
                 sizes.update({branches_branch: argument_size})

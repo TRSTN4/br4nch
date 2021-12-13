@@ -55,7 +55,7 @@ def add_branch(argument_branch, argument_header):
         output.update({branch: []})
         uids.update({branch: []})
         sizes.update({branch: 0})
-        symbols.update({branch: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+        symbols.update({branch: {"line": "┃", "split": "┣━", "end": "┗━"}})
         paint_branch.update({branch: []})
         paint_header.update({branch: []})
         paint_layer.update({branch: {}})

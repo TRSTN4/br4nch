@@ -72,7 +72,7 @@ def duplicate_branch(argument_branch, argument_name, argument_package):
             else:
                 uids.update({argument_name: []})
                 sizes.update({argument_name: 0})
-                symbols.update({argument_name: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+                symbols.update({argument_name: {"line": "┃", "split": "┣━", "end": "┗━"}})
                 paint_branch.update({argument_name: {}})
                 paint_header.update({argument_name: {}})
                 paint_layer.update({argument_name: {}})

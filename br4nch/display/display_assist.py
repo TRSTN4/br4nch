@@ -97,7 +97,7 @@ class DisplayAssist:
                     output.update({branch_uid: []})
                     uids.update({branch_uid: []})
                     sizes.update({branch_uid: argument_size})
-                    symbols.update({branch_uid: {"line": "┃", "split": "┣━━", "end": "┗━━"}})
+                    symbols.update({branch_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
                     paint_branch.update({branch_uid: ""})
                     paint_header.update({branch_uid: ""})
                     paint_layer.update({branch_uid: {}})
