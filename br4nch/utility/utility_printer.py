@@ -42,29 +42,29 @@ def printer(action, package, delete=False):
 
     if action == "display_pos":
         if package[3]:
-            print("Get Position Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Layer: "
-                  + package[1].replace("\n", " ") + "\n" + " " * 6 + "└─ Position: " + package[2])
+            print("Get Position Result" + ":\n" + "┗━ Branch: " + branch + "\n" + " " * 3 + "┗━ Layer: "
+                  + package[1].replace("\n", " ") + "\n" + " " * 6 + "┗━ Position: " + package[2])
         else:
             print(package[1])
 
     if action == "display_layer":
         if package[3]:
-            print("Get Layer Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Layer: "
-                  + package[1].replace("\n", " ") + "\n" + " " * 6 + "└─ Position: " + package[2])
+            print("Get Layer Result" + ":\n" + "┗━ Branch: " + branch + "\n" + " " * 3 + "┗━ Layer: "
+                  + package[1].replace("\n", " ") + "\n" + " " * 6 + "┗━ Position: " + package[2])
         else:
             print(package[2])
 
     if action == "export_branch":
         if package[2]:
             if package[3]:
-                print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "├─ Export: "
-                      + str(package[1]) + "\n" + " " * 3 + "└─ Package: " + str(package[2]))
+                print("Export Result" + ":\n" + "┗━ Branch: " + branch + "\n" + " " * 3 + "┣━ Export: "
+                      + str(package[1]) + "\n" + " " * 3 + "┗━ Package: " + str(package[2]))
             else:
                 print(str(package[1]))
                 print(str(package[2]))
         else:
             if package[3]:
-                print("Export Result" + ":\n" + "└─ Branch: " + branch + "\n" + " " * 3 + "└─ Export: "
+                print("Export Result" + ":\n" + "┗━ Branch: " + branch + "\n" + " " * 3 + "┗━ Export: "
                       + str(package[1]))
             else:
                 print(str(package[1]))
