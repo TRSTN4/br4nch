@@ -71,4 +71,5 @@ def set_paint_branch(argument_branch, argument_paint):
                 paint_branch.update({branches_branch: argument_paint})
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

@@ -108,7 +108,8 @@ class DisplayAssist:
                     display_branch(branch_uid, True)
 
             if error == 0:
-                raise NotExistingBranchError(branch)
+                if branch:
+                    raise NotExistingBranchError(branch)
 
     def set_layer_pos_name(self, branch, levels, trace, value, position_structure=""):
         """

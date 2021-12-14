@@ -89,7 +89,8 @@ class ReplaceLayer:
                                     paint_layer[branches_branch][number] = paint_layer[branches_branch].pop(number)
 
             if error == 0:
-                raise NotExistingBranchError(branch)
+                if branch:
+                    raise NotExistingBranchError(branch)
 
     def get_layers(self, branch, position, value):
         """

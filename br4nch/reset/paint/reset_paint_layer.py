@@ -68,7 +68,8 @@ class ResetPaintLayer:
                                                branches[branches_branch][list(branches[branches_branch])[0]])
 
             if error == 0:
-                raise NotExistingBranchError(branch)
+                if branch:
+                    raise NotExistingBranchError(branch)
 
     def reset_paint_layer(self, branch, position, value):
         """

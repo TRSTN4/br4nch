@@ -79,7 +79,8 @@ class DisplayPosition:
                                               branches[branches_branch][list(branches[branches_branch])[0]])
 
             if error == 0:
-                raise NotExistingBranchError(branch)
+                if branch:
+                    raise NotExistingBranchError(branch)
 
     def display_position(self, branch, position, string_position, argument_beautify, value):
         """

@@ -51,4 +51,5 @@ def reset_paint_header(argument_branch):
                 paint_header.update({branches_branch: []})
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

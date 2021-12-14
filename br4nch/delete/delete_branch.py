@@ -59,4 +59,5 @@ def delete_branch(argument_branch):
                 del paint_layer[branches_branch]
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

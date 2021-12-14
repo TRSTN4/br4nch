@@ -78,4 +78,5 @@ def duplicate_branch(argument_branch, argument_name, argument_package):
                 paint_layer.update({argument_name: {}})
 
     if error == 0:
-        raise NotExistingBranchError(argument_branch)
+        if argument_branch:
+            raise NotExistingBranchError(argument_branch)

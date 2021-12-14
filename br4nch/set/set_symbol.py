@@ -80,4 +80,5 @@ def set_symbol(argument_branch, argument_line, argument_split, argument_end):
                 symbols[branches_branch].update({"line": argument_line, "split": argument_split, "end": argument_end})
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

@@ -77,4 +77,5 @@ def replace_branch(argument_branch, argument_name):
                 uids[position] = uids.pop(position)
 
     if error == 0:
-        raise NotExistingBranchError(argument_branch)
+        if argument_branch:
+            raise NotExistingBranchError(argument_branch)

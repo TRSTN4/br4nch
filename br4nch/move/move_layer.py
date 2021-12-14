@@ -112,7 +112,8 @@ class MoveLayer:
                             add_value[1].update(add_value[0])
 
             if error == 0:
-                raise NotExistingBranchError(branch)
+                if branch:
+                    raise NotExistingBranchError(branch)
 
     def task_manager(self, branch, move, position, copied_layer, value):
         """

@@ -111,4 +111,5 @@ def export_branch(argument_branch, argument_package, argument_beautify, argument
                         raise NotExistingDirectoryError(argument_directory)
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

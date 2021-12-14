@@ -57,4 +57,5 @@ def replace_header(argument_branch, argument_name):
                     branches[branches_branch].pop(list(branches[branches_branch])[0])
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

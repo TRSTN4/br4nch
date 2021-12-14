@@ -95,4 +95,5 @@ def display_branch(argument_branch, argument_delete):
                 printer("display_branch", [branches_branch], argument_delete)
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

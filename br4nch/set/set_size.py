@@ -68,4 +68,5 @@ def set_size(argument_branch, argument_size):
                 sizes.update({branches_branch: argument_size})
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)

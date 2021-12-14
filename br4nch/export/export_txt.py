@@ -76,4 +76,5 @@ def export_text(argument_branch, argument_directory):
                     raise NotExistingDirectoryError(argument_directory)
 
         if error == 0:
-            raise NotExistingBranchError(branch)
+            if branch:
+                raise NotExistingBranchError(branch)
