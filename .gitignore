@@ -1,3 +1,9 @@
-__pycache__/
+# IDEA.
 .idea
-*.iml 
+*.iml
+
+# Python.
+__pycache__/
+
+# Test files.
+test.py
