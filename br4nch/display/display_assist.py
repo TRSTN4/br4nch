@@ -12,24 +12,30 @@ from br4nch.utility.utility_generator import generate_uid
 from br4nch.display.display_branch import display_branch
 
 
-def arguments(branch, size=0):
+def arguments(branch, size=0, line="", split="", end=""):
     """
     - Gets the arguments and parses them to the 'DisplayAssist' class.
     """
-    DisplayAssist(branch, size)
+    DisplayAssist(branch, size, line, split, end)
 
 
 class DisplayAssist:
-    def __init__(self, argument_branch, argument_size):
+    def __init__(self, argument_branch, argument_size, argument_line, argument_split, argument_end):
         """
         - Gets the arguments and parses them to the 'display_assist' function.
         """
-        self.display_assist(argument_branch, argument_size)
+        self.display_assist(argument_branch, argument_size, argument_line, argument_split, argument_end)
 
-    def display_assist(self, argument_branch, argument_size):
+    def display_assist(self, argument_branch, argument_size, argument_line, argument_split, argument_end):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+
+        Errors:
+          - If the size value is not an instance of a integer, then it raises an 'InstanceIntegerError' error.
+          - If the line value is not an instance of a string, then it raises an 'InstanceStringError' error.
+          - If the split value is not an instance of a string, then it raises an 'InstanceStringError' error.
+          - If the end value is not an instance of a string, then it raises an 'InstanceStringError' error.
 
         Operators:
           - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
@@ -49,6 +55,8 @@ class DisplayAssist:
               until a unique branch name is generated that does not yet exist in the 'branches' dictionary.
             - It then creates a deep copy of the current value of the 'branches_branch' value of the 'branches'
               directory and it is added as value to the 'branches' dictionary with the unique branch name as the key.
+            - If there is no value in any of the 'line', 'split' or 'end' arguments, the value that is currently active
+              of the missing arguments is used.
             - Then the unique branch name is added to the corresponding dictionaries with the default values as the
               value. The 'argument_size' variable will be updated to the 'sizes' dictionary.
             - Calls the function 'set_layer_pos_name' to add all positions to the corresponding layers.
@@ -60,7 +68,16 @@ class DisplayAssist:
         if not isinstance(argument_size, int):
             raise InstanceIntegerError("size", argument_size)
 
-        if argument_size < 0 or argument_size > 20:
+        if not isinstance(argument_line, str):
+            raise InstanceStringError("line", argument_line)
+
+        if not isinstance(argument_split, str):
+            raise InstanceStringError("split", argument_split)
+
+        if not isinstance(argument_end, str):
+            raise InstanceStringError("end", argument_end)
+
+        if int(argument_size) < 0 or int(argument_size) > 20:
             raise InvalidSizeError
 
         if "*" in argument_branch:
@@ -91,13 +108,20 @@ class DisplayAssist:
                             uids[branches_branch].remove(branch_uid[-10:])
                             break
 
+                    if not argument_line:
+                        argument_line = symbols[branches_branch]["line"]
+                    if not argument_split:
+                        argument_split = symbols[branches_branch]["split"]
+                    if not argument_end:
+                        argument_end = symbols[branches_branch]["end"]
+
                     branches.update({branch_uid: copy.deepcopy(branches[branches_branch])})
                     branches[branch_uid][str("0: " + list(branches[branches_branch])[0])] = \
                         branches[branch_uid].pop(list(branches[branch_uid])[0])
                     output.update({branch_uid: []})
                     uids.update({branch_uid: []})
                     sizes.update({branch_uid: argument_size})
-                    symbols.update({branch_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
+                    symbols.update({branch_uid: {"line": argument_line, "split": argument_split, "end": argument_end}})
                     paint_branch.update({branch_uid: ""})
                     paint_header.update({branch_uid: ""})
                     paint_layer.update({branch_uid: {}})
