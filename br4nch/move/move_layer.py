@@ -9,21 +9,21 @@ from br4nch.utility.utility_positioner import format_position
 from br4nch.utility.utility_generator import generate_uid
 
 
-def arguments(branch, move, position, paint=False):
+def arguments(branch, move, position, use="", paint=False):
     """
     - Gets the arguments and parses them to the 'MoveLayer' class.
     """
-    MoveLayer(branch, move, position, paint)
+    MoveLayer(branch, move, position, use, paint)
 
 
 class MoveLayer:
-    def __init__(self, argument_branch, argument_move, argument_position, argument_paint):
+    def __init__(self, argument_branch, argument_move, argument_position, argument_use, argument_paint):
         """
         - Gets the arguments and parses them to the 'move_layer' function.
         """
-        self.move_layer(argument_branch, argument_move, argument_position, argument_paint)
+        self.move_layer(argument_branch, argument_move, argument_position, argument_use, argument_paint)
 
-    def move_layer(self, argument_branch, argument_move, argument_position, argument_paint):
+    def move_layer(self, argument_branch, argument_move, argument_position, argument_use, argument_paint):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -31,6 +31,7 @@ class MoveLayer:
 
         Errors:
           - If the position argument is not an instance of a string, then it raises an 'InstanceStringError' error.
+          - If the use argument is not an instance of a boolean, then it raises an 'InstanceBooleanError' error.
           - If the paint argument is not an instance of a boolean, then it raises an 'InstanceBooleanError' error.
           - If the position argument is not equal to a number and/or operator, then it raises an 'InvalidPositionError'
             error.
@@ -47,7 +48,19 @@ class MoveLayer:
           Branches list loop:
             Argument copy list loop:
               - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_move'.
-              - Adds the second value in the returned package to the list 'queue_delete'.
+
+                If package:
+                  - Adds the second value in the returned package to the list 'queue_delete'.
+                  - The branches_branch value will be used as branch to move the chosen position(s) to.
+
+                  If argument_use:
+                    Branches list loop:
+                      Errors:
+                        - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError'
+                          error.
+
+                      - The argument_use value will be used as branch to move the chosen position(s) to.
+
               - Adds the first value in the returned package and calls the function 'task_manager' to perform the
                 necessary tasks for the variable 'argument_position' and adds the returned dictionary in a list to the
                 list 'queue_add'.
@@ -60,6 +73,9 @@ class MoveLayer:
 
         if not isinstance(argument_move, list):
             argument_move = [argument_move]
+
+        if not isinstance(argument_use, str):
+            raise InstanceStringError("use", argument_use)
 
         if not isinstance(argument_position, str):
             raise InstanceStringError("position", argument_position)
@@ -96,10 +112,25 @@ class MoveLayer:
                         if package:
                             queue_delete.append(package[1])
 
-                            queue_add.append([package[0], self.task_manager(branches_branch, [],
-                                                                            argument_position.split("."),
-                                                                            package[0], branches[branches_branch]
-                                                                            [list(branches[branches_branch])[0]])])
+                            move_branch = branches_branch
+
+                            if argument_use:
+                                include_error = 0
+
+                                for branches_branch_two in list(branches):
+                                    if argument_use.lower() == branches_branch_two.lower():
+                                        include_error = include_error + 1
+
+                                        move_branch = argument_use
+
+                                if include_error == 0:
+                                    if argument_use:
+                                        raise NotExistingBranchError(argument_use)
+
+                            queue_add.append([package[0], self.task_manager(move_branch, [],
+                                                                            argument_position.split("."), package[0],
+                                                                            branches[move_branch]
+                                                                            [list(branches[move_branch])[0]])])
 
                     for delete_value in queue_delete:
                         if delete_value:
@@ -107,9 +138,9 @@ class MoveLayer:
                                 del value[layer]
 
                     for add_value in queue_add:
-                        if add_value:
-                            self.change_layer_uid(branches_branch, argument_paint, add_value[0])
-                            add_value[1].update(add_value[0])
+                        if add_value and add_value[0] and add_value[1]:
+                            self.change_layer_uid(list(add_value[1])[0], argument_paint, add_value[0])
+                            add_value[1][list(add_value[1])[0]].update(add_value[0])
 
             if error == 0:
                 if branch:
@@ -117,6 +148,9 @@ class MoveLayer:
 
     def task_manager(self, branch, move, position, copied_layer, value):
         """
+        - If the first 'position' element variable is equal to '0', then it returns the whole branch from the 'branches'
+          dictionary.
+
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
 
@@ -129,9 +163,6 @@ class MoveLayer:
               variable, then the first value from the 'move' list will be removed and the 'task_manager'
               function will be called again with the new value of the 'value' variable as argument.
 
-          - If the first 'position' element variable is equal to '0', then it returns the whole branch from the
-            'branches' dictionary.
-
           Count variable equal to the first value of 'position':
             If the length of the 'position' list is equal to '1':
               - Returns the current value of the 'value' variable.
@@ -142,6 +173,9 @@ class MoveLayer:
         """
         count = 0
         previous_value = value
+
+        if position and position[0] == "0":
+            return {branch: branches[branch][list(branches[branch])[0]]}
 
         for layer, value in value.items():
             count = count + 1
@@ -154,12 +188,9 @@ class MoveLayer:
                         move.pop(0)
                         return self.task_manager(branch, move, position, copied_layer, value)
 
-            if position and position[0] == "0":
-                return branches[branch][list(branches[branch])[0]]
-
             if position and count == int(position[0]):
                 if len(position) == 1:
-                    return value
+                    return {branch: value}
                 else:
                     if value:
                         position.pop(0)
