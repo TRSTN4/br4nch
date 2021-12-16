@@ -42,8 +42,10 @@ class ReplaceLayer:
             - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
 
           Argument copy list loop:
-            - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_copy' and
-              loops through the items from the returned dictionary and replaces all given layers from the mandatory
+            - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_copy'
+            - If the last character in 'argument_name' is equal to a newline/'\n', then it removes it from
+              'argument_name'.
+            - Loops through the items from the returned dictionary and replaces all given layers from the mandatory
               dictionaries.
             - To keep the order the same, a loop will be made that loops through the 'value' dictionary and
               'paint_layer' list with the given slice values, removing all values and adding them again.
@@ -77,6 +79,12 @@ class ReplaceLayer:
                                                          branches[branches_branch][list(branches[branches_branch])[0]])
                         if returned_value:
                             for layer, value in returned_value.items():
+                                while True:
+                                    if argument_name[-1] == "\n":
+                                        argument_name = argument_name[:-1]
+                                    else:
+                                        break
+
                                 new_layer = argument_name + generate_uid(branches_branch)
                                 uids[branches_branch].remove(layer[-10:])
                                 paint_layer[branches_branch][new_layer] = paint_layer[branches_branch].pop(layer)

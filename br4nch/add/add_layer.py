@@ -86,6 +86,8 @@ class AddLayer:
           Errors:
             - If the 'loop_layer' value is not an instance of a string, then it raises an 'InstanceStringError' error.
 
+          - If the last character in 'loop_layer' is equal to a newline/'\n', then it removes it from 'loop_layer'.
+
           - If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and in
             each loop it will add the current layer with a generated UID to the value to the 'paint_layer' list and to
             the 'value' dictionary from the 'branches' dictionary.
@@ -98,6 +100,8 @@ class AddLayer:
               Errors:
                 - If the layer value is not an instance of a string, then it raises an 'InstanceStringError' error.
 
+              - If the last character in 'loop_layer' is equal to a newline/'\n', then it removes it from 'loop_layer'.
+
               - Then it will add the current layer with a generated UID to the value to the 'paint_layer' list and to
                 the 'value' dictionary from the 'branches' dictionary.
 
@@ -109,6 +113,12 @@ class AddLayer:
             for loop_layer in argument_layer:
                 if not isinstance(loop_layer, str):
                     raise InstanceStringError("layer", loop_layer)
+
+                while True:
+                    if loop_layer[-1] == "\n":
+                        loop_layer = loop_layer[:-1]
+                    else:
+                        break
 
                 uid_layer = loop_layer + generate_uid(branch)
 
@@ -126,6 +136,12 @@ class AddLayer:
                     for loop_layer in argument_layer:
                         if not isinstance(loop_layer, str):
                             raise InstanceStringError("layer", loop_layer)
+
+                        while True:
+                            if loop_layer[-1] == "\n":
+                                loop_layer = loop_layer[:-1]
+                            else:
+                                break
 
                         uid_layer = loop_layer + generate_uid(branch)
 
