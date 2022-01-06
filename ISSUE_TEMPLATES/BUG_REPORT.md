@@ -1,6 +1,6 @@
-### Subject of the issue
+### Description
 
-Describe your issue here.
+Describe the bug here.
 
 ### Your environment
 
@@ -17,3 +17,4 @@ Tell us what should happen
 ### Actual behaviour
 
 Tell us what happens instead
+
