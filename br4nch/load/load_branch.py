@@ -107,6 +107,6 @@ def load_branch(argument_branch, argument_package):
             uids.update({list(argument_branch)[0]: []})
             sizes.update({list(argument_branch)[0]: 0})
             symbols.update({list(argument_branch)[0]: {"line": "┃", "split": "┣━", "end": "┗━"}})
-            paint_branch.update({list(argument_branch)[0]: {}})
-            paint_header.update({list(argument_branch)[0]: {}})
+            paint_branch.update({list(argument_branch)[0]: []})
+            paint_header.update({list(argument_branch)[0]: []})
             paint_layer.update({list(argument_branch)[0]: {}})
