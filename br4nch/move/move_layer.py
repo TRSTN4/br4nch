@@ -9,21 +9,21 @@ from br4nch.utility.utility_positioner import format_position
 from br4nch.utility.utility_generator import generate_uid
 
 
-def arguments(branch, move, position, use="", paint=False):
+def arguments(branch, move, position, put="", paint=False):
     """
     - Gets the arguments and parses them to the 'MoveLayer' class.
     """
-    MoveLayer(branch, move, position, use, paint)
+    MoveLayer(branch, move, position, put, paint)
 
 
 class MoveLayer:
-    def __init__(self, argument_branch, argument_move, argument_position, argument_use, argument_paint):
+    def __init__(self, argument_branch, argument_move, argument_position, argument_put, argument_paint):
         """
         - Gets the arguments and parses them to the 'move_layer' function.
         """
-        self.move_layer(argument_branch, argument_move, argument_position, argument_use, argument_paint)
+        self.move_layer(argument_branch, argument_move, argument_position, argument_put, argument_paint)
 
-    def move_layer(self, argument_branch, argument_move, argument_position, argument_use, argument_paint):
+    def move_layer(self, argument_branch, argument_move, argument_position, argument_put, argument_paint):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -31,7 +31,7 @@ class MoveLayer:
 
         Errors:
           - If the position argument is not an instance of a string, then it raises an 'InstanceStringError' error.
-          - If the use argument is not an instance of a boolean, then it raises an 'InstanceBooleanError' error.
+          - If the put argument is not an instance of a boolean, then it raises an 'InstanceBooleanError' error.
           - If the paint argument is not an instance of a boolean, then it raises an 'InstanceBooleanError' error.
           - If the position argument is not equal to a number and/or operator, then it raises an 'InvalidPositionError'
             error.
@@ -53,13 +53,13 @@ class MoveLayer:
                   - Adds the second value in the returned package to the list 'queue_delete'.
                   - The branches_branch value will be used as branch to move the chosen position(s) to.
 
-                  If argument_use:
+                  If argument_put:
                     Branches list loop:
                       Errors:
                         - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError'
                           error.
 
-                      - The argument_use value will be used as branch to move the chosen position(s) to.
+                      - The argument_put value will be used as branch to move the chosen position(s) to.
 
               - Adds the first value in the returned package and calls the function 'task_manager' to perform the
                 necessary tasks for the variable 'argument_position' and adds the returned dictionary in a list to the
@@ -74,8 +74,8 @@ class MoveLayer:
         if not isinstance(argument_move, list):
             argument_move = [argument_move]
 
-        if not isinstance(argument_use, str):
-            raise InstanceStringError("use", argument_use)
+        if not isinstance(argument_put, str):
+            raise InstanceStringError("put", argument_put)
 
         if not isinstance(argument_position, str):
             raise InstanceStringError("position", argument_position)
@@ -114,18 +114,18 @@ class MoveLayer:
 
                             move_branch = branches_branch
 
-                            if argument_use:
-                                include_error = 0
+                            if argument_put:
+                                put_error = 0
 
                                 for branches_branch_two in list(branches):
-                                    if argument_use.lower() == branches_branch_two.lower():
-                                        include_error = include_error + 1
+                                    if argument_put.lower() == branches_branch_two.lower():
+                                        put_error = put_error + 1
 
-                                        move_branch = argument_use
+                                        move_branch = argument_put
 
-                                if include_error == 0:
-                                    if argument_use:
-                                        raise NotExistingBranchError(argument_use)
+                                if put_error == 0:
+                                    if argument_put:
+                                        raise NotExistingBranchError(argument_put)
 
                             queue_add.append([package[0], self.task_manager(move_branch, [],
                                                                             argument_position.split("."), package[0],

@@ -10,23 +10,23 @@ from br4nch.utility.utility_positioner import format_position
 from br4nch.utility.utility_generator import generate_uid
 
 
-def arguments(branch, duplicate, position, include="", paint=False, delete=False):
+def arguments(branch, duplicate, position, put="", paint=False, delete=False):
     """
     - Gets the arguments and parses them to the 'DuplicateLayer' class.
     """
-    DuplicateLayer(branch, duplicate, position, include, paint, delete)
+    DuplicateLayer(branch, duplicate, position, put, paint, delete)
 
 
 class DuplicateLayer:
-    def __init__(self, argument_branch, argument_duplicate, argument_position, argument_include, argument_paint,
+    def __init__(self, argument_branch, argument_duplicate, argument_position, argument_put, argument_paint,
                  argument_delete):
         """
         - Gets the arguments and parses them to the 'duplicate_layer' function.
         """
-        self.duplicate_layer(argument_branch, argument_duplicate, argument_position, argument_include, argument_paint,
+        self.duplicate_layer(argument_branch, argument_duplicate, argument_position, argument_put, argument_paint,
                              argument_delete)
 
-    def duplicate_layer(self, argument_branch, argument_duplicate, argument_position, argument_include, argument_paint,
+    def duplicate_layer(self, argument_branch, argument_duplicate, argument_position, argument_put, argument_paint,
                         argument_delete):
         """
         Lists:
@@ -35,7 +35,7 @@ class DuplicateLayer:
             list.
           - If the given position argument is not an instance of a list, then the position argument will be set as a
             list.
-          - If the given include argument is not an instance of a list, then the include argument will be set as a list.
+          - If the given put argument is not an instance of a list, then the put argument will be set as a list.
 
         Errors:
           - If the paint value is not an instance of a boolean, then it raises an 'InstanceBooleanError' error.
@@ -44,8 +44,7 @@ class DuplicateLayer:
         Operators:
           - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
             list.
-          - If there a '*' in the 'argument_include' list, Then it appends all existing branches to the
-            'argument_include' list.
+          - If there a '*' in the 'argument_put' list, Then it appends all existing branches to the 'argument_put' list.
 
         Argument branch list loop:
           Errors:
@@ -60,7 +59,10 @@ class DuplicateLayer:
                 If package:
                   - Adds the second value in the returned package to the list 'queue_delete'.
 
-                  Branch and include branches merge loop:
+                  - If the 'put' argument is not used. The 'argument_put' list will be changed to the current branch
+                    value in a list.
+
+                  Argument put list loop:
                     Errors:
                       - If the branch value is not an instance of a string, then it raises an 'InstanceStringError'
                         error.
@@ -84,8 +86,8 @@ class DuplicateLayer:
         if not isinstance(argument_position, list):
             argument_position = [argument_position]
 
-        if not isinstance(argument_include, list):
-            argument_include = [argument_include]
+        if not isinstance(argument_put, list):
+            argument_put = [argument_put]
 
         if not isinstance(argument_delete, bool):
             raise InstanceBooleanError("paint", argument_paint)
@@ -98,10 +100,10 @@ class DuplicateLayer:
             for branches_branch in list(branches):
                 argument_branch.append(branches_branch)
 
-        if "*" in argument_include:
-            argument_include.clear()
+        if "*" in argument_put:
+            argument_put.clear()
             for branches_branch in list(branches):
-                argument_include.append(branches_branch)
+                argument_put.append(branches_branch)
 
         for branch in argument_branch:
             error = 0
@@ -124,15 +126,18 @@ class DuplicateLayer:
                             if package:
                                 queue_delete.append(package[1])
 
-                                for include_branch in [branches_branch] + argument_include:
-                                    include_error = 0
+                                if len(argument_put) == 1 and not argument_put[0]:
+                                    argument_put = [branches_branch]
 
-                                    if not isinstance(include_branch, str):
-                                        raise InstanceStringError("include", include_branch)
+                                for put_branch in argument_put:
+                                    put_error = 0
+
+                                    if not isinstance(put_branch, str):
+                                        raise InstanceStringError("put", put_branch)
 
                                     for branches_branch_two in list(branches):
-                                        if include_branch.lower() == branches_branch_two.lower():
-                                            include_error = include_error + 1
+                                        if put_branch.lower() == branches_branch_two.lower():
+                                            put_error = put_error + 1
 
                                             queue_add.append([package[0], self.task_manager(branches_branch_two, [],
                                                                                             loop_position,
@@ -143,9 +148,9 @@ class DuplicateLayer:
                                                                                                   [branches_branch_two])
                                                                                             [0]])])
 
-                                    if include_error == 0:
-                                        if include_branch:
-                                            raise NotExistingBranchError(include_branch)
+                                    if put_error == 0:
+                                        if put_branch:
+                                            raise NotExistingBranchError(put_branch)
 
                     if argument_delete:
                         for delete_value in queue_delete:
@@ -254,7 +259,7 @@ class DuplicateLayer:
             new value of the 'value' variable as argument.
         """
         previous_value = value
-        print(branch)
+
         for layer, value in value.copy().items():
             new_layer = layer[:-15] + generate_uid(branch)
 
