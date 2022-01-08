@@ -7,25 +7,28 @@ import os
 from br4nch.utility.utility_librarian import output, uids, sizes, symbols, paint_branch, paint_header, paint_layer, \
     branches
 from br4nch.utility.utility_generator import generate_uid
-from br4nch.utility.utility_handler import InstanceStringError, NotExistingDirectoryError, InvalidBranchNameError, \
-    DuplicateBranchError
+from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingDirectoryError, \
+    InvalidBranchNameError, DuplicateBranchError
 
 
-def arguments(branch, directory, header="", include="", exclude=""):
+def arguments(branch, directory, header="", include="", exclude="", unused=True, folder_priority=True):
     """
     - Gets the arguments and parses them to the 'LoadFolder' class.
     """
-    LoadFolder(branch, directory, header, include, exclude)
+    LoadFolder(branch, directory, header, include, exclude, unused, folder_priority)
 
 
 class LoadFolder:
-    def __init__(self, argument_branch, argument_directory, argument_header, argument_include, argument_exclude):
+    def __init__(self, argument_branch, argument_directory, argument_header, argument_include, argument_exclude,
+                 argument_unused, argument_folder_priority):
         """
         - Gets the arguments and parses them to the 'load_folder' function.
         """
-        self.load_folder(argument_branch, argument_directory, argument_header, argument_include, argument_exclude)
+        self.load_folder(argument_branch, argument_directory, argument_header, argument_include, argument_exclude,
+                         argument_unused, argument_folder_priority)
 
-    def load_folder(self, argument_branch, argument_directory, argument_header, argument_include, argument_exclude):
+    def load_folder(self, argument_branch, argument_directory, argument_header, argument_include, argument_exclude,
+                    argument_unused, argument_folder_priority):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -36,9 +39,15 @@ class LoadFolder:
         Errors:
           - If the directory value is not an instance of a string, then it raises an 'InstanceStringError' error.
           - If the header value is not an instance of a string, then it raises an 'InstanceStringError' error.
+          - If the unused value is not an instance of a boolean, then it raises an 'InstanceBooleanError' error.
+          - If the folder_priority value is not an instance of a boolean, then it raises an 'InstanceBooleanError'
+            error.
 
         - If the 'argument_header' argument does not have a value, then the root 'argument_directory' argument will be
           used as header value.
+
+        - If the 'argument_folder_priority' variable is True, then it changes 'True' to 'False' and if the
+          'argument_folder_priority' variable is False, then it changes 'False' to 'True'.
 
         Argument branch list loop:
           Errors:
@@ -52,20 +61,24 @@ class LoadFolder:
 
           - Loops through the given folder and adds all files to the list of 'paths'.
 
-          Paths list loop:
+          - The 'path_length' variable is used to get the total length of all folders in the 'argument_directory'
+            variable using the '.split' function. The 'path_length' variable is then used to slice all folders except
+            the last one in the 'argument_directory' variable.
+
+          Paths length loop:
             If 'argument_exclude':
               argument_exclude list loop:
                 - If the first character in the 'extension' variable is equal to '.', then a '.' will be appended to the
                   'extension' value.
-                - If the current extension from the 'path' value is equal to the 'extension' value, then the current
-                  'path' value will be removed from the 'paths' list.
+                - If the current extension from the 'path' value is equal to the 'extension' value, then it deletes the
+                  file from the current 'path' value.
 
             If 'argument_exclude':
               argument_include list loop:
                 - If the first character in the 'extension' variable is equal to '.', then a '.' will be appended to the
                   'extension' value.
-                - If the current extension from the 'path' value is not equal to the 'extension' value, then the current
-                  'path' value will be removed from the 'paths' list.
+                - If the current extension from the 'path' value is not equal to the 'extension' value, then it deletes
+                  the file from the current 'path' value.
 
           Paths list loop:
             Path number split loop:
@@ -95,11 +108,22 @@ class LoadFolder:
         if not isinstance(argument_header, str):
             raise InstanceStringError("header", argument_header)
 
+        if not isinstance(argument_unused, bool):
+            raise InstanceBooleanError("unused", argument_unused)
+
+        if not isinstance(argument_folder_priority, bool):
+            raise InstanceBooleanError("folder_priority", argument_folder_priority)
+
         if not os.path.isdir(argument_directory):
             raise NotExistingDirectoryError(argument_directory)
 
         if not argument_header:
             argument_header = argument_directory
+
+        if argument_folder_priority:
+            argument_folder_priority = False
+        else:
+            argument_folder_priority = True
 
         for branch in argument_branch:
             if not isinstance(branch, str):
@@ -115,20 +139,32 @@ class LoadFolder:
             structure = {argument_header: {}}
             paths = []
 
-            for root, _, files in os.walk(argument_directory):
+            for root, dirs, files in os.walk(argument_directory, topdown=argument_folder_priority):
+                paths.append(root.replace("\\", "/"))
+
                 for file in files:
                     paths.append(root.replace("\\", "/") + "/" + file)
 
-            for path in paths.copy():
+            path_length = len(argument_directory.replace("\\", "/").split("/"))
+
+            for number in range(len(paths)):
                 if argument_exclude:
                     for extension in argument_exclude:
                         if extension:
                             if not extension[0] == ".":
                                 extension = "." + extension
 
-                            if path[-len(extension):] == extension:
-                                if path in paths:
-                                    paths.remove(path)
+                            if paths[number][-len(extension):] == extension:
+                                if paths[number] in paths:
+                                    if not argument_unused:
+                                        paths[number] = "/"
+                                    else:
+                                        path = ""
+                                        if "." in paths[number].split("/")[-1]:
+                                            for folder in paths[number].split("/")[:-1]:
+                                                path = path + "/" + folder
+
+                                            paths[number] = path[1:]
 
                 if argument_include:
                     for extension in argument_include:
@@ -136,18 +172,27 @@ class LoadFolder:
                             if not extension[0] == ".":
                                 extension = "." + extension
 
-                            if path[-len(extension):] != extension:
-                                if path in paths:
-                                    paths.remove(path)
+                            if paths[number][-len(extension):] != extension:
+                                if paths[number] in paths:
+                                    if not argument_unused:
+                                        paths[number] = "/"
+                                    else:
+                                        path = ""
+                                        if "." in paths[number].split("/")[-1]:
+                                            for folder in paths[number].split("/")[:-1]:
+                                                path = path + "/" + folder
+
+                                            paths[number] = path[1:]
 
             for path in paths:
-                for number in range(len(path.split("/")[1:])):
+                for number in range(len(path.split("/")[path_length:])):
                     previous_file = []
 
                     if number - 1 >= 0:
-                        previous_file = path.split("/")[1:number - len(path.split("/")[1:])]
+                        previous_file = path.split("/")[path_length:number - len(path.split("/")[path_length:])]
 
-                    self.create_structure(path.split("/")[1:][number], [argument_header] + previous_file, structure)
+                    self.create_structure(path.split("/")[path_length:][number], [argument_header] + previous_file,
+                                          structure)
 
             output.update({branch: []})
             uids.update({branch: []})
