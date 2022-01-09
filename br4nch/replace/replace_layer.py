@@ -80,7 +80,7 @@ class ReplaceLayer:
                         if returned_value:
                             for layer, value in returned_value.items():
                                 while True:
-                                    if argument_name[-1] == "\n":
+                                    if argument_name and argument_name[-1] == "\n":
                                         argument_name = argument_name[:-1]
                                     else:
                                         break

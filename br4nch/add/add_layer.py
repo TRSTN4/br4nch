@@ -115,7 +115,7 @@ class AddLayer:
                     raise InstanceStringError("layer", loop_layer)
 
                 while True:
-                    if loop_layer[-1] == "\n":
+                    if loop_layer and loop_layer[-1] == "\n":
                         loop_layer = loop_layer[:-1]
                     else:
                         break
@@ -138,7 +138,7 @@ class AddLayer:
                             raise InstanceStringError("layer", loop_layer)
 
                         while True:
-                            if loop_layer[-1] == "\n":
+                            if loop_layer and loop_layer[-1] == "\n":
                                 loop_layer = loop_layer[:-1]
                             else:
                                 break
