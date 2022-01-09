@@ -1,7 +1,12 @@
+import subprocess
 from os import path
 from setuptools import setup, find_packages
 
-version = "1.1"
+version = (
+    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
+    .stdout.decode("utf-8")
+    .strip()
+).split("-")[0]
 
 with open(path.join(path.abspath(path.dirname(__file__)), 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
