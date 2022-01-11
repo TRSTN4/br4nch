@@ -19,9 +19,13 @@ All types of contributions are encouraged and valued. Please make sure to read t
 > - Refer this project in your project’s readme
 > - Mention the project at local meetups and tell your friends/colleagues
 
+## Versioning
+
+We use [SemVer](https://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/TRSTN4/br4nch/tags).
+
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [br4nch Code of Conduct](https://github.com/TRSTN4/br4nch/blob/release/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [report@br4nch.com](mailto:report@br4nch.com).
+This project and everyone participating in it is governed by the [Code of Conduct](https://github.com/TRSTN4/br4nch/blob/release/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [tristan@trstn4.com](mailto:report@br4nch.com).
 
 ## I Have a Question
 
@@ -59,7 +63,7 @@ A good bug report shouldn’t leave others needing to chase you up for more info
 
 #### How Do I Submit a Good Bug Report?
 
-> You must never report security related issues, vulnerabilities or bugs to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to [findings@br4nch.com](mailto:findings@br4nch.com).
+> You must never report security related issues, vulnerabilities or bugs to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to [tristan@trstn4.com](mailto:findings@br4nch.com).
 
 We use GitHub issues to track bugs and errors. If you run into an issue with the project:
 

@@ -11,11 +11,11 @@
 
 ## Functions
 
-- Add
+- Create
 
-  - [add.branch](functions/add/add.branch.md)
+  - [create.branch](functions/create/create.branch.md)
 
-  - [add.layer](functions/add/add.layer.md)
+  - [create.layer](functions/create/create.layer.md)
 
 - Duplicate
   - [duplicate.branch](functions/duplicate/duplicate.branch.md)

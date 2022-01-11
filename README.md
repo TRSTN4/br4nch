@@ -23,11 +23,9 @@
   <a href="#support-me">Donate</a>
 </p>
 
-
-
-## What is br4nch?
-
 **br4nch** is a data structure tree generator for Python.
+
+## Basics
 
 Here is an example of the very basics of **br4nch**:
 
@@ -93,6 +91,20 @@ If you think you've found a bug or want to request a feature:
 To report a bug or request a feature:
 
 - Report at our [issue tracker](https://github.com/TRSTN4/br4nch/issues)
+
+## Versioning
+
+We use [SemVer](https://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/TRSTN4/br4nch/tags).
+
+## Authors
+
+- [TRSTN4](https://github.com/TRSTN4)
+
+See also the list of [contributors](https://github.com/TRSTN4/br4nch/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the GPL-3.0 License - see the [LICENSE](https://github.com/TRSTN4/br4nch/blob/release/LICENSE) file for details
 
 ## Support me?
 
