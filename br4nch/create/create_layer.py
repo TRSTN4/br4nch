@@ -10,12 +10,12 @@ from br4nch.utility.utility_generator import generate_uid
 
 def arguments(branch, layer, position):
     """
-    - Gets the arguments and parses them to the 'AddLayer' class.
+    - Gets the arguments and parses them to the 'CreateLayer' class.
     """
-    AddLayer(branch, layer, position)
+    CreateLayer(branch, layer, position)
 
 
-class AddLayer:
+class CreateLayer:
     def __init__(self, argument_branch, argument_layer, argument_position):
         """
         - Gets the arguments and parses them to the 'build_position_structure' function.
@@ -73,14 +73,14 @@ class AddLayer:
                     error = error + 1
 
                     for position in format_position(branches_branch, argument_position):
-                        self.add_layer(branches_branch, argument_layer, position,
-                                       branches[branches_branch][list(branches[branches_branch])[0]])
+                        self.create_layer(branches_branch, argument_layer, position,
+                                          branches[branches_branch][list(branches[branches_branch])[0]])
 
             if error == 0:
                 if branch:
                     raise NotExistingBranchError(branch)
 
-    def add_layer(self, branch, argument_layer, position, value):
+    def create_layer(self, branch, argument_layer, position, value):
         """
         Position variable equal to zero:
           Errors:
@@ -89,8 +89,8 @@ class AddLayer:
           - If the last character in 'loop_layer' is equal to a newline/'\n', then it removes it from 'loop_layer'.
 
           - If the first value in the 'position' is equal to a '0' then the 'argument_layer' variable is looped and in
-            each loop it will add the current layer with a generated UID to the value to the 'paint_layer' list and to
-            the 'value' dictionary from the 'branches' dictionary.
+            each loop it will create the current layer with a generated UID to the value to the 'paint_layer' list and
+            to the 'value' dictionary from the 'branches' dictionary.
 
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable is added with plus '1'.
@@ -102,7 +102,7 @@ class AddLayer:
 
               - If the last character in 'loop_layer' is equal to a newline/'\n', then it removes it from 'loop_layer'.
 
-              - Then it will add the current layer with a generated UID to the value to the 'paint_layer' list and to
+              - Then it will create the current layer with a generated UID to the value to the 'paint_layer' list and to
                 the 'value' dictionary from the 'branches' dictionary.
 
             - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
@@ -151,4 +151,4 @@ class AddLayer:
                 else:
                     if value:
                         position.pop(0)
-                        return self.add_layer(branch, argument_layer, position, value)
+                        return self.create_layer(branch, argument_layer, position, value)

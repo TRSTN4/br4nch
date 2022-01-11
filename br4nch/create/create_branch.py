@@ -9,12 +9,12 @@ from br4nch.utility.utility_librarian import branches, output, uids, sizes, symb
 
 def arguments(branch, header):
     """
-    - Gets the arguments and parses them to the 'add_branch' function.
+    - Gets the arguments and parses them to the 'create_branch' function.
     """
-    add_branch(branch, header)
+    create_branch(branch, header)
 
 
-def add_branch(argument_branch, argument_header):
+def create_branch(argument_branch, argument_header):
     """
     Lists:
       - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -32,7 +32,7 @@ def add_branch(argument_branch, argument_header):
         Errors:
           - If the branch is already in the 'branches' dictionary, then it raises a 'DuplicateBranchError' error.
 
-      - Then it will add the current branch key in all the mandatory dictionaries with the needed value.
+      - Then it will create the current branch key in all the mandatory dictionaries with the needed value.
     """
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
