@@ -204,12 +204,12 @@ class NotExistingPaintError(Exception):
 
 class MaximumPaintSlotsError(Exception):
     """
-    - If the length of the 'paint' list is bigger than '4', then it raises a 'MaximumPaintSlotsError' error.
+    - If the length of the 'paint' list is bigger than '3', then it raises a 'MaximumPaintSlotsError' error.
     """
     __module__ = Exception.__module__
 
     def __str__(self):
-        return "The maximum paint slots that can be used is '4'."
+        return "The maximum paint slots that can be used is '3'."
 
 
 class DuplicateBranchError(Exception):

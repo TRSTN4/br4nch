@@ -240,7 +240,7 @@ NotExistingPaintError: The paint: 'RandomColor' does not exists.
 
 ## MaximumPaintSlotsError
 
-This error occurs when more than four paint slots are used
+This error occurs when more than three paint slots are used
 
 **This error occurs in the following functions:**
 
@@ -249,9 +249,9 @@ This error occurs when more than four paint slots are used
 Here's an example:
 
 ```python
->>> br4nch.set.paint.branch(branch="MyBranch", paint=["red", "yellow", "green", "cyan", "blue"])
+>>> br4nch.set.paint.branch(branch="MyBranch", paint=["red", "yellow", "green", "cyan"])
 >>> 
-MaximumPaintSlotsError: The maximum paint slots that can be used is '4'.
+MaximumPaintSlotsError: The maximum paint slots that can be used is '3'.
 ```
 
 

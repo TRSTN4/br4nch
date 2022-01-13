@@ -16,9 +16,6 @@ Here is a list of all the possible paints that can be selected:
 - White
 - Bold
 - Underline
-- Reversing
-
-
 
 ## How to use?
 

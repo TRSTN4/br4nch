@@ -65,7 +65,7 @@ def set_paint_branch(argument_branch, argument_paint):
                         raise InstanceStringError("paint", paint)
 
                     if paint.lower() not in ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white",
-                                             "bold", "underline", "reversing"]:
+                                             "bold", "underline"]:
                         raise NotExistingPaintError(paint)
 
                 paint_branch.update({branches_branch: argument_paint})

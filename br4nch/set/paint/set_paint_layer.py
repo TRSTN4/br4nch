@@ -108,7 +108,7 @@ class SetPaintLayer:
                             raise InstanceStringError("paint", paint)
 
                         if paint.lower() not in ["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white",
-                                                 "bold", "underline", "reversing"]:
+                                                 "bold", "underline"]:
                             raise NotExistingPaintError(paint)
 
                     paint_layer[branch].update({layer: paint_package})
