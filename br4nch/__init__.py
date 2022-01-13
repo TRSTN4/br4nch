@@ -4,7 +4,7 @@
 
 """br4nch - Data Structure Tree Builder for Python."""
 
-__version__ = "1.1.2"
+__version__ = "1.1.3"
 __author__ = "TRSTN4"
 __author_email__ = "tristan@trstn4.com"
 __description__ = "Data Structure Tree Generator for Python."
