@@ -10,7 +10,7 @@ with open(path.join(path.abspath(path.dirname(__file__)), 'README.md'), encoding
 setup(
     name="br4nch",
     version=__version__,
-    description="br4nch is a data structure tree generator for Python.",
+    description="Data Structure Tree Builder for Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/TRSTN4/br4nch",
