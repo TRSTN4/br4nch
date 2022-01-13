@@ -1,19 +1,15 @@
-import subprocess
 from os import path
 from setuptools import setup, find_packages
 
-version = (
-    subprocess.run(["git", "describe", "--tags"], stdout=subprocess.PIPE)
-    .stdout.decode("utf-8")
-    .strip()
-).split("-")[0]
+from br4nch import __version__
+
 
 with open(path.join(path.abspath(path.dirname(__file__)), 'README.md'), encoding='utf-8') as file:
     long_description = file.read()
 
 setup(
     name="br4nch",
-    version=version,
+    version=__version__,
     description="br4nch is a data structure tree generator for Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -26,7 +22,7 @@ setup(
         "Programming Language :: Python :: 3.9"],
     keywords=["br4nch", "python", "python3", "data", "structure", "tree", "generate", "algorithm"],
     license="GNU General Public License v3.0",
-    download_url="https://github.com/TRSTN4/br4nch/archive/refs/tags/" + version + ".tar.gz",
+    download_url="https://github.com/TRSTN4/br4nch/archive/refs/tags/" + __version__ + ".tar.gz",
     packages=find_packages(),
     install_requires=[],
     python_requires='>=3'
