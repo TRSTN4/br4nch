@@ -20,7 +20,7 @@ setup(
         "Intended Audience :: Developers",
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3.9"],
-    keywords=["br4nch", "python", "python3", "data", "structure", "tree", "generate", "algorithm"],
+    keywords=["br4nch", "python", "python3", "data", "structure", "tree", "builder", "generate", "algorithm"],
     license="GNU General Public License v3.0",
     download_url="https://github.com/TRSTN4/br4nch/archive/refs/tags/" + __version__ + ".tar.gz",
     packages=find_packages(),
