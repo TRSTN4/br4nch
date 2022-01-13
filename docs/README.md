@@ -1,4 +1,4 @@
-# br4nch: Data structure tree generator for Python
+# br4nch: Data Structure Tree Buider for Python
 
 <p align="center">
     <a href="https://github.com/TRSTN4/br4nch/issues">
@@ -22,9 +22,6 @@
   <a href="#got-a-question">Questions</a> •
   <a href="#support-me">Donate</a>
 </p>
-
-**br4nch** is a data structure tree generator for Python.
-
 ## Basics
 
 Here is an example of the very basics of **br4nch**:
