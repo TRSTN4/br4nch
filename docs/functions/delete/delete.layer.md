@@ -41,7 +41,7 @@ Information
 ┗━ Food
    ┗━ Bread
     
-# To delete a layer, specify the position attatched to the layer you want to delete.
+# To delete a layer, specify the position linked to the layer you want to delete.
 >>> br4nch.delete.layer(branch="Board", position="1")
 
 >>> br4nch.display.branch(branch="Board")
