@@ -4,18 +4,30 @@ To delete a branch, use the **following function:**
 
 > br4nch.**delete**.**branch**(*branch*)
 
-**Required arguments:**
+---
 
-- branch - This is the argument where you specify the name of the branch(es) that will be deleted.
+**Required argument(s):**
 
-Here's an example of the minimum/required arguments for this function:
+- *branch* - The name of the branch(es) that will be deleted.
+
+---
+
+**Argument(s) supporting a list:**
+Every argument in here supports a list.
+Example: *branch=["MyFirstBranch", "MySecondBranch"]*
+
+- *branch*
+
+---
+
+**Here's an example of the minimum/required arguments for this function:**
 
 ```python
 # Deletes the branch 'MyBranch'.
 >>> br4nch.delete.branch(branch="MyBranch")
 ```
 
-Here's an example for beginners:
+**Here's an example for beginners:**
 
 ```python
 # To delete a branch, specify the name of the branch in the branch argument.
@@ -25,7 +37,7 @@ Here's an example for beginners:
 >>> br4nch.delete.branch(branch=["BranchOne", "BranchTwo"])
 ```
 
-Here's an example when the function is used in a real situation:
+**Here's an example when the function is used in a real situation:**
 
 ```python
 # Creates the 'Board' branch.
@@ -53,10 +65,13 @@ Information
 NotExistingBranchError: The branch: 'Board' does not exists.
 ```
 
-**Possible errors:**
+---
 
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
 - InstanceStringError
 - NotExistingBranchError
 
+---

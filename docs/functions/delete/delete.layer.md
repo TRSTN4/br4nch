@@ -4,29 +4,53 @@ To delete an layer, use the **following function:**
 
 > br4nch.**delete**.**layer**(*branch*, *position*)
 
-**Required arguments:**
+---
 
-- branch - This is the argument where you specify the name of the branch(es) to which the layer will be deleted.
-- position - This is the argument where you specify the position(s) where the layer(s) will be deleted. For more information about positions, head to [positions](../../guides/positions.md).
+**Required argument(s):**
+For more information about positions, head to [positions](../../guides/positions.md).
 
-Here's an example of the minimum/required arguments for this function:
+- *branch* - The name of the branch(es) to which the layer will be deleted.
+- *position* - The position(s) where the layer(s) will be deleted.*
+
+---
+
+**Argument(s) supporting a list:**
+Every argument in here supports a list.
+Example: *position=["1.1", "2.2", "2.3"]*
+
+- *branch*
+- *position*
+
+---
+
+**Here's an example of the minimum/required arguments for this function:**
 
 ```python
 # Deletes the layer attatched to the position '1' in the branch 'MyBranch'.
 >>> br4nch.delete.layer(branch="MyBranch", position="1")
 ```
 
-Here's an example for beginners:
+**Here's an example for beginners:**
 
 ```python
-# To delete a branch, specify the name of the branch in the branch argument.
->>> br4nch.delete.branch(branch="MyBranch")
+>>> br4nch.display.branch(branch="Board")
+Information
+┣━ Animals
+┃  ┣━ Dog
+┃  ┗━ Cat
+┗━ Food
+   ┗━ Bread
+    
+# To delete a layer, specify the position attatched to the layer you want to delete.
+>>> br4nch.delete.layer(branch="Board", position="1")
 
-# You can also delete multiple branches at once by making a list and specifying it in the branch argument.
->>> br4nch.delete.branch(branch=["BranchOne", "BranchTwo"])
+>>> br4nch.display.branch(branch="Board")
+Information
+┗━ Food
+   ┗━ Bread
 ```
 
-Here's an example when the function is used in a real situation:
+**Here's an example when the function is used in a real situation:**
 
 ```python
 # Creates the 'Board' branch.
@@ -56,11 +80,15 @@ Information
    ┗━ Bread
 ```
 
-**Possible errors:**
+---
 
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
 - InstanceStringError
 - InvalidPositionError
 - NotExistingBranchError
+
+---
 
