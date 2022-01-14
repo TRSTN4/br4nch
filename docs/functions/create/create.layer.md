@@ -4,20 +4,35 @@ To create a new layer, use the **following function:**
 
 > br4nch.**create**.**layer**(*branch*, *layer*, *position*)
 
-**Required arguments:**
+---
 
-- branch - This is the argument where you specify the name of the branch(es) to which the new layer will be created.
-- layer - This is the argument where you specify the name for the new layer(s) that will be created.
-- position - This is the argument where you specify the position where the layer(s) are created. For more information about positions, head to [positions](../../guides/positions.md).
+**Required argument(s):**
+For more information about positions, head to [positions](../../guides/positions.md).
 
-Here's an example of the minimum/required arguments for this function:
+- *branch* -The name of the branch(es) to which the new layer will be created.
+- *layer* - The name for the new layer(s) that will be created.
+- *position* - The position where the layer(s) are created.
+
+---
+
+**Argument(s) supporting a list:**
+Every argument in here supports a list.
+Example: *layer=["MyFirstLayer", "MySecondLayer"]*
+
+- *branch*
+- *layer*
+- *position*
+
+---
+
+**Here's an example of the minimum/required arguments for this function:**
 
 ```python
 # Creates the layer 'MyLayer' in the branch 'MyBranch' at position '0'.
 >>> br4nch.create.layer(branch="MyBranch", layer="MyLayer", position="0")
 ```
 
-Here's an example for beginners:
+**Here's an example for beginners:**
 
 ```python
 # First we need to create a branch, we will call the branch 'MyBranch' and the name of the header will be 'My custom header!'.
@@ -88,7 +103,7 @@ My custom header!
 ┗━ Pear
 ```
 
-Here's an example when the function is used in a real situation:
+**Here's an example when the function is used in a real situation:**
 
 ```python
 # Creates the 'Stream' branch.
@@ -119,11 +134,15 @@ Movies & Series
       ┗━ The Walking Dead
 ```
 
-**Possible errors:**
+---
 
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
 - InstanceStringError
 - InvalidPositionError
 - NotExistingBranchError
+
+---
 
