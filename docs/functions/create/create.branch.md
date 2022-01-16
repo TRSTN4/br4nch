@@ -28,6 +28,8 @@ Example: *branch=["MyFirstBranch", "MySecondBranch"]*
 >>> br4nch.create.branch(branch="MyBranch", header="MyHeader")
 ```
 
+---
+
 **Here's an example for beginners:**
 
 ```python

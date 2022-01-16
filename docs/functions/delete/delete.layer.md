@@ -30,6 +30,8 @@ Example: *position=["1.1", "2.2", "2.3"]*
 >>> br4nch.delete.layer(branch="MyBranch", position="1")
 ```
 
+---
+
 **Here's an example for beginners:**
 
 ```python
@@ -49,6 +51,8 @@ Information
 ┗━ Food
    ┗━ Bread
 ```
+
+---
 
 **Here's an example when the function is used in a real situation:**
 

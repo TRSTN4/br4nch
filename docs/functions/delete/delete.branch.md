@@ -27,6 +27,8 @@ Example: *branch=["MyFirstBranch", "MySecondBranch"]*
 >>> br4nch.delete.branch(branch="MyBranch")
 ```
 
+---
+
 **Here's an example for beginners:**
 
 ```python
@@ -36,6 +38,8 @@ Example: *branch=["MyFirstBranch", "MySecondBranch"]*
 # You can also delete multiple branches at once by making a list and specifying it in the branch argument.
 >>> br4nch.delete.branch(branch=["BranchOne", "BranchTwo"])
 ```
+
+---
 
 **Here's an example when the function is used in a real situation:**
 

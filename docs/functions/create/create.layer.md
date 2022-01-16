@@ -32,6 +32,8 @@ Example: *layer=["MyFirstLayer", "MySecondLayer"]*
 >>> br4nch.create.layer(branch="MyBranch", layer="MyLayer", position="0")
 ```
 
+---
+
 **Here's an example for beginners:**
 
 ```python
@@ -102,6 +104,8 @@ My custom header!
 ┣━ Apple
 ┗━ Pear
 ```
+
+---
 
 **Here's an example when the function is used in a real situation:**
 
