@@ -10,7 +10,7 @@ To create a new layer, use the **following function:**
 - *layer* - The name for the layer(s).
 - *position* - The position(s) where the layer(s) in the branch(es) are created.
 
-**Step(s) to reproduce the function:**
+**Guide:**
 
 > To add a new layer to a branch, first indicate in which branch the layer should be created, We use the branch `MyBranch`. Then you specify the name of the layer(s) you want to create, you also need to specify the position where the layer should be created in the branch. 
 >

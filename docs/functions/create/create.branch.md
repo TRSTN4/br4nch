@@ -9,7 +9,7 @@ To create a new branch, use the **following function:**
 - *branch* - The name for the branch(es).
 - *header* - The header for the branch(es).
 
-**Step(s) to reproduce the function:**
+**Guide:**
 
 > To create a new branch you have to give the branch a name, we call the branch `MyBranch`. You also need to add a header to the branch, we call the header `My Header!`.
 >
