@@ -74,6 +74,12 @@ To create a new layer, use the **following function:**
 > ┃  ┗━ Turtle
 > ┣━ Elephant
 > ┗━ Turtle
+> Zoo Beta
+> ┣━ Animals
+> ┃  ┣━ Elephant
+> ┃  ┗━ Turtle
+> ┣━ Elephant
+> ┗━ Turtle
 > ```
 
 **Possible error(s):**
