@@ -17,7 +17,7 @@ To create a new branch, use the **following function:**
 > >>> br4nch.create.branch(branch="MyBranch", header="My Header!")
 > ```
 >
-> To create multiple branches in the same function call, you can use a list for the branch argument.
+> To create multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.create.branch(branch=["BranchOne", "BranchTwo"], header="My Header!")

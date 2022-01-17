@@ -37,7 +37,7 @@ To create a new layer, use the **following function:**
 >    Three
 > ```
 >
-> To create the layer(s) in multiple branches in the same function call, you can use a list for the branch argument.
+> To create the layer(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.create.layer(branch=["ZooA", "ZooB"], layer="Animals", position="0")
@@ -49,7 +49,7 @@ To create a new layer, use the **following function:**
 > ┗━ Animals
 > ```
 >
-> To create multiple layer(s) in the same function call, you can use list for the layer argument.
+> To create multiple layer(s) in the same function call, you can use list for the `layer` argument.
 >
 > ```python
 > >>> br4nch.create.layer(branch="MyBranch", layer=["Sublayer One", "Sublayer Two"], position="1")
@@ -64,7 +64,7 @@ To create a new layer, use the **following function:**
 >    Three
 > ```
 >
-> To create the layer(s) at multiple position(s) in the same function call, you can use a list for the position argument.
+> To create the layer(s) at multiple position(s) in the same function call, you can use a list for the `position` argument.
 >
 > ```python
 > >>> br4nch.create.layer(branch="MyBranch", layer="Last Layer", position=["1.1", "1.2"])
