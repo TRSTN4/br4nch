@@ -4,41 +4,39 @@ To set an size, use the **following function:**
 
 > br4nch.**set**.**size**(*branch*, *size*)
 
-**Required arguments:**
+**Required argument(s):**
 
-- branch - This is the argument where you specify the branch(es) whose size should be reset.
-- size - This is the argument where you specify the size of the branch(es).
+- branch - The branch(es) where the symbols are added.
+- size - The size of the space in the branch structure.
 
-Here's an example:
+**Guide:**
 
-```python
->>> br4nch.set.size(branch="MyBranch", size=1)
-```
+> Om sizes toe te voegen, moet je de naam van de branch(es) en de `size` argument opgeven.
+>
+> ```python
+> >>> br4nch.set.size(branch="MyBranch", size=1)
+> 
+> >>> br4nch.display.branch(branch="MyBranch")
+> Just a header
+> ┃
+> ┣━━ First layer
+> ┃   ┃
+> ┃   ┣━━ Just text
+> ┃   ┃
+> ┃   ┗━━ Two lines
+> ┃
+> ┗━━ Second layer
+> ```
+>
+> To set the size to multiple branches in the same function call, you can use a list for the `branch` argument.
+>
+> ```python
+> >>> br4nch.set.size(branch=["BranchOne", "BranchTwo"], size=1)
+> ```
 
-Here is an example in realistic usage:
-
-```python
->>> br4nch.add.branch(branch="MyBranch", header="Just a header")
->>> br4nch.add.layer(branch="MyBranch", layer=["First layer", "Second layer"], pos="0")
->>> br4nch.add.layer(branch="MyBranch", layer=["Just text", "Two lines"], pos="1")
-
->>> br4nch.set.size(branch="MyBranch", size=1)
-
->>> br4nch.display.branch(branch="MyBranch")
-Just a header
-┃
-┣━━ First layer
-┃   ┃
-┃   ┣━━ Just text
-┃   ┃
-┃   ┗━━ Two lines
-┃
-┗━━ Second layer
-```
-
-**Possible errors:**
-
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
 - InstanceStringError
 - InstanceIntegerError
