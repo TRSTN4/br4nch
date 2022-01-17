@@ -81,25 +81,6 @@ To create a new layer, use the **following function:**
 >    Three
 > ```
 >
-> You can also combine the arguments with the lists.
->
-> ```python
-> >>> br4nch.create.layer(branch=["ZooA", "ZooB"], layer=["Elephant", "Turtle"], position=["0", "1"])
-> 
-> >>> br4nch.display.branch(branch=["ZooA", "ZooB"])
-> Zoo Alpha
-> ┣━ Animals
-> ┃  ┣━ Elephant
-> ┃  ┗━ Turtle
-> ┣━ Elephant
-> ┗━ Turtle
-> Zoo Beta
-> ┣━ Animals
-> ┃  ┣━ Elephant
-> ┃  ┗━ Turtle
-> ┣━ Elephant
-> ┗━ Turtle
-> ```
 
 **Possible error(s):**
 These are the errors that may pop up when the function is used incorrectly.
