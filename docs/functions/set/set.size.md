@@ -11,7 +11,7 @@ To set an size, use the **following function:**
 
 **Guide:**
 
-> Om sizes toe te voegen, moet je de naam van de branch(es) en de `size` argument opgeven.
+> To add sizes, you must specify the name of the branch(es) and the size of the `size` argument.
 >
 > ```python
 > >>> br4nch.set.size(branch="MyBranch", size=1)

@@ -6,13 +6,13 @@ To set one or multiple symbol(s), use the **following function:**
 
 **Required argument(s):**
 
-- branch - The argument where the symbols are set.
+- *branch* - The branch where the symbols are set.
 
 **Optional argument(s):**
 
-- line - The line symbol.
-- split - The split symbol.
-- end - The end symbol.
+- *line* - The line symbol.
+- *split* - The split symbol.
+- *end* - The end symbol.
 
 **Guide:**
 
@@ -30,11 +30,11 @@ To set one or multiple symbol(s), use the **following function:**
 > ║     ╠═ Squid Game
 > ║     ╚═ The Crown
 > ╚═ Prime Video
-> ╠═ Movies
-> ║  ╠═ Tenet
-> ║  ╚═ Parasite
-> ╚═ Series
->    ╚═ The Walking Dead
+>       ╠═ Movies
+>    ║  ╠═ Tenet
+>    ║  ╚═ Parasite
+>    ╚═ Series
+>          ╚═ The Walking Dead
 > ```
 >
 > To set the symbol(s) to multiple branches in the same function call, you can use a list for the `branch` argument.
