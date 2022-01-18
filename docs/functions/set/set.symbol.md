@@ -31,9 +31,9 @@ To set one or multiple symbol(s), use the **following function:**
 > ║     ╚═ The Crown
 > ╚═ Prime Video
 >       ╠═ Movies
->    ║  ╠═ Tenet
->    ║  ╚═ Parasite
->    ╚═ Series
+>       ║  ╠═ Tenet
+>       ║  ╚═ Parasite
+>       ╚═ Series
 >          ╚═ The Walking Dead
 > ```
 >
