@@ -28,7 +28,7 @@ To set an size, use the **following function:**
 > ┗━━ Second layer
 > ```
 >
-> To set the size to multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the size for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.set.size(branch=["BranchOne", "BranchTwo"], size=1)

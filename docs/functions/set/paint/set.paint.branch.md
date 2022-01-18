@@ -11,7 +11,7 @@ To set the paint of an branch, use the **following function:**
 
 **Guide:**
 
-> To set paint to the branch structure, first specify the branch name. Then you specify the paint in the `paint` argument.
+> To set the branch paint, first specify the branch name. Then you specify the paint in the `paint` argument.
 >
 > *For more information about paint, head to [paint](../../../guides/paint.md).*
 >
@@ -19,7 +19,7 @@ To set the paint of an branch, use the **following function:**
 > >>> br4nch.set.paint.branch(branch="MyBranch", paint="blue")
 > ```
 >
-> To set the branch structure paint to multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the branch paint in multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.set.paint.branch(branch=["BranchOne", "BranchTwo"], paint="red")

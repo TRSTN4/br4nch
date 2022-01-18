@@ -37,7 +37,7 @@ To set one or multiple symbol(s), use the **following function:**
 >          ╚═ The Walking Dead
 > ```
 >
-> To set the symbol(s) to multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the symbol(s) for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.set.symbol(branch=["BranchOne", "BranchTwo"], line="║", split="╠═", end="╚═")
