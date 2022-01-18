@@ -250,7 +250,6 @@ Here's an example:
 
 ```python
 >>> br4nch.set.paint.branch(branch="MyBranch", paint=["red", "yellow", "green", "cyan"])
->>> 
 MaximumPaintSlotsError: The maximum paint slots that can be used is '3'.
 ```
 
