@@ -5,5 +5,5 @@
 # Python:
 __pycache__/
 
-# Test files:
+# Tests:
 test.py
