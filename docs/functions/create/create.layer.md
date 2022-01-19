@@ -33,8 +33,8 @@ To create a new layer, use the **following function:**
 > My header!
 > ┣━ My Layer
 > ┗━ One
->    Two
->    Three
+>       Two
+>       Three
 > ```
 >
 > To create the layer(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
@@ -60,8 +60,8 @@ To create a new layer, use the **following function:**
 > ┃  ┣━ Sublayer One
 > ┃  ┗━ Sublayer Two
 > ┗━ One
->    Two
->    Three
+>       Two
+>       Three
 > ```
 >
 > To create the layer(s) at multiple position(s) in the same function call, you can use a list for the `position` argument.
@@ -77,8 +77,8 @@ To create a new layer, use the **following function:**
 > ┃  ┗━ Sublayer Two
 > ┃	  ┗━ Last Layer
 > ┗━ One
->    Two
->    Three
+>       Two
+>       Three
 > ```
 >
 
@@ -86,7 +86,7 @@ To create a new layer, use the **following function:**
 These are the errors that may pop up when the function is used incorrectly.
 For more information about errors, head to [errors](../../guides/errors.md).
 
-- InstanceStringError
-- InvalidPositionError
-- NotExistingBranchError
+- *InstanceStringError*
+- *InvalidPositionError*
+- *NotExistingBranchError*
 

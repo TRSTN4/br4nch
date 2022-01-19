@@ -35,6 +35,6 @@ To reset the paint of an layer, use the **following function:**
 These are the errors that may pop up when the function is used incorrectly.
 For more information about errors, head to [errors](../../guides/errors.md).
 
-- InstanceStringError
-- InvalidPositionError
-- NotExistingBranchError
+- *InstanceStringError*
+- *InvalidPositionError*
+- *NotExistingBranchError*

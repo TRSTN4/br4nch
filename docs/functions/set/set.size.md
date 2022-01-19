@@ -38,8 +38,8 @@ To set an size, use the **following function:**
 These are the errors that may pop up when the function is used incorrectly.
 For more information about errors, head to [errors](../../guides/errors.md).
 
-- InstanceStringError
-- InstanceIntegerError
-- InvalidSizeError
-- NotExistingBranchError
+- *InstanceStringError*
+- *InstanceIntegerError*
+- *InvalidSizeError*
+- *NotExistingBranchError*
 
