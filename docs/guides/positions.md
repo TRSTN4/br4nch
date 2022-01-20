@@ -27,7 +27,7 @@ For more information about operators, head to [operators](../guides/operators.md
 ```python
 >>> br4nch.add.branch(branch="Streaming", header="Movies & Series")
 
-# Specifies the '0' position to add the layers to the first height.
+# Specifies the '0' position to create the layers to the first height.
 >>> br4nch.add.layer(branch="Streaming", layer=["Netflix", "Prime Video"], position="0")
 
 >>> br4nch.display.assist(branch="Streaming")
@@ -35,7 +35,7 @@ For more information about operators, head to [operators](../guides/operators.md
 ┣━ 1: Netflix
 ┗━ 2: Prime Video
 
-# Specifies the '1' and '2' positions to add the layers inside the 'Netflix' and 'Prime Video' layer.
+# Specifies the '1' and '2' positions to create the layers inside the 'Netflix' and 'Prime Video' layer.
 >>> br4nch.add.layer(branch="Streaming", layer=["Movies", "Series"], position=["1", "2"])
 
 >>> br4nch.display.assist(branch="Streaming")
@@ -47,7 +47,7 @@ For more information about operators, head to [operators](../guides/operators.md
     ┣━ 2.1: Movies
     ┗━ 2.2: Series
 
-# Specifies the '1.1' and '2.1' positions to add the layers inside the 'Movies' and 'Series' layer in both parent 'Netflix' and 'Prime Video' layers.
+# Specifies the '1.1' and '2.1' positions to create the layers inside the 'Movies' and 'Series' layer in both parent 'Netflix' and 'Prime Video' layers.
 >>> br4nch.add.layer(branch="Streaming", layer=["The Hobbit"], position=["1.1", "2.1"])
 
 >>> br4nch.display.assist(branch="Streaming")
