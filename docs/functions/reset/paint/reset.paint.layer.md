@@ -19,13 +19,13 @@ To reset the paint of an layer, use the **following function:**
 > >>> br4nch.reset.paint.layer(branch="MyBranch", position="1.2")
 > ```
 >
-> To reset the layer paint in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To reset the layer paint for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.reset.paint.layer(branch=["BranchOne", "BranchTwo"], position="1.2")
 > ```
 >
-> To reset the layer paint in multiple positions in the same function call, you can use a list for the `positions` argument.
+> To reset the layer paint for multiple positions in the same function call, you can use a list for the `positions` argument.
 >
 > ```python
 > >>> br4nch.reset.paint.layer(branch="MyBranch", position=["1.2", "2.3"])

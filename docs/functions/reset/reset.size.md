@@ -16,7 +16,7 @@ To reset an size, use the **following function:**
 > >>> br4nch.reset.size(branch="MyBranch")
 > ```
 >
-> To reset the size in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To reset the size for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.reset.size(branch=["BranchOne", "BranchTwo"])

@@ -19,7 +19,7 @@ To set the paint of an header, use the **following function:**
 > >>> br4nch.set.paint.header(branch="MyBranch", paint="blue")
 > ```
 >
-> To set the header paint in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the header paint for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.set.paint.header(branch=["BranchOne", "BranchTwo"], paint="red")

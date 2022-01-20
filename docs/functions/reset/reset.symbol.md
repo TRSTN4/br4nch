@@ -28,7 +28,7 @@ To reset one or multiple symbol(s), use the **following function:**
 > >>> br4nch.reset.symbol(branch="MyBranch", line=False, end=False)
 > ```
 >
-> To reset the symbols in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To reset the symbols for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.reset.symbol(branch=["BranchOne", "BranchTwo"])

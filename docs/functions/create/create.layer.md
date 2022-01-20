@@ -64,7 +64,7 @@ To create a new layer, use the **following function:**
 >       Three
 > ```
 >
-> To create the layer(s) at multiple position(s) in the same function call, you can use a list for the `position` argument.
+> To create the layer(s) for multiple position in the same function call, you can use a list for the `position` argument.
 >
 > ```python
 > >>> br4nch.create.layer(branch="MyBranch", layer="Last Layer", position=["1.1", "1.2"])

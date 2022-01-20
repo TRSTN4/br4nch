@@ -16,7 +16,7 @@ To reset the paint of an branch, use the **following function:**
 > >>> br4nch.reset.paint.branch(branch="MyBranch")
 > ```
 >
-> To reset the branch paint in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To reset the branch paint for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.reset.paint.branch(branch=["BranchOne", "BranchTwo"])

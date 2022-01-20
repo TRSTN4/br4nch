@@ -21,13 +21,13 @@ To set the paint of an layer, use the **following function:**
 > >>> br4nch.set.paint.layer(branch="MyBranch", position="1.2", paint="blue")
 > ```
 >
-> To set the layer paint in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the layer paint for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.set.paint.layer(branch=["BranchOne", "BranchTwo"], position="1.2", paint="blue")
 > ```
 >
-> To set the layer paint in multiple positions in the same function call, you can use a list for the `position` position.
+> To set the layer paint for multiple positions in the same function call, you can use a list for the `position` position.
 >
 > ```python
 > >>> br4nch.set.paint.layer(branch="MyBranch", position=["1.2", "2.3"], paint="blue")

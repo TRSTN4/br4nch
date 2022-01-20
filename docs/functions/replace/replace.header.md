@@ -2,23 +2,38 @@
 
 To replace a header, use the **following function:**
 
-> br4nch.**replace**.**header**(*branch*, *name*)
+> br4nch.**replace**.**header**(*branch*, *replace*)
 
-**Required arguments:**
+**Required argument(s):**
 
-- branch - This is the argument where you specify the name of the branch(es) whose header is replaced with a new name.
-- name - This is the argument where you specify the name of the new header.
+- *branch* - The name of branch(es) whose header is to be replaced.
+- *replace* - The new name for the header(s).
 
-Here's an example:
+**Guide:**
 
-```python
->>> br4nch.replace.header(branch="MyBranch", name="MyNewHeader")
-```
+> To replace a header name, specify the branch name in the `branch` argument and the new header name in the `replace` argument.
+>
+> ```python
+> >>> br4nch.replace.header(branch="MyBranch", replace="Replaced Header!")
+> 
+> >>> br4nch.display.branch(branch="ReplacedBranch")
+> Replaced Header!
+> ┣━ ABCD
+> ┃  ┣━ Just text
+> ┃  ┗━ Two lines
+> ┗━ Second layer
+> ```
+>
+> To replace headers for multiple branches in the same function call, you can use a list for the `branch` argument.
+>
+> ```python
+> >>> br4nch.replace.header(branch=["BranchOne", "BranchTwo"], replace="Replaced Header!")
+> ```
 
-**Possible errors:**
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
-
-- InstanceStringError
-- NotExistingBranchError
+- *InstanceStringError*
+- *NotExistingBranchError*
 

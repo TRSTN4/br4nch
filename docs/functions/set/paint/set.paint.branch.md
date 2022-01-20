@@ -19,7 +19,7 @@ To set the paint of an branch, use the **following function:**
 > >>> br4nch.set.paint.branch(branch="MyBranch", paint="blue")
 > ```
 >
-> To set the branch paint in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the branch paint for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.set.paint.branch(branch=["BranchOne", "BranchTwo"], paint="red")

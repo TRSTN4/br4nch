@@ -16,7 +16,7 @@ To reset the paint of an header, use the **following function:**
 > >>> br4nch.reset.paint.header(branch="MyBranch")
 > ```
 >
-> To reset the header paint in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To reset the header paint for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.reset.paint.header(branch=["BranchOne", "BranchTwo"])
