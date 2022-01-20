@@ -8,21 +8,21 @@ from br4nch.utility.utility_positioner import format_position
 from br4nch.utility.utility_generator import generate_uid
 
 
-def arguments(branch, position, name):
+def arguments(branch, position, replace):
     """
     - Gets the arguments and parses them to the 'ReplaceLayer' class.
     """
-    ReplaceLayer(branch, position, name)
+    ReplaceLayer(branch, position, replace)
 
 
 class ReplaceLayer:
-    def __init__(self, argument_branch, argument_position, argument_name):
+    def __init__(self, argument_branch, argument_position, argument_replace):
         """
         - Gets the arguments and parses them to the 'replace_layer' function.
         """
-        self.replace_layer(argument_branch, argument_position, argument_name)
+        self.replace_layer(argument_branch, argument_position, argument_replace)
 
-    def replace_layer(self, argument_branch, argument_position, argument_name):
+    def replace_layer(self, argument_branch, argument_position, argument_replace):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
@@ -30,7 +30,7 @@ class ReplaceLayer:
             list.
 
         Errors:
-          - If the name argument is not an instance of a string, then it raises an 'InstanceStringError' error.
+          - If the replace argument is not an instance of a string, then it raises an 'InstanceStringError' error.
 
         Operators:
           - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
@@ -43,8 +43,8 @@ class ReplaceLayer:
 
           Argument copy list loop:
             - Calls the function 'task_manager' to perform the necessary tasks for the variable 'argument_copy'
-            - If the last character in 'argument_name' is equal to a newline/'\n', then it removes it from
-              'argument_name'.
+            - If the last character in 'argument_replace' is equal to a newline/'\n', then it removes it from
+              'argument_replace'.
             - Loops through the items from the returned dictionary and replaces all given layers from the mandatory
               dictionaries.
             - To keep the order the same, a loop will be made that loops through the 'value' dictionary and
@@ -56,8 +56,8 @@ class ReplaceLayer:
         if not isinstance(argument_position, list):
             argument_position = [argument_position]
 
-        if not isinstance(argument_name, str):
-            raise InstanceStringError("name", argument_name)
+        if not isinstance(argument_replace, str):
+            raise InstanceStringError("replace", argument_replace)
 
         if "*" in argument_branch:
             argument_branch.clear()
@@ -80,12 +80,12 @@ class ReplaceLayer:
                         if returned_value:
                             for layer, value in returned_value.items():
                                 while True:
-                                    if argument_name and argument_name[-1] == "\n":
-                                        argument_name = argument_name[:-1]
+                                    if argument_replace and argument_replace[-1] == "\n":
+                                        argument_replace = argument_replace[:-1]
                                     else:
                                         break
 
-                                new_layer = argument_name + generate_uid(branches_branch)
+                                new_layer = argument_replace + generate_uid(branches_branch)
                                 uids[branches_branch].remove(layer[-10:])
                                 paint_layer[branches_branch][new_layer] = paint_layer[branches_branch].pop(layer)
 
