@@ -2,51 +2,67 @@
 
 To replace a layer, use the **following function:**
 
-> br4nch.**replace**.**layer**(*branch*, *position*, *name*)
+> br4nch.**replace**.**layer**(*branch*, *replace*, *position*)
 
-**Required arguments:**
+**Required argument(s):**
 
-- branch - This is the argument where you specify the name of the branch(es) whose layer(s) is replaced with a new name.
-- position - This is the argument where you specify the position(s) where to replace the layer(s). For more information about positions, head to [positions](../../guides/positions.md).
+- *branch* - The name of branch(es) whose layer(s) is to be replaced.
+- *position* - The position(s) where the layer(s) in the branch(es) are replaced.
 
-- name - This is the argument where you specify the new name of the layer(s).
+- *replace* - The new name for the layer(s).
 
-Here's an example:
+**Guide:**
 
-```python
->>> br4nch.replace.layer(branch="MyBranch", position="1", name="ReplacedLayer")
-```
+> To replace the layer(s) name(s), specify the branch name in the `branch` argument and the new name for the layer(s) in the `replace` argument.
+>
+> For more information about positions, head to [positions](../../guides/positions.md).
+>
+> ```python
+> >>> br4nch.replace.layer(branch="MyBranch", position="1", replace="Replaced layer!")
+> 
+> >>> br4nch.display.branch(branch="MyBranch")
+> Replaced Header!
+> ┣━ Replaced layer!
+> ┃  ┣━ Just text
+> ┃  ┗━ Two lines
+> ┗━ Second layer
+> ```
+>
+> To replace layers for multiple branches in the same function call, you can use a list for the `branch` argument.
+>
+> ```python
+> >>> br4nch.replace.layer(branch=["BranchOne", "BranchTwo"], position="1.2", replace="Replaced layer!")
+> 
+> >>> br4nch.display.branch(branch=["BranchOne", "BranchTwo"])
+> Branch One
+> ┣━ Alpha
+> ┃  ┣━ Charlie
+> ┃  ┗━ Replaced layer!
+> ┗━ Beta
+> Branch Two
+> ┣━ Alpha
+> ┃  ┣━ Charlie
+> ┃  ┗━ Replaced layer!
+> ┗━ Beta
+> ```
+>
+> To replace the layer(s) for multiple position in the same function call, you can use a list for the `position` argument.
+>
+> ```python
+> >>> br4nch.replace.layer(branch="MyBranch", position=["1.1", "1.2"], replace="Replaced This layer too!")
+> 
+> >>> br4nch.display.branch(branch="MyBranch")
+> Replaced Header!
+> ┣━ Replaced layer!
+> ┃  ┣━ Replaced This layer too!
+> ┃  ┗━ Replaced This layer too!
+> ┗━ Second layer
+> ```
 
-Here is an example in realistic usage:
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
-```python
-# Original.
->> br4nch.add.branch(branch="MyBranch", header="Just a header")
->>> br4nch.add.layer(branch="MyBranch", layer=["First layer", "Second layer"], position="0")
->>> br4nch.add.layer(branch="MyBranch", layer=["Just text", "Two lines"], position="1")
-
->>> br4nch.display.branch(branch="MyBranch")
-Just a header
-┣━ First layer
-┃  ┣━ Just text
-┃  ┗━ Two lines
-┗━ Second layer
-
-# Replaced.
->>> br4nch.replace.layer(branch="MyBranch", position="1", name="Replaced Layer!!")
-
->>> br4nch.display.branch(branch="MyBranch")
-Just a header
-┣━ Replaced Layer!!
-┃  ┣━ Just text
-┃  ┗━ Two lines
-┗━ Second layer
-```
-
-**Possible errors:**
-
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
-
-- InstanceStringError
-- InvalidPositionError
-- NotExistingBranchError
+- *InstanceStringError*
+- *InvalidPositionError*
+- *NotExistingBranchError*
