@@ -8,21 +8,21 @@ from br4nch.utility.utility_positioner import format_position
 from br4nch.utility.utility_generator import generate_uid
 
 
-def arguments(branch, position, replace):
+def arguments(branch, replace, position):
     """
     - Gets the arguments and parses them to the 'ReplaceLayer' class.
     """
-    ReplaceLayer(branch, position, replace)
+    ReplaceLayer(branch, replace, position)
 
 
 class ReplaceLayer:
-    def __init__(self, argument_branch, argument_position, argument_replace):
+    def __init__(self, argument_branch, argument_replace, argument_position):
         """
         - Gets the arguments and parses them to the 'replace_layer' function.
         """
-        self.replace_layer(argument_branch, argument_position, argument_replace)
+        self.replace_layer(argument_branch, argument_replace, argument_position)
 
-    def replace_layer(self, argument_branch, argument_position, argument_replace):
+    def replace_layer(self, argument_branch, argument_replace, argument_position):
         """
         Lists:
           - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
