@@ -1,41 +1,22 @@
-# br4nch: Data Structure Tree Buider for Python
+![logo](D:\Github\br4nch\assets\images\logo.png "logo")
 
-<p align="center">
-    <a href="https://github.com/TRSTN4/br4nch/issues">
-    <img src="https://img.shields.io/github/issues/TRSTN4/br4nch.svg?style=&label=Issues"
-         alt="GitHub issues open">
-    <a href="https://github.com/TRSTN4/br4nch/issues">
-    <img src="https://img.shields.io/github/issues-closed/TRSTN4/br4nch.svg?style=&label=Issues"
-         alt="GitHub issues closed">
-    <a href="https://github.com/TRSTN4/br4nch/pulls">
-    <img src="https://img.shields.io/github/issues-pr/TRSTN4/br4nch.svg?style=&label=Pull requests"
-         alt="GitHub pull requests open">
-    <a href="https://github.com/TRSTN4/br4nch/pulls">
-    <img src="https://img.shields.io/github/issues-pr-closed/TRSTN4/br4nch.svg?style=&label=Pull requests"
-         alt="GitHub pull requests closed">
-</p>
-<p align="center">
-  <a href="#what-is-br4nch">About</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#documentation">Documentation</a> •
-  <a href="#contributing">Contributing</a> •
-  <a href="#got-a-question">Questions</a> •
-  <a href="#support-me">Donate</a>
-</p>
-## Basics
+`br4nch` is a Data Structure Tree Builder for Python. It is built in 100%/Pure Python, which means it does not use 3rd party libraries. We **listen** to our users in [issues](https://github.com/TRSTN4/br4nch/issues), Discord [channel](https://discord.gg/gKASxGEEUC) *and all over the Internet* to create a **fast**, **flexible** and **friendly** data structure builder.
 
-Here is an example of the very basics of **br4nch**:
+## 👀 Example
+
+If you want to see more code examples and guide, please visit our [documentation](https://docs.br4nch.com).
 
 ```python
->>> br4nch.add.branch(branch="Streaming", header="Movies & Series")
->>> br4nch.add.layer(branch="Streaming", layer=["Netflix", "Prime Video"], position="0")
->>> br4nch.add.layer(branch="Streaming", layer=["Movies", "Series"], position="*")
->>> br4nch.add.layer(branch="Streaming", layer="Interstellar", position="1.1")
->>> br4nch.add.layer(branch="Streaming", layer=["Squid Game", "The Crown"], position="1.2")
->>> br4nch.add.layer(branch="Streaming", layer=["Tenet", "Parasite"], position="2.1")
->>> br4nch.add.layer(branch="Streaming", layer="The Walking Dead", position="2.2")
+>>> br4nch.create.branch(branch="Stream", header="Movies & Series")
 
->>> br4nch.display.branch(branch="Streaming")
+>>> br4nch.create.layer(branch="Stream", layer=["Netflix", "Prime Video"], position="0")
+>>> br4nch.create.layer(branch="Stream", layer=["Movies", "Series"], position="*")
+>>> br4nch.create.layer(branch="Stream", layer="Interstellar", position="1.1")
+>>> br4nch.create.layer(branch="Stream", layer=["Squid Game", "The Crown"], position="1.2")
+>>> br4nch.create.layer(branch="Stream", layer=["Tenet", "Parasite"], position="2.1")
+>>> br4nch.create.layer(branch="Stream", layer="The Walking Dead", position="2.2")
+
+>>> br4nch.display.branch(branch="Stream")
 Movies & Series
 ┣━ Netflix
 ┃  ┣━ Movies
@@ -51,62 +32,54 @@ Movies & Series
       ┗━ The Walking Dead
 ```
 
-See [the documentation](https://docs.br4nch.com) for more examples.
+## ⚙️ Installation
 
-## Installation
-
-**b4nch** can be installed using pip:
+Install `br4nch` with the `pip install` command:
 
 ```
 pip install br4nch
 ```
 
-## Documentation
+## 🎯 Features
 
-Jump straight to the documentation:
+- [Create](https://docs.br4nch.com/functions/create)
+- [Duplicate](https://docs.br4nch.com/functions/duplicate)
+- [Move](https://docs.br4nch.com/functions/move)
+- [Replace](https://docs.br4nch.com/functions/replace)
+- [Delete](https://docs.br4nch.com/functions/delete)
+- [Set](https://docs.br4nch.com/functions/set)
+- [Reset](https://docs.br4nch.com/functions/reset)
+- [Load](https://docs.br4nch.com/functions/load)
+- [Export](https://docs.br4nch.com/functions/export)
+- [Display](https://docs.br4nch.com/functions/display)
 
-https://docs.br4nch.com
+## ⚠️ Upcoming Updates
 
-## Contributing
+- Refreshed documentation.
+- Load a json structure
+- Export to a json structure
 
-Help in testing, development, documentation and other tasks is highly appreciated and useful to the project. There are tasks for contributors of all experience levels.
+## 👍 Contribute
 
-To get started with developing **br4nch**, see [CONTRIBUTING](https://github.com/TRSTN4/br4nch/blob/release/CONTRIBUTING.md).
+If you want to say **thank you** and/or support the active development of `br4nch`:
 
-## Got a question?
+1. Add a [GitHub Star](https://github.com/TRSTN4/br4nch/stargazers) to the project.
+2. Tweet about the project [on your Twitter](https://twitter.com/intent/tweet?text=br4nch%3A%20Data%20Structure%20Tree%20Builder%20for%20Python.%20br4nch%20is%20built%20on%20pure%20%23python.%20That%20means%20that%20it%20does%20not%20require%20any%20other%20libary.%20Its%20designed%20to%20ease%20things%20up%20for%20fast%20data%20structure%20development%F0%9F%9A%80%20https%3A%2F%2Fgithub.com%2FTRSTN4%2Fbr4nch%20%20).
+3. Support the project by donating a [cup of coffee](https://www.buymeacoffee.com/TRSTN4).
 
-We are always happy to answer questions! Here are some good places to ask them:
+## ☕ Supporters
 
-- For general questions about **br4nch**, try [br4nch discussions](https://github.com/TRSTN4/br4nch/discussions)
+`br4nch` is an open source project that runs on donations to pay the bills e.g. our domain name. If you want to support `br4nch`, you can ☕ [**buy a coffee here**](https://www.buymeacoffee.com/TRSTN4).
 
-If you're just getting started, [the documentation](https://docs.br4nch.com) can help answer questions.
+## ‎‍💻 Code Contributors
 
-If you think you've found a bug or want to request a feature:
+Help in testing, development, documentation and other tasks is highly appreciated and useful to the project. There are tasks for contributors of all experience levels. 
 
-- Search our [issue tracker](https://github.com/TRSTN4/br4nch/issues) to see if it's already been reported
-
-To report a bug or request a feature:
-
-- Report at our [issue tracker](https://github.com/TRSTN4/br4nch/issues)
-
-## Versioning
-
-We use [SemVer](https://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/TRSTN4/br4nch/tags).
-
-## Authors
+To get started with developing `br4nch`, see [CONTRIBUTING](https://github.com/TRSTN4/br4nch/blob/release/CONTRIBUTING.md).
 
 - [TRSTN4](https://github.com/TRSTN4)
 
-See also the list of [contributors](https://github.com/TRSTN4/br4nch/graphs/contributors) who participated in this project.
+## ⚠️ License
 
-## License
-
-This project is licensed under the GPL-3.0 License - see the [LICENSE](https://github.com/TRSTN4/br4nch/blob/release/LICENSE) file for details
-
-## Support me?
-
-If you enjoy using br4nch, you can support me here:
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/TRSTN4)
-
- 
+`br4nch` is free and open-source software licensed under the [GPL-3.0 License](https://github.com/TRSTN4/br4nch/blob/release/LICENSE).
+Copyright (c) 2021-2022 [TRSTN4](https://github.com/TRSTN4) and [Contributors](https://github.com/TRSTN4/br4nch/graphs/contributors).
