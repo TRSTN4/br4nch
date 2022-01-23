@@ -53,7 +53,7 @@ pip install br4nch
 - [Export](https://docs.br4nch.com/functions/export)
 - [Display](https://docs.br4nch.com/functions/display)
 
-## ⚠️ Upcoming Updates
+## ⏱ Upcoming Updates
 
 - Refreshed documentation.
 - Load a json structure
