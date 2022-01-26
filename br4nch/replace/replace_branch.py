@@ -1,8 +1,8 @@
-# Copyright 2021-2022 by TRSTN4. All rights reserved.
-# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
-# Please see the LICENSE file that should have been included as part of this package.
+# b4nch - Data Structure Tree Builder
+# Github Repository: https://github.com/TRSTN4/br4nch
+# Documentation: https://docs.br4nch.com
 
-from br4nch.utility.utility_handler import InstanceStringError, InvalidBranchreplaceError, DuplicateBranchError, \
+from br4nch.utility.utility_handler import InstanceStringError, InvalidBranchNameError, DuplicateBranchError, \
     NotExistingBranchError
 from br4nch.utility.utility_librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, \
     paint_layer
@@ -21,7 +21,7 @@ def replace_branch(argument_branch, argument_replace):
       - If the branch value is not an instance of a string, then it raises an 'InstanceStringError' error.
       - If the replace value is not an instance of a string, then it raises an 'InstanceStringError' error.
       - If the replace value contains a character that is not a letter or number, then it raises an
-        'InvalidBranchError' error.
+        'InvalidBranchNameError' error.
 
     Branches list loop:
       Errors:
@@ -44,7 +44,7 @@ def replace_branch(argument_branch, argument_replace):
         raise InstanceStringError("replace", argument_replace)
 
     if not argument_replace.isalnum():
-        raise InvalidBranchreplaceError(argument_replace)
+        raise InvalidBranchNameError(argument_replace)
 
     for branches_branch in list(branches):
         if argument_replace.lower() == branches_branch.lower():

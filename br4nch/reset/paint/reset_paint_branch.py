@@ -1,6 +1,6 @@
-# Copyright 2021-2022 by TRSTN4. All rights reserved.
-# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
-# Please see the LICENSE file that should have been included as part of this package.
+# b4nch - Data Structure Tree Builder
+# Github Repository: https://github.com/TRSTN4/br4nch
+# Documentation: https://docs.br4nch.com
 
 from br4nch.utility.utility_librarian import branches, paint_branch
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingBranchError
