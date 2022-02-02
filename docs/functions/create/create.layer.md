@@ -77,8 +77,8 @@ To create a new layer, use the **following function:**
 > ┃  ┗━ Sublayer Two
 > ┃	  ┗━ Last Layer
 > ┗━ One
->    ‎  Two
->    ‎  Three
+>    ‎‎‎Two
+>    ‎‎‎Three
 > ```
 >
 
