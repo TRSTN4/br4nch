@@ -19,8 +19,8 @@ To delete an layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Board")
 > Information
 > ┣━ Animals
-> ┃  ┣━ Dog
-> ┃  ┗━ Cat
+> ┃‎‎┣━ Dog
+> ┃‎‎┗━ Cat
 > ┣━ Food
 > ┗━ Bread
 > 

@@ -19,15 +19,15 @@ If you want to see more code examples and guide, please visit our [documentation
 >>> br4nch.display.branch(branch="Stream")
 Movies & Series
 ┣━ Netflix
-┃  ┣━ Movies
-┃  ┃  ┗━ Interstellar
-┃  ┗━ Series
-┃     ┣━ Squid Game
-┃     ┗━ The Crown
+┃‎‎┣━ Movies
+┃‎‎┃‎‎┗━ Interstellar
+┃‎‎┗━ Series
+┃‎‎‎‎‎┣━ Squid Game
+┃‎‎‎‎‎┗━ The Crown
 ┗━ Prime Video
 ‎‎‎┣━ Movies
-‎‎‎┃  ┣━ Tenet
-‎‎‎┃  ┗━ Parasite
+‎‎‎┃‎‎┣━ Tenet
+‎‎‎┃‎‎┗━ Parasite
 ‎‎‎┗━ Series
 ‎‎‎‎‎‎┗━ The Walking Dead
 ```

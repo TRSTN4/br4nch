@@ -57,8 +57,8 @@ To create a new layer, use the **following function:**
 > >>> br4nch.display.branch(branch="MyBranch")
 > My header!
 > ┣━ My Layer
-> ┃  ┣━ Sublayer One
-> ┃  ┗━ Sublayer Two
+> ┃‎‎┣━ Sublayer One
+> ┃‎‎┗━ Sublayer Two
 > ┗━ One
 >    ‎‎‎Two
 >    ‎‎‎Three
@@ -72,10 +72,10 @@ To create a new layer, use the **following function:**
 > >>> br4nch.display.branch(branch="MyBranch")
 > My header!
 > ┣━ My Layer
-> ┃  ┣━ Sublayer One
-> ┃  ┃  ┗━ Last Layer
-> ┃  ┗━ Sublayer Two
-> ┃	  ┗━ Last Layer
+> ┃‎‎┣━ Sublayer One
+> ┃‎‎┃‎‎┗━ Last Layer
+> ┃‎‎┗━ Sublayer Two
+> ┃‎‎‎‎‎┗━ Last Layer
 > ┗━ One
 >    ‎‎‎Two
 >    ‎‎‎Three
