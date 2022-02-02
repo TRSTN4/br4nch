@@ -44,8 +44,8 @@ For more information about operators, head to [operators](../guides/operators.md
 ┃   ┣━ 1.1: Movies
 ┃   ┗━ 1.2: Series
 ┗━ 2: Prime Video
-    ┣━ 2.1: Movies
-    ┗━ 2.2: Series
+‎‎‎┣━ 2.1: Movies
+‎‎‎┗━ 2.2: Series
 
 # Specifies the '1.1' and '2.1' positions to create the layers inside the 'Movies' and 'Series' layer in both parent 'Netflix' and 'Prime Video' layers.
 >>> br4nch.add.layer(branch="Streaming", layer=["The Hobbit"], position=["1.1", "2.1"])
@@ -57,9 +57,9 @@ For more information about operators, head to [operators](../guides/operators.md
 ┃   ┃   ┗━ 1.1.1: The Hobbit
 ┃   ┗━ 1.2: Series
 ┗━ 2: Prime Video
-    ┣━ 2.1: Movies
-    ┃   ┗━ 2.1.1: The Hobbit
-    ┗━ 2.2: Series
+‎‎‎┣━ 2.1: Movies
+‎‎‎┃   ┗━ 2.1.1: The Hobbit
+‎‎‎┗━ 2.2: Series
 
 # And so on..
 >>> br4nch.add.layer(branch="Streaming", layer="Interstellar", position="1.1")
@@ -73,16 +73,16 @@ Movies & Series
 ┃   ┣━ Movies
 ┃   ┃   ┣━ The Hobbit
 ┃   ┃   ┗━ Interstellar
-┃   ┗━━ Series
+┃   ┗━ Series
 ┃       ┣━ Squid Game
 ┃       ┗━ The Crown
-┗━━ Prime Video
-    ┣━ Movies
-    ┃   ┣━ The Hobbit
-    ┃   ┣━ Tenet
-    ┃   ┗━ Parasite
-    ┗━ Series
-        ┗━ The Walking Dead
+┗━ Prime Video
+‎‎‎┣━ Movies
+‎‎‎┃   ┣━ The Hobbit
+‎‎‎┃   ┣━ Tenet
+‎‎‎┃   ┗━ Parasite
+‎‎‎┗━ Series
+‎‎‎‎‎‎┗━ The Walking Dead
 ```
 
 

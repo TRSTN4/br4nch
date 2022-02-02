@@ -25,11 +25,11 @@ Movies & Series
 ┃     ┣━ Squid Game
 ┃     ┗━ The Crown
 ┗━ Prime Video
-   ┣━ Movies
-   ┃  ┣━ Tenet
-   ┃  ┗━ Parasite
-   ┗━ Series
-      ┗━ The Walking Dead
+‎‎‎┣━ Movies
+‎‎‎┃  ┣━ Tenet
+‎‎‎┃  ┗━ Parasite
+‎‎‎┗━ Series
+‎‎‎‎‎‎┗━ The Walking Dead
 ```
 
 ## ⚙️ Installation

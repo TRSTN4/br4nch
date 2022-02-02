@@ -19,22 +19,22 @@ Movies & Series
 ┃  ┣━ Movies
 ┃  ┗━ Series
 ┗━ Prime Video
-   ┣━ Movies
-   ┗━ Series
+‎‎‎┣━ Movies
+‎‎‎┗━ Series
 
 # Using the '/'/'combinator' operator followed by a position.
 >>> br4nch.add.layer(branch="Streaming", layer=["The Hobbit"], position="1/2.1")
 
 >>> br4nch.display.branch(branch="Streaming")
 Movies & Series
-┣━━ Netflix
-┃   ┣━━ Movies
-┃   ┃   ┗━━ The Hobbit
-┃   ┗━━ Series
-┗━━ Prime Video
-    ┣━━ Movies
-    ┃   ┗━━ The Hobbit
-    ┗━━ Series
+┣━ Netflix
+┃   ┣━ Movies
+┃   ┃   ┗━ The Hobbit
+┃   ┗━ Series
+┗━ Prime Video
+‎‎‎┣━ Movies
+‎‎‎┃  ┗━ The Hobbit
+‎‎‎┗━ Series
 ```
 
 
@@ -58,22 +58,22 @@ Movies & Series
 ┃  ┣━ Movies
 ┃  ┗━ Series
 ┗━ Prime Video
-   ┣━ Movies
-   ┗━ Series
+‎‎‎┣━ Movies
+‎‎‎┗━ Series
 
 # Using the '*'/'selector' operator followed by a position.
 >>> br4nch.add.layer(branch="Streaming", layer=["The Hobbit"], position="*.1")
 
 >>> br4nch.display.branch(branch="Streaming")
 Movies & Series
-┣━━ Netflix
-┃   ┣━━ Movies
-┃   ┃   ┗━━ The Hobbit
-┃   ┗━━ Series
-┗━━ Prime Video
-    ┣━━ Movies
-    ┃   ┗━━ The Hobbit
-    ┗━━ Series
+┣━ Netflix
+┃   ┣━ Movies
+┃   ┃   ┗━ The Hobbit
+┃   ┗━ Series
+┗━ Prime Video
+‎‎‎┣━ Movies
+‎‎‎┃   ┗━ The Hobbit
+‎‎‎┗━ Series
 ```
 
 The operator can also be used for example to display all branches.
@@ -99,24 +99,24 @@ Here's an example:
 
 >>> br4nch.display.branch(branch="MyBranch")
 My Header
-┣━━ Layer One
-┣━━ Layer Two
-┃   ┗━━ Sub Layer
-┗━━ Layer Three
-    ┗━━ Sub Layer
+┣━ Layer One
+┣━ Layer Two
+┃   ┗━ Sub Layer
+┗━ Layer Three
+‎‎‎┗━ Sub Layer
 
 # Using the '>'/'inclusor' operator followed by a position.
 >>> br4nch.add.layer(branch="MyBranch", layer=["Final Layer"], position="2>3.1")
 
 >>> br4nch.display.branch(branch="MyBranch")
 My Header
-┣━━ Layer One
-┣━━ Layer Two
-┃   ┗━━ Sub Layer
-┃       ┗━━ Final Layer
-┗━━ Layer Three
-    ┗━━ Sub Layer
-        ┗━━ Final Layer
+┣━ Layer One
+┣━ Layer Two
+┃   ┗━ Sub Layer
+┃       ┗━ Final Layer
+┗━ Layer Three
+‎‎‎┗━ Sub Layer
+‎‎‎‎‎‎┗━ Final Layer
 ```
 
 
@@ -147,8 +147,8 @@ My Header
 >>> br4nch.display.branch(branch="MyBranch")
 My Header
 ┣━ Layer One
-┃   ┗━ Sub Layer
-┃       ┗━ Final Layer
+┃  ┗━ Sub Layer
+┃     ┗━ Final Layer
 ┣━ Layer Two
 ┗━ Layer Three
 ```
