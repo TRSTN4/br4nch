@@ -4,98 +4,123 @@ To display a assist for an branch, use the **following function:**
 
 > br4nch.**display**.**assist**(*branch*, *size=0*, *line=""*, *split=""*, *end=""*)
 
-**Required arguments:**
+**Required argument(s):**
 
-- branch - This is the argument where you specify the branch(es) to display an assist for.
+- *branch* - The branch(es) to display an assist for.
 
-**Optional arguments:**
+**Optional argument(s):**
 
-- size - This is the argument where you specify the size of the branch assist.
-- line - This is the argument where you specify the line symbol.
-- split - This is the argument where you specify the split symbol.
-- end - This is the argument where you specify the end symbol.
+- *size* - The size of the branch assist.
+- *line* - The line symbol.
+- *split* - The split symbol.
+- *end* - The end symbol.
 
+**Guide:**
 
-Here's an example:
+> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers. In this example we will print the branch `Stream`.
+>
+> ```python
+> >>> br4nch.display.assist(branch="Stream")
+> 0: Movies & Series
+> ┣━ 1: Netflix
+> ┃‎‎┣━ 1.1: Movies
+> ┃‎‎┃‎‎┗━ 1.1.1: Interstellar
+> ┃‎‎┗━ 1.2: Series
+> ┃‎‎‎‎‎┣━ 1.2.1: Squid Game
+> ┃‎‎‎‎‎┗━ 1.2.2: The Crown
+> ┗━ 2: Prime Video
+>    ‎‎‎┣━ 2.1: Movies
+>    ‎‎‎┃‎‎┣━ 2.1.1: Tenet
+>    ‎‎‎┃‎‎┗━ 2.1.2: Parasite
+>    ‎‎‎┗━ 2.2: Series
+>    ‎‎‎‎‎‎┗━ 2.2.1: The Walking Dead
+> ```
+>
+> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers with the given size, In this example `1`.
+>
+> ```python
+> >>> br4nch.display.assist(branch="Stream", size=1)
+> 0: Movies & Series
+> ┃
+> ┣━━ 1: Netflix
+> ┃‎‎‎┃
+> ┃‎‎‎┣━━ 1.1: Movies
+> ┃‎‎‎┃‎‎‎┃
+> ┃‎‎‎┃‎‎‎┗━━ 1.1.1: Interstellar
+> ┃‎‎‎┃
+> ┃‎‎‎┗━━ 1.2: Series
+> ┃‎‎‎‎‎‎‎┃
+> ┃‎‎‎‎‎‎‎┣━━ 1.2.1: Squid Game
+> ┃‎‎‎‎‎‎‎┃
+> ┃‎‎‎‎‎‎‎┗━━ 1.2.2: The Crown
+> ┃
+> ┗━━ 2: Prime Video
+>    ‎‎‎‎┃
+>    ‎‎‎‎┣━━ 2.1: Movies
+>    ‎‎‎‎┃‎‎‎┃
+>    ‎‎‎‎┃‎‎‎┣━━ 2.1.1: Tenet
+>    ‎‎‎‎┃‎‎‎┃
+>    ‎‎‎‎┃‎‎‎┗━━ 2.1.2: Parasite
+>    ‎‎‎‎┃
+>    ‎‎‎‎┗━━ 2.2: Series
+>    ‎‎‎‎‎‎‎‎┃
+>    ‎‎‎‎‎‎‎‎┗━━ 2.2.1: The Walking Dead
+> ```
+>
+> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers with custom `line`, `split` and `end` symbols.
+>
+> ```python
+> >>> br4nch.display.assist(branch="Stream", line="║", split="╠═", end="╚═")
+> 0: Movies & Series
+> ╠═ 1: Netflix
+> ║‎‎╠═ 1.1: Movies
+> ║‎‎║‎‎╚═ 1.1.1: Interstellar
+> ║‎‎╚═ 1.2: Series
+> ║‎‎‎‎‎╠═ 1.2.1: Squid Game
+> ║‎‎‎‎‎╚═ 1.2.2: The Crown
+> ╚═ 2: Prime Video
+>    ‎‎‎╠═ 2.1: Movies
+>    ‎‎‎║‎‎╠═ 2.1.1: Tenet
+>    ‎‎‎║‎‎╚═ 2.1.2: Parasite
+>    ‎‎‎╚═ 2.2: Series
+>    ‎‎‎‎‎‎╚═ 2.2.1: The Walking Dead
+> ```
+>
+> To print an assist for multiple branches in the same function call, you can use a list for the `branch` argument.
+>
+> ```python
+> >>> br4nch.display.assist(branch=["Stream", "MyBranch"])
+> 0: Movies & Series
+> ┣━ 1: Netflix
+> ┃‎‎┣━ 1.1: Movies
+> ┃‎‎┃‎‎┗━ 1.1.1: Interstellar
+> ┃‎‎┗━ 1.2: Series
+> ┃‎‎‎‎‎┣━ 1.2.1: Squid Game
+> ┃‎‎‎‎‎┗━ 1.2.2: The Crown
+> ┗━ 2: Prime Video
+>    ‎‎‎┣━ 2.1: Movies
+>    ‎‎‎┃‎‎┣━ 2.1.1: Tenet
+>    ‎‎‎┃‎‎┗━ 2.1.2: Parasite
+>    ‎‎‎┗━ 2.2: Series
+>    ‎‎‎‎‎‎┗━ 2.2.1: The Walking Dead
+> 0: My header!
+> ┣━ 1: My Layer
+> ┃‎‎┣━ 1.1: Sublayer One
+> ┃‎‎┃‎‎┗━ 1.1.1: Last Layer
+> ┃‎‎┗━ 1.2: Sublayer Two
+> ┃‎‎‎‎‎┗━ 1.2.1: Last Layer
+> ┗━ 2: One
+>    ‎‎‎‎‎‎Two
+>    ‎‎‎‎‎‎Three
+> ```
+>
 
-```python
->>> br4nch.display.assist(branch="MyBranch")
-```
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
-Here is an example in realistic usage:
+- *InstanceStringError*
+- *InstanceIntegerError*
+- *InvalidSizeError*
+- *NotExistingBranchError*
 
-```python
->>> br4nch.add.branch(branch="Streaming", header="Movies & Series")
->>> br4nch.add.layer(branch="Streaming", layer=["Netflix", "Prime Video"], position="0")
->>> br4nch.add.layer(branch="Streaming", layer=["Movies", "Series"], position="*")
->>> br4nch.add.layer(branch="Streaming", layer="Interstellar", position="1.1")
->>> br4nch.add.layer(branch="Streaming", layer=["Squid Game", "The Crown"], position="1.2")
->>> br4nch.add.layer(branch="Streaming", layer=["Tenet", "Parasite"], position="2.1")
->>> br4nch.add.layer(branch="Streaming", layer="The Walking Dead", position="2.2")
-
->>> br4nch.display.assist(branch="Streaming")
-0: Movies & Series
-┣━ 1: Netflix
-┃   ┣━ 1.1: Movies
-┃   ┃   ┗━ 1.1.1: Interstellar
-┃   ┗━ 1.2: Series
-┃       ┣━ 1.2.1: Squid Game
-┃       ┗━ 1.2.2: The Crown
-┗━━ 2: Prime Video
-    ┣━ 2.1: Movies
-    ┃   ┣━ 2.1.1: Tenet
-    ┃   ┗━ 2.1.2: Parasite
-    ┗━ 2.2: Series
-        ┗━ 2.2.1: The Walking Dead
-
->>> br4nch.display.assist(branch="Streaming", size=1)
-0: Movies & Series
-┃
-┣━━ 1: Netflix
-┃   ┃
-┃   ┣━━ 1.1: Movies
-┃   ┃   ┃
-┃   ┃   ┗━━ 1.1.1: Interstellar
-┃   ┃
-┃   ┗━━ 1.2: Series
-┃       ┃
-┃       ┣━━ 1.2.1: Squid Game
-┃       ┃
-┃       ┗━━ 1.2.2: The Crown
-┃
-┗━━ 2: Prime Video
-    ┃
-    ┣━━ 2.1: Movies
-    ┃   ┃
-    ┃   ┣━━ 2.1.1: Tenet
-    ┃   ┃
-    ┃   ┗━━ 2.1.2: Parasite
-    ┃
-    ┗━━ 2.2: Series
-        ┃
-        ┗━━ 2.2.1: The Walking Dead
-
->>> br4nch.display.assist(branch="Streaming", line="║", split="╠═", end="╚═")
-0: Movies & Series
-╠═ 1: Netflix
-║  ╠═ 1.1: Movies
-║  ║  ╚═ 1.1.1: Interstellar
-║  ╚═ 1.2: Series
-║     ╠═ 1.2.1: Squid Game
-║     ╚═ 1.2.2: The Crown
-╚═ 2: Prime Video
-   ╠═ 2.1: Movies
-   ║  ╠═ 2.1.1: Tenet
-   ║  ╚═ 2.1.2: Parasite
-   ╚═ 2.2: Series
-      ╚═ 2.2.1: The Walking Dead
-```
-
-**Possible errors:**
-
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
-
-- InstanceStringError
-- InstanceIntegerError
-- InvalidSizeError
-- NotExistingBranchError
