@@ -18,14 +18,15 @@ To export an branch, use the **following function:**
 > To export the output of the branch to a file, specify the branch in the `branch` argument and specify the path to export the file to, in the `directory` argument.
 >
 > ```python
-> >>> br4nch.export.branch(branch="Stream", directory="D:/MyOutput")
-> # Path: D:\MyOutput\br4nch-Stream
+> >>> br4nch.export.branch(branch="MyBranch", directory="D:/MyOutput")
+> # Path: D:\MyOutput\br4nch-MyBranch
 > ```
 >
 > To also export the size, symbols and paint, set the `package` argument to `True`.
 >
 > ```python
-> >>> br4nch.export.branch(branch="Stream", directory="D:/MyOutput", package=True)
+> >>> br4nch.export.branch(branch="MyBranch", directory="D:/MyOutput", package=True)
+> # Path: D:\MyOutput\br4nch-MyBranch
 > ```
 >
 > To export multiple branches in the same function call, you can use a list for the `branch` argument.
