@@ -68,7 +68,7 @@ def load_branch(argument_branch_file, argument_package_file):
         with open(argument_package_file, 'r', encoding="utf8") as file:
             file = file.readlines()
 
-            if len(file) < 2:
+            if len(file) != 2:
                 raise InvalidPackageFileError(argument_package_file)
 
             if str(file[0][:-1]) != "id=:br4nch-package:":
