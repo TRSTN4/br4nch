@@ -1,6 +1,6 @@
 # Paint
 
-Keep in mind that not every terminal supports colors.
+Keep in mind that **not every terminal** supports paint.
 
 ## List
 
@@ -19,17 +19,31 @@ Here is a list of all the possible paints that can be selected:
 
 ## How to use?
 
-To add paint to a layer, use this method.
+To add paint to a layer, use this guide.
 
-Here's an example:
+**Guide:**
 
-```python
->>> br4nch.set.paint.layer(branch="MyBranch", position="1", paint="blue")
-```
-
-You can also select more paint than one, a list can help with that:
-
-```python
->>> br4nch.set.paint.layer(branch="MyBranch", position="1", paint=["blue", "bold"])
-```
+> To add paint to a layer, first specify the branch, the position of the layer to be painted, and the paint to be added.
+>
+> ```python
+> >>> br4nch.set.paint.layer(branch="MyBranch", position="1", paint="blue")
+> ```
+>
+> To add the paint to multiple branches in the same function call, you can use a list for the `branch` argument.
+>
+> ```python
+> >>> br4nch.set.paint.layer(branch=["MyBranch", "Stream"], position="1", paint="blue")
+> ```
+>
+> To add the paint to multiple positions in the same function call, you can use a list for the `position` argument.
+>
+> ```python
+> >>> br4nch.set.paint.layer(branch="MyBranch", position=["1", "1.1"], paint="blue")
+> ```
+>
+> To add multiple colors/specials to the paint in the same function call, you can use a list for the `paint` argument.
+>
+> ```python
+> >>> br4nch.set.paint.layer(branch="MyBranch", position="1", paint=["blue", "bold"])
+> ```
 
