@@ -15,8 +15,6 @@ Here's an example:
 InstanceStringError: The branch argument: '123' must be an instance of a 'string' and not 'int'.
 ```
 
-
-
 ## InstanceBooleanError
 
 This error occurs when the given value in the specified argument is not an instance of a boolean.
@@ -31,8 +29,6 @@ Here's an example:
 >>> br4nch.duplicate.branch(branch="MyBranch", name="MyHeader", package=123)
 InstanceBooleanError: The package argument: '123' must be an instance of a 'boolean'  and not 'int'.
 ```
-
-
 
 ## InstanceIntegerError
 
@@ -49,25 +45,6 @@ Here's an example:
 InstanceIntegerError: The size argument: '123' must be an instance of a 'integer' and not 'str'.
 ```
 
-
-
-## InstanceDictionaryError
-
-This error occurs when the given value in the specified argument is not an instance of a dictionary.
-
-**This error occurs in the following function:**
-
-[load.branch](../functions/load/load.branch.md)
-
-Here's an example:
-
-```python
->>> br4nch.load.branch(branch=123)
-InstanceDictionaryError: The branch argument: '123' must be an instance of a 'dictionary' and not 'int'.
-```
-
-
-
 ## InvalidBranchNameError
 
 This error occurs when the branch name uses characters other than letters and/or numbers.
@@ -82,8 +59,6 @@ Here's an example:
 >>> br4nch.add.branch(branch="#MyBranch#", header="MyHeader")
 InvalidBranchNameError: The branch name: '#MyBranch#' is not valid. Only numbers and/or letters may be used to add a branch.
 ```
-
-
 
 ## InvalidPositionError
 
@@ -100,8 +75,6 @@ Here's an example:
 InvalidPositionError: The position: '#' is not valid. Only numbers and operators may be used to add a position to the pos argument.
 ```
 
-
-
 ## InvalidSizeError
 
 This error occurs when the given size is less than zero or greater than 20.
@@ -116,8 +89,6 @@ Here's an example:
 >>> br4nch.set.size(branch="MyBranch", size=21)
 InvalidSizeError: The sizes that can be used is '0-20'.
 ```
-
-
 
 ## InvalidBranchFileError
 
@@ -134,8 +105,6 @@ Here's an example:
 InvalidBranchFileError: The file: 'D:/ThisBranchFileIsNotValid' is not valid as a branch file.
 ```
 
-
-
 ## InvalidPackageFileError
 
 This error occurs when the specified package file is invalid. e.g. the file is missing an official br4nch ID.
@@ -150,8 +119,6 @@ Here's an example:
 >>> br4nch.load.branch(branch="D:/branch-MyBranch", package="D:/ThisPackageFileIsNotValid")
 InvalidPackageFileError: The file: 'D:/ThisPackageFileIsNotValid' is not valid as a package file.
 ```
-
-
 
 ## NotExistingBranchError
 
@@ -168,8 +135,6 @@ Here's an example:
 NotExistingBranchError: The branch: 'MyNotExistingBranch' does not exists.
 ```
 
-
-
 ## NotExistingDirectoryError
 
 This error occurs when the given directory does not exist.
@@ -184,8 +149,6 @@ Here's an example:
 >>> br4nch.export.branch(branch="MyBranch", directory="D:ThisDirectoryDoesNotExists")
 NotExistingDirectoryError: The directory: 'D:ThisDirectoryDoesNotExists' does not exist.
 ```
-
-
 
 ## NotExistingBranchFileError
 
@@ -202,8 +165,6 @@ Here's an example:
 NotExistingBranchFileError: The branch file: 'D:/ThisBranchFileDoesNotExists!' does not exist.
 ```
 
-
-
 ## NotExstingPackageFileError
 
 This error occurs when the specified package file location does not exist.
@@ -218,8 +179,6 @@ Here's an example:
 >>> br4nch.load.branch(branch="D:/branch-MyBranch", package="ThisPackageFileDoesNotExists!")
 NotExistingPackageFileError: The package file: 'ThisPackageFileDoesNotExists!' does not exist.
 ```
-
-
 
 ## NotExistingPaintError
 
@@ -236,8 +195,6 @@ Here's an example:
 NotExistingPaintError: The paint: 'RandomColor' does not exists.
 ```
 
-
-
 ## MaximumPaintSlotsError
 
 This error occurs when more than three paint slots are used
@@ -253,8 +210,6 @@ Here's an example:
 MaximumPaintSlotsError: The maximum paint slots that can be used is '3'.
 ```
 
-
-
 ## DuplicateBranchError
 
 This error occurs when the specified branch name already exists.
@@ -269,8 +224,6 @@ Here's an example:
 >>> br4nch.add.branch(branch="MyBranch", header="MyHeader2")
 DuplicateBranchError: The branch: 'MyBranch' already exists.
 ```
-
-
 
 ## RequiredSymbolCangeError
 
