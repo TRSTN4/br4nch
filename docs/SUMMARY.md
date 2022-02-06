@@ -4,6 +4,7 @@
 
 ## Guides
 
+- [Getting Started](guides/positions.md)
 - [Positions](guides/positions.md)
 - [Operators](guides/operators.md)
 - [Paint](guides/paint.md)
@@ -63,6 +64,7 @@
   - [export.txt](functions/export/export.txt.md)
 - Load
   - [load.branch](functions/load/load.branch.md)
+  - [load.folder](functions/load/load.folder.md)
 - Display
   - [display.assist](functions/display/display.assist.md)
 
