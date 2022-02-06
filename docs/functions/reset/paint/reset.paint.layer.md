@@ -13,7 +13,7 @@ To reset the paint of an layer, use the **following function:**
 
 > To reset the layer paint, specify the branch name in the `branch` argument and specify the position of the layer.
 >
-> For more information about positions, head to [positions](../../guides/positions.md).
+> *For more information about positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
 > >>> br4nch.reset.paint.layer(branch="MyBranch", position="1.2")

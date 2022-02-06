@@ -15,7 +15,7 @@ To replace a layer, use the **following function:**
 
 > To replace the layer(s) name(s), specify the branch name in the `branch` argument and the new name for the layer(s) in the `replace` argument.
 >
-> For more information about positions, head to [positions](../../guides/positions.md).
+> *For more information about positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
 > >>> br4nch.replace.layer(branch="MyBranch", position="1", replace="Replaced layer!")

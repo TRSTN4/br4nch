@@ -17,7 +17,7 @@ To display a position, use the **following function:**
 
 > To print the layer of a position in a branch, specify the position in the `position` argument.
 >
-> For more information about positions, head to [positions](../../guides/positions.md).
+> *For more information about positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
 > >>> br4nch.display.layer(branch="Stream", layer="Squid Game")

@@ -21,8 +21,6 @@ It is recommended to use operators. For more information about operators, head t
 
 To add sublayers in parent layers. Follow the example below: 
 
-For more information about operators, head to [operators](../guides/operators.md).
-
 **Guide:**
 
 > Specifies the `1` and `2` positions to create the layers inside the `Netflix` and `Prime Video` layer.
