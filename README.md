@@ -1,25 +1,35 @@
-![logo](D:\Github\br4nch\assets\images\logo.png "logo")
+![logo](assets/images/logo.png "logo")
 
 `br4nch` is a Data Structure Tree Builder for Python. It is built in 100%/Pure Python, which means it does not use 3rd party libraries. We **listen** to our users in [issues](https://github.com/TRSTN4/br4nch/issues), Discord [channel](https://discord.gg/gKASxGEEUC) *and all over the Internet* to create a **fast**, **flexible** and **friendly** Data Structure Tree Builder.
 
-## 👀 Basic Usage
+## 👀 Example
 
-You can easily make a simple branch. We recommend reading [Getting Started](guides/Getting_Started.md). To create more complex branches that can even be automated, we recommend reading the entire documentation.
+If you want to see more code examples and guide, please visit our [documentation](https://docs.br4nch.com).
 
 ```python
-# Creates the branch with the header.
->>> br4nch.create.branch(branch="MyBranch", header="My Header")
+>>> br4nch.create.branch(branch="Stream", header="Movies & Series")
 
-# Adds multiple layers.
->>> br4nch.create.layer(branch="MyBranch", layer="Hello World!", position="0")
->>> br4nch.create.layer(branch="MyBranch", layer=["Sub-layer 1", "Sub-layer 1"], position="1")
+>>> br4nch.create.layer(branch="Stream", layer=["Netflix", "Prime Video"], position="0")
+>>> br4nch.create.layer(branch="Stream", layer=["Movies", "Series"], position="*")
+>>> br4nch.create.layer(branch="Stream", layer="Interstellar", position="1.1")
+>>> br4nch.create.layer(branch="Stream", layer=["Squid Game", "The Crown"], position="1.2")
+>>> br4nch.create.layer(branch="Stream", layer=["Tenet", "Parasite"], position="2.1")
+>>> br4nch.create.layer(branch="Stream", layer="The Walking Dead", position="2.2")
 
-# Prints the branch.
->>> br4nch.display.branch(branch="MyBranch")
-My Header
-┗━ Hello World!
-‎‎‎┣━ Sub layer 1
-‎‎‎┗━ Sub layer 2
+>>> br4nch.display.branch(branch="Stream")
+Movies & Series
+┣━ Netflix
+┃‎‎┣━ Movies
+┃‎‎┃‎‎┗━ Interstellar
+┃‎‎┗━ Series
+┃‎‎‎‎‎┣━ Squid Game
+┃‎‎‎‎‎┗━ The Crown
+┗━ Prime Video
+‎‎‎┣━ Movies
+‎‎‎┃‎‎┣━ Tenet
+‎‎‎┃‎‎┗━ Parasite
+‎‎‎┗━ Series
+‎‎‎‎‎‎┗━ The Walking Dead
 ```
 
 ## ⚙️ Installation
@@ -43,6 +53,12 @@ pip install br4nch
 - [Export](https://docs.br4nch.com/functions/export)
 - [Display](https://docs.br4nch.com/functions/display)
 
+## ⏱ Upcoming Updates
+
+- Load a json structure
+- Export to a json structure
+- Multiple small bug fixes.
+
 ## 👍 Contribute
 
 If you want to say **thank you** and/or support the active development of `br4nch`:
@@ -54,6 +70,14 @@ If you want to say **thank you** and/or support the active development of `br4nc
 ## ☕ Support
 
 `br4nch` is an open source project that runs on donations to pay the bills e.g. our domain name. If you want to support `br4nch`, you can ☕ [**buy a coffee here**](https://www.buymeacoffee.com/TRSTN4).
+
+## ‎‍💻 Code Contributors
+
+Help in testing, development, documentation and other tasks is highly appreciated and useful to the project. There are tasks for contributors of all experience levels. 
+
+To get started with developing `br4nch`, see [CONTRIBUTING](https://github.com/TRSTN4/br4nch/blob/release/CONTRIBUTING.md).
+
+- [TRSTN4](https://github.com/TRSTN4)
 
 ## ⚠️ License
 
