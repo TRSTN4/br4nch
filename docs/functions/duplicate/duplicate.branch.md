@@ -4,74 +4,61 @@ To duplicate a branch, use the **following function:**
 
 > br4nch.**duplicate**.**branch**(*branch*, *name*, *package=False*)
 
-**Required arguments:**
+**Required argument(s):**
 
-- branch - This is the argument where you specify the name of the branch to duplicate.
-- name - This is the argument where you specify the name of the new branch.
+- *branch* - The name of the branch being copied.
+- *name* - The name for the new branch.
 
-**Optional arguments:**
+**Optional argument(s):**
 
-- package - If this argument is 'True', then the size, symbols and paint are also duplicated and linked to the duplicated branch.
+- *package* - If this argument is True, then the size, symbols and paint are also copied and linked to the new branch.
 
-Here's an example:
+**Guide:**
 
-```python
->>> br4nch.duplicate.branch(branch="MyBranch", name="MyCopiedBranch")
-```
+> To copy a branch, specify the name of the branch to be copied in the `branch` argument. You also specify the name of what the copied branch should be called in the `name` argument.
+>
+> ```python
+> >>> br4nch.duplicate.branch(branch="MyBranch", name="CopiedOne")
+> 
+> >>> br4nch.display.branch(branch="CopiedOne")
+> Copy Me!
+> ┣━ First layer
+> ┃‎‎┣━ Just text
+> ┃‎‎┗━ Two lines
+> ┗━ Second layer
+>    ‎‎‎┣━ Just text
+>    ‎‎‎┗━ Two lines
+> ```
+>
+> If the argument package is `True`, then the `size`, `symbols` and `paint` are also copied and linked to the new branch.
+>
+> ```python
+> >>> br4nch.duplicate.branch(branch="MyBranch", name="CopiedTwo", package=True)
+> 
+> >>> br4nch.display.branch(branch="CopiedTwo")
+> Copy Me!
+> ┃
+> ┣━━ First layer
+> ┃‎‎‎┃
+> ┃‎‎‎┣━━ Just text
+> ┃‎‎‎┃
+> ┃‎‎‎┗━━ Two lines
+> ┃
+> ┗━━ Second layer
+>    ‎‎‎‎┃
+>    ‎‎‎‎┣━━ Just text
+>    ‎‎‎‎┃
+>    ‎‎‎‎┗━━ Two lines
+> ```
+>
 
-Here is an example in realistic usage:
+**Possible error(s):**
+These are the errors that may pop up when the function is used incorrectly.
+For more information about errors, head to [errors](../../guides/errors.md).
 
-```python
->>> br4nch.add.branch(branch="MyBranch", header="Copy Me!")
->>> br4nch.add.layer(branch="MyBranch", layer=["First layer", "Second layer"], position="0")
->>> br4nch.add.layer(branch="MyBranch", layer=["Just text", "Two lines"], position="*")
-
->>> br4nch.set.size(branch="MyBranch", size=1)
-
->>> br4nch.duplicate.branch(branch="MyBranch", name="MyBranchCopied", package=True)
->>> br4nch.duplicate.branch(branch="MyBranch", name="MyBranchCopiedTwo")
-
->>> br4nch.display.branch(branch="*")
-Copy Me!
-┃
-┣━━ First layer
-┃   ┃
-┃   ┣━━ Just text
-┃   ┃
-┃   ┗━━ Two lines
-┃
-┗━━ Second layer
-    ┃
-    ┣━━ Just text
-    ┃
-    ┗━━ Two lines
-Copy Me!
-┃
-┣━━ First layer
-┃   ┃
-┃   ┣━━ Just text
-┃   ┃
-┃   ┗━━ Two lines
-┃
-┗━━ Second layer
-    ┃
-    ┣━━ Just text
-    ┃
-    ┗━━ Two lines
-Copy Me!
-┣━ First layer
-┃  ┣━ Just text
-┃  ┗━ Two lines
-┗━ Second layer
-   ┣━ Just text
-   ┗━ Two lines
-```
-
-**Possible errors:**
-
-These are the errors that may pop up when the function is used incorrectly. For more information about errors, head to [errors](../../guides/errors.md).
-
-- InstanceStringError
-- InstanceBooleanError
-- NotExistingBranchError
+- *InstanceStringError*
+- *InstanceBooleanError*
+- *InvalidBranchNameError*
+- *DuplicateBranchError*
+- *NotExistingBranchError*
 
