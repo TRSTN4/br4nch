@@ -58,7 +58,13 @@ To duplicate a layer, use the **following function:**
 > 
 > >>> br4nch.duplicate.layer(branch="Stream", duplicate="1.1", position="0", put="MyBranch")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
+> Movies & Series
+> ┣━ Netflix
+> ┃‎‎┣━ Movies
+> ┃‎‎┗━ Series
+> ┗━ Prime Video
+> ‎‎‎┗━ Movies
 > My header
 > ┣━ Grass
 > ┃‎‎┗━ Dirt
