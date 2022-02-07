@@ -1,4 +1,4 @@
-![logo](D:\Github\br4nch\assets\images\logo.png "logo")
+![logo](../assets/images/logo.png "logo")
 
 `br4nch` is a Data Structure Tree Builder for Python. It is built in 100%/Pure Python, which means it does not use 3rd party libraries. We **listen** to our users in [issues](https://github.com/TRSTN4/br4nch/issues), Discord [channel](https://discord.gg/gKASxGEEUC) *and all over the Internet* to create a **fast**, **flexible** and **friendly** Data Structure Tree Builder.
 
