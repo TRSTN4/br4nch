@@ -2,7 +2,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 # Documentation: https://docs.br4nch.com
 
-__version__ = "1.1.4"
+__version__ = "1.2"
 __author__ = "TRSTN4"
 __author_email__ = "tristan@trstn4.com"
 __description__ = "Data Structure Tree Generator for Python."
