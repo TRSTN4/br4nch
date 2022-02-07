@@ -74,11 +74,11 @@ class MoveLayer:
         if not isinstance(argument_move, list):
             argument_move = [argument_move]
 
-        if not isinstance(argument_put, str):
-            raise InstanceStringError("put", argument_put)
-
         if not isinstance(argument_position, str):
             raise InstanceStringError("position", argument_position)
+
+        if not isinstance(argument_put, str):
+            raise InstanceStringError("put", argument_put)
 
         if not isinstance(argument_paint, bool):
             raise InstanceBooleanError("paint", argument_paint)
