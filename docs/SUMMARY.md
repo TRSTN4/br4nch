@@ -4,7 +4,7 @@
 
 ## Guides
 
-- [Getting Started](guides/positions.md)
+- [Getting Started](guides/getting_started.md)
 - [Positions](guides/positions.md)
 - [Operators](guides/operators.md)
 - [Paint](guides/paint.md)

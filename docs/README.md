@@ -4,7 +4,7 @@
 
 ## 👀 Basic Usage
 
-You can easily make a simple branch. We recommend reading [Getting Started](guides/Getting_Started.md). To create more complex branches that can even be automated, we recommend reading the entire documentation.
+You can easily make a simple branch. We recommend reading [Getting Started](guides/getting_started.md). To create more complex branches that can even be automated, we recommend reading the entire documentation.
 
 ```python
 # Creates the branch with the header.
