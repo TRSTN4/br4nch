@@ -55,9 +55,9 @@ pip install br4nch
 
 ## ⏱ Upcoming Updates
 
-- Refreshed documentation.
 - Load a json structure
 - Export to a json structure
+- Multiple small bug fixes.
 
 ## 👍 Contribute
 
