@@ -24,17 +24,17 @@ To set one or multiple symbol(s), use the **following function:**
 > >>> br4nch.display.branch(branch="Streaming")
 > Movies & Series
 > ╠═ Netflix
-> ║‎‎╠═ Movies
-> ║‎‎║‎‎╚═ Interstellar
-> ║‎‎╚═ Series
-> ║‎‎‎‎‎╠═ Squid Game
-> ║‎‎‎‎‎╚═ The Crown
+> ║  ╠═ Movies
+> ║  ║  ╚═ Interstellar
+> ║  ╚═ Series
+> ║     ╠═ Squid Game
+> ║     ╚═ The Crown
 > ╚═ Prime Video
->    ‎‎‎╠═ Movies
->    ‎‎‎║‎‎╠═ Tenet
->    ‎‎‎║‎‎╚═ Parasite
->    ‎‎‎╚═ Series
->    ‎‎‎‎‎‎╚═ The Walking Dead
+>       ╠═ Movies
+>       ║  ╠═ Tenet
+>       ║  ╚═ Parasite
+>       ╚═ Series
+>          ╚═ The Walking Dead
 > ```
 >
 > To set the symbol(s) for multiple branches in the same function call, you can use a list for the `branch` argument.

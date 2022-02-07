@@ -31,11 +31,11 @@ To add sublayers in parent layers. Follow the example below:
 > >>> br4nch.display.assist(branch="Streaming")
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃‎‎┣━ 1.1: Movies
-> ┃‎‎┗━ 1.2: Series
+> ┃  ┣━ 1.1: Movies
+> ┃  ┗━ 1.2: Series
 > ┗━ 2: Prime Video
-> ‎‎‎┣━ 2.1: Movies
-> ‎‎‎┗━ 2.2: Series
+>    ┣━ 2.1: Movies
+>    ┗━ 2.2: Series
 > ```
 >
 > Specifies the `1.1` and `2.1` positions to create the layers inside the `Movies and Series` layer in both parent `Netflix` and `Prime Video` layers.
@@ -46,13 +46,13 @@ To add sublayers in parent layers. Follow the example below:
 > >>> br4nch.display.assist(branch="Streaming")
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃‎‎┣━ 1.1: Movies
-> ┃‎‎┃‎‎┗━ 1.1.1: The Hobbit
-> ┃‎‎┗━ 1.2: Series
+> ┃  ┣━ 1.1: Movies
+> ┃  ┃  ┗━ 1.1.1: The Hobbit
+> ┃  ┗━ 1.2: Series
 > ┗━ 2: Prime Video
-> ‎‎‎┣━ 2.1: Movies
-> ‎‎‎┃‎‎┗━ 2.1.1: The Hobbit
-> ‎‎‎┗━ 2.2: Series
+>    ┣━ 2.1: Movies
+>    ┃  ┗━ 2.1.1: The Hobbit
+>    ┗━ 2.2: Series
 > ```
 >
 > And so on..
@@ -66,19 +66,19 @@ To add sublayers in parent layers. Follow the example below:
 > >>> br4nch.display.branch(branch="Streaming")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┃‎‎┣━ The Hobbit
-> ┃‎‎┃‎‎┗━ Interstellar
-> ┃‎‎┗━ Series
-> ┃‎‎‎‎‎┣━ Squid Game
-> ┃‎‎‎‎‎┗━ The Crown
+> ┃  ┣━ Movies
+> ┃  ┃  ┣━ The Hobbit
+> ┃  ┃  ┗━ Interstellar
+> ┃  ┗━ Series
+> ┃     ┣━ Squid Game
+> ┃     ┗━ The Crown
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┃‎‎┣━ The Hobbit
-> ‎‎‎┃‎‎┣━ Tenet
-> ‎‎‎┃‎‎┗━ Parasite
-> ‎‎‎┗━ Series
-> ‎‎‎‎‎‎┗━ The Walking Dead
+>    ┣━ Movies
+>    ┃  ┣━ The Hobbit
+>    ┃  ┣━ Tenet
+>    ┃  ┗━ Parasite
+>    ┗━ Series
+>       ┗━ The Walking Dead
 > ```
 
 ## Branch assist
@@ -91,19 +91,19 @@ To add sublayers in parent layers. Follow the example below:
 > >>> br4nch.display.assist(branch="Stream")
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃‎‎┣━ 1.1: Movies
-> ┃‎‎┃‎‎┣━ 1.1.1: The Hobbit
-> ┃‎‎┃‎‎┗━ 1.1.2: Interstellar
-> ┃‎‎┗━ 1.2: Series
-> ┃‎‎‎‎‎┣━ 1.2.1: Squid Game
-> ┃‎‎‎‎‎┗━ 1.2.2: The Crown
+> ┃  ┣━ 1.1: Movies
+> ┃  ┃  ┣━ 1.1.1: The Hobbit
+> ┃  ┃  ┗━ 1.1.2: Interstellar
+> ┃  ┗━ 1.2: Series
+> ┃     ┣━ 1.2.1: Squid Game
+> ┃     ┗━ 1.2.2: The Crown
 > ┗━ 2: Prime Video
-> ‎‎‎┣━ 2.1: Movies
-> ‎‎‎┃‎‎┣━ 2.1.1: The Hobbit
-> ‎‎‎┃‎‎┣━ 2.1.2: Tenet
-> ‎‎‎┃‎‎┗━ 2.1.3: Parasite
-> ‎‎‎┗━ 2.2: Series
-> ‎‎‎‎‎‎┗━ 2.2.1: The Walking Dead
+>    ┣━ 2.1: Movies
+>    ┃  ┣━ 2.1.1: The Hobbit
+>    ┃  ┣━ 2.1.2: Tenet
+>    ┃  ┗━ 2.1.3: Parasite
+>    ┗━ 2.2: Series
+>       ┗━ 2.2.1: The Walking Dead
 > ```
 >
 

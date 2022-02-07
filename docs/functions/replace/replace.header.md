@@ -19,8 +19,8 @@ To replace a header, use the **following function:**
 > >>> br4nch.display.branch(branch="ReplacedBranch")
 > Replaced Header!
 > ┣━ ABCD
-> ┃‎‎┣━ Just text
-> ┃‎‎┗━ Two lines
+> ┃  ┣━ Just text
+> ┃  ┗━ Two lines
 > ┗━ Second layer
 > ```
 >

@@ -19,11 +19,11 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┗━ Series
 > ```
 >
 > Using the `/`/`combinator` operator followed by a position.
@@ -32,24 +32,24 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┗━ Series
 > 
 > >>> br4nch.add.layer(branch="Stream", layer=["The Hobbit"], position="1/2.1")
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┃‎‎┗━ The Hobbit
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┃  ┗━ The Hobbit
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┃‎‎┗━ The Hobbit
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┃  ┗━ The Hobbit
+>    ┗━ Series
 > ```
 
 ## Selector - *
@@ -71,11 +71,11 @@ The operator 'selector' is used to include all positions at the same height as t
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┗━ Series
 > ```
 >
 > Using the `*`/`selector` operator followed by a position.
@@ -84,24 +84,24 @@ The operator 'selector' is used to include all positions at the same height as t
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┗━ Series
 > 
 > >>> br4nch.add.layer(branch="Stream", layer=["The Hobbit"], position="*.1")
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┃‎‎┗━ The Hobbit
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┃  ┗━ The Hobbit
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┃‎‎┗━ The Hobbit
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┃  ┗━ The Hobbit
+>    ┗━ Series
 > ```
 >
 > The `selector` operator can also be used to define all existing branches.
@@ -139,9 +139,9 @@ The operator 'inclusor' is used to include all positions between two values at t
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
-> ┃‎‎┗━ Sub Layer
+> ┃  ┗━ Sub Layer
 > ┗━ Layer Three
-> ‎‎‎┗━ Sub Layer
+>    ┗━ Sub Layer
 > ```
 >
 > And
@@ -151,9 +151,9 @@ The operator 'inclusor' is used to include all positions between two values at t
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
-> ┃‎‎┗━ Sub Layer
+> ┃  ┗━ Sub Layer
 > ┗━ Layer Three
-> ‎‎‎┗━ Sub Layer
+>    ┗━ Sub Layer
 > 
 > >>> br4nch.add.layer(branch="MyBranch", layer=["Final Layer"], position="2>3.1")
 > 
@@ -161,11 +161,11 @@ The operator 'inclusor' is used to include all positions between two values at t
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
-> ┃‎‎┗━ Sub Layer
-> ┃‎‎‎‎‎┗━ Final Layer
+> ┃  ┗━ Sub Layer
+> ┃     ┗━ Final Layer
 > ┗━ Layer Three
-> ‎‎‎┗━ Sub Layer
-> ‎‎‎‎‎‎┗━ Final Layer
+>    ┗━ Sub Layer
+>       ┗━ Final Layer
 > ```
 
 ## Exclusor - <
@@ -188,7 +188,7 @@ The operator 'exclusor' is used to avoid using all positions between two values 
 > >>> br4nch.display.branch(branch="MyBranch")
 > My Header
 > ┣━ Layer One
-> ┃‎‎┗━ Sub Layer
+> ┃  ┗━ Sub Layer
 > ┣━ Layer Two
 > ┗━ Layer Three
 > ```
@@ -199,7 +199,7 @@ The operator 'exclusor' is used to avoid using all positions between two values 
 > >>> br4nch.display.branch(branch="MyBranch")
 > My Header
 > ┣━ Layer One
-> ┃‎‎┗━ Sub Layer
+> ┃  ┗━ Sub Layer
 > ┣━ Layer Two
 > ┗━ Layer Three
 > 
@@ -208,8 +208,8 @@ The operator 'exclusor' is used to avoid using all positions between two values 
 > >>> br4nch.display.branch(branch="MyBranch")
 > My Header
 > ┣━ Layer One
-> ┃‎‎┗━ Sub Layer
-> ┃‎‎‎‎‎┗━ Final Layer
+> ┃  ┗━ Sub Layer
+> ┃     ┗━ Final Layer
 > ┣━ Layer Two
 > ┗━ Layer Three
 > ```

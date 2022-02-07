@@ -25,8 +25,8 @@ To move a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
 > 
 > >>> br4nch.move.layer(branch="Stream", move="1.1", position="2")
@@ -34,9 +34,9 @@ To move a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┗━ Series
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > ```
 >
 > To move the layer(s) to another existing branch, specify the branch name the layer(s) should go to in the `put` argument.
@@ -45,27 +45,27 @@ To move a layer, use the **following function:**
 > >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > My header
 > ┗━ Grass
-> ‎‎‎┗━ Dirt
-> ‎‎‎‎‎‎┗━ Stone
+>    ┗━ Dirt
+>       ┗━ Stone
 > 
 > >>> br4nch.move.layer(branch="Stream", move="1.1", position="0", put="MyBranch")
 > 
 > >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┗━ Series
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > My header
 > ┣━ Grass
-> ┃‎‎┗━ Dirt
-> ┃‎‎‎‎‎┗━ Stone
+> ┃  ┗━ Dirt
+> ┃     ┗━ Stone
 > ┗━ Movies
 > ```
 >
@@ -75,20 +75,20 @@ To move a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > 
 > >>> br4nch.move.layer(branch="Stream", move="1.2", position="2", paint=True)
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┗━ Movies
+> ┃  ┗━ Movies
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┗━ Series
 > ```
 >
 > To move the position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
@@ -97,31 +97,31 @@ To move a layer, use the **following function:**
 > >>> br4nch.display.branch(branch=["Cars", "Electronics"])
 > Garage
 > ┗━ Cars
-> ‎‎‎┣━ Mercedes
-> ‎‎‎┗━ BMW
+>    ┣━ Mercedes
+>    ┗━ BMW
 > PC
 > ┣━ Mouses
-> ┃‎‎┣━ Microsoft
-> ┃‎‎┗━ Razer
+> ┃  ┣━ Microsoft
+> ┃  ┗━ Razer
 > ┗━ Keyboards
-> ‎‎‎┣━ Steel Series
-> ‎‎‎┗━ Omen
+>    ┣━ Steel Series
+>    ┗━ Omen
 > 
 > >>> br4nch.move.layer(branch=["Cars", "Electronics"], move="1.1", position="2")
 > 
 > >>> br4nch.display.branch(branch="Cars")
 > Garage
 > ┣━ Cars
-> ┃‎‎┣━ Mercedes
-> ┃‎‎┗━ BMW
+> ┃  ┣━ Mercedes
+> ┃  ┗━ BMW
 > ┗━ Mercedes
 > PC
 > ┣━ Mouses
-> ┃‎‎┣━ Microsoft
-> ┃‎‎┗━ Razer
+> ┃  ┣━ Microsoft
+> ┃  ┗━ Razer
 > ┣━ Keyboards
-> ┃‎‎┣━ Steel Series
-> ┃‎‎┗━ Omen
+> ┃  ┣━ Steel Series
+> ┃  ┗━ Omen
 > ┗━ Microsoft
 > ```
 >
@@ -131,8 +131,8 @@ To move a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Fruits")
 > Fruits
 > ┣━ Trees
-> ┃‎‎┣━ Apple
-> ┃‎‎┗━ Pear
+> ┃  ┣━ Apple
+> ┃  ┗━ Pear
 > ┗━ Plant
 > 
 > >>> br4nch.move.layer(branch="Fruits", move=["1.1", "1,2"], position="2")
@@ -140,11 +140,11 @@ To move a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Fruits")
 > Fruits
 > ┣━ Trees
-> ┃‎‎┣━ Apple
-> ┃‎‎┗━ Pear
+> ┃  ┣━ Apple
+> ┃  ┗━ Pear
 > ┗━ Plant
-> ‎‎‎┣━ Apple
-> ‎‎‎┗━ Pear
+>    ┣━ Apple
+>    ┗━ Pear
 > ```
 >
 

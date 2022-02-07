@@ -23,8 +23,8 @@ To replace a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="MyBranch")
 > Replaced Header!
 > ┣━ Replaced layer!
-> ┃‎‎┣━ Just text
-> ┃‎‎┗━ Two lines
+> ┃  ┣━ Just text
+> ┃  ┗━ Two lines
 > ┗━ Second layer
 > ```
 >
@@ -36,13 +36,13 @@ To replace a layer, use the **following function:**
 > >>> br4nch.display.branch(branch=["BranchOne", "BranchTwo"])
 > Branch One
 > ┣━ Alpha
-> ┃‎‎┣━ Charlie
-> ┃‎‎┗━ Replaced layer!
+> ┃  ┣━ Charlie
+> ┃  ┗━ Replaced layer!
 > ┗━ Beta
 > Branch Two
 > ┣━ Alpha
-> ┃‎‎┣━ Charlie
-> ┃‎‎┗━ Replaced layer!
+> ┃  ┣━ Charlie
+> ┃  ┗━ Replaced layer!
 > ┗━ Beta
 > ```
 >
@@ -54,8 +54,8 @@ To replace a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="MyBranch")
 > Replaced Header!
 > ┣━ Replaced layer!
-> ┃‎‎┣━ Replaced This layer too!
-> ┃‎‎┗━ Replaced This layer too!
+> ┃  ┣━ Replaced This layer too!
+> ┃  ┗━ Replaced This layer too!
 > ┗━ Second layer
 > ```
 

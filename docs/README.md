@@ -18,8 +18,8 @@ You can easily make a simple branch. We recommend reading [Getting Started](guid
 >>> br4nch.display.branch(branch="MyBranch")
 My Header
 ┗━ Hello World!
-‎‎‎┣━ Sub layer 1
-‎‎‎┗━ Sub layer 2
+   ┣━ Sub layer 1
+   ┗━ Sub layer 2
 ```
 
 ## ⚙️ Installation

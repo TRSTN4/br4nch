@@ -23,11 +23,11 @@ To duplicate a branch, use the **following function:**
 > >>> br4nch.display.branch(branch="CopiedOne")
 > Copy Me!
 > ┣━ First layer
-> ┃‎‎┣━ Just text
-> ┃‎‎┗━ Two lines
+> ┃  ┣━ Just text
+> ┃  ┗━ Two lines
 > ┗━ Second layer
->    ‎‎‎┣━ Just text
->    ‎‎‎┗━ Two lines
+>       ┣━ Just text
+>       ┗━ Two lines
 > ```
 >
 > If the argument package is `True`, then the `size`, `symbols` and `paint` are also copied and linked to the new branch.
@@ -39,16 +39,16 @@ To duplicate a branch, use the **following function:**
 > Copy Me!
 > ┃
 > ┣━━ First layer
-> ┃‎‎‎┃
-> ┃‎‎‎┣━━ Just text
-> ┃‎‎‎┃
-> ┃‎‎‎┗━━ Two lines
+> ┃   ┃
+> ┃   ┣━━ Just text
+> ┃   ┃
+> ┃   ┗━━ Two lines
 > ┃
 > ┗━━ Second layer
->    ‎‎‎‎┃
->    ‎‎‎‎┣━━ Just text
->    ‎‎‎‎┃
->    ‎‎‎‎┗━━ Two lines
+>        ┃
+>        ┣━━ Just text
+>        ┃
+>        ┗━━ Two lines
 > ```
 >
 

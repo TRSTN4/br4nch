@@ -20,17 +20,17 @@ To display a branch, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┃‎‎┗━ Interstellar
-> ┃‎‎┗━ Series
-> ┃‎‎‎‎‎┣━ Squid Game
-> ┃‎‎‎‎‎┗━ The Crown
+> ┃  ┣━ Movies
+> ┃  ┃  ┗━ Interstellar
+> ┃  ┗━ Series
+> ┃     ┣━ Squid Game
+> ┃     ┗━ The Crown
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┃‎‎┣━ Tenet
-> ‎‎‎┃‎‎┗━ Parasite
-> ‎‎‎┗━ Series
-> ‎‎‎‎‎‎┗━ The Walking Dead
+>    ┣━ Movies
+>    ┃  ┣━ Tenet
+>    ┃  ┗━ Parasite
+>    ┗━ Series
+>       ┗━ The Walking Dead
 > ```
 >
 > To print a branch and immediately delete it, specify the value 'True' in the `delete` argument.
@@ -39,17 +39,17 @@ To display a branch, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream", delete=True)
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┃‎‎┗━ Interstellar
-> ┃‎‎┗━ Series
-> ┃‎‎‎‎‎┣━ Squid Game
-> ┃‎‎‎‎‎┗━ The Crown
+> ┃  ┣━ Movies
+> ┃  ┃  ┗━ Interstellar
+> ┃  ┗━ Series
+> ┃     ┣━ Squid Game
+> ┃     ┗━ The Crown
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┃‎‎┣━ Tenet
-> ‎‎‎┃‎‎┗━ Parasite
-> ‎‎‎┗━ Series
-> ‎‎‎‎‎‎┗━ The Walking Dead
+>    ┣━ Movies
+>    ┃  ┣━ Tenet
+>    ┃  ┗━ Parasite
+>    ┗━ Series
+>       ┗━ The Walking Dead
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > NotExistingBranchError: The branch: 'Stream' does not exists.
@@ -61,26 +61,26 @@ To display a branch, use the **following function:**
 > >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┃‎‎┗━ Interstellar
-> ┃‎‎┗━ Series
-> ┃‎‎‎‎‎┣━ Squid Game
-> ┃‎‎‎‎‎┗━ The Crown
+> ┃  ┣━ Movies
+> ┃  ┃  ┗━ Interstellar
+> ┃  ┗━ Series
+> ┃     ┣━ Squid Game
+> ┃     ┗━ The Crown
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┃‎‎┣━ Tenet
-> ‎‎‎┃‎‎┗━ Parasite
-> ‎‎‎┗━ Series
-> ‎‎‎‎‎‎┗━ The Walking Dead
+>    ┣━ Movies
+>    ┃  ┣━ Tenet
+>    ┃  ┗━ Parasite
+>    ┗━ Series
+>       ┗━ The Walking Dead
 > My header!
 > ┣━ My Layer
-> ┃‎‎┣━ Sublayer One
-> ┃‎‎┃‎‎┗━ Last Layer
-> ┃‎‎┗━ Sublayer Two
-> ┃‎‎‎‎‎┗━ Last Layer
+> ┃  ┣━ Sublayer One
+> ┃  ┃  ┗━ Last Layer
+> ┃  ┗━ Sublayer Two
+> ┃     ┗━ Last Layer
 > ┗━ One
-> ‎‎‎Two
-> ‎‎‎Three
+>    Two
+>    Three
 > ```
 
 **Possible error(s):**

@@ -26,8 +26,8 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
 > 
 > >>> br4nch.duplicate.layer(branch="Stream", duplicate="1.1", position="2")
@@ -35,10 +35,10 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > ```
 >
 > To copy the layer(s) to another existing branch, specify the branch name the layer(s) should go to in the `put` argument.
@@ -47,28 +47,28 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > My header
 > ┗━ Grass
-> ‎‎‎┗━ Dirt
-> ‎‎‎‎‎‎┗━ Stone
+>    ┗━ Dirt
+>       ┗━ Stone
 > 
 > >>> br4nch.duplicate.layer(branch="Stream", duplicate="1.1", position="0", put="MyBranch")
 > 
 > >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > My header
 > ┣━ Grass
-> ┃‎‎┗━ Dirt
-> ┃‎‎‎‎‎┗━ Stone
+> ┃  ┗━ Dirt
+> ┃     ┗━ Stone
 > ┗━ Movies
 > ```
 >
@@ -78,21 +78,21 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┗━ Movies
+>    ┗━ Movies
 > 
 > >>> br4nch.duplicate.layer(branch="Stream", duplicate="1.2", position="2", paint=True)
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┗━ Series
 > ```
 >
 > To copy the layer(s) and then delete it directly from the original position(s), set the `delete` argument to `True`.
@@ -101,22 +101,22 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃‎‎┣━ Movies
-> ┃‎‎┗━ Series
+> ┃  ┣━ Movies
+> ┃  ┗━ Series
 > ┗━ Prime Video
-> ‎‎‎┣━ Movies
-> ‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┗━ Series
 > 
 > >>> br4nch.duplicate.layer(branch="Stream", duplicate="2", position="1", delete=True)
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┗━ Netflix
-> ‎‎‎┣━ Movies
-> ‎‎‎┣━ Series
-> ‎‎‎┗━ Prime Video
-> ‎‎‎‎‎‎┣━ Movies
-> ‎‎‎‎‎‎┗━ Series
+>    ┣━ Movies
+>    ┣━ Series
+>    ┗━ Prime Video
+>       ┣━ Movies
+>       ┗━ Series
 > ```
 >
 > To duplicate the position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
@@ -125,31 +125,31 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch=["Cars", "Electronics"])
 > Garage
 > ┗━ Cars
-> ‎‎‎┣━ Mercedes
-> ‎‎‎┗━ BMW
+>    ┣━ Mercedes
+>    ┗━ BMW
 > PC
 > ┣━ Mouses
-> ┃‎‎┣━ Microsoft
-> ┃‎‎┗━ Razer
+> ┃  ┣━ Microsoft
+> ┃  ┗━ Razer
 > ┗━ Keyboards
-> ‎‎‎┣━ Steel Series
-> ‎‎‎┗━ Omen
+>    ┣━ Steel Series
+>    ┗━ Omen
 > 
 > >>> br4nch.duplicate.layer(branch=["Cars", "Electronics"], duplicate="1.1", position="2")
 > 
 > >>> br4nch.display.branch(branch="Cars")
 > Garage
 > ┣━ Cars
-> ┃‎‎┣━ Mercedes
-> ┃‎‎┗━ BMW
+> ┃  ┣━ Mercedes
+> ┃  ┗━ BMW
 > ┗━ Mercedes
 > PC
 > ┣━ Mouses
-> ┃‎‎┣━ Microsoft
-> ┃‎‎┗━ Razer
+> ┃  ┣━ Microsoft
+> ┃  ┗━ Razer
 > ┣━ Keyboards
-> ┃‎‎┣━ Steel Series
-> ┃‎‎┗━ Omen
+> ┃  ┣━ Steel Series
+> ┃  ┗━ Omen
 > ┗━ Microsoft
 > ```
 >
@@ -159,8 +159,8 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Fruits")
 > Fruits
 > ┣━ Trees
-> ┃‎‎┣━ Apple
-> ┃‎‎┗━ Pear
+> ┃  ┣━ Apple
+> ┃  ┗━ Pear
 > ┗━ Plant
 > 
 > >>> br4nch.duplicate.layer(branch="Fruits", duplicate=["1.1", "1,2"], position="2")
@@ -168,11 +168,11 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Fruits")
 > Fruits
 > ┣━ Trees
-> ┃‎‎┣━ Apple
-> ┃‎‎┗━ Pear
+> ┃  ┣━ Apple
+> ┃  ┗━ Pear
 > ┗━ Plant
-> ‎‎‎┣━ Apple
-> ‎‎‎┗━ Pear
+>    ┣━ Apple
+>    ┗━ Pear
 > ```
 >
 > To duplicate the layer(s) to multiple positions in the same function call, you can use a list for the `position` argument.
@@ -181,8 +181,8 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Board")
 > Info
 > ┣━ USA
-> ┃‎‎┣━ LA
-> ┃‎‎┗━ Texas
+> ┃  ┣━ LA
+> ┃  ┗━ Texas
 > ┗━ Netherlands
 > 
 > >>> br4nch.duplicate.layer(branch="Board", duplicate="1.2", position=["0", "2"])
@@ -190,10 +190,10 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch="Board")
 > Info
 > ┣━ USA
-> ┃‎‎┣━ LA
-> ┃‎‎┗━ Texas
+> ┃  ┣━ LA
+> ┃  ┗━ Texas
 > ┣━ Netherlands
-> ┃‎‎┗━ Texas
+> ┃  ┗━ Texas
 > ┗━ Texas
 > ```
 >
@@ -203,35 +203,35 @@ To duplicate a layer, use the **following function:**
 > >>> br4nch.display.branch(branch=["Parks", "Food"])
 > Fruits
 > ┣━ Vacation
-> ┃‎‎┣━ Apple
-> ┃‎‎┗━ Pear
+> ┃  ┣━ Apple
+> ┃  ┗━ Pear
 > ┗━ Games
-> ‎‎‎┗━ Go Park
+>    ┗━ Go Park
 > Food
 > ┣━ Pie
-> ┃‎‎┣━ Crumble
-> ┃‎‎┗━ Cream
+> ┃  ┣━ Crumble
+> ┃  ┗━ Cream
 > ┗━ Fruit
-> ‎‎‎┣━ Apple
-> ‎‎‎┗━ Pear
+>    ┣━ Apple
+>    ┗━ Pear
 > 
 > >>> br4nch.duplicate.layer(branch="Parks", duplicate="2.1", position="0", put=["Parks", "Food"])
 > 
 > >>> br4nch.display.branch(branch=["Parks", "Food"])
 > Fruits
 > ┣━ Vacation
-> ┃‎‎┣━ Apple
-> ┃‎‎┗━ Pear
+> ┃  ┣━ Apple
+> ┃  ┗━ Pear
 > ┣━ Games
-> ┃‎‎┗━ Go Park
+> ┃  ┗━ Go Park
 > ┗━ Go Park
 > Food
 > ┣━ Pie
-> ┃‎‎┣━ Crumble
-> ┃‎‎┗━ Cream
+> ┃  ┣━ Crumble
+> ┃  ┗━ Cream
 > ┣━ Fruit
-> ┃‎‎┣━ Apple
-> ┃‎‎┗━ Pear
+> ┃  ┣━ Apple
+> ┃  ┗━ Pear
 > ┗━ Go Park
 > ```
 

@@ -22,8 +22,8 @@ To display a layer, use the **following function:**
 > >>> br4nch.display.layer(branch="Stream", layer="Squid Game")
 > Get Position Result:
 > ┗━ Branch: Stream
-> ‎‎‎┗━ Layer: Squid Game                  
-> ‎‎‎‎‎‎┗━ Position: 1.2.1
+>    ┗━ Layer: Squid Game                  
+>       ┗━ Position: 1.2.1
 > ```
 >
 > To make the name of the layer case-sensitive, set the `sensitive` argument to True.
@@ -45,12 +45,12 @@ To display a layer, use the **following function:**
 > >>> br4nch.display.layer(branch=["Stream"], ["Stream2"], layer="The Walking Dead")
 > Get Position Result:
 > ┗━ Branch: Stream
-> ‎‎‎┗━ Layer: The Walking Dead              
-> ‎‎‎‎‎‎┗━ Position: 2.1.1
+>    ┗━ Layer: The Walking Dead              
+>       ┗━ Position: 2.1.1
 > Get Position Result:
 > ┗━ Branch: Stream2
-> ‎‎‎┗━ Layer: The Walking Dead                
-> ‎‎‎‎‎‎┗━ Position: 2.1.1
+>    ┗━ Layer: The Walking Dead                
+>       ┗━ Position: 2.1.1
 > ```
 >
 > To print multiple positions in the same function call, you can use a list for the `layer` argument.
@@ -59,12 +59,12 @@ To display a layer, use the **following function:**
 > >>> br4nch.display.layer(branch="Stream", layer=["Interstellar", "Squid Game"])
 > Get Position Result:
 > ┗━ Branch: Stream
-> ‎‎‎┗━ Layer: Interstellar                 
-> ‎‎‎‎‎‎┗━ Position: 1.1.1
+>    ┗━ Layer: Interstellar                 
+>       ┗━ Position: 1.1.1
 > Get Position Result:
 > ┗━ Branch: Stream
-> ‎‎‎┗━ Layer: Squid Game                  
-> ‎‎‎‎‎‎┗━ Position: 1.2.1
+>    ┗━ Layer: Squid Game                  
+>       ┗━ Position: 1.2.1
 > ```
 
 **Possible error(s):**

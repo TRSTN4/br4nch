@@ -61,7 +61,7 @@
 > >>> br4nch.display.branch(branch="MyBranch")
 > My custom header!
 > ┣━ Hello World!
-> ┃‎‎┗━ Tree
+> ┃  ┗━ Tree
 > ┣━ Apple
 > ┗━ Pear
 > ```
@@ -74,11 +74,11 @@
 > >>> br4nch.display.branch(branch="MyBranch")
 > My custom header!
 > ┣━ Hello World!
-> ┃‎‎┗━ Tree
+> ┃  ┗━ Tree
 > ┣━ Apple
-> ┃‎‎┗━ Plant
+> ┃  ┗━ Plant
 > ┗━ Pear
-> ‎‎‎┗━ Plant
+>    ┗━ Plant
 > ```
 >
 > *Need help with the positions? then use the function `display.assist` .*
@@ -87,11 +87,11 @@
 > >>> br4nch.display.assist(branch="MyBranch")
 > 0: My custom header!
 > ┣━ 1: Hello World!
-> ┃‎‎┗━ 1.1: Tree
+> ┃  ┗━ 1.1: Tree
 > ┣━ 2: Apple
-> ┃‎‎┗━ 2.1: Plant
+> ┃  ┗━ 2.1: Plant
 > ┗━ 3: Pear
-> ‎‎‎┗━ 3.1: Plant
+>    ┗━ 3.1: Plant
 > ```
 
 ## Step 5
@@ -106,12 +106,12 @@
 > >>> br4nch.display.branch(branch="MyBranch")
 > My custom header!
 > ┣━ Hello World!
-> ┃‎‎┗━ Tree
-> ┃‎‎‎‎‎┗━ Birds
+> ┃  ┗━ Tree
+> ┃     ┗━ Birds
 > ┣━ Apple
-> ┃‎‎┗━ Plant
+> ┃  ┗━ Plant
 > ┗━ Pear
-> ‎‎‎┗━ Plant
+>    ┗━ Plant
 > ```
 >
 
