@@ -19,17 +19,17 @@ If you want to see more code examples and guide, please visit our [documentation
 >>> br4nch.display.branch(branch="Stream")
 Movies & Series
 ┣━ Netflix
-┃‎‎┣━ Movies
-┃‎‎┃‎‎┗━ Interstellar
-┃‎‎┗━ Series
-┃‎‎‎‎‎┣━ Squid Game
-┃‎‎‎‎‎┗━ The Crown
+┃  ┣━ Movies
+┃  ┃  ┗━ Interstellar
+┃  ┗━ Series
+┃     ┣━ Squid Game
+┃     ┗━ The Crown
 ┗━ Prime Video
-‎‎‎┣━ Movies
-‎‎‎┃‎‎┣━ Tenet
-‎‎‎┃‎‎┗━ Parasite
-‎‎‎┗━ Series
-‎‎‎‎‎‎┗━ The Walking Dead
+   ┣━ Movies
+   ┃  ┣━ Tenet
+   ┃  ┗━ Parasite
+   ┗━ Series
+      ┗━ The Walking Dead
 ```
 
 ## ⚙️ Installation
@@ -71,7 +71,7 @@ If you want to say **thank you** and/or support the active development of `br4nc
 
 `br4nch` is an open source project that runs on donations to pay the bills e.g. our domain name. If you want to support `br4nch`, you can ☕ [**buy a coffee here**](https://www.buymeacoffee.com/TRSTN4).
 
-## ‎‍💻 Code Contributors
+##  ‍💻 Code Contributors
 
 Help in testing, development, documentation and other tasks is highly appreciated and useful to the project. There are tasks for contributors of all experience levels. 
 
