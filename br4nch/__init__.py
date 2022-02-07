@@ -1,10 +1,8 @@
-# Copyright 2021-2022 by TRSTN4. All rights reserved.
-# This file is part of the br4nch python package, and is released under the "GNU General Public License v3.0".
-# Please see the LICENSE file that should have been included as part of this package.
+# br4nch - Data Structure Tree Builder
+# Github Repository: https://github.com/TRSTN4/br4nch
+# Documentation: https://docs.br4nch.com
 
-"""br4nch - Data Structure Tree Builder for Python."""
-
-__version__ = "1.1.3"
+__version__ = "1.1.4"
 __author__ = "TRSTN4"
 __author_email__ = "tristan@trstn4.com"
 __description__ = "Data Structure Tree Generator for Python."
@@ -34,7 +32,7 @@ def check_version():
     """
     try:
         response = urllib.request.urlopen("https://api.github.com/repos/TRSTN4/br4nch/releases/latest")
-    except urllib.error.URLError:
+    except:
         return
 
     data = json.loads(response.read())
