@@ -40,7 +40,7 @@ def printer(action, package, delete=False):
             del paint_layer[branch]
             del uids[branch]
 
-    if action == "display_pos":
+    if action == "display_position":
         if package[3]:
             print("Get Position Result" + ":\n" + "┗━ Branch: " + branch + "\n" + " " * 3 + "┗━ Layer: "
                   + package[1].replace("\n", " ") + "\n" + " " * 6 + "┗━ Position: " + package[2])

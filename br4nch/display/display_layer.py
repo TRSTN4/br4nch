@@ -3,8 +3,11 @@
 # Documentation: https://docs.br4nch.com
 
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingBranchError
-from br4nch.utility.utility_librarian import branches
+from br4nch.utility.utility_librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, \
+    paint_layer
+from br4nch.utility.utility_generator import generate_uid
 from br4nch.utility.utility_printer import printer
+from br4nch.display.display_branch import display_branch
 
 
 def arguments(branch, layer, sensitive=False, beautify=True):
@@ -67,6 +70,8 @@ class DisplayLayer:
             for branches_branch in list(branches):
                 argument_branch.append(branches_branch)
 
+        beautify_structure = []
+
         for branch in argument_branch:
             error = 0
 
@@ -85,12 +90,41 @@ class DisplayLayer:
                         if not isinstance(layer, str):
                             raise InstanceStringError("layer", layer)
 
-                        self.display_layer(branches_branch, layer, argument_sensitive, argument_beautify, levels, [0],
-                                           branches[branches_branch][list(branches[branches_branch])[0]])
+                        beautify_structure = self.display_layer(branches_branch, layer, argument_sensitive,
+                                                                argument_beautify, levels, [0],
+                                                                branches[branches_branch]
+                                                                [list(branches[branches_branch])[0]],
+                                                                beautify_structure, "")
 
             if error == 0:
                 if branch:
                     raise NotExistingBranchError(branch)
+
+        if beautify_structure and argument_beautify:
+            branch_uid = generate_uid("-")
+
+            branches.update({branch_uid: {"Get Layer Result:": {}}})
+            output.update({branch_uid: []})
+            uids.update({branch_uid: []})
+            sizes.update({branch_uid: 0})
+            symbols.update({branch_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            paint_branch.update({branch_uid: []})
+            paint_header.update({branch_uid: []})
+            paint_layer.update({branch_uid: {}})
+
+            for findings in beautify_structure:
+                if findings[0] not in branches[branch_uid][list(branches[branch_uid])[0]]:
+                    branches[branch_uid][list(branches[branch_uid])[0]].update({findings[0]: {}})
+
+                if findings[1] not in branches[branch_uid][list(branches[branch_uid])[0]][findings[0]]:
+                    branches[branch_uid][list(branches[branch_uid])[0]][findings[0]].update({findings[1]: {}})
+
+                if findings[2] not in branches[branch_uid][list(branches[branch_uid])[0]][findings[0]][findings[1]]:
+                    branches[branch_uid][list(branches[branch_uid])[0]][findings[0]][findings[1]].update({findings[2]: {}})
+
+            self.update_branch(branch_uid, branches[branch_uid])
+
+            display_branch(branch_uid, True)
 
     def elevator(self, levels, value, pos=0):
         """
@@ -105,7 +139,7 @@ class DisplayLayer:
             self.elevator(levels, value, pos + 1)
 
     def display_layer(self, branch, loop_layer, argument_sensitive, argument_beautify, levels, trace, value,
-                      position_structure=""):
+                      beautify_structure, position_structure):
         """
         Value dictionary loop:
           - For each value of the 'value' variable the 'count' variable and the first element of the 'trace' list is
@@ -142,11 +176,33 @@ class DisplayLayer:
 
             if argument_sensitive:
                 if layer[:-15] == loop_layer:
-                    printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
+                    if not argument_beautify:
+                        printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
             else:
                 if layer[:-15].lower() == loop_layer.lower():
-                    printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
+                    beautify_structure.append([branch, layer[:-15], position_structure[1:]])
+
+                    if not argument_beautify:
+                        printer("display_layer", [branch, layer[:-15], position_structure[1:], argument_beautify])
 
             if value:
                 self.display_layer(branch, loop_layer, argument_sensitive, argument_beautify, levels, trace, value,
-                                   position_structure)
+                                   beautify_structure, position_structure)
+
+        return beautify_structure
+
+    def update_branch(self, branch, value, height=0):
+        previous_value = value
+
+        for layer, value in value.copy().items():
+            if height == 1:
+                previous_value["Branch: " + layer + generate_uid(branch)] = previous_value.pop(layer)
+
+            if height == 2:
+                previous_value["Layer: " + layer + generate_uid(branch)] = previous_value.pop(layer)
+
+            if height == 3:
+                previous_value["Position: " + layer + generate_uid(branch)] = previous_value.pop(layer)
+
+            if value:
+                self.update_branch(branch, value, height + 1)
