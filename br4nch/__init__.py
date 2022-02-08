@@ -5,7 +5,7 @@
 __version__ = "1.2"
 __author__ = "TRSTN4"
 __author_email__ = "tristan@trstn4.com"
-__description__ = "Data Structure Tree Generator for Python."
+__description__ = "Data Structure Tree Builder for Python."
 __url__ = "https://github.com/TRSTN4/br4nch"
 
 import json
