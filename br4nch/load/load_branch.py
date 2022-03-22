@@ -57,7 +57,7 @@ def load_branch(argument_branch_file, argument_package_file):
             if len(file) != 2:
                 raise InvalidBranchFileError(argument_branch_file)
 
-            if str(file[0][:-1]) != "id=:br4nch-branch:":
+            if str(file[0][:-1]) != "tag=branch":
                 raise InvalidBranchFileError(argument_branch_file)
 
             argument_branch_file = ast.literal_eval(file[1])
@@ -71,7 +71,7 @@ def load_branch(argument_branch_file, argument_package_file):
             if len(file) != 2:
                 raise InvalidPackageFileError(argument_package_file)
 
-            if str(file[0][:-1]) != "id=:br4nch-package:":
+            if str(file[0][:-1]) != "tag=package":
                 raise InvalidPackageFileError(argument_package_file)
 
             argument_package_file = ast.literal_eval(file[1])
@@ -84,7 +84,8 @@ def load_branch(argument_branch_file, argument_package_file):
         branches.update({list(argument_branch_file)[0]: list(argument_branch_file.values())[0]})
         output.update({list(argument_branch_file)[0]: []})
 
-        if argument_package_file and list(argument_package_file)[0] == list(argument_branch_file)[0] and len(list(argument_package_file.values())[0]) == 6:
+        if argument_package_file and list(argument_package_file)[0] == list(argument_branch_file)[0] and \
+                len(list(argument_package_file.values())[0]) == 6:
             uids.update({list(argument_branch_file)[0]: list(argument_package_file.values())[0][0]})
             sizes.update({list(argument_branch_file)[0]: list(argument_package_file.values())[0][1]})
             symbols.update({list(argument_branch_file)[0]: list(argument_package_file.values())[0][2]})

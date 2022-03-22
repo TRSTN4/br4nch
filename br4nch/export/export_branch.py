@@ -83,15 +83,15 @@ def export_branch(argument_branch, argument_directory, argument_package):
                     if not os.path.isdir(argument_directory + "/br4nch-" + branches_branch):
                         os.mkdir(argument_directory + "/br4nch-" + branches_branch)
 
-                    with open(argument_directory + "/br4nch-" + branches_branch + "/branch-" + branches_branch, 'w',
-                              encoding='utf-8') as file:
-                        file.write("id=:br4nch-branch:\n")
+                    with open(argument_directory + "/br4nch-" + branches_branch + "/branch-" + branches_branch
+                              + ".br4nch", 'w', encoding='utf-8') as file:
+                        file.write("tag=branch\n")
                         file.write(str({branches_branch: branches[branches_branch]}))
 
                     if argument_package:
-                        with open(argument_directory + "/br4nch-" + branches_branch + "/package-" + branches_branch,
-                                  'w', encoding='utf-8') as file:
-                            file.write("id=:br4nch-package:\n")
+                        with open(argument_directory + "/br4nch-" + branches_branch + "/package-" + branches_branch
+                                  + ".br4nch", 'w', encoding='utf-8') as file:
+                            file.write("tag=package\n")
                             file.write(str(export_package))
                 else:
                     raise NotExistingDirectoryError(argument_directory)
