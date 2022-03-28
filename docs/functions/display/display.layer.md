@@ -16,52 +16,52 @@ To display a layer, use the **following function:**
 
 **Guide:**
 
-> To print the layer of a position in a branch, specify the name of the layer in the `layer` argument.
+> To print the layer of a position in a branch, specify the name of the layer in the ˑlayerˑ argument.
 >
 > ```python
 > >>> br4nch.display.layer(branch="Stream", layer="Squid Game")
 > Get Position Result:
 > ┗━ Branch: Stream
->    ```┗━ Layer: Squid Game                  
->    ``````┗━ Position: 1.2.1
+>    ˑˑˑ┗━ Layer: Squid Game                  
+>    ˑˑˑˑˑˑ┗━ Position: 1.2.1
 > ```
 >
-> To make the name of the layer case-sensitive, set the `sensitive` argument to True.
+> To make the name of the layer case-sensitive, set the ˑsensitiveˑ argument to True.
 >
 > ```python
 > >>> br4nch.display.layer(branch="Stream", layer="squid game", sensitive=True)
 > ```
 >
-> To print the result without a branch structure in the result, set the `beautify` argument to `False`.
+> To print the result without a branch structure in the result, set the ˑbeautifyˑ argument to ˑFalseˑ.
 >
 > ```python
 > >>> br4nch.display.layer(branch="Stream", layer="Squid Game", beautify=False)
 > 1.2.1
 > ```
 >
-> To print the position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To print the position(s) in multiple branches in the same function call, you can use a list for the ˑbranchˑ argument.
 >
 > ```python
 > >>> br4nch.display.layer(branch=["Stream"], ["Stream2"], layer="The Walking Dead")
 > Get Position Result:
 > ┣━ Branch: Stream
->    ┃``┗━ Layer: The Walking Dead              
->    ┃`````┗━ Position: 2.1.1
+>    ┃ˑˑ┗━ Layer: The Walking Dead              
+>    ┃ˑˑˑˑˑ┗━ Position: 2.1.1
 > ┗━ Branch: Stream2
-> ```┗━ Layer: The Walking Dead                
->    ``````┗━ Position: 2.1.1
+> ˑˑˑ┗━ Layer: The Walking Dead                
+>    ˑˑˑˑˑˑ┗━ Position: 2.1.1
 >    ```
 > 
->To print multiple positions in the same function call, you can use a list for the `layer` argument.
+>To print multiple positions in the same function call, you can use a list for the ˑlayerˑ argument.
 > 
 >```python
 > >>> br4nch.display.layer(branch="Stream", layer=["Interstellar", "Squid Game"])
 > Get Position Result:
 > ┗━ Branch: Stream
-> ```┣━ Layer: Interstellar                 
->    ```┃``┗━ Position: 1.1.1
->    ```┗━ Layer: Squid Game                  
-> ``````┗━ Position: 1.2.1
+> ˑˑˑ┣━ Layer: Interstellar                 
+>    ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
+>    ˑˑˑ┗━ Layer: Squid Game                  
+> ˑˑˑˑˑˑ┗━ Position: 1.2.1
 > ```
 
 **Possible error(s):**

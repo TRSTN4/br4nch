@@ -14,73 +14,73 @@ To display a branch, use the **following function:**
 
 **Guide:**
 
-> Prints the branch given in the branch argument. In this example we will print the branch `Stream`.
+> Prints the branch given in the branch argument. In this example we will print the branch ˑStreamˑ.
 >
 > ```python
 > >>> br4nch.display.branch(branch="Stream")
 > Movies & Series
 > ┣━ Netflix
-> ┃``┣━ Movies
-> ┃``┃``┗━ Interstellar
-> ┃``┗━ Series
-> ┃`````┣━ Squid Game
-> ┃`````┗━ The Crown
+> ┃ˑˑ┣━ Movies
+> ┃ˑˑ┃ˑˑ┗━ Interstellar
+> ┃ˑˑ┗━ Series
+> ┃ˑˑˑˑˑ┣━ Squid Game
+> ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ```┣━ Movies
->    ```┃``┣━ Tenet
->    ```┃``┗━ Parasite
->    ```┗━ Series
->    ``````┗━ The Walking Dead
+>    ˑˑˑ┣━ Movies
+>    ˑˑˑ┃ˑˑ┣━ Tenet
+>    ˑˑˑ┃ˑˑ┗━ Parasite
+>    ˑˑˑ┗━ Series
+>    ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 >
-> To print a branch and immediately delete it, specify the value 'True' in the `delete` argument.
+> To print a branch and immediately delete it, specify the value 'True' in the ˑdeleteˑ argument.
 >
 > ```python
 > >>> br4nch.display.branch(branch="Stream", delete=True)
 > Movies & Series
 > ┣━ Netflix
-> ┃``┣━ Movies
-> ┃``┃``┗━ Interstellar
-> ┃``┗━ Series
-> ┃`````┣━ Squid Game
-> ┃`````┗━ The Crown
+> ┃ˑˑ┣━ Movies
+> ┃ˑˑ┃ˑˑ┗━ Interstellar
+> ┃ˑˑ┗━ Series
+> ┃ˑˑˑˑˑ┣━ Squid Game
+> ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ```┣━ Movies
->    ```┃``┣━ Tenet
->    ```┃``┗━ Parasite
->    ```┗━ Series
->    ``````┗━ The Walking Dead
+>    ˑˑˑ┣━ Movies
+>    ˑˑˑ┃ˑˑ┣━ Tenet
+>    ˑˑˑ┃ˑˑ┗━ Parasite
+>    ˑˑˑ┗━ Series
+>    ˑˑˑˑˑˑ┗━ The Walking Dead
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > NotExistingBranchError: The branch: 'Stream' does not exists.
 > ```
 >
-> To print multiple branches in the same function call, you can use a list for the `branch` argument.
+> To print multiple branches in the same function call, you can use a list for the ˑbranchˑ argument.
 >
 > ```python
 > >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
 > Movies & Series
 > ┣━ Netflix
-> ┃``┣━ Movies
-> ┃``┃``┗━ Interstellar
-> ┃``┗━ Series
-> ┃`````┣━ Squid Game
-> ┃`````┗━ The Crown
+> ┃ˑˑ┣━ Movies
+> ┃ˑˑ┃ˑˑ┗━ Interstellar
+> ┃ˑˑ┗━ Series
+> ┃ˑˑˑˑˑ┣━ Squid Game
+> ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ```┣━ Movies
->    ```┃``┣━ Tenet
->    ```┃``┗━ Parasite
->    ```┗━ Series
->    ``````┗━ The Walking Dead
+>    ˑˑˑ┣━ Movies
+>    ˑˑˑ┃ˑˑ┣━ Tenet
+>    ˑˑˑ┃ˑˑ┗━ Parasite
+>    ˑˑˑ┗━ Series
+>    ˑˑˑˑˑˑ┗━ The Walking Dead
 > My header!
 > ┣━ My Layer
-> ┃``┣━ Sublayer One
-> ┃``┃``┗━ Last Layer
-> ┃``┗━ Sublayer Two
-> ┃`````┗━ Last Layer
+> ┃ˑˑ┣━ Sublayer One
+> ┃ˑˑ┃ˑˑ┗━ Last Layer
+> ┃ˑˑ┗━ Sublayer Two
+> ┃ˑˑˑˑˑ┗━ Last Layer
 > ┗━ One
->    ```Two
->    ```Three
+>    ˑˑˑTwo
+>    ˑˑˑThree
 > ```
 
 **Possible error(s):**

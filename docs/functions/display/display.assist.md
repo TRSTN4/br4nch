@@ -17,101 +17,100 @@ To display a assist for an branch, use the **following function:**
 
 **Guide:**
 
-> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers. In this example we will print the branch `Stream`.
+> Prints the branch given in the ˑbranchˑ argument with all positions linked to the corresponding layers. In this example we will print the branch ˑStreamˑ.
 >
 > ```python
 > >>> br4nch.display.assist(branch="Stream")
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃``┣━ 1.1: Movies
-> ┃``┃``┗━ 1.1.1: Interstellar
-> ┃``┗━ 1.2: Series
-> ┃`````┣━ 1.2.1: Squid Game
-> ┃`````┗━ 1.2.2: The Crown
+> ┃ˑˑ┣━ 1.1: Movies
+> ┃ˑˑ┃ˑˑ┗━ 1.1.1: Interstellar
+> ┃ˑˑ┗━ 1.2: Series
+> ┃ˑˑˑˑˑ┣━ 1.2.1: Squid Game
+> ┃ˑˑˑˑˑ┗━ 1.2.2: The Crown
 > ┗━ 2: Prime Video
->    ```┣━ 2.1: Movies
->    ```┃``┣━ 2.1.1: Tenet
->    ```┃``┗━ 2.1.2: Parasite
->    ```┗━ 2.2: Series
->    ``````┗━ 2.2.1: The Walking Dead
+> ˑˑˑ┣━ 2.1: Movies
+> ˑˑˑ┃ˑˑ┣━ 2.1.1: Tenet
+> ˑˑˑ┃ˑˑ┗━ 2.1.2: Parasite
+> ˑˑˑ┗━ 2.2: Series
+> ˑˑˑˑˑˑ┗━ 2.2.1: The Walking Dead
 > ```
 >
-> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers with the given size, In this example `1`.
+> Prints the branch given in the ˑbranchˑ argument with all positions linked to the corresponding layers with the given size, In this example ˑ1ˑ.
 >
 > ```python
 > >>> br4nch.display.assist(branch="Stream", size=1)
 > 0: Movies & Series
 > ┃
 > ┣━━ 1: Netflix
-> ┃```┃
-> ┃```┣━━ 1.1: Movies
-> ┃```┃```┃
-> ┃```┃```┗━━ 1.1.1: Interstellar
-> ┃```┃
-> ┃```┗━━ 1.2: Series
-> ┃```````┃
-> ┃```````┣━━ 1.2.1: Squid Game
-> ┃```````┃
-> ┃```````┗━━ 1.2.2: The Crown
+> ┃ˑˑˑ┃
+> ┃ˑˑˑ┣━━ 1.1: Movies
+> ┃ˑˑˑ┃ˑˑˑ┃
+> ┃ˑˑˑ┃ˑˑˑ┗━━ 1.1.1: Interstellar
+> ┃ˑˑˑ┃
+> ┃ˑˑˑ┗━━ 1.2: Series
+> ┃ˑˑˑˑˑˑˑ┃
+> ┃ˑˑˑˑˑˑˑ┣━━ 1.2.1: Squid Game
+> ┃ˑˑˑˑˑˑˑ┃
+> ┃ˑˑˑˑˑˑˑ┗━━ 1.2.2: The Crown
 > ┃
 > ┗━━ 2: Prime Video
->    ````┃
->    ````┣━━ 2.1: Movies
->    ````┃```┃
->    ````┃```┣━━ 2.1.1: Tenet
->    ````┃```┃
->    ````┃```┗━━ 2.1.2: Parasite
->    ````┃
->    ````┗━━ 2.2: Series
->    ````````┃
->    ````````┗━━ 2.2.1: The Walking Dead
+> ˑˑˑˑ┃
+> ˑˑˑˑ┣━━ 2.1: Movies
+> ˑˑˑˑ┃ˑˑˑ┃
+> ˑˑˑˑ┃ˑˑˑ┣━━ 2.1.1: Tenet
+> ˑˑˑˑ┃ˑˑˑ┃
+> ˑˑˑˑ┃ˑˑˑ┗━━ 2.1.2: Parasite
+> ˑˑˑˑ┃
+> ˑˑˑˑ┗━━ 2.2: Series
+> ˑˑˑˑˑˑˑˑ┃
+> ˑˑˑˑˑˑˑˑ┗━━ 2.2.1: The Walking Dead
 > ```
 >
-> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers with custom `line`, `split` and `end` symbols.
+> Prints the branch given in the ˑbranchˑ argument with all positions linked to the corresponding layers with custom ˑlineˑ, ˑsplitˑ and ˑendˑ symbols.
 >
 > ```python
 > >>> br4nch.display.assist(branch="Stream", line="║", split="╠═", end="╚═")
 > 0: Movies & Series
 > ╠═ 1: Netflix
-> ║``╠═ 1.1: Movies
-> ║``║``╚═ 1.1.1: Interstellar
-> ║``╚═ 1.2: Series
-> ║`````╠═ 1.2.1: Squid Game
-> ║`````╚═ 1.2.2: The Crown
+> ║ˑˑ╠═ 1.1: Movies
+> ║ˑˑ║ˑˑ╚═ 1.1.1: Interstellar
+> ║ˑˑ╚═ 1.2: Series
+> ║ˑˑˑˑˑ╠═ 1.2.1: Squid Game
+> ║ˑˑˑˑˑ╚═ 1.2.2: The Crown
 > ╚═ 2: Prime Video
->    ```╠═ 2.1: Movies
->    ```║``╠═ 2.1.1: Tenet
->    ```║``╚═ 2.1.2: Parasite
->    ```╚═ 2.2: Series
->    ``````╚═ 2.2.1: The Walking Dead
+> ˑˑˑ╠═ 2.1: Movies
+> ˑˑˑ║ˑˑ╠═ 2.1.1: Tenet
+> ˑˑˑ║ˑˑ╚═ 2.1.2: Parasite
+> ˑˑˑ╚═ 2.2: Series
+> ˑˑˑˑˑˑ╚═ 2.2.1: The Walking Dead
 > ```
 >
-> To print an assist for multiple branches in the same function call, you can use a list for the `branch` argument.
+> To print an assist for multiple branches in the same function call, you can use a list for the ˑbranchˑ argument.
 >
 > ```python
 > >>> br4nch.display.assist(branch=["Stream", "MyBranch"])
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃``┣━ 1.1: Movies
-> ┃``┃``┗━ 1.1.1: Interstellar
-> ┃``┗━ 1.2: Series
-> ┃`````┣━ 1.2.1: Squid Game
-> ┃`````┗━ 1.2.2: The Crown
+> ┃ˑˑ┣━ 1.1: Movies
+> ┃ˑˑ┃ˑˑ┗━ 1.1.1: Interstellar
+> ┃ˑˑ┗━ 1.2: Series
+> ┃ˑˑˑˑˑ┣━ 1.2.1: Squid Game
+> ┃ˑˑˑˑˑ┗━ 1.2.2: The Crown
 > ┗━ 2: Prime Video
->    ```┣━ 2.1: Movies
->    ```┃``┣━ 2.1.1: Tenet
->    ```┃``┗━ 2.1.2: Parasite
->    ```┗━ 2.2: Series
->    ``````┗━ 2.2.1: The Walking Dead
+> ˑˑˑ┃ˑˑ┣━ 2.1.1: Tenet
+> ˑˑˑ┃ˑˑ┗━ 2.1.2: Parasite
+> ˑˑˑ┗━ 2.2: Series
+> ˑˑˑˑˑˑ┗━ 2.2.1: The Walking Dead
 > 0: My header!
 > ┣━ 1: My Layer
-> ┃``┣━ 1.1: Sublayer One
-> ┃``┃``┗━ 1.1.1: Last Layer
-> ┃``┗━ 1.2: Sublayer Two
-> ┃`````┗━ 1.2.1: Last Layer
+> ┃ˑˑ┣━ 1.1: Sublayer One
+> ┃ˑˑ┃ˑˑ┗━ 1.1.1: Last Layer
+> ┃ˑˑ┗━ 1.2: Sublayer Two
+> ┃ˑˑˑˑˑ┗━ 1.2.1: Last Layer
 > ┗━ 2: One
->    ``````Two
->    ``````Three
+> ˑˑˑˑˑˑTwo
+> ˑˑˑˑˑˑThree
 > ```
 >
 
