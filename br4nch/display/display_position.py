@@ -4,7 +4,6 @@
 
 from br4nch.utility.utility_librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, \
     paint_layer
-from br4nch.utility.utility_printer import printer
 from br4nch.utility.utility_positioner import format_position
 from br4nch.utility.utility_handler import NotExistingBranchError, InstanceStringError, InstanceBooleanError
 from br4nch.utility.utility_generator import generate_uid
@@ -47,6 +46,20 @@ class DisplayPosition:
             - If the branch is in the 'branches' dictionary, it will loop with all positions in the returned list of the
               'format_position' function. And calls the 'display_position' function for each loop with the built
               position structure and the built 'string_position' variable as arguments.
+
+        If the 'beautify_structure' and 'argument_beautify' has a value of 'True':
+          - a new branch is created with all associated dictionaries.
+
+          Value 'beautify_structure' loop:
+            - If the 'branch/findings[0]' is not in the new 'branch' dictionary, it will be added to the dictionary.
+            - If the 'position/findings[1]' is not in the new 'branch[branch/findings[1]]' dictionary, it will be added
+              to the dictionary.
+            - If the 'layer/findings[2]' is not in the new 'branch[branch][position]' dictionary, it will be added to
+              the dictionary.
+
+          - Then the branch name without uid and the newly created branch dictionary is passed to the 'update_branch'
+            function.
+          - Calls the 'display_branch' function to print the new branch and then delete it.
         """
         if not isinstance(argument_branch, list):
             argument_branch = [argument_branch]
@@ -91,9 +104,12 @@ class DisplayPosition:
                     raise NotExistingBranchError(branch)
 
         if beautify_structure and argument_beautify:
-            branch_uid = generate_uid("-")
+            while True:
+                branch_uid = generate_uid("-")
+                if branch_uid not in branches:
+                    break
 
-            branches.update({branch_uid: {"Get Layer Result:": {}}})
+            branches.update({branch_uid: {"Get Position Result:": {}}})
             output.update({branch_uid: []})
             uids.update({branch_uid: []})
             sizes.update({branch_uid: 0})
@@ -123,13 +139,15 @@ class DisplayPosition:
 
           Count variable equal to the first value of 'position':
             If the length of the 'position' list is equal to '1':
-              - The 'printer' function is called and a package is supplied with all the values in it that are needed.
-                If the 'argument_beautify' variable is false, the given positions are not represented with a branch
-                structure.
+              - If the 'argument_beautify' value is 'True', the 'branch', 'string_position' and the 'layer' without uid
+                will be added to the 'beautify_structure' list.
+             - If the 'argument_beautify' value is 'False', only the 'layer' value without uid will be printed.
 
             - If the length of the 'position' list is not equal to '1' and there is a value of the 'value' variable,
               then the first value from the 'position' list will be removed and the 'display_position' function will be
               called again with the new value of the 'value' variable as argument.
+
+        - Returns the 'beautify_structure' list.
         """
         count = 0
 
@@ -141,7 +159,7 @@ class DisplayPosition:
                     if argument_beautify:
                         beautify_structure.append([branch, string_position, layer[:-15]])
                     else:
-                        return printer("display_position", [branch, layer[:-15], string_position, argument_beautify])
+                        print(layer[:-15])
                 else:
                     if value:
                         position.pop(0)
@@ -151,6 +169,18 @@ class DisplayPosition:
         return beautify_structure
 
     def update_branch(self, branch, value, height=0):
+        """
+        Value dictionary loop:
+          - If the 'height' value is equal to '1', the current layer in the value will get updated with 'Branch' and
+            gets a unique uid.
+          - If the 'height' value is equal to '2', the current layer in the value will get updated with 'Position' and
+            gets a unique uid.
+          - If the 'height' value is equal to '3', the current layer in the value will get updated with 'Layer' and gets
+            a unique uid.
+
+          - If there is a value in 'value', the 'update_branch' function will be called again with the current 'value'
+            value and 'height + 1'.
+        """
         previous_value = value
 
         for layer, value in value.copy().items():

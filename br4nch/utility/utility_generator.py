@@ -23,7 +23,6 @@ def generate_uid(branch, length=10):
 
       - Returns the generated uid.
     """
-
     uid = str(uuid.uuid4()).replace("-", "")[0:length]
 
     if branch == "-":

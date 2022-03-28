@@ -3,9 +3,9 @@
 # Documentation: https://docs.br4nch.com
 
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingBranchError
-from br4nch.utility.utility_librarian import branches, paint_branch, paint_header, paint_layer
+from br4nch.utility.utility_librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, \
+    paint_layer
 from br4nch.utility.utility_builder import Builder
-from br4nch.utility.utility_printer import printer
 
 
 def arguments(branch, delete=False):
@@ -47,8 +47,9 @@ def display_branch(argument_branch, argument_delete):
             the 'colored' variable becomes 'true'.
 
         - Calls the 'Builder' class with the current value of branch as argument.
-        - Calls the 'printer' function with the 'display_branch' action and the current 'branches_branch' and
-          'argument_delete' argument.
+        - Prints the output in the given 'output' list and clears the 'output' list after the printing is done. If the
+          'argument_delete' variable is 'True', then all necessary dictionaries containing the key value of the value of
+          'branch' will be deleted.
     """
     if not isinstance(argument_branch, list):
         argument_branch = [argument_branch]
@@ -92,7 +93,21 @@ def display_branch(argument_branch, argument_delete):
                     colored = True
 
                 Builder(branches_branch, colored)
-                printer("display_branch", [branches_branch], argument_delete)
+
+                for line in output[branch]:
+                    print(line)
+
+                output[branch].clear()
+
+                if argument_delete:
+                    del branches[branch]
+                    del output[branch]
+                    del sizes[branch]
+                    del symbols[branch]
+                    del paint_branch[branch]
+                    del paint_header[branch]
+                    del paint_layer[branch]
+                    del uids[branch]
 
         if error == 0:
             if branch:
