@@ -91,7 +91,7 @@
 > ┣━ 2: Apple
 > ┃ˑˑ┗━ 2.1: Plant
 > ┗━ 3: Pear
->    ˑˑˑ┗━ 3.1: Plant
+> ˑˑˑ┗━ 3.1: Plant
 > ```
 
 ## Step 5
