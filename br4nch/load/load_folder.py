@@ -70,15 +70,23 @@ class LoadFolder:
               argument_exclude list loop:
                 - If the first character in the 'extension' variable is equal to '.', then a '.' will be appended to the
                   'extension' value.
-                - If the current extension from the 'path' value is equal to the 'extension' value, then it deletes the
-                  file from the current 'path' value.
+                - If the current extension from the 'path' value is equal to the 'extension' value, then it appends the
+                  current path to the 'delete' list.
 
             If 'argument_exclude':
-              argument_include list loop:
-                - If the first character in the 'extension' variable is equal to '.', then a '.' will be appended to the
-                  'extension' value.
-                - If the current extension from the 'path' value is not equal to the 'extension' value, then it deletes
-                  the file from the current 'path' value.
+              argument_include range loop:
+                - If the first character in the 'argument_include[extension]' value is equal to '.', then a '.' will be
+                  appended to the 'argument_include[extension]' value.
+                - If the current extension from the 'path' value is equal to the current loop extension value and the
+                  current path is not in the 'roots' list, then it appends the current path to the 'delete' list.
+
+          - Loops through every path and removes every path in the 'paths' list.
+
+          If 'argument_unused' variable is 'False':
+            Variable 'roots' loop:
+              Variable 'paths' loop:
+                - If the 'root' value is in the 'path' value, the 'hit' value will be '+1'. If the 'hit' value equals
+                  '1', the 'root' value is removed from the 'paths' list.
 
           Paths list loop:
             Path number split loop:
@@ -137,10 +145,14 @@ class LoadFolder:
                     raise DuplicateBranchError(branch)
 
             structure = {argument_header: {}}
+
             paths = []
+            roots = []
+            delete = []
 
             for root, dirs, files in os.walk(argument_directory, topdown=argument_folder_priority):
                 paths.append(root.replace("\\", "/"))
+                roots.append(root.replace("\\", "/"))
 
                 for file in files:
                     paths.append(root.replace("\\", "/") + "/" + file)
@@ -155,34 +167,32 @@ class LoadFolder:
                                 extension = "." + extension
 
                             if paths[number][-len(extension):] == extension:
-                                if paths[number] in paths:
-                                    if not argument_unused:
-                                        paths[number] = "/"
-                                    else:
-                                        path = ""
-                                        if "." in paths[number].split("/")[-1]:
-                                            for folder in paths[number].split("/")[:-1]:
-                                                path = path + "/" + folder
-
-                                            paths[number] = path[1:]
+                                if paths[number] not in delete:
+                                    delete.append(paths[number])
 
                 if argument_include:
-                    for extension in argument_include:
-                        if extension:
-                            if not extension[0] == ".":
-                                extension = "." + extension
+                    for extension in range(len(argument_include)):
+                        if argument_include[extension]:
+                            if not argument_include[extension][0] == ".":
+                                argument_include[extension] = "." + argument_include[extension]
 
-                            if paths[number][-len(extension):] != extension:
-                                if paths[number] in paths:
-                                    if not argument_unused:
-                                        paths[number] = "/"
-                                    else:
-                                        path = ""
-                                        if "." in paths[number].split("/")[-1]:
-                                            for folder in paths[number].split("/")[:-1]:
-                                                path = path + "/" + folder
+                            if paths[number][-len(argument_include[extension]):] not in argument_include and \
+                                    paths[number] not in roots:
+                                if paths[number] not in delete:
+                                    delete.append(paths[number])
 
-                                            paths[number] = path[1:]
+            for path in delete:
+                paths.remove(path)
+
+            if not argument_unused:
+                for root in roots:
+                    hit = 0
+                    for path in paths:
+                        if root in path:
+                            hit = hit + 1
+                    if hit == 1:
+                        if root in paths:
+                            paths.remove(root)
 
             for path in paths:
                 for number in range(len(path.split("/")[path_length:])):
