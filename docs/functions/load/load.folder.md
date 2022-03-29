@@ -27,16 +27,16 @@ To load an folder, use the **following function:**
 > >>> br4nch.display.branch(branch="MyFolder")
 > D:/Vault
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┣━ Uploaded
-> ┃  ┃  ┗━ First_Upload.mp4
-> ┃  ┣━ CoolGameplay.mp4
-> ┃  ┗━ MyFirstVideo.mp4
+> ┃ˑˑ┣━ Uploaded
+> ┃ˑˑ┃ˑˑ┗━ First_Upload.mp4
+> ┃ˑˑ┣━ CoolGameplay.mp4
+> ┃ˑˑ┗━ MyFirstVideo.mp4
 > ┣━ Identity.txt
 > ┗━ VoiceRecording.mp3
 > ```
@@ -49,16 +49,16 @@ To load an folder, use the **following function:**
 > >>> br4nch.display.branch(branch="MyFolder")
 > My Header!
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┣━ Uploaded
-> ┃  ┃  ┗━ First_Upload.mp4
-> ┃  ┣━ CoolGameplay.mp4
-> ┃  ┗━ MyFirstVideo.mp4
+> ┃ˑˑ┣━ Uploaded
+> ┃ˑˑ┃ˑˑ┗━ First_Upload.mp4
+> ┃ˑˑ┣━ CoolGameplay.mp4
+> ┃ˑˑ┗━ MyFirstVideo.mp4
 > ┣━ Identity.txt
 > ┗━ VoiceRecording.mp3
 > ```
@@ -71,12 +71,12 @@ To load an folder, use the **following function:**
 > >>> br4nch.display.branch(branch="MyFolder")
 > D:/Vault
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┗━ Uploaded
+> ┃ˑˑ┗━ Uploaded
 > ┗━ Identity.txt
 > ```
 >
@@ -89,13 +89,13 @@ To load an folder, use the **following function:**
 > D:/Vault
 > ┣━ Documents
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┣━ Uploaded
-> ┃  ┃  ┗━ First_Upload.mp4
-> ┃  ┣━ CoolGameplay.mp4
-> ┃  ┗━ MyFirstVideo.mp4
+> ┃ˑˑ┣━ Uploaded
+> ┃ˑˑ┃ˑˑ┗━ First_Upload.mp4
+> ┃ˑˑ┣━ CoolGameplay.mp4
+> ┃ˑˑ┗━ MyFirstVideo.mp4
 > ┗━ VoiceRecording.mp3
 > ```
 >
@@ -107,15 +107,15 @@ To load an folder, use the **following function:**
 > >>> br4nch.display.branch(branch="MyFolder")
 > D:/Vault
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Videos
-> ┃  ┣━ Uploaded
-> ┃  ┃  ┗━ First_Upload.mp4
-> ┃  ┣━ CoolGameplay.mp4
-> ┃  ┗━ MyFirstVideo.mp4
+> ┃ˑˑ┣━ Uploaded
+> ┃ˑˑ┃ˑˑ┗━ First_Upload.mp4
+> ┃ˑˑ┣━ CoolGameplay.mp4
+> ┃ˑˑ┗━ MyFirstVideo.mp4
 > ┣━ Identity.txt
 > ┗━ VoiceRecording.mp3
 > ```
@@ -130,16 +130,16 @@ To load an folder, use the **following function:**
 > ┣━ Identity.txt
 > ┣━ VoiceRecording.mp3
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Photos
 > ┗━ Videos
->    ┣━ CoolGameplay.mp4
->    ┣━ MyFirstVideo.mp4
->    ┗━ Uploaded
->          ┗━ First_Upload.mp4
+> ˑˑˑ┣━ CoolGameplay.mp4
+> ˑˑˑ┣━ MyFirstVideo.mp4
+> ˑˑˑ┗━ Uploaded
+> ˑˑˑˑˑˑ┗━ First_Upload.mp4
 > ```
 >
 > To load multiple branches in the same function call, you can use a list for the `branch` argument.
@@ -150,30 +150,30 @@ To load an folder, use the **following function:**
 > >>> br4nch.display.branch(branch=["MyFolder", "MyFolderTwo"])
 > D:/Vault
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┣━ Uploaded
-> ┃  ┃  ┗━ First_Upload.mp4
-> ┃  ┣━ CoolGameplay.mp4
-> ┃  ┗━ MyFirstVideo.mp4
+> ┃ˑˑ┣━ Uploaded
+> ┃ˑˑ┃ˑˑ┗━ First_Upload.mp4
+> ┃ˑˑ┣━ CoolGameplay.mp4
+> ┃ˑˑ┗━ MyFirstVideo.mp4
 > ┣━ Identity.txt
 > ┗━ VoiceRecording.mp3
 > D:/Vault
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┣━ Uploaded
-> ┃  ┃  ┗━ First_Upload.mp4
-> ┃  ┣━ CoolGameplay.mp4
-> ┃  ┗━ MyFirstVideo.mp4
+> ┃ˑˑ┣━ Uploaded
+> ┃ˑˑ┃ˑˑ┗━ First_Upload.mp4
+> ┃ˑˑ┣━ CoolGameplay.mp4
+> ┃ˑˑ┗━ MyFirstVideo.mp4
 > ┣━ Identity.txt
 > ┗━ VoiceRecording.mp3
 > ```
@@ -186,15 +186,15 @@ To load an folder, use the **following function:**
 > >>> br4nch.display.branch(branch="MyFolder")
 > D:/Vault
 > ┣━ Documents
-> ┃  ┣━ Important.txt
-> ┃  ┗━ Passwords.txt
+> ┃ˑˑ┣━ Important.txt
+> ┃ˑˑ┗━ Passwords.txt
 > ┣━ Downloads
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┣━ Uploaded
-> ┃  ┃  ┗━ First_Upload.mp4
-> ┃  ┣━ CoolGameplay.mp4
-> ┃  ┗━ MyFirstVideo.mp4
+> ┃ˑˑ┣━ Uploaded
+> ┃ˑˑ┃ˑˑ┗━ First_Upload.mp4
+> ┃ˑˑ┣━ CoolGameplay.mp4
+> ┃ˑˑ┗━ MyFirstVideo.mp4
 > ┗━ Identity.txt
 > ```
 >
@@ -207,10 +207,10 @@ To load an folder, use the **following function:**
 > D:/Vault
 > ┣━ Documents
 > ┣━ Downloads
-> ┃  ┗━ Game.zip
+> ┃ˑˑ┗━ Game.zip
 > ┣━ Photos
 > ┣━ Videos
-> ┃  ┗━ Uploaded
+> ┃ˑˑ┗━ Uploaded
 > ┗━ VoiceRecording.mp3
 > ```
 
