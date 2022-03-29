@@ -3,4 +3,5 @@
 # Documentation: https://docs.br4nch.com
 
 from br4nch.load.load_branch import arguments as branch
+from br4nch.load.load_json import arguments as json
 from br4nch.load.load_folder import arguments as folder
