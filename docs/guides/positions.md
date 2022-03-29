@@ -32,8 +32,8 @@ It is recommended to use operators. For more information about operators, head t
 > ┃ˑˑ┣━ 1.1: Movies
 > ┃ˑˑ┗━ 1.2: Series
 > ┗━ 2: Prime Video
->    ˑˑˑ┣━ 2.1: Movies
->    ˑˑˑ┗━ 2.2: Series
+> ˑˑˑ┣━ 2.1: Movies
+> ˑˑˑ┗━ 2.2: Series
 > ```
 >
 > Specifies the `1.1` and `2.1` positions to create the layers inside the `Movies and Series` layer in both parent `Netflix` and `Prime Video` layers.
@@ -48,9 +48,9 @@ It is recommended to use operators. For more information about operators, head t
 > ┃ˑˑ┃ˑˑ┗━ 1.1.1: The Hobbit
 > ┃ˑˑ┗━ 1.2: Series
 > ┗━ 2: Prime Video
->    ˑˑˑ┣━ 2.1: Movies
->    ˑˑˑ┃ˑˑ┗━ 2.1.1: The Hobbit
->    ˑˑˑ┗━ 2.2: Series
+> ˑˑˑ┣━ 2.1: Movies
+> ˑˑˑ┃ˑˑ┗━ 2.1.1: The Hobbit
+> ˑˑˑ┗━ 2.2: Series
 > ```
 >
 > And so on..
@@ -71,12 +71,12 @@ It is recommended to use operators. For more information about operators, head t
 > ┃ˑˑˑˑˑ┣━ Squid Game
 > ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┃ˑˑ┣━ The Hobbit
->    ˑˑˑ┃ˑˑ┣━ Tenet
->    ˑˑˑ┃ˑˑ┗━ Parasite
->    ˑˑˑ┗━ Series
->    ˑˑˑˑˑˑ┗━ The Walking Dead
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┃ˑˑ┣━ The Hobbit
+> ˑˑˑ┃ˑˑ┣━ Tenet
+> ˑˑˑ┃ˑˑ┗━ Parasite
+> ˑˑˑ┗━ Series
+> ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 
 ## Branch assist
@@ -96,12 +96,12 @@ It is recommended to use operators. For more information about operators, head t
 > ┃ˑˑˑˑˑ┣━ 1.2.1: Squid Game
 > ┃ˑˑˑˑˑ┗━ 1.2.2: The Crown
 > ┗━ 2: Prime Video
->    ˑˑˑ┣━ 2.1: Movies
->    ˑˑˑ┃ˑˑ┣━ 2.1.1: The Hobbit
->    ˑˑˑ┃ˑˑ┣━ 2.1.2: Tenet
->    ˑˑˑ┃ˑˑ┗━ 2.1.3: Parasite
->    ˑˑˑ┗━ 2.2: Series
->    ˑˑˑˑˑˑ┗━ 2.2.1: The Walking Dead
+> ˑˑˑ┣━ 2.1: Movies
+> ˑˑˑ┃ˑˑ┣━ 2.1.1: The Hobbit
+> ˑˑˑ┃ˑˑ┣━ 2.1.2: Tenet
+> ˑˑˑ┃ˑˑ┗━ 2.1.3: Parasite
+> ˑˑˑ┗━ 2.2: Series
+> ˑˑˑˑˑˑ┗━ 2.2.1: The Walking Dead
 > ```
 >
 

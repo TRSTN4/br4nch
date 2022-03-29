@@ -78,7 +78,7 @@
 > ┣━ Apple
 > ┃ˑˑ┗━ Plant
 > ┗━ Pear
->    ˑˑˑ┗━ Plant
+> ˑˑˑ┗━ Plant
 > ```
 >
 > *Need help with the positions? then use the function `display.assist` .*
@@ -111,7 +111,7 @@
 > ┣━ Apple
 > ┃ˑˑ┗━ Plant
 > ┗━ Pear
->    ˑˑˑ┗━ Plant
+> ˑˑˑ┗━ Plant
 > ```
 >
 

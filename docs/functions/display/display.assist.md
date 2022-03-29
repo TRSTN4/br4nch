@@ -112,7 +112,6 @@ To display a assist for an branch, use the **following function:**
 > ˑˑˑˑˑˑTwo
 > ˑˑˑˑˑˑThree
 > ```
->
 
 **Possible error(s):**
 These are the errors that may pop up when the function is used incorrectly.

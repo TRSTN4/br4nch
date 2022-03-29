@@ -22,8 +22,8 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > ┃ˑˑ┣━ Movies
 > ┃ˑˑ┗━ Series
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┗━ Series
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┗━ Series
 > ```
 >
 > Using the `/`/`combinator` operator followed by a position.
@@ -35,8 +35,8 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > ┃ˑˑ┣━ Movies
 > ┃ˑˑ┗━ Series
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┗━ Series
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┗━ Series
 > 
 > >>> br4nch.add.layer(branch="Stream", layer=["The Hobbit"], position="1/2.1")
 > 
@@ -47,9 +47,9 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > ┃ˑˑ┃ˑˑ┗━ The Hobbit
 > ┃ˑˑ┗━ Series
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┃ˑˑ┗━ The Hobbit
->    ˑˑˑ┗━ Series
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┃ˑˑ┗━ The Hobbit
+> ˑˑˑ┗━ Series
 > ```
 
 ## Selector - *
@@ -74,8 +74,8 @@ The operator 'selector' is used to include all positions at the same height as t
 > ┃ˑˑ┣━ Movies
 > ┃ˑˑ┗━ Series
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┗━ Series
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┗━ Series
 > ```
 >
 > Using the `*`/`selector` operator followed by a position.
@@ -87,8 +87,8 @@ The operator 'selector' is used to include all positions at the same height as t
 > ┃ˑˑ┣━ Movies
 > ┃ˑˑ┗━ Series
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┗━ Series
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┗━ Series
 > 
 > >>> br4nch.add.layer(branch="Stream", layer=["The Hobbit"], position="*.1")
 > 
@@ -99,9 +99,9 @@ The operator 'selector' is used to include all positions at the same height as t
 > ┃ˑˑ┃ˑˑ┗━ The Hobbit
 > ┃ˑˑ┗━ Series
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┃ˑˑ┗━ The Hobbit
->    ˑˑˑ┗━ Series
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┃ˑˑ┗━ The Hobbit
+> ˑˑˑ┗━ Series
 > ```
 >
 > The `selector` operator can also be used to define all existing branches.
@@ -141,7 +141,7 @@ The operator 'inclusor' is used to include all positions between two values at t
 > ┣━ Layer Two
 > ┃ˑˑ┗━ Sub Layer
 > ┗━ Layer Three
->    ˑˑˑ┗━ Sub Layer
+> ˑˑˑ┗━ Sub Layer
 > ```
 >
 > And
@@ -153,7 +153,7 @@ The operator 'inclusor' is used to include all positions between two values at t
 > ┣━ Layer Two
 > ┃ˑˑ┗━ Sub Layer
 > ┗━ Layer Three
->    ˑˑˑ┗━ Sub Layer
+> ˑˑˑ┗━ Sub Layer
 > 
 > >>> br4nch.add.layer(branch="MyBranch", layer=["Final Layer"], position="2>3.1")
 > 
@@ -164,8 +164,8 @@ The operator 'inclusor' is used to include all positions between two values at t
 > ┃ˑˑ┗━ Sub Layer
 > ┃ˑˑˑˑˑ┗━ Final Layer
 > ┗━ Layer Three
->    ˑˑˑ┗━ Sub Layer
->    ˑˑˑˑˑˑ┗━ Final Layer
+> ˑˑˑ┗━ Sub Layer
+> ˑˑˑˑˑˑ┗━ Final Layer
 > ```
 
 ## Exclusor - <

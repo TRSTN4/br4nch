@@ -23,8 +23,8 @@ To display a position, use the **following function:**
 > >>> br4nch.display.layer(branch="Stream", layer="Squid Game")
 > Get Position Result:
 > ┗━ Branch: Stream
->    ˑˑˑ┗━ Layer: Squid Game                  
->    ˑˑˑˑˑˑ┗━ Position: 1.2.1
+> ˑˑˑ┗━ Layer: Squid Game                  
+> ˑˑˑˑˑˑ┗━ Position: 1.2.1
 > ```
 >
 > To print the result without a branch structure in the result, set the ˑbeautifyˑ argument to ˑFalseˑ.
@@ -40,12 +40,12 @@ To display a position, use the **following function:**
 > >>> br4nch.display.layer(branch=["Stream"], ["Stream2"], position="2.1.1")
 > Get Position Result:
 > ┣━ Branch: Stream
->    ┃ˑˑ┗━ Layer: The Walking Dead              
->    ┃ˑˑˑˑˑ┗━ Position: 2.1.1
+> ┃ˑˑ┗━ Layer: The Walking Dead              
+> ┃ˑˑˑˑˑ┗━ Position: 2.1.1
 > ┗━ Branch: Stream2
 > ˑˑˑ┗━ Layer: The Walking Dead                
->    ˑˑˑˑˑˑ┗━ Position: 2.1.1
->    ```
+> ˑˑˑˑˑˑ┗━ Position: 2.1.1
+> ```
 > 
 >To print multiple positions in the same function call, you can use a list for the ˑpositionˑ argument.
 > 
@@ -54,8 +54,8 @@ To display a position, use the **following function:**
 > Get Position Result:
 > ┗━ Branch: Stream
 > ˑˑˑ┣━ Layer: Interstellar                 
->    ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
->    ˑˑˑ┗━ Layer: Squid Game                  
+> ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
+> ˑˑˑ┗━ Layer: Squid Game                  
 > ˑˑˑˑˑˑ┗━ Position: 1.2.1
 > ```
 

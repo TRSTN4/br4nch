@@ -26,11 +26,11 @@ To display a branch, use the **following function:**
 > ┃ˑˑˑˑˑ┣━ Squid Game
 > ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┃ˑˑ┣━ Tenet
->    ˑˑˑ┃ˑˑ┗━ Parasite
->    ˑˑˑ┗━ Series
->    ˑˑˑˑˑˑ┗━ The Walking Dead
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┃ˑˑ┣━ Tenet
+> ˑˑˑ┃ˑˑ┗━ Parasite
+> ˑˑˑ┗━ Series
+> ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 >
 > To print a branch and immediately delete it, specify the value 'True' in the ˑdeleteˑ argument.
@@ -45,11 +45,11 @@ To display a branch, use the **following function:**
 > ┃ˑˑˑˑˑ┣━ Squid Game
 > ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┃ˑˑ┣━ Tenet
->    ˑˑˑ┃ˑˑ┗━ Parasite
->    ˑˑˑ┗━ Series
->    ˑˑˑˑˑˑ┗━ The Walking Dead
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┃ˑˑ┣━ Tenet
+> ˑˑˑ┃ˑˑ┗━ Parasite
+> ˑˑˑ┗━ Series
+> ˑˑˑˑˑˑ┗━ The Walking Dead
 > 
 > >>> br4nch.display.branch(branch="Stream")
 > NotExistingBranchError: The branch: 'Stream' does not exists.
@@ -67,11 +67,11 @@ To display a branch, use the **following function:**
 > ┃ˑˑˑˑˑ┣━ Squid Game
 > ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ˑˑˑ┣━ Movies
->    ˑˑˑ┃ˑˑ┣━ Tenet
->    ˑˑˑ┃ˑˑ┗━ Parasite
->    ˑˑˑ┗━ Series
->    ˑˑˑˑˑˑ┗━ The Walking Dead
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┃ˑˑ┣━ Tenet
+> ˑˑˑ┃ˑˑ┗━ Parasite
+> ˑˑˑ┗━ Series
+> ˑˑˑˑˑˑ┗━ The Walking Dead
 > My header!
 > ┣━ My Layer
 > ┃ˑˑ┣━ Sublayer One
@@ -79,8 +79,8 @@ To display a branch, use the **following function:**
 > ┃ˑˑ┗━ Sublayer Two
 > ┃ˑˑˑˑˑ┗━ Last Layer
 > ┗━ One
->    ˑˑˑTwo
->    ˑˑˑThree
+> ˑˑˑTwo
+> ˑˑˑThree
 > ```
 
 **Possible error(s):**
