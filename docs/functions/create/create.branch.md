@@ -25,7 +25,7 @@ To create a new branch, use the **following function:**
 
 **Possible error(s):**
 These are the errors that may pop up when the function is used incorrectly.
-For more information about errors, head to [errors](../../guides/errors.md).
+*For more information about errors, head to [errors](../../guides/errors.md).*
 
 - *InstanceStringError*
 - *InvalidBranchNameError*

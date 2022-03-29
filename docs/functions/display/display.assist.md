@@ -17,7 +17,7 @@ To display a assist for an branch, use the **following function:**
 
 **Guide:**
 
-> Prints the branch given in the ˑbranchˑ argument with all positions linked to the corresponding layers. In this example we will print the branch ˑStreamˑ.
+> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers. In this example we will print the branch `Stream`.
 >
 > ```python
 > >>> br4nch.display.assist(branch="Stream")
@@ -36,7 +36,7 @@ To display a assist for an branch, use the **following function:**
 > ˑˑˑˑˑˑ┗━ 2.2.1: The Walking Dead
 > ```
 >
-> Prints the branch given in the ˑbranchˑ argument with all positions linked to the corresponding layers with the given size, In this example ˑ1ˑ.
+> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers with the given size, In this example `1`.
 >
 > ```python
 > >>> br4nch.display.assist(branch="Stream", size=1)
@@ -67,7 +67,7 @@ To display a assist for an branch, use the **following function:**
 > ˑˑˑˑˑˑˑˑ┗━━ 2.2.1: The Walking Dead
 > ```
 >
-> Prints the branch given in the ˑbranchˑ argument with all positions linked to the corresponding layers with custom ˑlineˑ, ˑsplitˑ and ˑendˑ symbols.
+> Prints the branch given in the `branch` argument with all positions linked to the corresponding layers with custom `line`, `split` and `end` symbols.
 >
 > ```python
 > >>> br4nch.display.assist(branch="Stream", line="║", split="╠═", end="╚═")
@@ -86,7 +86,7 @@ To display a assist for an branch, use the **following function:**
 > ˑˑˑˑˑˑ╚═ 2.2.1: The Walking Dead
 > ```
 >
-> To print an assist for multiple branches in the same function call, you can use a list for the ˑbranchˑ argument.
+> To print an assist for multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.display.assist(branch=["Stream", "MyBranch"])

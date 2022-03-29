@@ -14,7 +14,7 @@ To display a branch, use the **following function:**
 
 **Guide:**
 
-> Prints the branch given in the branch argument. In this example we will print the branch ˑStreamˑ.
+> Prints the branch given in the branch argument. In this example we will print the branch `Stream`.
 >
 > ```python
 > >>> br4nch.display.branch(branch="Stream")
@@ -33,7 +33,7 @@ To display a branch, use the **following function:**
 > ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 >
-> To print a branch and immediately delete it, specify the value 'True' in the ˑdeleteˑ argument.
+> To print a branch and immediately delete it, specify the value `True` in the `delete` argument.
 >
 > ```python
 > >>> br4nch.display.branch(branch="Stream", delete=True)
@@ -55,7 +55,7 @@ To display a branch, use the **following function:**
 > NotExistingBranchError: The branch: 'Stream' does not exists.
 > ```
 >
-> To print multiple branches in the same function call, you can use a list for the ˑbranchˑ argument.
+> To print multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.display.branch(branch=["Stream", "MyBranch"])

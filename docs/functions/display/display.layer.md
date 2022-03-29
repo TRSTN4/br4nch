@@ -16,7 +16,7 @@ To display a layer, use the **following function:**
 
 **Guide:**
 
-> To print the layer of a position in a branch, specify the name of the layer in the ˑlayerˑ argument.
+> To print the layer of a position in a branch, specify the name of the layer in the `layer` argument.
 >
 > ```python
 > >>> br4nch.display.layer(branch="Stream", layer="Squid Game")
@@ -26,20 +26,20 @@ To display a layer, use the **following function:**
 > ˑˑˑˑˑˑ┗━ Position: 1.2.1
 > ```
 >
-> To make the name of the layer case-sensitive, set the ˑsensitiveˑ argument to True.
+> To make the name of the layer case-sensitive, set the `sensitive` argument to True.
 >
 > ```python
 > >>> br4nch.display.layer(branch="Stream", layer="squid game", sensitive=True)
 > ```
 >
-> To print the result without a branch structure in the result, set the ˑbeautifyˑ argument to ˑFalseˑ.
+> To print the result without a branch structure in the result, set the `beautify` argument to ˑFalseˑ.
 >
 > ```python
 > >>> br4nch.display.layer(branch="Stream", layer="Squid Game", beautify=False)
 > 1.2.1
 > ```
 >
-> To print the position(s) in multiple branches in the same function call, you can use a list for the ˑbranchˑ argument.
+> To print the position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
 >
 > ```python
 > >>> br4nch.display.layer(branch=["Stream"], ["Stream2"], layer="The Walking Dead")
@@ -52,7 +52,7 @@ To display a layer, use the **following function:**
 > ˑˑˑˑˑˑ┗━ Position: 2.1.1
 > ```
 > 
->To print multiple positions in the same function call, you can use a list for the ˑlayerˑ argument.
+>To print multiple positions in the same function call, you can use a list for the `layer` argument.
 > 
 >```python
 > >>> br4nch.display.layer(branch="Stream", layer=["Interstellar", "Squid Game"])
