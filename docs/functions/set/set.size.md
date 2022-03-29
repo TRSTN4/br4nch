@@ -20,10 +20,10 @@ To set an size, use the **following function:**
 > Just a header
 > ┃
 > ┣━━ First layer
-> ┃   ┃
-> ┃   ┣━━ Just text
-> ┃   ┃
-> ┃   ┗━━ Two lines
+> ┃ˑˑˑ┃
+> ┃ˑˑˑ┣━━ Just text
+> ┃ˑˑˑ┃
+> ┃ˑˑˑ┗━━ Two lines
 > ┃
 > ┗━━ Second layer
 > ```
