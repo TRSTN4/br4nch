@@ -33,8 +33,8 @@ To create a new layer, use the **following function:**
 > My header!
 > ┣━ My Layer
 > ┗━ One
->       Two
->       Three
+> ˑˑˑTwo
+> ˑˑˑThree
 > ```
 >
 > To create the layer(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
@@ -57,11 +57,11 @@ To create a new layer, use the **following function:**
 > >>> br4nch.display.branch(branch="MyBranch")
 > My header!
 > ┣━ My Layer
-> ┃  ┣━ Sublayer One
-> ┃  ┗━ Sublayer Two
+> ┃ˑˑ┣━ Sublayer One
+> ┃ˑˑ┗━ Sublayer Two
 > ┗━ One
->       Two
->       Three
+> ˑˑˑTwo
+> ˑˑˑThree
 > ```
 >
 > To create the layer(s) for multiple position in the same function call, you can use a list for the `position` argument.
@@ -72,13 +72,13 @@ To create a new layer, use the **following function:**
 > >>> br4nch.display.branch(branch="MyBranch")
 > My header!
 > ┣━ My Layer
-> ┃  ┣━ Sublayer One
-> ┃  ┃  ┗━ Last Layer
-> ┃  ┗━ Sublayer Two
-> ┃     ┗━ Last Layer
+> ┃ˑˑ┣━ Sublayer One
+> ┃ˑˑ┃ˑˑ┗━ Last Layer
+> ┃ˑˑ┗━ Sublayer Two
+> ┃ˑˑˑˑˑ┗━ Last Layer
 > ┗━ One
->       Two
->       Three
+> ˑˑˑTwo
+> ˑˑˑThree
 > ```
 >
 
