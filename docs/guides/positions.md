@@ -29,11 +29,11 @@ It is recommended to use operators. For more information about operators, head t
 > >>> br4nch.display.assist(branch="Streaming")
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃  ┣━ 1.1: Movies
-> ┃  ┗━ 1.2: Series
+> ┃ˑˑ┣━ 1.1: Movies
+> ┃ˑˑ┗━ 1.2: Series
 > ┗━ 2: Prime Video
->    ┣━ 2.1: Movies
->    ┗━ 2.2: Series
+>    ˑˑˑ┣━ 2.1: Movies
+>    ˑˑˑ┗━ 2.2: Series
 > ```
 >
 > Specifies the `1.1` and `2.1` positions to create the layers inside the `Movies and Series` layer in both parent `Netflix` and `Prime Video` layers.
@@ -44,13 +44,13 @@ It is recommended to use operators. For more information about operators, head t
 > >>> br4nch.display.assist(branch="Streaming")
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃  ┣━ 1.1: Movies
-> ┃  ┃  ┗━ 1.1.1: The Hobbit
-> ┃  ┗━ 1.2: Series
+> ┃ˑˑ┣━ 1.1: Movies
+> ┃ˑˑ┃ˑˑ┗━ 1.1.1: The Hobbit
+> ┃ˑˑ┗━ 1.2: Series
 > ┗━ 2: Prime Video
->    ┣━ 2.1: Movies
->    ┃  ┗━ 2.1.1: The Hobbit
->    ┗━ 2.2: Series
+>    ˑˑˑ┣━ 2.1: Movies
+>    ˑˑˑ┃ˑˑ┗━ 2.1.1: The Hobbit
+>    ˑˑˑ┗━ 2.2: Series
 > ```
 >
 > And so on..
@@ -64,19 +64,19 @@ It is recommended to use operators. For more information about operators, head t
 > >>> br4nch.display.branch(branch="Streaming")
 > Movies & Series
 > ┣━ Netflix
-> ┃  ┣━ Movies
-> ┃  ┃  ┣━ The Hobbit
-> ┃  ┃  ┗━ Interstellar
-> ┃  ┗━ Series
-> ┃     ┣━ Squid Game
-> ┃     ┗━ The Crown
+> ┃ˑˑ┣━ Movies
+> ┃ˑˑ┃ˑˑ┣━ The Hobbit
+> ┃ˑˑ┃ˑˑ┗━ Interstellar
+> ┃ˑˑ┗━ Series
+> ┃ˑˑˑˑˑ┣━ Squid Game
+> ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ┣━ Movies
->    ┃  ┣━ The Hobbit
->    ┃  ┣━ Tenet
->    ┃  ┗━ Parasite
->    ┗━ Series
->       ┗━ The Walking Dead
+>    ˑˑˑ┣━ Movies
+>    ˑˑˑ┃ˑˑ┣━ The Hobbit
+>    ˑˑˑ┃ˑˑ┣━ Tenet
+>    ˑˑˑ┃ˑˑ┗━ Parasite
+>    ˑˑˑ┗━ Series
+>    ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 
 ## Branch assist
@@ -89,19 +89,19 @@ It is recommended to use operators. For more information about operators, head t
 > >>> br4nch.display.assist(branch="Stream")
 > 0: Movies & Series
 > ┣━ 1: Netflix
-> ┃  ┣━ 1.1: Movies
-> ┃  ┃  ┣━ 1.1.1: The Hobbit
-> ┃  ┃  ┗━ 1.1.2: Interstellar
-> ┃  ┗━ 1.2: Series
-> ┃     ┣━ 1.2.1: Squid Game
-> ┃     ┗━ 1.2.2: The Crown
+> ┃ˑˑ┣━ 1.1: Movies
+> ┃ˑˑ┃ˑˑ┣━ 1.1.1: The Hobbit
+> ┃ˑˑ┃ˑˑ┗━ 1.1.2: Interstellar
+> ┃ˑˑ┗━ 1.2: Series
+> ┃ˑˑˑˑˑ┣━ 1.2.1: Squid Game
+> ┃ˑˑˑˑˑ┗━ 1.2.2: The Crown
 > ┗━ 2: Prime Video
->    ┣━ 2.1: Movies
->    ┃  ┣━ 2.1.1: The Hobbit
->    ┃  ┣━ 2.1.2: Tenet
->    ┃  ┗━ 2.1.3: Parasite
->    ┗━ 2.2: Series
->       ┗━ 2.2.1: The Walking Dead
+>    ˑˑˑ┣━ 2.1: Movies
+>    ˑˑˑ┃ˑˑ┣━ 2.1.1: The Hobbit
+>    ˑˑˑ┃ˑˑ┣━ 2.1.2: Tenet
+>    ˑˑˑ┃ˑˑ┗━ 2.1.3: Parasite
+>    ˑˑˑ┗━ 2.2: Series
+>    ˑˑˑˑˑˑ┗━ 2.2.1: The Walking Dead
 > ```
 >
 
