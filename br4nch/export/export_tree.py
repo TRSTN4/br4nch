@@ -61,11 +61,11 @@ class ExportTree:
 
             with open(self.directory + "/br4nch-" + tree + "/branch-" + tree + ".br4nch", 'w', encoding='utf-8') \
                     as file:
-                file.write("tag=branch\n")
+                file.write("tag=tree\n")
                 file.write(str({tree: existing_trees[tree]}))
 
             if self.attributes:
                 with open(self.directory + "/br4nch-" + tree + "/package-" + tree + ".br4nch", 'w', encoding='utf-8') \
                         as file:
-                    file.write("tag=package\n")
+                    file.write("tag=attributes\n")
                     file.write(str(export_attributes))
