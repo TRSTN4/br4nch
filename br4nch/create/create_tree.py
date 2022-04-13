@@ -21,9 +21,6 @@ class CreateTree:
         if not isinstance(self.trees, list):
             self.trees = [self.trees]
 
-        if not isinstance(self.header, str):
-            raise InstanceStringError("header", self.header)
-
         for tree in self.trees:
             if not isinstance(tree, str):
                 raise InstanceStringError("tree", tree)
@@ -34,6 +31,9 @@ class CreateTree:
             for existing_tree in list(existing_trees):
                 if tree.lower() == existing_tree.lower():
                     raise DuplicateTreeError(tree)
+
+        if not isinstance(self.header, str):
+            raise InstanceStringError("header", self.header)
 
     def create_tree(self):
         for tree in self.trees:
