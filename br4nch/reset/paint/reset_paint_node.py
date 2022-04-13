@@ -4,16 +4,18 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_paint_headers
+from br4nch.utility.utility_librarian import existing_trees, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError
+from br4nch.utility.utility_positioner import format_position
 
 
-class ResetPaintHeader:
-    def __init__(self, tree):
+class ResetPaintNode:
+    def __init__(self, tree, parent):
         self.trees = tree
+        self.parents = parent
 
         self.validate_arguments()
-        self.reset_paint_header()
+        self.build_parent()
 
     def validate_arguments(self):
         if not isinstance(self.trees, list):
@@ -35,6 +37,22 @@ class ResetPaintHeader:
             for existing_tree in list(existing_trees):
                 self.trees.append(existing_tree)
 
-    def reset_paint_header(self):
+        if not isinstance(self.parents, list):
+            self.parents = [self.parents]
+
+    def build_parent(self):
         for tree in self.trees:
-            existing_paint_headers.update({tree: []})
+            for parent in format_position(tree, self.parents):
+                self.reset_paint_node(tree, parent, existing_trees[tree][list(existing_trees[tree])[0]])
+
+    def reset_paint_node(self, tree, parent, child):
+        count = 0
+        for parent_node, child_nodes in child.items():
+            count = count + 1
+
+            if count == int(parent[0]):
+                if len(parent) == 1:
+                    existing_paint_nodes[tree].update({parent_node: []})
+                else:
+                    parent.pop(0)
+                    self.reset_paint_node(tree, parent, child_nodes)

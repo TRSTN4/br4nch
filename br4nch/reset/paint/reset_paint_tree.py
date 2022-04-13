@@ -4,16 +4,16 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_paint_headers
+from br4nch.utility.utility_librarian import existing_trees, existing_paint_trees
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError
 
 
-class ResetPaintHeader:
+class ResetPaintTree:
     def __init__(self, tree):
         self.trees = tree
 
         self.validate_arguments()
-        self.reset_paint_header()
+        self.reset_paint_tree()
 
     def validate_arguments(self):
         if not isinstance(self.trees, list):
@@ -35,6 +35,6 @@ class ResetPaintHeader:
             for existing_tree in list(existing_trees):
                 self.trees.append(existing_tree)
 
-    def reset_paint_header(self):
+    def reset_paint_tree(self):
         for tree in self.trees:
-            existing_paint_headers.update({tree: []})
+            existing_paint_trees.update({tree: []})

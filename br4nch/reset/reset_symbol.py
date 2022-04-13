@@ -1,88 +1,65 @@
 # br4nch - Data Structure Tree Builder
+# Author: https://TRSTN4.com
 # Website: https://br4nch.com
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import branches, symbols
-from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingBranchError
+from br4nch.utility.utility_librarian import existing_trees, existing_symbols
+from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
 
 
-def arguments(branch, line=True, split=True, end=True):
-    """
-    - Gets the arguments and parses them to the 'reset_symbol' function.
-    """
-    reset_symbol(branch, line, split, end)
+class ResetSymbol:
+    def __init__(self, tree, line=True, split=True, end=True):
+        self.trees = tree
+        self.line = line
+        self.split = split
+        self.end = end
 
+        self.validate_arguments()
+        self.reset_symbol()
 
-def reset_symbol(argument_branch, argument_line, argument_split, argument_end):
-    """
-    Lists:
-      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+    def validate_arguments(self):
+        if not isinstance(self.trees, list):
+            self.trees = [self.trees]
 
-    Errors:
-      - If the line value is not an instance of a string, then it raises an 'InstanceStringError' error.
-      - If the split value is not an instance of a string, then it raises an 'InstanceStringError' error.
-      - If the end value is not an instance of a string, then it raises an 'InstanceStringError' error.
+        for index in range(len(self.trees)):
+            if not isinstance(self.trees[index], str):
+                raise InstanceStringError("tree", self.trees[index])
 
-    Operators:
-      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
-        list.
+            if self.trees[index] not in list(map(str.lower, existing_trees)):
+                raise NotExistingTreeError(self.trees[index])
 
-    Argument branch list loop:
-      Errors:
-        - If the branch value is not an instance of a string, then it raises an 'InstanceStringError' error.
-        - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+            for existing_tree in list(map(str.lower, existing_trees)):
+                if self.trees[index].lower() == existing_tree.lower():
+                    self.trees[index] = existing_tree
 
-      Branches list loop:
-        - If the branch is in the 'branches' dictionary, and one of the values of 'line', 'split' and/or 'end' is equal
-          to 'True', then the default value(s) are used for the symbols. If the branch is in the dictionary 'branches',
-          and one of the values of 'line', 'split' and/or 'end' is equals 'False', then the current value(s) are used
-          for the symbols.
-        - If the branch is in the 'branches' dictionary, then it will update the current branch key in the 'symbols'
-          dictionary with the values for 'line', 'split', 'end'.
-    """
-    if not isinstance(argument_branch, list):
-        argument_branch = [argument_branch]
+        if "*" in self.trees:
+            self.trees.clear()
+            for existing_tree in list(existing_trees):
+                self.trees.append(existing_tree)
 
-    if not isinstance(argument_line, bool):
-        raise InstanceBooleanError("line", argument_line)
+        if not isinstance(self.line, bool):
+            raise InstanceBooleanError("line", self.line)
 
-    if not isinstance(argument_split, bool):
-        raise InstanceBooleanError("split", argument_split)
+        if not isinstance(self.split, bool):
+            raise InstanceBooleanError("split", self.split)
 
-    if not isinstance(argument_end, bool):
-        raise InstanceBooleanError("end", argument_end)
+        if not isinstance(self.end, bool):
+            raise InstanceBooleanError("end", self.end)
 
-    if "*" in argument_branch:
-        argument_branch.clear()
-        for branches_branch in list(branches):
-            argument_branch.append(branches_branch)
+    def reset_symbol(self):
+        for tree in self.trees:
+            if self.line:
+                self.line = "┃"
+            else:
+                self.line = existing_symbols[tree]["line"]
+            if self.split:
+                self.split = "┣━"
+            else:
+                self.split = existing_symbols[tree]["split"]
+            if self.end:
+                self.end = "┗━"
+            else:
+                self.end = existing_symbols[tree]["end"]
 
-    for branch in argument_branch:
-        error = 0
-
-        if not isinstance(branch, str):
-            raise InstanceStringError("branch", branch)
-
-        for branches_branch in list(branches):
-            if branch.lower() == branches_branch.lower():
-                error = error + 1
-
-                if argument_line:
-                    argument_line = "┃"
-                else:
-                    argument_line = symbols[branches_branch]["line"]
-                if argument_split:
-                    argument_split = "┣━"
-                else:
-                    argument_split = symbols[branches_branch]["split"]
-                if argument_end:
-                    argument_end = "┗━"
-                else:
-                    argument_end = symbols[branches_branch]["end"]
-
-                symbols.update({branches_branch: {"line": argument_line, "split": argument_split, "end": argument_end}})
-
-        if error == 0:
-            if branch:
-                raise NotExistingBranchError(branch)
+            existing_symbols.update({tree: {"line": self.line, "split": self.split, "end": self.end}})
