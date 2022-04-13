@@ -52,10 +52,6 @@ class CreateNode:
                 else:
                     break
 
-        for tree in self.trees:
-            for index in range(len(self.nodes)):
-                self.nodes[index] = self.nodes[index] + generate_uid(tree)
-
         if not isinstance(self.parents, list):
             self.parents = [self.parents]
 
@@ -78,6 +74,7 @@ class CreateNode:
             if count == int(parent[0]):
                 if len(parent) == 1:
                     for node in self.nodes:
+                        node = node + generate_uid(tree)
                         existing_paint_nodes[tree].update({node: []})
                         child_nodes.update({node: {}})
                     return
