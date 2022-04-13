@@ -57,14 +57,16 @@ class ReplaceNode:
                 child = self.get_nodes(parent, existing_trees[tree][list(existing_trees[tree])[0]])
                 if child:
                     for parent_node, child_nodes in child.items():
-                        self.node = self.node + generate_uid(tree)
+                        parent_node_uid = self.node + generate_uid(tree)
                         existing_uids[tree].remove(parent_node[-10:])
-                        existing_paint_nodes[tree][self.node] = existing_paint_nodes[tree].pop(parent_node)
+                        existing_paint_nodes[tree][parent_node_uid] = existing_paint_nodes[tree].pop(parent_node)
 
-                        child_nodes[self.node] = child_nodes.pop(parent_node)
-                        for index in list(child_nodes)[list(child_nodes).index(parent_node):-1]:
-                            child_nodes[index] = child_nodes.pop(index)
-                            existing_paint_nodes[tree][index] = existing_paint_nodes[tree].pop(index)
+                        index = list(child_nodes).index(parent_node)
+                        child_nodes[parent_node_uid] = child_nodes.pop(parent_node)
+
+                        for number in list(child_nodes)[index:-1]:
+                            child_nodes[number] = child_nodes.pop(number)
+                            existing_paint_nodes[tree][number] = existing_paint_nodes[tree].pop(number)
 
     def get_nodes(self, parent, child):
         count = 0
