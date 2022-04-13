@@ -1,73 +1,53 @@
 # br4nch - Data Structure Tree Builder
+# Author: https://TRSTN4.com
 # Website: https://br4nch.com
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_handler import InstanceIntegerError, InvalidSizeError, InstanceStringError, \
-    NotExistingBranchError
-from br4nch.utility.utility_librarian import branches, symbols, sizes
+from br4nch.utility.utility_librarian import existing_trees, existing_symbols, existing_sizes
+from br4nch.utility.utility_handler import InstanceIntegerError, InstanceStringError, InvalidSizeError, \
+    NotExistingTreeError
 
 
-def arguments(branch, size):
-    """
-    - Gets the arguments and parses them to the 'set_size' function.
-    """
-    set_size(branch, size)
+class SetSize:
+    def __init__(self, tree, size):
+        self.trees = tree
+        self.size = size
 
+        self.validate_arguments()
+        self.set_size()
 
-def set_size(argument_branch, argument_size):
-    """
-    Lists:
-      - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+    def validate_arguments(self):
+        if not isinstance(self.trees, list):
+            self.trees = [self.trees]
 
-    Errors:
-      - If the size value is not an instance of a integer, then it raises an 'InstanceIntegerError' error.
-      - If the size value is smaller than '0' or bigger than '20', then it raises an 'InvalidSizeError' error.
+        for index in range(len(self.trees)):
+            if not isinstance(self.trees[index], str):
+                raise InstanceStringError("tree", self.trees[index])
 
-    Operators:
-      - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
-        list.
+            if self.trees[index] not in list(map(str.lower, existing_trees)):
+                raise NotExistingTreeError(self.trees[index])
 
-    Argument branch list loop:
-      Errors:
-        - If the branch value is not an instance of a string, then it raises an 'InstanceStringError' error.
-        - If the branch value is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+            for existing_tree in list(map(str.lower, existing_trees)):
+                if self.trees[index].lower() == existing_tree.lower():
+                    self.trees[index] = existing_tree
 
-      Branches list loop:
-        - If the branch is in the 'branches' dictionary, it checks if the rule variables are default and if so, the
-          horizontal line is added times the value of the variable 'argument_size'.
-    """
-    if not isinstance(argument_branch, list):
-        argument_branch = [argument_branch]
+        if "*" in self.trees:
+            self.trees.clear()
+            for existing_tree in list(existing_trees):
+                self.trees.append(existing_tree)
 
-    if not isinstance(argument_size, int):
-        raise InstanceIntegerError("size", argument_size)
+        if not isinstance(self.size, int):
+            raise InstanceIntegerError("size", self.size)
 
-    if argument_size < 0 or argument_size > 20:
-        raise InvalidSizeError
+        if self.size < 0 or self.size > 20:
+            raise InvalidSizeError
 
-    if "*" in argument_branch:
-        argument_branch.clear()
-        for branches_branch in list(branches):
-            argument_branch.append(branches_branch)
+    def set_size(self):
+        for tree in self.trees:
+            if existing_symbols[tree]["split"] == "┣━":
+                existing_symbols[tree]["split"] = "┣━" + "━" * self.size
+            if existing_symbols[tree]["end"] == "┗━":
+                existing_symbols[tree]["end"] = "┗━" + "━" * self.size
 
-    for branch in argument_branch:
-        error = 0
-
-        if not isinstance(branch, str):
-            raise InstanceStringError("branch", branch)
-
-        for branches_branch in list(branches):
-            if branch.lower() == branches_branch.lower():
-                error = error + 1
-
-                if symbols[branches_branch]["split"] == "┣━":
-                    symbols[branches_branch]["split"] = "┣━" + "━" * argument_size
-                if symbols[branches_branch]["end"] == "┗━":
-                    symbols[branches_branch]["end"] = "┗━" + "━" * argument_size
-
-                sizes.update({branches_branch: argument_size})
-
-        if error == 0:
-            if branch:
-                raise NotExistingBranchError(branch)
+            existing_sizes.update({tree: self.size})

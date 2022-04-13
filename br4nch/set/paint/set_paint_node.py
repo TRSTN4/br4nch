@@ -4,17 +4,19 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_paint_headers
-from br4nch.utility.utility_handler import InstanceStringError, NotExistingPaintError, NotExistingTreeError
+from br4nch.utility.utility_librarian import existing_trees, existing_paint_nodes
+from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError, NotExistingPaintError
+from br4nch.utility.utility_positioner import format_position
 
 
-class SetPaintHeader:
-    def __init__(self, tree, paint):
+class SetPaintNode:
+    def __init__(self, tree, parent, paint):
         self.trees = tree
+        self.parents = parent
         self.paint = paint
 
         self.validate_arguments()
-        self.set_paint_header()
+        self.build_parent()
 
     def validate_arguments(self):
         if not isinstance(self.trees, list):
@@ -36,6 +38,9 @@ class SetPaintHeader:
             for existing_tree in list(existing_trees):
                 self.trees.append(existing_tree)
 
+        if not isinstance(self.parents, list):
+            self.parents = [self.parents]
+
         if not isinstance(self.paint, list):
             self.paint = [self.paint]
 
@@ -47,6 +52,20 @@ class SetPaintHeader:
                                      "underline"]:
                 raise NotExistingPaintError(paint)
 
-    def set_paint_header(self):
+    def build_parent(self):
         for tree in self.trees:
-            existing_paint_headers.update({tree: self.paint})
+            for position in format_position(tree, self.parents.copy()):
+                self.set_paint_layer(tree, position, existing_trees[tree][list(existing_trees[tree])[0]])
+
+    def set_paint_layer(self, tree, parent, child):
+        count = 0
+        for parent_node, child_nodes in child.items():
+            count = count + 1
+
+            if count == int(parent[0]):
+                if len(parent) == 1:
+                    existing_paint_nodes[tree].update({parent_node: self.paint})
+                else:
+                    if child_nodes:
+                        parent.pop(0)
+                        return self.set_paint_layer(tree, parent, child_nodes)
