@@ -1,4 +1,5 @@
 # br4nch - Data Structure Tree Builder
+# Author: https://TRSTN4.com
 # Website: https://br4nch.com
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
@@ -6,30 +7,26 @@
 from br4nch.utility.utility_handler import MaximumPaintSlotsError
 
 
-def painter(paint):
-    """
-    Errors:
-      - If the length of the 'paint' list is bigger than '3', then it raises a 'MaximumPaintSlotsError' error.
+class UtilityPainter:
+    def __init__(self, paint):
+        self.paint = paint
 
-    - Then is calculated how many times the loop should be run and adding element with an empty string as value to the
-      list 'paint' until the length of the list is equal to '3'.
+        self.validate_arguments()
+        self.painter()
 
-    Length 'paint' list loop:
-      - The current value of position in the 'paint' list will be set as the requested paint.
+    def validate_arguments(self):
+        if len(self.paint) > 3:
+            raise MaximumPaintSlotsError
 
-    - Then all paint is returned.
-    """
-    if len(paint) > 3:
-        raise MaximumPaintSlotsError
+    def painter(self):
+        for _ in range(3 - len(self.paint)):
+            self.paint.append("")
 
-    for _ in range(3 - len(paint)):
-        paint.append("")
+        for index in range(len(self.paint)):
+            if self.paint[index]:
+                self.paint[index] = ["\u001b[31m", "\u001b[33m", "\u001b[32m", "\u001b[36m", "\u001b[34m", "\u001b[35m",
+                                     "\u001b[30m", "\u001b[37m", "\u001b[1m", "\u001b[4m","\u001b[0m"][
+                    ["red", "yellow", "green", "cyan", "blue", "magenta", "black", "white", "bold", "underline",
+                     "clear"].index(self.paint[index].lower())]
 
-    for position in range(len(paint)):
-        if paint[position]:
-            paint[position] = ["\u001b[31m", "\u001b[33m", "\u001b[32m", "\u001b[36m", "\u001b[34m", "\u001b[35m",
-                               "\u001b[30m", "\u001b[37m", "\u001b[1m", "\u001b[4m", "\u001b[0m"][
-                ["red", "yellow", "green", "cyan", "blue", "magenta", "black", "white", "bold", "underline",
-                 "clear"].index(paint[position].lower())]
-
-    return paint[0] + paint[1] + paint[2]
+        return self.paint[0] + self.paint[1] + self.paint[2]

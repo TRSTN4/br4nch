@@ -1,44 +1,29 @@
 # br4nch - Data Structure Tree Builder
+# Author: https://TRSTN4.com
 # Website: https://br4nch.com
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 import uuid
 
-from br4nch.utility.utility_librarian import branches, uids
+from br4nch.utility.utility_librarian import existing_trees, existing_uids
 
 
-def generate_uid(branch, length=10):
-    """
-    - Generates the uid.
+class UtilityGenerator:
+    def __init__(self, tree, length=10):
+        self.tree = tree
+        self.length = length
 
-    If the branch variable is equal to '-':
-      While loop:
-        - If the uid exists in the 'branches' dictionary, a new one is generated.
-        - If the uid does not exist in the 'branches' dictionary, then the uid is returned.
+        self.generate_uid()
 
-    If the branch variable is not equal to '-':
-      While loop:
-        - If the uid exists in the current branch uids list, a new one is generated.
-        - If the uid does not exist in the current branch uids list, then the uid is added to the branch uids list.
-
-      - Returns the generated uid.
-    """
-    uid = str(uuid.uuid4()).replace("-", "")[0:length]
-
-    if branch == "-":
+    def generate_uid(self):
         while True:
-            if uid in list(branches):
-                return generate_uid(branch, length)
-            else:
-                return uid
+            uid = str(uuid.uuid4()).replace("-", "")[0:self.length]
 
-    else:
-        while True:
-            if uid in uids[branch]:
-                return generate_uid(branch, length)
+            if self.tree == "-":
+                if uid not in list(existing_trees):
+                    return ":uid=" + uid
             else:
-                uids[branch].append(uid)
-                break
-
-        return ":uid=" + uid
+                if uid not in existing_uids[self.tree]:
+                    existing_uids[self.tree].append(uid)
+                    return ":uid=" + uid
