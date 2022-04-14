@@ -10,7 +10,7 @@ from br4nch.utility.utility_librarian import existing_trees, existing_output, ex
     existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceStringError, InstanceIntegerError, InvalidSizeError, \
     NotExistingTreeError
-from br4nch.utility.utility_generator import generate_uid
+from br4nch.utility.utility_generator import UtilityGenerator
 from br4nch.display.display_tree import DisplayTree
 
 
@@ -67,7 +67,7 @@ class DisplayAssist:
             levels.append(0)
 
             while True:
-                tree_uid = tree + generate_uid(tree)
+                tree_uid = tree + UtilityGenerator(tree)
 
                 if tree_uid in list(existing_trees):
                     continue

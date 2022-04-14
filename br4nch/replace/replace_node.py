@@ -6,8 +6,8 @@
 
 from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError
-from br4nch.utility.utility_generator import generate_uid
-from br4nch.utility.utility_positioner import format_position
+from br4nch.utility.utility_generator import UtilityGenerator
+from br4nch.utility.utility_positioner import UtilityPositioner
 
 
 class ReplaceNode:
@@ -53,11 +53,11 @@ class ReplaceNode:
 
     def replace_node(self):
         for tree in self.trees:
-            for parent in format_position(tree, self.parents.copy()):
+            for parent in UtilityPositioner(tree, self.parents.copy()):
                 child = self.get_nodes(parent, existing_trees[tree][list(existing_trees[tree])[0]])
                 if child:
                     for parent_node, child_nodes in child.items():
-                        parent_node_uid = self.node + generate_uid(tree)
+                        parent_node_uid = self.node + UtilityGenerator(tree)
                         existing_uids[tree].remove(parent_node[-10:])
                         existing_paint_nodes[tree][parent_node_uid] = existing_paint_nodes[tree].pop(parent_node)
 

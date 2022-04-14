@@ -6,7 +6,7 @@
 
 from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError
-from br4nch.utility.utility_positioner import format_position
+from br4nch.utility.utility_positioner import UtilityPositioner
 
 
 class DeleteNode:
@@ -44,7 +44,7 @@ class DeleteNode:
         for tree in self.trees:
             queue_delete = []
 
-            for parent in format_position(tree, self.nodes.copy()):
+            for parent in UtilityPositioner(tree, self.nodes.copy()):
                 child = self.get_nodes(tree, parent, existing_trees[tree][list(existing_trees[tree])[0]])
                 queue_delete.append(child)
 

@@ -7,7 +7,7 @@
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
     existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
-from br4nch.utility.utility_builder import Builder
+from br4nch.utility.utility_builder import UtilityBuilder
 
 
 class DisplayTree:
@@ -63,7 +63,7 @@ class DisplayTree:
             else:
                 colored = True
 
-            Builder(tree, colored)
+            UtilityBuilder(tree, colored)
 
             for line in existing_output[tree]:
                 print(line)

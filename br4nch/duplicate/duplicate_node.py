@@ -8,8 +8,8 @@ import copy
 
 from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
-from br4nch.utility.utility_generator import generate_uid
-from br4nch.utility.utility_positioner import format_position
+from br4nch.utility.utility_generator import UtilityGenerator
+from br4nch.utility.utility_positioner import UtilityPositioner
 
 
 class DuplicateNode:
@@ -65,8 +65,8 @@ class DuplicateNode:
             queue_delete = []
             queue_add = []
 
-            for node in format_position(tree, self.nodes.copy()):
-                for parent in format_position(tree, self.parents.copy()):
+            for node in UtilityPositioner(tree, self.nodes.copy()):
+                for parent in UtilityPositioner(tree, self.parents.copy()):
                     children = self.get_nodes(tree, node, [], existing_trees[tree][list(existing_trees[tree])[0]])
 
                     if children:
@@ -129,7 +129,7 @@ class DuplicateNode:
 
     def change_node_uid(self, tree, child):
         for parent_node, child_nodes in child.copy().items():
-            parent_node_uid = parent_node[:-15] + generate_uid(tree)
+            parent_node_uid = parent_node[:-15] + UtilityGenerator(tree)
 
             child[parent_node_uid] = child.pop(parent_node)
 

@@ -7,8 +7,8 @@
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
     existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
-from br4nch.utility.utility_generator import generate_uid
-from br4nch.utility.utility_positioner import format_position
+from br4nch.utility.utility_generator import UtilityGenerator
+from br4nch.utility.utility_positioner import UtilityPositioner
 from br4nch.display.display_tree import DisplayTree
 
 
@@ -51,7 +51,7 @@ class DisplayParent:
         tree_package = []
 
         for tree in self.trees:
-            for parent in format_position(tree, self.parents.copy()):
+            for parent in UtilityPositioner(tree, self.parents.copy()):
                 string_position = ""
 
                 for character in parent:
@@ -62,7 +62,7 @@ class DisplayParent:
 
         if tree_package and self.beautify:
             while True:
-                tree_uid = generate_uid("-")
+                tree_uid = UtilityGenerator("-")
                 if tree_uid not in existing_trees:
                     break
 
@@ -110,13 +110,13 @@ class DisplayParent:
     def update_tree(self, tree, child, height=0):
         for parent_node, child_nodes in child.copy().items():
             if height == 1:
-                child["Tree: " + parent_node + generate_uid(tree)] = child.pop(parent_node)
+                child["Tree: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
 
             if height == 2:
-                child["Parent: " + parent_node + generate_uid(tree)] = child.pop(parent_node)
+                child["Parent: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
 
             if height == 3:
-                child["Node: " + parent_node + generate_uid(tree)] = child.pop(parent_node)
+                child["Node: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
 
             if child_nodes:
                 self.update_tree(tree, child_nodes, height + 1)

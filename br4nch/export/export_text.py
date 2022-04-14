@@ -8,7 +8,7 @@ import os
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingDirectoryError, NotExistingTreeError
-from br4nch.utility.utility_builder import Builder
+from br4nch.utility.utility_builder import UtilityBuilder
 
 
 class ExportText:
@@ -47,7 +47,7 @@ class ExportText:
     def export_text(self):
         for tree in self.trees:
             with open(self.directory + "/br4nch-" + tree + ".txt", 'w', encoding='utf-8') as file:
-                Builder(tree, False)
+                UtilityBuilder(tree, False)
 
                 for line in existing_output[tree]:
                     file.write(line + "\n")

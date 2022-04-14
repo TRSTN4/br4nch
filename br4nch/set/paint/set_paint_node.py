@@ -6,7 +6,7 @@
 
 from br4nch.utility.utility_librarian import existing_trees, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError, NotExistingPaintError
-from br4nch.utility.utility_positioner import format_position
+from br4nch.utility.utility_positioner import UtilityPositioner
 
 
 class SetPaintNode:
@@ -54,7 +54,7 @@ class SetPaintNode:
 
     def build_parent(self):
         for tree in self.trees:
-            for position in format_position(tree, self.parents.copy()):
+            for position in UtilityPositioner(tree, self.parents.copy()):
                 self.set_paint_layer(tree, position, existing_trees[tree][list(existing_trees[tree])[0]])
 
     def set_paint_layer(self, tree, parent, child):
