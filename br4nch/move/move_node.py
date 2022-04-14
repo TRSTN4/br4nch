@@ -88,7 +88,7 @@ class MoveNode:
 
             for add_node in queue_add:
                 if add_node and add_node[0] and add_node[1]:
-                    self.change_node_uid(list(add_node[1])[0], add_node[0])
+                    self.change_nodes_uid(list(add_node[1])[0], add_node[0])
                     add_node[1][list(add_node[1])[0]].update(add_node[0])
 
     def get_nodes(self, tree, node, parent, child):
@@ -115,7 +115,7 @@ class MoveNode:
                         parent.pop(0)
                         return self.get_nodes(tree, node, parent, child_nodes)
 
-    def change_node_uid(self, tree, child):
+    def change_nodes_uid(self, tree, child):
         for parent_node, child_nodes in child.copy().items():
             parent_node_uid = parent_node[:-15] + UtilityGenerator(tree)
 
