@@ -35,7 +35,7 @@ class DuplicateTree:
         if self.sibling.lower() not in list(map(str.lower, existing_trees)):
             raise NotExistingTreeError(self.sibling)
 
-        for existing_tree in list(map(str.lower, existing_trees)):
+        for existing_tree in list(existing_trees):
             if self.sibling.lower() == existing_tree.lower():
                 self.sibling = existing_tree
 

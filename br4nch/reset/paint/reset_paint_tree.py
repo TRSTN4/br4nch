@@ -26,7 +26,7 @@ class ResetPaintTree:
             if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(map(str.lower, existing_trees)):
+            for existing_tree in list(existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
