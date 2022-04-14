@@ -6,7 +6,7 @@
 
 import copy
 
-from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_paint_nodes
+from br4nch.utility.utility_librarian import existing_trees, existing_uids
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
 from br4nch.utility.utility_positioner import UtilityPositioner
@@ -73,16 +73,14 @@ class DuplicateNode:
                         queue_delete.append(children[1])
 
                         for sibling in self.siblings:
-                            queue_add.append([children[0], self.get_nodes(sibling, [], parent,
-                                                                          existing_trees[sibling]
-                                                                          [list(existing_trees[sibling])[0]])])
+                            queue_add.append([children[0], self.get_nodes(
+                                sibling, [], parent, existing_trees[sibling][list(existing_trees[sibling])[0]])])
 
             if self.delete:
                 for delete_node in queue_delete:
                     if delete_node:
                         for parent_node, child_nodes in delete_node.items():
                             existing_uids[tree].remove(str(parent_node[-10:]))
-                            existing_paint_nodes[tree].pop(parent_node)
 
                             self.delete_node_attributes(tree, child_nodes[parent_node])
                             del child_nodes[parent_node]
@@ -121,9 +119,6 @@ class DuplicateNode:
             if parent_node[-10:] in existing_uids[tree]:
                 existing_uids[tree].remove(str(parent_node[-10:]))
 
-            if parent_node in existing_paint_nodes[tree]:
-                existing_paint_nodes[tree].pop(parent_node)
-
             if child_nodes:
                 self.delete_node_attributes(tree, child_nodes)
 
@@ -132,12 +127,6 @@ class DuplicateNode:
             parent_node_uid = parent_node[:-15] + UtilityGenerator(tree)
 
             child[parent_node_uid] = child.pop(parent_node)
-
-            if parent_node in existing_paint_nodes[tree]:
-                if self.attributes:
-                    existing_paint_nodes[tree].update({parent_node_uid: existing_paint_nodes[tree][parent_node]})
-            else:
-                existing_paint_nodes[tree].update({parent_node_uid: []})
 
             if child_nodes:
                 self.change_node_uid(tree, child_nodes)

@@ -7,7 +7,7 @@
 import os
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
+    existing_symbols
 from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingDirectoryError, \
     InvalidTreeNameError, DuplicateTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
@@ -102,8 +102,8 @@ class LoadFolder:
                             if not self.includes[extension][0] == ".":
                                 self.includes[extension] = "." + self.includes[extension]
 
-                            if paths[index][-len(self.includes[extension]):] not in self.includes and \
-                                    paths[index] not in roots:
+                            if paths[index][-len(self.includes[extension]):] not in self.includes \
+                                    and paths[index] not in roots:
                                 if paths[index] not in queue_delete:
                                     queue_delete.append(paths[index])
 
@@ -127,16 +127,13 @@ class LoadFolder:
                     if number - 1 >= 0:
                         previous_file = path.split("/")[path_length:number - len(path.split("/")[path_length:])]
 
-                    self.create_tree(path.split("/")[path_length:][number], [self.header] + previous_file,
-                                     tree_structure)
+                    self.create_tree(
+                        path.split("/")[path_length:][number], [self.header] + previous_file, tree_structure)
 
             existing_output.update({tree: []})
             existing_uids.update({tree: []})
             existing_sizes.update({tree: 0})
             existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
-            existing_paint_trees.update({tree: []})
-            existing_paint_headers.update({tree: []})
-            existing_paint_nodes.update({tree: {}})
 
             self.generate_nodes_uid(tree, tree_structure[list(tree_structure)[0]])
 
@@ -157,7 +154,6 @@ class LoadFolder:
             parent_node_uid = parent_node + UtilityGenerator(tree)
 
             child[parent_node_uid] = child.pop(parent_node)
-            existing_paint_nodes[tree].update({parent_node_uid: []})
 
             if child_nodes:
                 self.generate_nodes_uid(tree, child_nodes)

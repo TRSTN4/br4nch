@@ -12,9 +12,8 @@ class InstanceStringError(Exception):
         self.value = value
 
     def __str__(self):
-        return "The " + str(self.argument) + " argument: '" + str(self.value) + "' must be an instance of a 'str' and" \
-                                                                                " not '" \
-               + str(type(self.value).__name__) + "'."
+        return "The " + str(self.argument) + " argument: '" + str(self.value) \
+               + "' must be an instance of a 'str' and not '" + str(type(self.value).__name__) + "'."
 
 
 class InstanceBooleanError(Exception):
@@ -25,9 +24,8 @@ class InstanceBooleanError(Exception):
         self.value = value
 
     def __str__(self):
-        return "The " + str(self.argument) + " argument: '" + str(self.value) + "' must be an instance of a 'bool' " \
-                                                                               "and not '" \
-               + str(type(self.value).__name__) + "'."
+        return "The " + str(self.argument) + " argument: '" + str(self.value) \
+               + "' must be an instance of a 'bool' and not '" + str(type(self.value).__name__) + "'."
 
 
 class InstanceIntegerError(Exception):
@@ -38,9 +36,8 @@ class InstanceIntegerError(Exception):
         self.value = value
 
     def __str__(self):
-        return "The " + str(self.argument) + " argument: '" + str(self.value) + "' must be an instance of a 'int' and" \
-                                                                                " not '" \
-               + str(type(self.value).__name__) + "'."
+        return "The " + str(self.argument) + " argument: '" + str(self.value) \
+               + "' must be an instance of a 'int' and not '" + str(type(self.value).__name__) + "'."
 
 
 class InvalidTreeNameError(Exception):
@@ -50,8 +47,8 @@ class InvalidTreeNameError(Exception):
         self.value = value
 
     def __str__(self):
-        return "The tree name: '" + self.value + "' is not valid. Only numbers and/or letters may be used to add a" \
-                                                   "tree."
+        return "The tree name: '" + self.value \
+               + "' is not valid. Only numbers and/or letters may be used to add a tree."
 
 
 class InvalidParentError(Exception):
@@ -62,8 +59,9 @@ class InvalidParentError(Exception):
         self.position = position
 
     def __str__(self):
-        return "The parent: '" + self.position + "' is not valid. Only numbers and operators may be used to add a " \
-                                                   "parent to the " + self.argument + " argument."
+        return "The parent: '" + self.position \
+               + "' is not valid. Only numbers and operators may be used to add a parent to the " + self.argument \
+               + " argument."
 
 
 class InvalidSizeError(Exception):

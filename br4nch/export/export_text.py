@@ -47,7 +47,7 @@ class ExportText:
     def export_text(self):
         for tree in self.trees:
             with open(self.directory + "/br4nch-" + tree + ".txt", 'w', encoding='utf-8') as file:
-                UtilityBuilder(tree, False)
+                UtilityBuilder(tree)
 
                 for line in existing_output[tree]:
                     file.write(line + "\n")

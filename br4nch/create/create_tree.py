@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
+    existing_symbols
 from br4nch.utility.utility_handler import InstanceStringError, InvalidTreeNameError, DuplicateTreeError
 
 
@@ -41,6 +41,3 @@ class CreateTree:
             existing_uids.update({tree: []})
             existing_sizes.update({tree: 0})
             existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
-            existing_paint_trees.update({tree: []})
-            existing_paint_headers.update({tree: []})
-            existing_paint_nodes.update({tree: {}})

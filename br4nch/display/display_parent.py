@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
+    existing_symbols
 from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
 from br4nch.utility.utility_positioner import UtilityPositioner
@@ -57,8 +57,9 @@ class DisplayParent:
                 for character in parent:
                     string_position = string_position + "." + character
 
-                tree_package = self.get_parent(tree, parent, string_position[1:],
-                                               existing_trees[tree][list(existing_trees[tree])[0]], tree_package)
+                tree_package = self.get_parent(
+                    tree, parent, string_position[1:], existing_trees[tree][list(existing_trees[tree])[0]],
+                    tree_package)
 
         if tree_package and self.beautify:
             while True:
@@ -71,9 +72,6 @@ class DisplayParent:
             existing_uids.update({tree_uid: []})
             existing_sizes.update({tree_uid: 0})
             existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
-            existing_paint_trees.update({tree_uid: []})
-            existing_paint_headers.update({tree_uid: []})
-            existing_paint_nodes.update({tree_uid: {}})
 
             for box in tree_package:
                 if box[0] not in existing_trees[tree_uid][list(existing_trees[tree_uid])[0]]:

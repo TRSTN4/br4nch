@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
+    existing_symbols
 from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidTreeNameError, \
     DuplicateTreeError, NotExistingTreeError
 
@@ -50,13 +50,7 @@ class DuplicateTree:
             existing_uids.update({self.tree: existing_uids[self.sibling]})
             existing_sizes.update({self.tree: existing_sizes[self.sibling]})
             existing_symbols.update({self.tree: existing_symbols[self.sibling]})
-            existing_paint_trees.update({self.tree: existing_paint_trees[self.sibling]})
-            existing_paint_headers.update({self.tree: existing_paint_headers[self.sibling]})
-            existing_paint_nodes.update({self.tree: existing_paint_nodes[self.sibling]})
         else:
             existing_uids.update({self.tree: []})
             existing_sizes.update({self.tree: 0})
             existing_symbols.update({self.tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
-            existing_paint_trees.update({self.tree: []})
-            existing_paint_headers.update({self.tree: []})
-            existing_paint_nodes.update({self.tree: {}})

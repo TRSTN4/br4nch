@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_paint_nodes
+from br4nch.utility.utility_librarian import existing_trees
 from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidParentError, \
     NotExistingTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
@@ -78,8 +78,8 @@ class MoveNode:
                     if self.sibling:
                         tree = self.sibling
 
-                    queue_add.append([children[0], self.get_nodes(tree, [], self.parent.split("."),
-                                                                  existing_trees[tree][list(existing_trees[tree])[0]])])
+                    queue_add.append([children[0], self.get_nodes(
+                        tree, [], self.parent.split("."), existing_trees[tree][list(existing_trees[tree])[0]])])
 
             for delete_node in queue_delete:
                 if delete_node:
@@ -121,11 +121,5 @@ class MoveNode:
 
             child[parent_node_uid] = child.pop(parent_node)
 
-            if parent_node in existing_paint_nodes[tree]:
-                if self.attributes:
-                    existing_paint_nodes[tree].update({parent_node_uid: existing_paint_nodes[tree][parent_node]})
-            else:
-                existing_paint_nodes[tree].update({parent_node_uid: []})
-
             if child_nodes:
-                self.change_node_uid(tree, child_nodes)
+                self.change_nodes_uid(tree, child_nodes)

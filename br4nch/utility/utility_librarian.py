@@ -9,6 +9,3 @@ existing_output = {}
 existing_uids = {}
 existing_sizes = {}
 existing_symbols = {}
-existing_paint_trees = {}
-existing_paint_headers = {}
-existing_paint_nodes = {}

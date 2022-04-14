@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_paint_nodes
+from br4nch.utility.utility_librarian import existing_trees
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
 from br4nch.utility.utility_positioner import UtilityPositioner
@@ -63,7 +63,6 @@ class CreateNode:
     def create_node(self, tree, parent, child):
         if parent[0] == "0":
             for node in self.nodes:
-                existing_paint_nodes[tree].update({node: []})
                 existing_trees[tree][list(existing_trees[tree])[0]].update({node: {}})
             return
 
@@ -75,7 +74,6 @@ class CreateNode:
                 if len(parent) == 1:
                     for node in self.nodes:
                         node = node + UtilityGenerator(tree)
-                        existing_paint_nodes[tree].update({node: []})
                         child_nodes.update({node: {}})
                     return
                 else:

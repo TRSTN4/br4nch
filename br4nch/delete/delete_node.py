@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_paint_nodes
+from br4nch.utility.utility_librarian import existing_trees, existing_uids
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError
 from br4nch.utility.utility_positioner import UtilityPositioner
 
@@ -52,7 +52,6 @@ class DeleteNode:
                 if delete_child:
                     for parent_node, child_nodes in delete_child.items():
                         existing_uids[tree].remove(str(parent_node[-10:]))
-                        existing_paint_nodes[tree].pop(parent_node)
 
                         self.delete_node_attributes(tree, child_nodes[parent_node])
                         del child_nodes[parent_node]
@@ -74,9 +73,6 @@ class DeleteNode:
         for parent_node, child_nodes in child.items():
             if parent_node[-10:] in existing_uids[tree]:
                 existing_uids[tree].remove(str(parent_node[-10:]))
-
-            if parent_node in existing_paint_nodes[tree]:
-                existing_paint_nodes[tree].pop(parent_node)
 
             if child_nodes:
                 self.delete_node_attributes(tree, child_nodes)

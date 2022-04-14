@@ -8,7 +8,7 @@ import os
 import ast
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
+    existing_symbols
 from br4nch.utility.utility_handler import InstanceStringError, DuplicateTreeError, NotExistingTreeFileError, \
     InvalidTreeFileError, NotExistingAttributesFileError, InvalidAttributesFileError
 
@@ -63,13 +63,7 @@ class LoadTree:
             existing_uids.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][0]})
             existing_sizes.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][1]})
             existing_symbols.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][2]})
-            existing_paint_trees.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][3]})
-            existing_paint_headers.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][4]})
-            existing_paint_nodes.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][5]})
         else:
             existing_uids.update({list(self.tree_file)[0]: []})
             existing_sizes.update({list(self.tree_file)[0]: 0})
             existing_symbols.update({list(self.tree_file)[0]: {"line": "┃", "split": "┣━", "end": "┗━"}})
-            existing_paint_trees.update({list(self.tree_file)[0]: []})
-            existing_paint_headers.update({list(self.tree_file)[0]: []})
-            existing_paint_nodes.update({list(self.tree_file)[0]: {}})

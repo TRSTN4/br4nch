@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
+    existing_symbols
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
 from br4nch.utility.utility_builder import UtilityBuilder
 
@@ -43,27 +43,7 @@ class DisplayTree:
 
     def display_tree(self):
         for tree in self.trees:
-            total = [0]
-            if not existing_paint_trees[tree]:
-                total[0] = total[0] + 1
-
-            if not existing_paint_headers[tree]:
-                total[0] = total[0] + 1
-
-            no_paint = 0
-            for layer in existing_paint_nodes[tree]:
-                if not existing_paint_nodes[tree][layer]:
-                    no_paint = no_paint + 1
-
-            if no_paint == len(existing_paint_nodes[tree]):
-                total[0] = total[0] + 1
-
-            if total[0] == 3:
-                colored = False
-            else:
-                colored = True
-
-            UtilityBuilder(tree, colored)
+            UtilityBuilder(tree)
 
             for line in existing_output[tree]:
                 print(line)
@@ -75,6 +55,3 @@ class DisplayTree:
                 del existing_uids[tree]
                 del existing_sizes[tree]
                 del existing_symbols[tree]
-                del existing_paint_trees[tree]
-                del existing_paint_headers[tree]
-                del existing_paint_nodes[tree]

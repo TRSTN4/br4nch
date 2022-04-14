@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
+    existing_symbols
 from br4nch.utility.utility_handler import InstanceStringError, InvalidTreeNameError, DuplicateTreeError, \
     NotExistingTreeError
 
@@ -46,9 +46,6 @@ class ReplaceTree:
         existing_uids[self.tree] = existing_uids.pop(self.sibling)
         existing_sizes[self.tree] = existing_sizes.pop(self.sibling)
         existing_symbols[self.tree] = existing_symbols.pop(self.sibling)
-        existing_paint_trees[self.tree] = existing_paint_trees.pop(self.sibling)
-        existing_paint_headers[self.tree] = existing_paint_headers.pop(self.sibling)
-        existing_paint_nodes[self.tree] = existing_paint_nodes.pop(self.sibling)
 
         for position in list(existing_trees)[index:-1]:
             existing_trees[position] = existing_trees.pop(position)
@@ -56,6 +53,3 @@ class ReplaceTree:
             existing_uids[position] = existing_uids.pop(position)
             existing_sizes[position] = existing_sizes.pop(position)
             existing_symbols[position] = existing_symbols.pop(position)
-            existing_paint_trees[position] = existing_paint_trees.pop(position)
-            existing_paint_headers[position] = existing_paint_headers.pop(position)
-            existing_paint_nodes[position] = existing_paint_nodes.pop(position)

@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_paint_nodes
+from br4nch.utility.utility_librarian import existing_trees, existing_uids
 from br4nch.utility.utility_handler import InstanceStringError, NotExistingTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
 from br4nch.utility.utility_positioner import UtilityPositioner
@@ -59,14 +59,12 @@ class ReplaceNode:
                     for parent_node, child_nodes in child.items():
                         parent_node_uid = self.node + UtilityGenerator(tree)
                         existing_uids[tree].remove(parent_node[-10:])
-                        existing_paint_nodes[tree][parent_node_uid] = existing_paint_nodes[tree].pop(parent_node)
 
                         index = list(child_nodes).index(parent_node)
                         child_nodes[parent_node_uid] = child_nodes.pop(parent_node)
 
                         for number in list(child_nodes)[index:-1]:
                             child_nodes[number] = child_nodes.pop(number)
-                            existing_paint_nodes[tree][number] = existing_paint_nodes[tree].pop(number)
 
     def get_nodes(self, parent, child):
         count = 0

@@ -6,8 +6,7 @@
 
 import os
 
-from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_sizes, existing_symbols, \
-    existing_paint_trees, existing_paint_headers, existing_paint_nodes
+from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_sizes, existing_symbols
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingDirectoryError, \
     NotExistingTreeError
 
@@ -52,20 +51,19 @@ class ExportTree:
 
     def export_tree(self):
         for tree in self.trees:
-            export_attributes = {existing_paint_trees: [existing_uids[tree], existing_sizes[tree],
-                                                        existing_symbols[tree], existing_paint_trees[tree],
-                                                        existing_paint_headers[tree], existing_paint_nodes[tree]]}
+            export_attributes = {tree: [existing_uids[tree], existing_sizes[tree], existing_symbols[tree]]}
 
             if not os.path.isdir(self.directory + "/br4nch-" + tree):
                 os.mkdir(self.directory + "/br4nch-" + tree)
 
-            with open(self.directory + "/br4nch-" + tree + "/branch-" + tree + ".br4nch", 'w', encoding='utf-8') \
-                    as file:
+            with open(
+                    self.directory + "/br4nch-" + tree + "/branch-" + tree + ".br4nch", 'w', encoding='utf-8') as file:
                 file.write("tag=tree\n")
                 file.write(str({tree: existing_trees[tree]}))
 
             if self.attributes:
-                with open(self.directory + "/br4nch-" + tree + "/package-" + tree + ".br4nch", 'w', encoding='utf-8') \
-                        as file:
+                with open(
+                        self.directory + "/br4nch-" + tree + "/package-" + tree + ".br4nch", 'w',
+                        encoding='utf-8') as file:
                     file.write("tag=attributes\n")
                     file.write(str(export_attributes))
