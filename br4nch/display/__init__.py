@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.display.display_branch import arguments as branch
-from br4nch.display.display_assist import arguments as assist
-from br4nch.display.display_position import arguments as position
-from br4nch.display.display_layer import arguments as layer
+from br4nch.display.display_tree import DisplayTree as Tree
+from br4nch.display.display_assist import DisplayAssist as Assist
+from br4nch.display.display_parent import DisplayParent as Parent
+from br4nch.display.display_node import DisplayNode as Node

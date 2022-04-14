@@ -1,183 +1,118 @@
 # br4nch - Data Structure Tree Builder
+# Author: https://TRSTN4.com
 # Website: https://br4nch.com
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 import copy
 
-from br4nch.utility.utility_librarian import branches, output, uids, sizes, symbols, paint_branch, paint_header, \
-    paint_layer
+from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
+    existing_symbols, existing_paint_trees, existing_paint_headers, existing_paint_nodes
 from br4nch.utility.utility_handler import InstanceStringError, InstanceIntegerError, InvalidSizeError, \
-    NotExistingBranchError
+    NotExistingTreeError
 from br4nch.utility.utility_generator import generate_uid
-from br4nch.display.display_branch import display_branch
-
-
-def arguments(branch, size=0, line="", split="", end=""):
-    """
-    - Gets the arguments and parses them to the 'DisplayAssist' class.
-    """
-    DisplayAssist(branch, size, line, split, end)
+from br4nch.display.display_tree import DisplayTree
 
 
 class DisplayAssist:
-    def __init__(self, argument_branch, argument_size, argument_line, argument_split, argument_end):
-        """
-        - Gets the arguments and parses them to the 'display_assist' function.
-        """
-        self.display_assist(argument_branch, argument_size, argument_line, argument_split, argument_end)
+    def __init__(self, tree, size=0, line="", split="", end=""):
+        self.trees = tree
+        self.size = size
+        self.line = line
+        self.split = split
+        self.end = end
 
-    def display_assist(self, argument_branch, argument_size, argument_line, argument_split, argument_end):
-        """
-        Lists:
-          - If the given branch argument is not an instance of a list, then the branch argument will be set as a list.
+        self.validate_arguments()
+        self.display_assist()
 
-        Errors:
-          - If the size value is not an instance of a integer, then it raises an 'InstanceIntegerError' error.
-          - If the line value is not an instance of a string, then it raises an 'InstanceStringError' error.
-          - If the split value is not an instance of a string, then it raises an 'InstanceStringError' error.
-          - If the end value is not an instance of a string, then it raises an 'InstanceStringError' error.
+    def validate_arguments(self):
+        if not isinstance(self.trees, list):
+            self.trees = [self.trees]
 
-        Operators:
-          - If there a '*' in the 'argument_branch' list, Then it appends all existing branches to the 'argument_branch'
-            list.
+        for index in range(len(self.trees)):
+            if not isinstance(self.trees[index], str):
+                raise InstanceStringError("tree", self.trees[index])
 
-        Argument branch list loop:
-          Errors:
-            - If the branch value is not an instance of a string, then it raises an 'InstanceStringError' error.
-            - If the branch is not in the 'branches' dictionary, it will throw a 'NotExistingBranchError' error.
+            if self.trees[index] not in list(map(str.lower, existing_trees)):
+                raise NotExistingTreeError(self.trees[index])
 
-          Branches list loop:
-            - Calls the 'elevator' function to calculate each level/height of each layer and stores the result in the
-              levels list. Then a '0' is added to the 'levels' list so that the 'IndexError' error can be avoided and
-              after that the new value from the 'levels' list is returned.
-            - If the branch is in the 'branches' dictionary, then a new name is generated for the value of the
-              'branches_branch' variable. If the name already exists in the 'branches' dictionary, the loop starts again
-              until a unique branch name is generated that does not yet exist in the 'branches' dictionary.
-            - It then creates a deep copy of the current value of the 'branches_branch' value of the 'branches'
-              directory and it is added as value to the 'branches' dictionary with the unique branch name as the key.
-            - If there is no value in any of the 'line', 'split' or 'end' arguments, the value that is currently active
-              of the missing arguments is used.
-            - Then the unique branch name is added to the corresponding dictionaries with the default values as the
-              value. The 'argument_size' variable will be updated to the 'sizes' dictionary.
-            - Calls the function 'set_layer_pos_name' to add all positions to the corresponding layers.
-            - Calls the 'display_branch' function to build and print the current branch.
-        """
-        if not isinstance(argument_branch, list):
-            argument_branch = [argument_branch]
+            for existing_tree in list(map(str.lower, existing_trees)):
+                if self.trees[index].lower() == existing_tree.lower():
+                    self.trees[index] = existing_tree
 
-        if not isinstance(argument_size, int):
-            raise InstanceIntegerError("size", argument_size)
+        if "*" in self.trees:
+            self.trees.clear()
+            for existing_tree in list(existing_trees):
+                self.trees.append(existing_tree)
 
-        if not isinstance(argument_line, str):
-            raise InstanceStringError("line", argument_line)
+        if not isinstance(self.size, int):
+            raise InstanceIntegerError("size", self.size)
 
-        if not isinstance(argument_split, str):
-            raise InstanceStringError("split", argument_split)
-
-        if not isinstance(argument_end, str):
-            raise InstanceStringError("end", argument_end)
-
-        if int(argument_size) < 0 or int(argument_size) > 20:
+        if int(self.size) < 0 or int(self.size) > 20:
             raise InvalidSizeError
 
-        if "*" in argument_branch:
-            argument_branch.clear()
-            for branches_branch in list(branches):
-                argument_branch.append(branches_branch)
+        if not isinstance(self.line, str):
+            raise InstanceStringError("line", self.line)
 
-        for branch in argument_branch:
-            error = 0
+        if not isinstance(self.split, str):
+            raise InstanceStringError("split", self.split)
 
-            if not isinstance(branch, str):
-                raise InstanceStringError("branch", branch)
+        if not isinstance(self.end, str):
+            raise InstanceStringError("end", self.end)
 
-            for branches_branch in list(branches):
-                if branch.lower() == branches_branch.lower():
-                    error = error + 1
+    def display_assist(self):
+        for tree in self.trees:
+            levels = [0]
+            self.elevator(levels, existing_trees[tree][list(existing_trees[tree])[0]])
+            levels.append(0)
 
-                    levels = [0]
-                    self.elevator(levels, branches[branches_branch][list(branches[branches_branch])[0]])
-                    levels.append(0)
+            while True:
+                tree_uid = tree + generate_uid(tree)
 
-                    while True:
-                        branch_uid = branches_branch + generate_uid(branches_branch)
+                if tree_uid in list(existing_trees):
+                    continue
+                else:
+                    existing_uids[tree].remove(tree_uid[-10:])
+                    break
 
-                        if branch_uid in list(branches):
-                            continue
-                        else:
-                            uids[branches_branch].remove(branch_uid[-10:])
-                            break
+            if not self.line:
+                self.line = existing_symbols[tree]["line"]
+            if not self.split:
+                self.split = existing_symbols[tree]["split"]
+            if not self.end:
+                self.end = existing_symbols[tree]["end"]
 
-                    if not argument_line:
-                        argument_line = symbols[branches_branch]["line"]
-                    if not argument_split:
-                        argument_split = symbols[branches_branch]["split"]
-                    if not argument_end:
-                        argument_end = symbols[branches_branch]["end"]
+            existing_trees.update({tree_uid: copy.deepcopy(existing_trees[tree])})
+            existing_trees[tree_uid][str("0: " + list(existing_trees[tree])[0])] = \
+                existing_trees[tree_uid].pop(list(existing_trees[tree_uid])[0])
+            existing_output.update({tree_uid: []})
+            existing_uids.update({tree_uid: []})
+            existing_sizes.update({tree_uid: self.size})
+            existing_symbols.update({tree_uid: {"line": self.line, "split": self.split, "end": self.end}})
+            existing_paint_trees.update({tree_uid: ""})
+            existing_paint_headers.update({tree_uid: ""})
+            existing_paint_nodes.update({tree_uid: {}})
 
-                    branches.update({branch_uid: copy.deepcopy(branches[branches_branch])})
-                    branches[branch_uid][str("0: " + list(branches[branches_branch])[0])] = \
-                        branches[branch_uid].pop(list(branches[branch_uid])[0])
-                    output.update({branch_uid: []})
-                    uids.update({branch_uid: []})
-                    sizes.update({branch_uid: argument_size})
-                    symbols.update({branch_uid: {"line": argument_line, "split": argument_split, "end": argument_end}})
-                    paint_branch.update({branch_uid: ""})
-                    paint_header.update({branch_uid: ""})
-                    paint_layer.update({branch_uid: {}})
+            self.set_node_positions(levels, [0], existing_trees[tree_uid][list(existing_trees[tree_uid])[0]])
 
-                    self.set_layer_pos_name(branch_uid, levels, [0],
-                                            branches[branch_uid][list(branches[branch_uid])[0]])
+            DisplayTree(tree_uid, True)
 
-                    display_branch(branch_uid, True)
+    def elevator(self, levels, child, height=0):
+        for child_nodes in child.values():
+            levels.append(height)
+            self.elevator(levels, child_nodes, height + 1)
 
-            if error == 0:
-                if branch:
-                    raise NotExistingBranchError(branch)
-
-    def set_layer_pos_name(self, branch, levels, trace, value, position_structure=""):
-        """
-        Value dictionary loop:
-          - For each value of the 'value' variable the 'count' variable and the first element of the 'trace' list is
-            added with plus '1'.
-
-          Position structure:
-            - Then it is checked whether the "level"/"height" of the current value of the loop is equal to or smaller
-              than the previous "level"/"height" value of the loop. If the instantaneous value is equal or less, the
-              last position and dot in the 'position_structure' variable is removed.
-            - Then the current value of the 'position_structure' variable is added with the value of 'count' separated
-              by a dot to the 'position_structure' variable.
-
-          - Adds the position to the layer in the current value of 'previous_value'.
-          - Checks whether the 'value' variable has a value. If there is a value, then the 'set_layer_pos_name' function
-            is called again with the current values of 'value', 'trace' and 'levels' as arguments.
-        """
+    def set_node_positions(self, levels, trace, child, node_position=""):
         count = 0
-        previous_value = value
-
-        for layer, value in value.copy().items():
+        for parent_node, child_nodes in child.copy().items():
             count = count + 1
-
             trace[0] = trace[0] + 1
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
-                position_structure = position_structure[:-2]
-            position_structure = position_structure + "." + str(count)
+                node_position = node_position[:-2]
+            node_position = node_position + "." + str(count)
 
-            previous_value[position_structure[1:] + ": " + layer] = previous_value.pop(layer)
+            child[node_position[1:] + ": " + parent_node] = child.pop(parent_node)
 
-            if value:
-                self.set_layer_pos_name(branch, levels, trace, value, position_structure)
-
-    def elevator(self, levels, value, pos=0):
-        """
-        Value dictionary loop:
-          - Loops through each "height" of the value dictionary and adds the value of the 'pos' variable to the 'levels'
-            list.
-          - Then the 'elevator' function is called again with the current value of the 'value' dictionary.
-        """
-        for value in value.values():
-            levels.append(pos)
-
-            self.elevator(levels, value, pos + 1)
+            if child_nodes:
+                self.set_node_positions(levels, trace, child_nodes, node_position)
