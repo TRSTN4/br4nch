@@ -25,14 +25,13 @@ class ReplaceTree:
         if not self.tree.isalnum():
             raise InvalidTreeNameError(self.tree)
 
-        for existing_tree in list(existing_trees):
-            if self.tree.lower() == existing_tree.lower():
-                raise DuplicateTreeError(self.tree)
+        if self.tree.lower() in list(map(str.lower, existing_trees)):
+            raise DuplicateTreeError(self.tree)
 
         if not isinstance(self.sibling, str):
             raise InstanceStringError("sibling", self.sibling)
 
-        if self.sibling not in list(map(str.lower, existing_trees)):
+        if self.sibling.lower() not in list(map(str.lower, existing_trees)):
             raise NotExistingTreeError(self.sibling)
 
         for existing_tree in list(map(str.lower, existing_trees)):

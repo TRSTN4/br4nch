@@ -24,7 +24,7 @@ class DeleteTree:
             if not isinstance(tree, str):
                 raise InstanceStringError("tree", tree)
 
-            if tree not in list(map(str.lower, existing_trees)):
+            if tree.lower() not in list(map(str.lower, existing_trees)):
                 raise NotExistingTreeError(tree)
 
         if "*" in self.trees:

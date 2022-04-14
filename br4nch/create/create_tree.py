@@ -28,9 +28,8 @@ class CreateTree:
             if not tree.isalnum():
                 raise InvalidTreeNameError(tree)
 
-            for existing_tree in list(existing_trees):
-                if tree.lower() == existing_tree.lower():
-                    raise DuplicateTreeError(tree)
+            if tree.lower() in list(map(str.lower, existing_trees)):
+                raise DuplicateTreeError(tree)
 
         if not isinstance(self.header, str):
             raise InstanceStringError("header", self.header)

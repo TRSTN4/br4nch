@@ -36,9 +36,8 @@ class LoadTree:
 
             self.tree_file = ast.literal_eval(file[1])
 
-        for existing_tree in list(existing_trees):
-            if list(self.tree_file)[0].lower() == existing_tree.lower():
-                raise DuplicateTreeError(list(self.tree_file)[0])
+        if self.tree_file.lower() in list(map(str.lower, existing_trees)):
+            raise DuplicateTreeError(self.tree_file)
 
         if not isinstance(self.attributes_file, str):
             raise InstanceStringError("attributes_file", self.attributes_file)

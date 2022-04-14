@@ -22,7 +22,7 @@ class ResetSize:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index] not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(map(str.lower, existing_trees)):
