@@ -8,7 +8,7 @@ from br4nch.utility.utility_librarian import existing_trees
 from br4nch.utility.utility_handler import InstanceStringError, InvalidParentError
 
 
-class UtilityPositioner:
+class UtilityDecider:
     def __init__(self, tree, position_package):
         self.tree = tree
         self.position_package = position_package

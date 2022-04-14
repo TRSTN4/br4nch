@@ -9,7 +9,7 @@ import copy
 from br4nch.utility.utility_librarian import existing_trees, existing_uids
 from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
-from br4nch.utility.utility_positioner import UtilityPositioner
+from br4nch.utility.utility_decider import UtilityDecider
 
 
 class DuplicateNode:
@@ -65,8 +65,8 @@ class DuplicateNode:
             queue_delete = []
             queue_add = []
 
-            for node in UtilityPositioner(tree, self.nodes.copy()):
-                for parent in UtilityPositioner(tree, self.parents.copy()):
+            for node in UtilityDecider(tree, self.nodes.copy()):
+                for parent in UtilityDecider(tree, self.parents.copy()):
                     children = self.get_nodes(tree, node, [], existing_trees[tree][list(existing_trees[tree])[0]])
 
                     if children:

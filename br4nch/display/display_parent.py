@@ -8,7 +8,7 @@ from br4nch.utility.utility_librarian import existing_trees, existing_output, ex
     existing_symbols
 from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
 from br4nch.utility.utility_generator import UtilityGenerator
-from br4nch.utility.utility_positioner import UtilityPositioner
+from br4nch.utility.utility_decider import UtilityDecider
 from br4nch.display.display_tree import DisplayTree
 
 
@@ -51,7 +51,7 @@ class DisplayParent:
         tree_package = []
 
         for tree in self.trees:
-            for parent in UtilityPositioner(tree, self.parents.copy()):
+            for parent in UtilityDecider(tree, self.parents.copy()):
                 string_position = ""
 
                 for character in parent:
