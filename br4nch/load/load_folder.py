@@ -151,7 +151,7 @@ class LoadFolder:
 
     def generate_nodes_uid(self, tree, child):
         for parent_node, child_nodes in child.copy().items():
-            parent_node_uid = parent_node + UtilityGenerator(tree)
+            parent_node_uid = parent_node + UtilityGenerator(tree).generate_uid()
 
             child[parent_node_uid] = child.pop(parent_node)
 

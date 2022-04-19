@@ -67,7 +67,7 @@ class DisplayAssist:
             levels.append(0)
 
             while True:
-                tree_uid = tree + UtilityGenerator(tree)
+                tree_uid = tree + UtilityGenerator(tree).generate_uid()
 
                 if tree_uid in list(existing_trees):
                     continue

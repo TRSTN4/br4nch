@@ -67,7 +67,7 @@ class DisplayNode:
                     tree, node, levels, [0], existing_trees[tree][list(existing_trees[tree])[0]], tree_package, "")
 
         if tree_package and self.beautify:
-            tree_uid = UtilityGenerator("-")
+            tree_uid = UtilityGenerator("-").generate_uid()
 
             existing_trees.update({tree_uid: {"Get Node Result:": {}}})
             existing_output.update({tree_uid: []})
@@ -125,13 +125,13 @@ class DisplayNode:
     def update_tree(self, tree, child, height=0):
         for parent_node, child_nodes in child.copy().items():
             if height == 1:
-                child["Tree: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
+                child["Tree: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if height == 2:
-                child["Node: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
+                child["Node: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if height == 3:
-                child["Parent: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
+                child["Parent: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if child_nodes:
                 self.update_tree(tree, child_nodes, height + 1)

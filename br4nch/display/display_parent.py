@@ -63,7 +63,7 @@ class DisplayParent:
 
         if tree_package and self.beautify:
             while True:
-                tree_uid = UtilityGenerator("-")
+                tree_uid = UtilityGenerator("-").generate_uid()
                 if tree_uid not in existing_trees:
                     break
 
@@ -108,13 +108,13 @@ class DisplayParent:
     def update_tree(self, tree, child, height=0):
         for parent_node, child_nodes in child.copy().items():
             if height == 1:
-                child["Tree: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
+                child["Tree: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if height == 2:
-                child["Parent: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
+                child["Parent: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if height == 3:
-                child["Node: " + parent_node + UtilityGenerator(tree)] = child.pop(parent_node)
+                child["Node: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if child_nodes:
                 self.update_tree(tree, child_nodes, height + 1)

@@ -57,7 +57,7 @@ class ReplaceNode:
                 child = self.get_nodes(parent, existing_trees[tree][list(existing_trees[tree])[0]])
                 if child:
                     for parent_node, child_nodes in child.items():
-                        parent_node_uid = self.node + UtilityGenerator(tree)
+                        parent_node_uid = self.node + UtilityGenerator(tree).generate_uid()
                         existing_uids[tree].remove(parent_node[-10:])
 
                         index = list(child_nodes).index(parent_node)

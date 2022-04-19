@@ -57,13 +57,14 @@ class CreateNode:
 
     def build_parent(self):
         for tree in self.trees:
-            for parent in UtilityDecider(tree, self.parents):
+            for parent in UtilityDecider(tree, self.parents).get_package():
                 self.create_node(tree, parent, existing_trees[tree][list(existing_trees[tree])[0]])
 
     def create_node(self, tree, parent, child):
         if parent[0] == "0":
             for node in self.nodes:
-                existing_trees[tree][list(existing_trees[tree])[0]].update({node: {}})
+                existing_trees[tree][list(existing_trees[tree])[0]].update(
+                    {node + UtilityGenerator(tree).generate_uid(): {}})
             return
 
         count = 0
@@ -73,8 +74,8 @@ class CreateNode:
             if count == int(parent[0]):
                 if len(parent) == 1:
                     for node in self.nodes:
-                        node = node + UtilityGenerator(tree)
-                        child_nodes.update({node: {}})
+                        child_nodes.update(
+                            {node + UtilityGenerator(tree).generate_uid(): {}})
                     return
                 else:
                     if child_nodes:
