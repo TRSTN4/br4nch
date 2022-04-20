@@ -44,6 +44,11 @@ class DuplicateNode:
             raise InstanceBooleanError("delete", self.delete)
 
         for trees in [self.trees + self.siblings]:
+            if "*" in trees:
+                trees.clear()
+                for existing_tree in list(UtilityLibrarian.existing_trees):
+                    trees.append(existing_tree)
+
             for index in range(len(trees)):
                 if not isinstance(trees[index], str):
                     raise InstanceStringError("tree", trees[index])
@@ -54,11 +59,6 @@ class DuplicateNode:
                 for existing_tree in list(UtilityLibrarian.existing_trees):
                     if trees[index].lower() == existing_tree.lower():
                         trees[index] = existing_tree
-
-            if "*" in trees:
-                trees.clear()
-                for existing_tree in list(UtilityLibrarian.existing_trees):
-                    trees.append(existing_tree)
 
     def duplicate_node(self):
         for tree in self.trees:

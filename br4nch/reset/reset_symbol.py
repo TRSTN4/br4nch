@@ -22,6 +22,11 @@ class ResetSymbol:
         if not isinstance(self.trees, list):
             self.trees = [self.trees]
 
+        if "*" in self.trees:
+            self.trees.clear()
+            for existing_tree in list(UtilityLibrarian.existing_trees):
+                self.trees.append(existing_tree)
+
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
@@ -32,11 +37,6 @@ class ResetSymbol:
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
-
-        if "*" in self.trees:
-            self.trees.clear()
-            for existing_tree in list(UtilityLibrarian.existing_trees):
-                self.trees.append(existing_tree)
 
         if not isinstance(self.line, bool):
             raise InstanceBooleanError("line", self.line)

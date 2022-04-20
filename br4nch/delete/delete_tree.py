@@ -19,17 +19,17 @@ class DeleteTree:
         if not isinstance(self.trees, list):
             self.trees = [self.trees]
 
+        if "*" in self.trees:
+            self.trees.clear()
+            for existing_tree in list(UtilityLibrarian.existing_trees):
+                self.trees.append(existing_tree)
+
         for tree in self.trees:
             if not isinstance(tree, str):
                 raise InstanceStringError("tree", tree)
 
             if tree.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(tree)
-
-        if "*" in self.trees:
-            self.trees.clear()
-            for existing_tree in list(UtilityLibrarian.existing_trees):
-                self.trees.append(existing_tree)
 
     def delete_tree(self):
         for tree in self.trees:
