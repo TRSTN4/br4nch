@@ -22,7 +22,7 @@ class UtilityGenerator:
 
             if self.tree == "-":
                 if uid not in list(UtilityLibrarian.existing_trees):
-                    return ":uid=" + uid
+                    return uid
             else:
                 if uid not in UtilityLibrarian.existing_uids[self.tree]:
                     UtilityLibrarian.existing_uids[self.tree].append(uid)

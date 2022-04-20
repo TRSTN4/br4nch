@@ -64,21 +64,14 @@ class DisplayAssist:
             self.elevator(levels, UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
             levels.append(0)
 
-            while True:
-                tree_uid = tree + UtilityGenerator(tree).generate_uid()
-
-                if tree_uid in list(UtilityLibrarian.existing_trees):
-                    continue
-                else:
-                    UtilityLibrarian.existing_uids[tree].remove(tree_uid[-10:])
-                    break
-
             if not self.line:
                 self.line = UtilityLibrarian.existing_symbols[tree]["line"]
             if not self.split:
                 self.split = UtilityLibrarian.existing_symbols[tree]["split"]
             if not self.end:
                 self.end = UtilityLibrarian.existing_symbols[tree]["end"]
+
+            tree_uid = UtilityGenerator("-").generate_uid()
 
             UtilityLibrarian.existing_trees.update({tree_uid: copy.deepcopy(UtilityLibrarian.existing_trees[tree])})
             UtilityLibrarian.existing_trees[tree_uid][str("0: " + list(UtilityLibrarian.existing_trees[tree])[0])] = \
