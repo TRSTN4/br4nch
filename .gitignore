@@ -5,7 +5,7 @@
 # Python:
 __pycache__/
 
-# Tests:
+# br4nch:
 test.py
 test_version.py
 br4nch/update_check.br4nch
