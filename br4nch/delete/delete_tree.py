@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, NotExistingTreeError
 
 
@@ -23,18 +23,18 @@ class DeleteTree:
             if not isinstance(tree, str):
                 raise InstanceStringError("tree", tree)
 
-            if tree.lower() not in list(map(str.lower, existing_trees)):
+            if tree.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(tree)
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
     def delete_tree(self):
         for tree in self.trees:
-            del existing_trees[tree]
-            del existing_output[tree]
-            del existing_uids[tree]
-            del existing_sizes[tree]
-            del existing_symbols[tree]
+            del UtilityLibrarian.existing_trees[tree]
+            del UtilityLibrarian.existing_output[tree]
+            del UtilityLibrarian.existing_uids[tree]
+            del UtilityLibrarian.existing_sizes[tree]
+            del UtilityLibrarian.existing_symbols[tree]

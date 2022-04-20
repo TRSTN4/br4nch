@@ -6,7 +6,7 @@
 
 import copy
 
-from ..utility.utility_librarian import existing_trees, existing_uids
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
 from ..utility.utility_generator import UtilityGenerator
 from ..utility.utility_decider import UtilityDecider
@@ -48,16 +48,16 @@ class DuplicateNode:
                 if not isinstance(trees[index], str):
                     raise InstanceStringError("tree", trees[index])
 
-                if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+                if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                     raise NotExistingTreeError(self.trees[index])
 
-                for existing_tree in list(existing_trees):
+                for existing_tree in list(UtilityLibrarian.existing_trees):
                     if trees[index].lower() == existing_tree.lower():
                         trees[index] = existing_tree
 
             if "*" in trees:
                 trees.clear()
-                for existing_tree in list(existing_trees):
+                for existing_tree in list(UtilityLibrarian.existing_trees):
                     trees.append(existing_tree)
 
     def duplicate_node(self):
@@ -67,20 +67,24 @@ class DuplicateNode:
 
             for node in UtilityDecider(tree, self.nodes.copy()):
                 for parent in UtilityDecider(tree, self.parents.copy()):
-                    children = self.get_nodes(tree, node, [], existing_trees[tree][list(existing_trees[tree])[0]])
+                    children = self.get_nodes(tree, node, [],
+                                              UtilityLibrarian.existing_trees[tree][list(
+                                                  UtilityLibrarian.existing_trees[tree])[0]])
 
                     if children:
                         queue_delete.append(children[1])
 
                         for sibling in self.siblings:
                             queue_add.append([children[0], self.get_nodes(
-                                sibling, [], parent, existing_trees[sibling][list(existing_trees[sibling])[0]])])
+                                sibling, [], parent,
+                                UtilityLibrarian.existing_trees[sibling][list(
+                                    UtilityLibrarian.existing_trees[sibling])[0]])])
 
             if self.delete:
                 for delete_node in queue_delete:
                     if delete_node:
                         for parent_node, child_nodes in delete_node.items():
-                            existing_uids[tree].remove(str(parent_node[-10:]))
+                            UtilityLibrarian.existing_uids[tree].remove(str(parent_node[-10:]))
 
                             self.delete_node_attributes(tree, child_nodes[parent_node])
                             del child_nodes[parent_node]
@@ -92,7 +96,7 @@ class DuplicateNode:
 
     def get_nodes(self, tree, node, parent, child):
         if parent and parent[0] == "0":
-            return {tree: existing_trees[tree][list(existing_trees[tree])[0]]}
+            return {tree: UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]]}
 
         count = 0
         for parent_node, child_nodes in child.items():
@@ -116,8 +120,8 @@ class DuplicateNode:
 
     def delete_node_attributes(self, tree, child):
         for parent_node, child_nodes in child.items():
-            if parent_node[-10:] in existing_uids[tree]:
-                existing_uids[tree].remove(str(parent_node[-10:]))
+            if parent_node[-10:] in UtilityLibrarian.existing_uids[tree]:
+                UtilityLibrarian.existing_uids[tree].remove(str(parent_node[-10:]))
 
             if child_nodes:
                 self.delete_node_attributes(tree, child_nodes)

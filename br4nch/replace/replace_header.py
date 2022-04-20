@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, NotExistingTreeError
 
 
@@ -24,16 +24,16 @@ class ReplaceHeader:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if not isinstance(self.header, str):
@@ -41,4 +41,5 @@ class ReplaceHeader:
 
     def replace_header(self):
         for tree in self.trees:
-            existing_trees[tree][self.header] = existing_trees[tree].pop(list(existing_trees[tree])[0])
+            UtilityLibrarian.existing_trees[tree][self.header] = UtilityLibrarian.existing_trees[tree].pop(list(
+                UtilityLibrarian.existing_trees[tree])[0])

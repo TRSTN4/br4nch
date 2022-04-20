@@ -6,7 +6,7 @@
 
 import os
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingDirectoryError, \
     InvalidTreeNameError, DuplicateTreeError
 from ..utility.utility_generator import UtilityGenerator
@@ -36,7 +36,7 @@ class LoadFolder:
             if not tree.isalnum():
                 raise InvalidTreeNameError(tree)
 
-            if tree.lower() in list(map(str.lower, existing_trees)):
+            if tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise DuplicateTreeError(tree)
 
         if not isinstance(self.directory, str):
@@ -129,14 +129,14 @@ class LoadFolder:
                     self.create_tree(
                         path.split("/")[path_length:][number], [self.header] + previous_file, tree_structure)
 
-            existing_output.update({tree: []})
-            existing_uids.update({tree: []})
-            existing_sizes.update({tree: 0})
-            existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            UtilityLibrarian.existing_output.update({tree: []})
+            UtilityLibrarian.existing_uids.update({tree: []})
+            UtilityLibrarian.existing_sizes.update({tree: 0})
+            UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
 
             self.generate_nodes_uid(tree, tree_structure[list(tree_structure)[0]])
 
-            existing_trees.update({tree: tree_structure})
+            UtilityLibrarian.existing_trees.update({tree: tree_structure})
 
     def create_tree(self, file, previous_file, child):
         for parent_node, child_nodes in child.items():

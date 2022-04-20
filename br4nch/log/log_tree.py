@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError
 
 
@@ -35,7 +35,7 @@ class LogTree:
 
     def log_tree(self):
         trees = []
-        for tree in list(existing_trees):
+        for tree in list(UtilityLibrarian.existing_trees):
             trees.append(tree)
 
         for tree in trees.copy():

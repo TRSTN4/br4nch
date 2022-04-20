@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InvalidParentError
 
 
@@ -57,13 +57,15 @@ class UtilityDecider:
         for number in range(len(position_package)):
             for position in range(len(position_package[number])):
                 if "*" in position_package[number][position]:
-                    if not existing_trees[self.tree][list(existing_trees[self.tree])[0]]:
+                    if not UtilityLibrarian.existing_trees[self.tree][list(
+                            UtilityLibrarian.existing_trees[self.tree])[0]]:
                         position_package[number].pop(position)
                         position_package[number].append("0")
                     else:
                         for count in range(self.calculate_operator(
                                 position_package[number].copy(),
-                                existing_trees[self.tree][list(existing_trees[self.tree])[0]])):
+                                UtilityLibrarian.existing_trees[self.tree][list(
+                                    UtilityLibrarian.existing_trees[self.tree])[0]])):
                             position_package.append(position_package[number].copy())
                             position_package[-1][position] = str(count + 1)
                         position_package.pop(number)
@@ -98,7 +100,8 @@ class UtilityDecider:
 
                     for count in range(self.calculate_operator(
                             position_package[number].copy(),
-                            existing_trees[self.tree][list(existing_trees[self.tree])[0]])):
+                            UtilityLibrarian.existing_trees[self.tree][list(
+                                UtilityLibrarian.existing_trees[self.tree])[0]])):
                         excluding_positions.append(str(count + 1))
 
                     for count in range(int(min(position_package[number][position].split("<"))),

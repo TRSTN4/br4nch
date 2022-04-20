@@ -6,7 +6,7 @@
 
 import copy
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InstanceIntegerError, InvalidSizeError, NotExistingTreeError
 from ..utility.utility_generator import UtilityGenerator
 from ..display.display_tree import DisplayTree
@@ -31,16 +31,16 @@ class DisplayAssist:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if not isinstance(self.size, int):
@@ -61,34 +61,37 @@ class DisplayAssist:
     def display_assist(self):
         for tree in self.trees:
             levels = [0]
-            self.elevator(levels, existing_trees[tree][list(existing_trees[tree])[0]])
+            self.elevator(levels, UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
             levels.append(0)
 
             while True:
                 tree_uid = tree + UtilityGenerator(tree).generate_uid()
 
-                if tree_uid in list(existing_trees):
+                if tree_uid in list(UtilityLibrarian.existing_trees):
                     continue
                 else:
-                    existing_uids[tree].remove(tree_uid[-10:])
+                    UtilityLibrarian.existing_uids[tree].remove(tree_uid[-10:])
                     break
 
             if not self.line:
-                self.line = existing_symbols[tree]["line"]
+                self.line = UtilityLibrarian.existing_symbols[tree]["line"]
             if not self.split:
-                self.split = existing_symbols[tree]["split"]
+                self.split = UtilityLibrarian.existing_symbols[tree]["split"]
             if not self.end:
-                self.end = existing_symbols[tree]["end"]
+                self.end = UtilityLibrarian.existing_symbols[tree]["end"]
 
-            existing_trees.update({tree_uid: copy.deepcopy(existing_trees[tree])})
-            existing_trees[tree_uid][str("0: " + list(existing_trees[tree])[0])] = \
-                existing_trees[tree_uid].pop(list(existing_trees[tree_uid])[0])
-            existing_output.update({tree_uid: []})
-            existing_uids.update({tree_uid: []})
-            existing_sizes.update({tree_uid: self.size})
-            existing_symbols.update({tree_uid: {"line": self.line, "split": self.split, "end": self.end}})
+            UtilityLibrarian.existing_trees.update({tree_uid: copy.deepcopy(UtilityLibrarian.existing_trees[tree])})
+            UtilityLibrarian.existing_trees[tree_uid][str("0: " + list(UtilityLibrarian.existing_trees[tree])[0])] = \
+                UtilityLibrarian.existing_trees[tree_uid].pop(list(UtilityLibrarian.existing_trees[tree_uid])[0])
+            UtilityLibrarian.existing_output.update({tree_uid: []})
+            UtilityLibrarian.existing_uids.update({tree_uid: []})
+            UtilityLibrarian.existing_sizes.update({tree_uid: self.size})
+            UtilityLibrarian.existing_symbols.update(
+                {tree_uid: {"line": self.line, "split": self.split, "end": self.end}})
 
-            self.set_node_positions(levels, [0], existing_trees[tree_uid][list(existing_trees[tree_uid])[0]])
+            self.set_node_positions(levels, [0],
+                                    UtilityLibrarian.existing_trees[tree_uid][list(
+                                        UtilityLibrarian.existing_trees[tree_uid])[0]])
 
             DisplayTree(tree_uid, True)
 

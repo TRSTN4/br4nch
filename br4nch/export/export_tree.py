@@ -6,7 +6,7 @@
 
 import os
 
-from ..utility.utility_librarian import existing_trees, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingDirectoryError, \
     NotExistingTreeError
 
@@ -28,16 +28,16 @@ class ExportTree:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if not isinstance(self.directory, str):
@@ -51,7 +51,8 @@ class ExportTree:
 
     def export_tree(self):
         for tree in self.trees:
-            export_attributes = {tree: [existing_uids[tree], existing_sizes[tree], existing_symbols[tree]]}
+            export_attributes = {tree: [UtilityLibrarian.existing_uids[tree], UtilityLibrarian.existing_sizes[tree],
+                                        UtilityLibrarian.existing_symbols[tree]]}
 
             if not os.path.isdir(self.directory + "/br4nch-" + tree):
                 os.mkdir(self.directory + "/br4nch-" + tree)
@@ -59,7 +60,7 @@ class ExportTree:
             with open(
                     self.directory + "/br4nch-" + tree + "/branch-" + tree + ".br4nch", 'w', encoding='utf-8') as file:
                 file.write("tag=tree\n")
-                file.write(str({tree: existing_trees[tree]}))
+                file.write(str({tree: UtilityLibrarian.existing_trees[tree]}))
 
             if self.attributes:
                 with open(

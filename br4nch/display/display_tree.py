@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
 from ..utility.utility_builder import UtilityBuilder
 
@@ -25,16 +25,16 @@ class DisplayTree:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if not isinstance(self.delete, bool):
@@ -44,13 +44,13 @@ class DisplayTree:
         for tree in self.trees:
             UtilityBuilder(tree)
 
-            for line in existing_output[tree]:
+            for line in UtilityLibrarian.existing_output[tree]:
                 print(line)
-            existing_output[tree].clear()
+            UtilityLibrarian.existing_output[tree].clear()
 
             if self.delete:
-                del existing_trees[tree]
-                del existing_output[tree]
-                del existing_uids[tree]
-                del existing_sizes[tree]
-                del existing_symbols[tree]
+                del UtilityLibrarian.existing_trees[tree]
+                del UtilityLibrarian.existing_output[tree]
+                del UtilityLibrarian.existing_uids[tree]
+                del UtilityLibrarian.existing_sizes[tree]
+                del UtilityLibrarian.existing_symbols[tree]

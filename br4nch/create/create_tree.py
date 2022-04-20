@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InvalidTreeNameError, DuplicateTreeError
 
 
@@ -27,7 +27,7 @@ class CreateTree:
             if not tree.isalnum():
                 raise InvalidTreeNameError(tree)
 
-            if tree.lower() in list(map(str.lower, existing_trees)):
+            if tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise DuplicateTreeError(tree)
 
         if not isinstance(self.header, str):
@@ -35,8 +35,8 @@ class CreateTree:
 
     def create_tree(self):
         for tree in self.trees:
-            existing_trees.update({tree: {self.header: {}}})
-            existing_output.update({tree: []})
-            existing_uids.update({tree: []})
-            existing_sizes.update({tree: 0})
-            existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            UtilityLibrarian.existing_trees.update({tree: {self.header: {}}})
+            UtilityLibrarian.existing_output.update({tree: []})
+            UtilityLibrarian.existing_uids.update({tree: []})
+            UtilityLibrarian.existing_sizes.update({tree: 0})
+            UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})

@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidParentError, \
     NotExistingTreeError
 from ..utility.utility_generator import UtilityGenerator
@@ -29,16 +29,16 @@ class MoveNode:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if not isinstance(self.nodes, list):
@@ -54,10 +54,10 @@ class MoveNode:
         if not isinstance(self.sibling, str):
             raise InstanceStringError("sibling", self.sibling)
 
-        if self.sibling.lower() not in list(map(str.lower, existing_trees)):
+        if self.sibling.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
             raise NotExistingTreeError(self.sibling)
 
-        for existing_tree in list(existing_trees):
+        for existing_tree in list(UtilityLibrarian.existing_trees):
             if self.sibling.lower() == existing_tree.lower():
                 self.sibling = existing_tree
 
@@ -70,7 +70,9 @@ class MoveNode:
             queue_add = []
 
             for node in UtilityDecider(tree, self.nodes.copy()):
-                children = self.get_nodes(tree, node, [], existing_trees[tree][list(existing_trees[tree])[0]])
+                children = self.get_nodes(tree, node, [],
+                                          UtilityLibrarian.existing_trees[tree][list(
+                                              UtilityLibrarian.existing_trees[tree])[0]])
 
                 if children:
                     queue_delete.append(children[1])
@@ -79,7 +81,8 @@ class MoveNode:
                         tree = self.sibling
 
                     queue_add.append([children[0], self.get_nodes(
-                        tree, [], self.parent.split("."), existing_trees[tree][list(existing_trees[tree])[0]])])
+                        tree, [], self.parent.split("."),
+                        UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])])
 
             for delete_node in queue_delete:
                 if delete_node:
@@ -93,7 +96,7 @@ class MoveNode:
 
     def get_nodes(self, tree, node, parent, child):
         if parent and parent[0] == "0":
-            return {tree: existing_trees[tree][list(existing_trees[tree])[0]]}
+            return {tree: UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]]}
 
         count = 0
         for parent_node, child_nodes in child.items():

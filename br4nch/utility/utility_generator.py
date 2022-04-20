@@ -6,7 +6,7 @@
 
 import uuid
 
-from ..utility.utility_librarian import existing_trees, existing_uids
+from ..utility.utility_librarian import UtilityLibrarian
 
 
 class UtilityGenerator:
@@ -21,9 +21,9 @@ class UtilityGenerator:
             uid = str(uuid.uuid4()).replace("-", "")[0:self.length]
 
             if self.tree == "-":
-                if uid not in list(existing_trees):
+                if uid not in list(UtilityLibrarian.existing_trees):
                     return ":uid=" + uid
             else:
-                if uid not in existing_uids[self.tree]:
-                    existing_uids[self.tree].append(uid)
+                if uid not in UtilityLibrarian.existing_uids[self.tree]:
+                    UtilityLibrarian.existing_uids[self.tree].append(uid)
                     return ":uid=" + uid

@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidTreeNameError, \
     DuplicateTreeError, NotExistingTreeError
 
@@ -25,16 +25,16 @@ class DuplicateTree:
         if not self.tree.isalnum():
             raise InvalidTreeNameError(self.tree)
 
-        if self.tree.lower() in list(map(str.lower, existing_trees)):
+        if self.tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
             raise DuplicateTreeError(self.tree)
 
         if not isinstance(self.sibling, str):
             raise InstanceStringError("sibling", self.sibling)
 
-        if self.sibling.lower() not in list(map(str.lower, existing_trees)):
+        if self.sibling.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
             raise NotExistingTreeError(self.sibling)
 
-        for existing_tree in list(existing_trees):
+        for existing_tree in list(UtilityLibrarian.existing_trees):
             if self.sibling.lower() == existing_tree.lower():
                 self.sibling = existing_tree
 
@@ -42,14 +42,14 @@ class DuplicateTree:
             raise InstanceBooleanError("attributes", self.attributes)
 
     def duplicate_tree(self):
-        existing_trees.update({self.tree: existing_trees[self.sibling]})
-        existing_output.update({self.tree: []})
+        UtilityLibrarian.existing_trees.update({self.tree: UtilityLibrarian.existing_trees[self.sibling]})
+        UtilityLibrarian.existing_output.update({self.tree: []})
 
         if self.attributes:
-            existing_uids.update({self.tree: existing_uids[self.sibling]})
-            existing_sizes.update({self.tree: existing_sizes[self.sibling]})
-            existing_symbols.update({self.tree: existing_symbols[self.sibling]})
+            UtilityLibrarian.existing_uids.update({self.tree: UtilityLibrarian.existing_uids[self.sibling]})
+            UtilityLibrarian.existing_sizes.update({self.tree: UtilityLibrarian.existing_sizes[self.sibling]})
+            UtilityLibrarian.existing_symbols.update({self.tree: UtilityLibrarian.existing_symbols[self.sibling]})
         else:
-            existing_uids.update({self.tree: []})
-            existing_sizes.update({self.tree: 0})
-            existing_symbols.update({self.tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            UtilityLibrarian.existing_uids.update({self.tree: []})
+            UtilityLibrarian.existing_sizes.update({self.tree: 0})
+            UtilityLibrarian.existing_symbols.update({self.tree: {"line": "┃", "split": "┣━", "end": "┗━"}})

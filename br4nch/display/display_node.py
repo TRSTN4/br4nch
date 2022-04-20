@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
 from ..utility.utility_generator import UtilityGenerator
 from ..display.display_tree import DisplayTree
@@ -28,16 +28,16 @@ class DisplayNode:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if not isinstance(self.nodes, list):
@@ -58,33 +58,41 @@ class DisplayNode:
 
         for tree in self.trees:
             levels = [0]
-            self.elevator(levels, existing_trees[tree][list(existing_trees[tree])[0]])
+            self.elevator(levels, UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
             levels.append(0)
 
             for node in self.nodes:
                 tree_package = self.get_node(
-                    tree, node, levels, [0], existing_trees[tree][list(existing_trees[tree])[0]], tree_package, "")
+                    tree, node, levels, [0],
+                    UtilityLibrarian.existing_trees[tree][list(
+                        UtilityLibrarian.existing_trees[tree])[0]], tree_package, "")
 
         if tree_package and self.beautify:
             tree_uid = UtilityGenerator("-").generate_uid()
 
-            existing_trees.update({tree_uid: {"Get Node Result:": {}}})
-            existing_output.update({tree_uid: []})
-            existing_uids.update({tree_uid: []})
-            existing_sizes.update({tree_uid: 0})
-            existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            UtilityLibrarian.existing_trees.update({tree_uid: {"Get Node Result:": {}}})
+            UtilityLibrarian.existing_output.update({tree_uid: []})
+            UtilityLibrarian.existing_uids.update({tree_uid: []})
+            UtilityLibrarian.existing_sizes.update({tree_uid: 0})
+            UtilityLibrarian.existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
 
             for box in tree_package:
-                if box[0] not in existing_trees[tree_uid][list(existing_trees[tree_uid])[0]]:
-                    existing_trees[tree_uid][list(existing_trees[tree_uid])[0]].update({box[0]: {}})
+                if box[0] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]]:
+                    UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]].update({box[0]: {}})
 
-                if box[1] not in existing_trees[tree_uid][list(existing_trees[tree_uid])[0]][box[0]]:
-                    existing_trees[tree_uid][list(existing_trees[tree_uid])[0]][box[0]].update({box[1]: {}})
+                if box[1] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]]:
+                    UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]].update({box[1]: {}})
 
-                if box[2] not in existing_trees[tree_uid][list(existing_trees[tree_uid])[0]][box[0]][box[1]]:
-                    existing_trees[tree_uid][list(existing_trees[tree_uid])[0]][box[0]][box[1]].update({box[2]: {}})
+                if box[2] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]]:
+                    UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]].update({box[2]: {}})
 
-            self.update_tree(tree_uid, existing_trees[tree_uid])
+            self.update_tree(tree_uid, UtilityLibrarian.existing_trees[tree_uid])
 
             DisplayTree(tree_uid, True)
 

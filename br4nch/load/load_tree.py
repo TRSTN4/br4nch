@@ -7,7 +7,7 @@
 import os
 import ast
 
-from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, DuplicateTreeError, NotExistingTreeFileError, \
     InvalidTreeFileError, NotExistingAttributesFileError, InvalidAttributesFileError
 
@@ -35,7 +35,7 @@ class LoadTree:
 
             self.tree_file = ast.literal_eval(file[1])
 
-        if self.tree_file.lower() in list(map(str.lower, existing_trees)):
+        if self.tree_file.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
             raise DuplicateTreeError(self.tree_file)
 
         if not isinstance(self.attributes_file, str):
@@ -54,15 +54,17 @@ class LoadTree:
                 self.attributes_file = ast.literal_eval(file[1])
 
     def load_tree(self):
-        existing_trees.update({list(self.tree_file)[0]: list(self.tree_file.values())[0]})
-        existing_output.update({list(self.tree_file)[0]: []})
+        UtilityLibrarian.existing_trees.update({list(self.tree_file)[0]: list(self.tree_file.values())[0]})
+        UtilityLibrarian.existing_output.update({list(self.tree_file)[0]: []})
 
         if self.attributes_file and list(self.attributes_file)[0] == list(self.tree_file)[0] \
                 and len(list(self.attributes_file.values())[0]) == 6:
-            existing_uids.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][0]})
-            existing_sizes.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][1]})
-            existing_symbols.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][2]})
+            UtilityLibrarian.existing_uids.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][0]})
+            UtilityLibrarian.existing_sizes.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][1]})
+            UtilityLibrarian.existing_symbols.update({list(
+                self.tree_file)[0]: list(self.attributes_file.values())[0][2]})
         else:
-            existing_uids.update({list(self.tree_file)[0]: []})
-            existing_sizes.update({list(self.tree_file)[0]: 0})
-            existing_symbols.update({list(self.tree_file)[0]: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            UtilityLibrarian.existing_uids.update({list(self.tree_file)[0]: []})
+            UtilityLibrarian.existing_sizes.update({list(self.tree_file)[0]: 0})
+            UtilityLibrarian.existing_symbols.update({list(
+                self.tree_file)[0]: {"line": "┃", "split": "┣━", "end": "┗━"}})

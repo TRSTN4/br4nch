@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import NotExistingTreeError, InstanceStringError
 
 
@@ -25,16 +25,16 @@ class LogNode:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if self.include:
@@ -55,7 +55,9 @@ class LogNode:
 
     def log_node(self):
         for tree in self.trees:
-            nodes = self.get_node(tree, existing_trees[tree][list(existing_trees[tree])[0]], [])
+            nodes = self.get_node(tree,
+                                  UtilityLibrarian.existing_trees[tree][list(
+                                      UtilityLibrarian.existing_trees[tree])[0]], [])
 
             for node in nodes.copy():
                 if self.include:

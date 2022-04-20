@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import existing_trees, existing_uids
+from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, NotExistingTreeError
 from ..utility.utility_generator import UtilityGenerator
 from ..utility.utility_decider import UtilityDecider
@@ -27,16 +27,16 @@ class ReplaceNode:
             if not isinstance(self.trees[index], str):
                 raise InstanceStringError("tree", self.trees[index])
 
-            if self.trees[index].lower() not in list(map(str.lower, existing_trees)):
+            if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise NotExistingTreeError(self.trees[index])
 
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if "*" in self.trees:
             self.trees.clear()
-            for existing_tree in list(existing_trees):
+            for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
         if not isinstance(self.node, str):
@@ -54,11 +54,13 @@ class ReplaceNode:
     def replace_node(self):
         for tree in self.trees:
             for parent in UtilityDecider(tree, self.parents.copy()):
-                child = self.get_nodes(parent, existing_trees[tree][list(existing_trees[tree])[0]])
+                child = self.get_nodes(parent,
+                                       UtilityLibrarian.existing_trees[tree][list(
+                                           UtilityLibrarian.existing_trees[tree])[0]])
                 if child:
                     for parent_node, child_nodes in child.items():
                         parent_node_uid = self.node + UtilityGenerator(tree).generate_uid()
-                        existing_uids[tree].remove(parent_node[-10:])
+                        UtilityLibrarian.existing_uids[tree].remove(parent_node[-10:])
 
                         index = list(child_nodes).index(parent_node)
                         child_nodes[parent_node_uid] = child_nodes.pop(parent_node)
