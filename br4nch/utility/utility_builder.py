@@ -4,8 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_sizes, \
-    existing_symbols
+from ..utility.utility_librarian import existing_trees, existing_output, existing_sizes, existing_symbols
 
 
 class UtilityBuilder:

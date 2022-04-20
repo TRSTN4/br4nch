@@ -4,5 +4,5 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.load.load_tree import LoadTree as Tree
-from br4nch.load.load_folder import LoadFolder as Folder
+from .load_tree import LoadTree as Tree
+from .load_folder import LoadFolder as Folder

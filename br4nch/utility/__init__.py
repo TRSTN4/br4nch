@@ -4,8 +4,4 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-import br4nch.utility.utility_builder
-import br4nch.utility.utility_librarian
-import br4nch.utility.utility_generator
-import br4nch.utility.utility_decider
-import br4nch.utility.utility_handler
+from . import utility_librarian, utility_handler, utility_builder, utility_generator, utility_decider

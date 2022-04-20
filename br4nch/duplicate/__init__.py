@@ -4,5 +4,5 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.duplicate.duplicate_tree import DuplicateTree as Tree
-from br4nch.duplicate.duplicate_node import DuplicateNode as Node
+from .duplicate_tree import DuplicateTree as Tree
+from .duplicate_node import DuplicateNode as Node

@@ -6,8 +6,8 @@
 
 import os
 
-from br4nch.utility.utility_librarian import existing_trees, existing_uids, existing_sizes, existing_symbols
-from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingDirectoryError, \
+from ..utility.utility_librarian import existing_trees, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingDirectoryError, \
     NotExistingTreeError
 
 

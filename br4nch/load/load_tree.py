@@ -7,9 +7,8 @@
 import os
 import ast
 
-from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols
-from br4nch.utility.utility_handler import InstanceStringError, DuplicateTreeError, NotExistingTreeFileError, \
+from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_handler import InstanceStringError, DuplicateTreeError, NotExistingTreeFileError, \
     InvalidTreeFileError, NotExistingAttributesFileError, InvalidAttributesFileError
 
 

@@ -19,17 +19,7 @@ import urllib.request
 
 from datetime import datetime, timedelta, date
 
-import br4nch.create
-import br4nch.duplicate
-import br4nch.move
-import br4nch.replace
-import br4nch.delete
-import br4nch.set
-import br4nch.reset
-import br4nch.load
-import br4nch.export
-import br4nch.display
-import br4nch.utility
+from . import create, duplicate, move, replace, delete, set, reset, load, export, display, utility
 
 
 class CheckVersion:

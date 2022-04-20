@@ -4,12 +4,11 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols
-from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
-from br4nch.utility.utility_generator import UtilityGenerator
-from br4nch.utility.utility_decider import UtilityDecider
-from br4nch.display.display_tree import DisplayTree
+from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
+from ..utility.utility_generator import UtilityGenerator
+from ..utility.utility_decider import UtilityDecider
+from ..display.display_tree import DisplayTree
 
 
 class DisplayParent:

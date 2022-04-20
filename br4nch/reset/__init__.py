@@ -4,5 +4,5 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.reset.reset_size import ResetSize as Size
-from br4nch.reset.reset_symbol import ResetSymbol as Symbol
+from .reset_size import ResetSize as Size
+from .reset_symbol import ResetSymbol as Symbol

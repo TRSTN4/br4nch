@@ -6,11 +6,10 @@
 
 import os
 
-from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols
-from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingDirectoryError, \
+from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingDirectoryError, \
     InvalidTreeNameError, DuplicateTreeError
-from br4nch.utility.utility_generator import UtilityGenerator
+from ..utility.utility_generator import UtilityGenerator
 
 
 class LoadFolder:

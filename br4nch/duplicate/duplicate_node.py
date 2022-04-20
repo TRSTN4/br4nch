@@ -6,10 +6,10 @@
 
 import copy
 
-from br4nch.utility.utility_librarian import existing_trees, existing_uids
-from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
-from br4nch.utility.utility_generator import UtilityGenerator
-from br4nch.utility.utility_decider import UtilityDecider
+from ..utility.utility_librarian import existing_trees, existing_uids
+from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
+from ..utility.utility_generator import UtilityGenerator
+from ..utility.utility_decider import UtilityDecider
 
 
 class DuplicateNode:

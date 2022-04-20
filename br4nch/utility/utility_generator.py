@@ -6,7 +6,7 @@
 
 import uuid
 
-from br4nch.utility.utility_librarian import existing_trees, existing_uids
+from ..utility.utility_librarian import existing_trees, existing_uids
 
 
 class UtilityGenerator:

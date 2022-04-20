@@ -6,9 +6,9 @@
 
 import os
 
-from br4nch.utility.utility_librarian import existing_trees, existing_output
-from br4nch.utility.utility_handler import InstanceStringError, NotExistingDirectoryError, NotExistingTreeError
-from br4nch.utility.utility_builder import UtilityBuilder
+from ..utility.utility_librarian import existing_trees, existing_output
+from ..utility.utility_handler import InstanceStringError, NotExistingDirectoryError, NotExistingTreeError
+from ..utility.utility_builder import UtilityBuilder
 
 
 class ExportText:

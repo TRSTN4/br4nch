@@ -4,10 +4,9 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from br4nch.utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, \
-    existing_symbols
-from br4nch.utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
-from br4nch.utility.utility_builder import UtilityBuilder
+from ..utility.utility_librarian import existing_trees, existing_output, existing_uids, existing_sizes, existing_symbols
+from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
+from ..utility.utility_builder import UtilityBuilder
 
 
 class DisplayTree:
