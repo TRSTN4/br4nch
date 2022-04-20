@@ -35,15 +35,17 @@ class LoadTree:
 
             self.tree_file = ast.literal_eval(file[1])
 
-        if self.tree_file.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise DuplicateTreeError(self.tree_file)
+        if list(self.tree_file)[0].lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
+            raise DuplicateTreeError(list(self.tree_file)[0])
 
-        if not isinstance(self.attributes_file, str):
-            raise InstanceStringError("attributes_file", self.attributes_file)
+        if self.attributes_file:
+            if not isinstance(self.attributes_file, str):
+                raise InstanceStringError("attributes_file", self.attributes_file)
 
-        if not self.attributes_file or self.attributes_file and not os.path.isfile(self.attributes_file):
-            raise NotExistingAttributesFileError(self.attributes_file)
+            if not self.attributes_file or self.attributes_file and not os.path.isfile(self.attributes_file):
+                raise NotExistingAttributesFileError(self.attributes_file)
 
+    def load_tree(self):
         if self.attributes_file:
             with open(self.attributes_file, 'r', encoding="utf8") as file:
                 file = file.readlines()
@@ -53,7 +55,6 @@ class LoadTree:
 
                 self.attributes_file = ast.literal_eval(file[1])
 
-    def load_tree(self):
         UtilityLibrarian.existing_trees.update({list(self.tree_file)[0]: list(self.tree_file.values())[0]})
         UtilityLibrarian.existing_output.update({list(self.tree_file)[0]: []})
 

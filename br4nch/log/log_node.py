@@ -11,8 +11,8 @@ from ..utility.utility_handler import NotExistingTreeError, InstanceStringError
 class LogNode:
     def __init__(self, tree, include="", exclude=""):
         self.trees = tree
-        self.include = include
-        self.exclude = exclude
+        self.includes = include
+        self.excludes = exclude
 
         self.validate_arguments()
         self.log_node()
@@ -37,19 +37,19 @@ class LogNode:
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 self.trees.append(existing_tree)
 
-        if self.include:
-            if not isinstance(self.include, list):
-                self.include = [self.include]
+        if self.includes:
+            if not isinstance(self.includes, list):
+                self.includes = [self.includes]
 
-            for include in self.include:
+            for include in self.includes:
                 if not isinstance(include, str):
                     raise InstanceStringError("include", include)
 
-        if self.exclude:
-            if not isinstance(self.exclude, list):
-                self.exclude = [self.exclude]
+        if self.excludes:
+            if not isinstance(self.excludes, list):
+                self.excludes = [self.excludes]
 
-            for exclude in self.exclude:
+            for exclude in self.excludes:
                 if not isinstance(exclude, str):
                     raise InstanceStringError("exclude", exclude)
 
@@ -60,13 +60,13 @@ class LogNode:
                                       UtilityLibrarian.existing_trees[tree])[0]], [])
 
             for node in nodes.copy():
-                if self.include:
-                    for include in self.include:
+                if self.includes:
+                    for include in self.includes:
                         if include not in node[:-15]:
                             nodes.remove(node)
 
-                if self.exclude:
-                    for exclude in self.exclude:
+                if self.excludes:
+                    for exclude in self.excludes:
                         if exclude in node[:-15]:
                             if node in nodes:
                                 nodes.remove(node)

@@ -10,26 +10,26 @@ from ..utility.utility_handler import InstanceStringError
 
 class LogTree:
     def __init__(self, include="", exclude=""):
-        self.include = include
-        self.exclude = exclude
+        self.includes = include
+        self.excludes = exclude
 
         self.validate_arguments()
         self.log_tree()
 
     def validate_arguments(self):
-        if self.include:
-            if not isinstance(self.include, list):
-                self.include = [self.include]
+        if self.includes:
+            if not isinstance(self.includes, list):
+                self.includes = [self.includes]
 
-            for include in self.include:
+            for include in self.includes:
                 if not isinstance(include, str):
                     raise InstanceStringError("include", include)
 
-        if self.exclude:
-            if not isinstance(self.exclude, list):
-                self.exclude = [self.exclude]
+        if self.excludes:
+            if not isinstance(self.excludes, list):
+                self.excludes = [self.excludes]
 
-            for exclude in self.exclude:
+            for exclude in self.excludes:
                 if not isinstance(exclude, str):
                     raise InstanceStringError("exclude", exclude)
 
@@ -39,13 +39,13 @@ class LogTree:
             trees.append(tree)
 
         for tree in trees.copy():
-            if self.include:
-                for include in self.include:
+            if self.includes:
+                for include in self.includes:
                     if include not in tree:
                         trees.remove(tree)
 
-            if self.exclude:
-                for exclude in self.exclude:
+            if self.excludes:
+                for exclude in self.excludes:
                     if exclude in tree:
                         if tree in trees:
                             trees.remove(tree)

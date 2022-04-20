@@ -51,11 +51,27 @@ class LoadFolder:
         if not self.header:
             self.header = self.directory
 
-        if not isinstance(self.excludes, list):
-            self.excludes = [self.excludes]
+        if self.includes:
+            if not isinstance(self.includes, list):
+                self.includes = [self.includes]
 
-        if not isinstance(self.includes, list):
-            self.includes = [self.includes]
+            for index in range(len(self.includes)):
+                if not isinstance(self.includes[index], str):
+                    raise InstanceStringError("include", self.includes[index])
+
+                if not self.includes[index][0] == ".":
+                    self.includes[index] = "." + self.includes[index]
+
+        if self.excludes:
+            if not isinstance(self.excludes, list):
+                self.excludes = [self.excludes]
+
+            for index in range(len(self.excludes)):
+                if not isinstance(self.excludes[index][0], str):
+                    raise InstanceStringError("exclude", self.excludes[index][0])
+
+                if not self.excludes[index][0] == ".":
+                    self.excludes[index] = "." + self.excludes[index]
 
         if not isinstance(self.unused, bool):
             raise InstanceBooleanError("unused", self.unused)
@@ -86,25 +102,16 @@ class LoadFolder:
 
             for index in range(len(paths)):
                 if self.excludes:
-                    for extension in self.excludes:
-                        if extension:
-                            if not extension[0] == ".":
-                                extension = "." + extension
-
-                            if paths[index][-len(extension):] == extension:
-                                if paths[index] not in queue_delete:
-                                    queue_delete.append(paths[index])
+                    for exclude in self.excludes:
+                        if paths[index][-len(exclude):] == exclude:
+                            if paths[index] not in queue_delete:
+                                queue_delete.append(paths[index])
 
                 if self.includes:
-                    for extension in range(len(self.includes)):
-                        if self.includes[extension]:
-                            if not self.includes[extension][0] == ".":
-                                self.includes[extension] = "." + self.includes[extension]
-
-                            if paths[index][-len(self.includes[extension]):] not in self.includes \
-                                    and paths[index] not in roots:
-                                if paths[index] not in queue_delete:
-                                    queue_delete.append(paths[index])
+                    for include in self.includes:
+                        if paths[index][-len(include):] not in self.includes and paths[index] not in roots:
+                            if paths[index] not in queue_delete:
+                                queue_delete.append(paths[index])
 
             for path in queue_delete:
                 paths.remove(path)
