@@ -34,14 +34,21 @@ class DuplicateNode:
         if not isinstance(self.parents, list):
             self.parents = [self.parents]
 
-        if not isinstance(self.siblings, list):
-            self.siblings = [self.siblings]
+        if self.siblings:
+            if not isinstance(self.siblings, list):
+                self.siblings = [self.siblings]
 
-        if not isinstance(self.attributes, bool):
-            raise InstanceBooleanError("attributes", self.attributes)
+        if self.attributes:
+            if not isinstance(self.attributes, bool):
+                raise InstanceBooleanError("attributes", self.attributes)
 
-        if not isinstance(self.delete, bool):
-            raise InstanceBooleanError("delete", self.delete)
+        if self.delete:
+            if not isinstance(self.delete, bool):
+                raise InstanceBooleanError("delete", self.delete)
+
+        tree_list = [self.trees]
+        if self.siblings:
+            tree_list.append(self.siblings)
 
         for trees in [self.trees + self.siblings]:
             if "*" in trees:

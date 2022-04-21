@@ -43,8 +43,9 @@ class DisplayParent:
         if not isinstance(self.parents, list):
             self.parents = [self.parents]
 
-        if not isinstance(self.beautify, bool):
-            raise InstanceBooleanError("beautify", self.beautify)
+        if self.beautify:
+            if not isinstance(self.beautify, bool):
+                raise InstanceBooleanError("beautify", self.beautify)
 
     def get_package(self):
         tree_package = []

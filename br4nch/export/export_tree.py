@@ -46,8 +46,9 @@ class ExportTree:
         if not os.path.isdir(self.directory):
             raise NotExistingDirectoryError(self.directory)
 
-        if not isinstance(self.attributes, bool):
-            raise InstanceBooleanError("attributes", self.attributes)
+        if self.attributes:
+            if not isinstance(self.attributes, bool):
+                raise InstanceBooleanError("attributes", self.attributes)
 
     def export_tree(self):
         for tree in self.trees:

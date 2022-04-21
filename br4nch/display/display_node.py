@@ -47,11 +47,13 @@ class DisplayNode:
             if not isinstance(node, str):
                 raise InstanceStringError("node", node)
 
-        if not isinstance(self.sensitive, bool):
-            raise InstanceBooleanError("sensitive", self.sensitive)
+        if self.sensitive:
+            if not isinstance(self.sensitive, bool):
+                raise InstanceBooleanError("sensitive", self.sensitive)
 
-        if not isinstance(self.beautify, bool):
-            raise InstanceBooleanError("beautify", self.beautify)
+        if self.beautify:
+            if not isinstance(self.beautify, bool):
+                raise InstanceBooleanError("beautify", self.beautify)
 
     def get_package(self):
         tree_package = []

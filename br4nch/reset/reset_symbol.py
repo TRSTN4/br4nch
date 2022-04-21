@@ -38,14 +38,17 @@ class ResetSymbol:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.line, bool):
-            raise InstanceBooleanError("line", self.line)
+        if self.line:
+            if not isinstance(self.line, bool):
+                raise InstanceBooleanError("line", self.line)
 
-        if not isinstance(self.split, bool):
-            raise InstanceBooleanError("split", self.split)
+        if self.split:
+            if not isinstance(self.split, bool):
+                raise InstanceBooleanError("split", self.split)
 
-        if not isinstance(self.end, bool):
-            raise InstanceBooleanError("end", self.end)
+        if self.end:
+            if not isinstance(self.end, bool):
+                raise InstanceBooleanError("end", self.end)
 
     def reset_symbol(self):
         for tree in self.trees:

@@ -38,8 +38,9 @@ class DuplicateTree:
             if self.sibling.lower() == existing_tree.lower():
                 self.sibling = existing_tree
 
-        if not isinstance(self.attributes, bool):
-            raise InstanceBooleanError("attributes", self.attributes)
+        if self.attributes:
+            if not isinstance(self.attributes, bool):
+                raise InstanceBooleanError("attributes", self.attributes)
 
     def duplicate_tree(self):
         UtilityLibrarian.existing_trees.update({self.tree: UtilityLibrarian.existing_trees[self.sibling]})

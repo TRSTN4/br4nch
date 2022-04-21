@@ -19,6 +19,7 @@ class MoveNode:
         self.sibling = sibling
         self.attributes = attributes
 
+        self.validate_arguments()
         self.move_node()
 
     def validate_arguments(self):
@@ -51,25 +52,27 @@ class MoveNode:
             if not parent.isnumeric():
                 raise InvalidParentError("parent", self.parent)
 
-        if not isinstance(self.sibling, str):
-            raise InstanceStringError("sibling", self.sibling)
+        if self.sibling:
+            if not isinstance(self.sibling, str):
+                raise InstanceStringError("sibling", self.sibling)
 
-        if self.sibling.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise NotExistingTreeError(self.sibling)
+            if self.sibling.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
+                raise NotExistingTreeError(self.sibling)
 
-        for existing_tree in list(UtilityLibrarian.existing_trees):
-            if self.sibling.lower() == existing_tree.lower():
-                self.sibling = existing_tree
+            for existing_tree in list(UtilityLibrarian.existing_trees):
+                if self.sibling.lower() == existing_tree.lower():
+                    self.sibling = existing_tree
 
-        if not isinstance(self.attributes, bool):
-            raise InstanceBooleanError("attributes", self.attributes)
+        if self.attributes:
+            if not isinstance(self.attributes, bool):
+                raise InstanceBooleanError("attributes", self.attributes)
 
     def move_node(self):
         for tree in self.trees:
             queue_delete = []
             queue_add = []
 
-            for node in UtilityDecider(tree, self.nodes.copy()):
+            for node in UtilityDecider(tree, self.nodes.copy()).get_package():
                 children = self.get_nodes(tree, node, [],
                                           UtilityLibrarian.existing_trees[tree][list(
                                               UtilityLibrarian.existing_trees[tree])[0]])

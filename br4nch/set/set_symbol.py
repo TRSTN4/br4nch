@@ -38,14 +38,17 @@ class SetSymbol:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.line, str):
-            raise InstanceStringError("line", self.line)
+        if self.line:
+            if not isinstance(self.line, str):
+                raise InstanceStringError("line", self.line)
 
-        if not isinstance(self.split, str):
-            raise InstanceStringError("split", self.split)
+        if self.split:
+            if not isinstance(self.split, str):
+                raise InstanceStringError("split", self.split)
 
-        if not isinstance(self.end, str):
-            raise InstanceStringError("end", self.end)
+        if self.end:
+            if not isinstance(self.end, str):
+                raise InstanceStringError("end", self.end)
 
         if not self.line and not self.split and not self.end:
             raise RequiredSymbolChangeError

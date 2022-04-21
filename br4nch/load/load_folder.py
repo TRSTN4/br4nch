@@ -13,12 +13,12 @@ from ..utility.utility_generator import UtilityGenerator
 
 
 class LoadFolder:
-    def __init__(self, tree, directory, header="", exclude="", include="", unused=True, folder_priority=True):
+    def __init__(self, tree, directory, header="", include="", exclude="", unused=True, folder_priority=True):
         self.trees = tree
         self.directory = directory
         self.header = header
-        self.excludes = exclude
         self.includes = include
+        self.excludes = exclude
         self.unused = unused
         self.folder_priority = folder_priority
 
@@ -45,11 +45,12 @@ class LoadFolder:
         if not os.path.isdir(self.directory):
             raise NotExistingDirectoryError(self.directory)
 
-        if not isinstance(self.header, str):
-            raise InstanceStringError("header", self.header)
+        if self.header:
+            if not isinstance(self.header, str):
+                raise InstanceStringError("header", self.header)
 
-        if not self.header:
-            self.header = self.directory
+            if not self.header:
+                self.header = self.directory
 
         if self.includes:
             if not isinstance(self.includes, list):
@@ -73,16 +74,18 @@ class LoadFolder:
                 if not self.excludes[index][0] == ".":
                     self.excludes[index] = "." + self.excludes[index]
 
-        if not isinstance(self.unused, bool):
-            raise InstanceBooleanError("unused", self.unused)
-
-        if not isinstance(self.folder_priority, bool):
-            raise InstanceBooleanError("folder_priority", self.folder_priority)
+        if self.unused:
+            if not isinstance(self.unused, bool):
+                raise InstanceBooleanError("unused", self.unused)
 
         if self.folder_priority:
-            self.folder_priority = False
-        else:
-            self.folder_priority = True
+            if not isinstance(self.folder_priority, bool):
+                raise InstanceBooleanError("folder_priority", self.folder_priority)
+
+            if self.folder_priority:
+                self.folder_priority = False
+            else:
+                self.folder_priority = True
 
     def load_folder(self):
         for tree in self.trees:

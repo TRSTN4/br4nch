@@ -37,8 +37,9 @@ class DisplayTree:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.delete, bool):
-            raise InstanceBooleanError("delete", self.delete)
+        if self.delete:
+            if not isinstance(self.delete, bool):
+                raise InstanceBooleanError("delete", self.delete)
 
     def display_tree(self):
         for tree in self.trees:

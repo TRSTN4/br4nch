@@ -16,6 +16,7 @@ class ExportText:
         self.trees = tree
         self.directory = directory
 
+        self.validate_arguments()
         self.export_text()
 
     def validate_arguments(self):

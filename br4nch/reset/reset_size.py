@@ -12,6 +12,7 @@ class ResetSize:
     def __init__(self, tree):
         self.trees = tree
 
+        self.validate_arguments()
         self.reset_size()
 
     def validate_arguments(self):
