@@ -12,9 +12,9 @@ from ..utility.utility_handler import InstanceBooleanError, InstanceStringError,
 
 
 class ExportTree:
-    def __init__(self, tree, directory, attributes=False):
+    def __init__(self, tree, output_folder, attributes=False):
         self.trees = tree
-        self.directory = directory
+        self.output_folder = output_folder
         self.attributes = attributes
 
         self.validate_arguments()
@@ -40,11 +40,11 @@ class ExportTree:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.directory, str):
-            raise InstanceStringError("directory", self.directory)
+        if not isinstance(self.output_folder, str):
+            raise InstanceStringError("output_folder", self.output_folder)
 
-        if not os.path.isdir(self.directory):
-            raise NotExistingDirectoryError(self.directory)
+        if not os.path.isdir(self.output_folder):
+            raise NotExistingDirectoryError(self.output_folder)
 
         if self.attributes:
             if not isinstance(self.attributes, bool):
@@ -55,17 +55,18 @@ class ExportTree:
             export_attributes = {tree: [UtilityLibrarian.existing_uids[tree], UtilityLibrarian.existing_sizes[tree],
                                         UtilityLibrarian.existing_symbols[tree]]}
 
-            if not os.path.isdir(self.directory + "/br4nch-" + tree):
-                os.mkdir(self.directory + "/br4nch-" + tree)
+            if not os.path.isdir(self.output_folder + "/br4nch-" + tree):
+                os.mkdir(self.output_folder + "/br4nch-" + tree)
 
             with open(
-                    self.directory + "/br4nch-" + tree + "/branch-" + tree + ".br4nch", 'w', encoding='utf-8') as file:
+                    self.output_folder + "/br4nch-" + tree + "/branch-" + tree + ".br4nch", 'w', encoding='utf-8') \
+                    as file:
                 file.write("tag=tree\n")
                 file.write(str({tree: UtilityLibrarian.existing_trees[tree]}))
 
             if self.attributes:
                 with open(
-                        self.directory + "/br4nch-" + tree + "/package-" + tree + ".br4nch", 'w',
+                        self.output_folder + "/br4nch-" + tree + "/package-" + tree + ".br4nch", 'w',
                         encoding='utf-8') as file:
                     file.write("tag=attributes\n")
                     file.write(str(export_attributes))

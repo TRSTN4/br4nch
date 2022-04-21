@@ -12,9 +12,9 @@ from ..utility.utility_builder import UtilityBuilder
 
 
 class ExportText:
-    def __init__(self, tree, directory):
+    def __init__(self, tree, output_folder):
         self.trees = tree
-        self.directory = directory
+        self.output_folder = output_folder
 
         self.validate_arguments()
         self.export_text()
@@ -39,15 +39,15 @@ class ExportText:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.directory, str):
-            raise InstanceStringError("directory", self.directory)
+        if not isinstance(self.output_folder, str):
+            raise InstanceStringError("output_folder", self.output_folder)
 
-        if not os.path.isdir(self.directory):
-            raise NotExistingDirectoryError(self.directory)
+        if not os.path.isdir(self.output_folder):
+            raise NotExistingDirectoryError(self.output_folder)
 
     def export_text(self):
         for tree in self.trees:
-            with open(self.directory + "/br4nch-" + tree + ".txt", 'w', encoding='utf-8') as file:
+            with open(self.output_folder + "/br4nch-" + tree + ".txt", 'w', encoding='utf-8') as file:
                 UtilityBuilder(tree)
 
                 for line in UtilityLibrarian.existing_output[tree]:

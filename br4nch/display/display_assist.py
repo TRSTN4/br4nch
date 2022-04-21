@@ -97,17 +97,17 @@ class DisplayAssist:
             levels.append(height)
             self.elevator(levels, child_nodes, height + 1)
 
-    def set_node_positions(self, levels, trace, child, node_position=""):
+    def set_node_positions(self, levels, trace, child, position=""):
         count = 0
         for parent_node, child_nodes in child.copy().items():
             count = count + 1
             trace[0] = trace[0] + 1
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
-                node_position = node_position[:-2]
-            node_position = node_position + "." + str(count)
+                position = position[:-2]
+            position = position + "." + str(count)
 
-            child[node_position[1:] + ": " + parent_node] = child.pop(parent_node)
+            child[position[1:] + ": " + parent_node] = child.pop(parent_node)
 
             if child_nodes:
-                self.set_node_positions(levels, trace, child_nodes, node_position)
+                self.set_node_positions(levels, trace, child_nodes, position)

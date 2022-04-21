@@ -9,9 +9,9 @@ from ..utility.utility_handler import InstanceStringError, NotExistingTreeError
 
 
 class ReplaceHeader:
-    def __init__(self, tree, header):
+    def __init__(self, tree, new_header):
         self.trees = tree
-        self.header = header
+        self.new_header = new_header
 
         self.validate_arguments()
         self.replace_header()
@@ -36,10 +36,10 @@ class ReplaceHeader:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.header, str):
-            raise InstanceStringError("header", self.header)
+        if not isinstance(self.new_header, str):
+            raise InstanceStringError("new_header", self.new_header)
 
     def replace_header(self):
         for tree in self.trees:
-            UtilityLibrarian.existing_trees[tree][self.header] = UtilityLibrarian.existing_trees[tree].pop(list(
+            UtilityLibrarian.existing_trees[tree][self.new_header] = UtilityLibrarian.existing_trees[tree].pop(list(
                 UtilityLibrarian.existing_trees[tree])[0])

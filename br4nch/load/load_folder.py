@@ -13,9 +13,9 @@ from ..utility.utility_generator import UtilityGenerator
 
 
 class LoadFolder:
-    def __init__(self, tree, directory, header="", include="", exclude="", unused=True, folder_priority=True):
-        self.trees = tree
-        self.directory = directory
+    def __init__(self, new_tree, folder_path, header="", include="", exclude="", unused=True, folder_priority=True):
+        self.new_trees = new_tree
+        self.folder_path = folder_path
         self.header = header
         self.includes = include
         self.excludes = exclude
@@ -26,12 +26,12 @@ class LoadFolder:
         self.load_folder()
 
     def validate_arguments(self):
-        if not isinstance(self.trees, list):
-            self.trees = [self.trees]
+        if not isinstance(self.new_trees, list):
+            self.new_trees = [self.new_trees]
 
-        for tree in self.trees:
+        for tree in self.new_trees:
             if not isinstance(tree, str):
-                raise InstanceStringError("tree", tree)
+                raise InstanceStringError("new_tree", tree)
 
             if not tree.isalnum():
                 raise InvalidTreeNameError(tree)
@@ -39,18 +39,18 @@ class LoadFolder:
             if tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
                 raise DuplicateTreeError(tree)
 
-        if not isinstance(self.directory, str):
-            raise InstanceStringError("directory", self.directory)
+        if not isinstance(self.folder_path, str):
+            raise InstanceStringError("folder_path", self.folder_path)
 
-        if not os.path.isdir(self.directory):
-            raise NotExistingDirectoryError(self.directory)
+        if not os.path.isdir(self.folder_path):
+            raise NotExistingDirectoryError(self.folder_path)
 
         if self.header:
             if not isinstance(self.header, str):
                 raise InstanceStringError("header", self.header)
 
             if not self.header:
-                self.header = self.directory
+                self.header = self.folder_path
 
         if self.includes:
             if not isinstance(self.includes, list):
@@ -88,20 +88,20 @@ class LoadFolder:
                 self.folder_priority = True
 
     def load_folder(self):
-        for tree in self.trees:
+        for tree in self.new_trees:
             tree_structure = {self.header: {}}
             queue_delete = []
             paths = []
             roots = []
 
-            for root, directories, files in os.walk(self.directory, topdown=self.folder_priority):
+            for root, directories, files in os.walk(self.folder_path, topdown=self.folder_priority):
                 paths.append(root.replace("\\", "/"))
                 roots.append(root.replace("\\", "/"))
 
                 for file in files:
                     paths.append(root.replace("\\", "/") + "/" + file)
 
-            path_length = len(self.directory.replace("\\", "/").split("/"))
+            path_length = len(self.folder_path.replace("\\", "/").split("/"))
 
             for index in range(len(paths)):
                 if self.excludes:

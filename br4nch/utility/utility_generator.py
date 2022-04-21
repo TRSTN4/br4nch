@@ -10,15 +10,14 @@ from ..utility.utility_librarian import UtilityLibrarian
 
 
 class UtilityGenerator:
-    def __init__(self, tree, length=10):
+    def __init__(self, tree):
         self.tree = tree
-        self.length = length
 
         self.generate_uid()
 
     def generate_uid(self):
         while True:
-            uid = str(uuid.uuid4()).replace("-", "")[0:self.length]
+            uid = str(uuid.uuid4()).replace("-", "")[0:10]
 
             if self.tree == "-":
                 if uid not in list(UtilityLibrarian.existing_trees):

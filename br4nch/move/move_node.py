@@ -12,11 +12,11 @@ from ..utility.utility_decider import UtilityDecider
 
 
 class MoveNode:
-    def __init__(self, tree, node, parent, sibling="", attributes=False):
+    def __init__(self, tree, node, parent, target_tree="", attributes=False):
         self.trees = tree
         self.nodes = node
         self.parent = parent
-        self.sibling = sibling
+        self.target_tree = target_tree
         self.attributes = attributes
 
         self.validate_arguments()
@@ -52,16 +52,16 @@ class MoveNode:
             if not parent.isnumeric():
                 raise InvalidParentError("parent", self.parent)
 
-        if self.sibling:
-            if not isinstance(self.sibling, str):
-                raise InstanceStringError("sibling", self.sibling)
+        if self.target_tree:
+            if not isinstance(self.target_tree, str):
+                raise InstanceStringError("target_tree", self.target_tree)
 
-            if self.sibling.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.sibling)
+            if self.target_tree.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
+                raise NotExistingTreeError(self.target_tree)
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
-                if self.sibling.lower() == existing_tree.lower():
-                    self.sibling = existing_tree
+                if self.target_tree.lower() == existing_tree.lower():
+                    self.target_tree = existing_tree
 
         if self.attributes:
             if not isinstance(self.attributes, bool):
@@ -72,16 +72,16 @@ class MoveNode:
             queue_delete = []
             queue_add = []
 
-            for node in UtilityDecider(tree, self.nodes.copy()).get_package():
-                children = self.get_nodes(tree, node, [],
+            for position in UtilityDecider(tree, self.nodes.copy()).get_package():
+                children = self.get_nodes(tree, position, [],
                                           UtilityLibrarian.existing_trees[tree][list(
                                               UtilityLibrarian.existing_trees[tree])[0]])
 
                 if children:
                     queue_delete.append(children[1])
 
-                    if self.sibling:
-                        tree = self.sibling
+                    if self.target_tree:
+                        tree = self.target_tree
 
                     queue_add.append([children[0], self.get_nodes(
                         tree, [], self.parent.split("."),
@@ -97,7 +97,7 @@ class MoveNode:
                     self.change_nodes_uid(list(add_node[1])[0], add_node[0])
                     add_node[1][list(add_node[1])[0]].update(add_node[0])
 
-    def get_nodes(self, tree, node, parent, child):
+    def get_nodes(self, tree, position, parent, child):
         if parent and parent[0] == "0":
             return {tree: UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]]}
 
@@ -105,13 +105,13 @@ class MoveNode:
         for parent_node, child_nodes in child.items():
             count = count + 1
 
-            if node and count == int(node[0]):
-                if len(node) == 1:
+            if position and count == int(position[0]):
+                if len(position) == 1:
                     return [{parent_node: child_nodes}, {parent_node: child}]
                 else:
                     if child_nodes:
-                        node.pop(0)
-                        return self.get_nodes(tree, node, parent, child_nodes)
+                        position.pop(0)
+                        return self.get_nodes(tree, position, parent, child_nodes)
 
             if parent and count == int(parent[0]):
                 if len(parent) == 1:
@@ -119,7 +119,7 @@ class MoveNode:
                 else:
                     if child_nodes:
                         parent.pop(0)
-                        return self.get_nodes(tree, node, parent, child_nodes)
+                        return self.get_nodes(tree, position, parent, child_nodes)
 
     def change_nodes_uid(self, tree, child):
         for parent_node, child_nodes in child.copy().items():

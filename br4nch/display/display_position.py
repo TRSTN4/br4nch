@@ -11,14 +11,14 @@ from ..utility.utility_decider import UtilityDecider
 from ..display.display_tree import DisplayTree
 
 
-class DisplayParent:
-    def __init__(self, tree, parent, beautify=True):
+class DisplayPosition:
+    def __init__(self, tree, position, beautify=True):
         self.trees = tree
-        self.parents = parent
+        self.positions = position
         self.beautify = beautify
 
         self.validate_arguments()
-        self.get_package()
+        self.manage_package()
 
     def validate_arguments(self):
         if not isinstance(self.trees, list):
@@ -40,28 +40,25 @@ class DisplayParent:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.parents, list):
-            self.parents = [self.parents]
+        if not isinstance(self.positions, list):
+            self.positions = [self.positions]
 
         if self.beautify:
             if not isinstance(self.beautify, bool):
                 raise InstanceBooleanError("beautify", self.beautify)
 
-    def get_package(self):
+    def manage_package(self):
         tree_package = []
 
         for tree in self.trees:
-            for parent in UtilityDecider(tree, self.parents.copy()):
-                string_position = ""
+            for position in UtilityDecider(tree, self.positions.copy()):
+                visual_position = ""
+                for number in position:
+                    visual_position = visual_position + "." + number
 
-                for character in parent:
-                    string_position = string_position + "." + character
-
-                tree_package = self.get_parent(
-                    tree, parent, string_position[1:],
-                    UtilityLibrarian.existing_trees[tree][list(
-                        UtilityLibrarian.existing_trees[tree])[0]],
-                    tree_package)
+                tree_package = self.get_position(tree, position, visual_position[1:],
+                                                 UtilityLibrarian.existing_trees[tree][list(
+                                                     UtilityLibrarian.existing_trees[tree])[0]], tree_package)
 
         if tree_package and self.beautify:
             while True:
@@ -69,7 +66,7 @@ class DisplayParent:
                 if tree_uid not in UtilityLibrarian.existing_trees:
                     break
 
-            UtilityLibrarian.existing_trees.update({tree_uid: {"Get Parent Result:": {}}})
+            UtilityLibrarian.existing_trees.update({tree_uid: {"Get Position Result:": {}}})
             UtilityLibrarian.existing_output.update({tree_uid: []})
             UtilityLibrarian.existing_uids.update({tree_uid: []})
             UtilityLibrarian.existing_sizes.update({tree_uid: 0})
@@ -95,21 +92,21 @@ class DisplayParent:
 
             DisplayTree(tree_uid, True)
 
-    def get_parent(self, tree, parent, position, child, tree_package):
+    def get_position(self, tree, position, visual_position, child, tree_package):
         count = 0
         for parent_node, child_nodes in child.items():
             count = count + 1
 
-            if count == int(parent[0]):
-                if len(parent) == 1:
+            if count == int(position[0]):
+                if len(position) == 1:
                     if self.beautify:
-                        tree_package.append([tree, position, parent_node[:-15]])
+                        tree_package.append([tree, visual_position, parent_node[:-15]])
                     else:
                         print(parent_node[:-15])
                 else:
                     if child_nodes:
-                        parent.pop(0)
-                        return self.get_parent(tree, parent, position, child_nodes, tree_package)
+                        position.pop(0)
+                        return self.get_position(tree, position, visual_position, child_nodes, tree_package)
 
         return tree_package
 
@@ -119,7 +116,7 @@ class DisplayParent:
                 child["Tree: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if height == 2:
-                child["Parent: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
+                child["Position: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
 
             if height == 3:
                 child["Node: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)

@@ -15,7 +15,7 @@ class DeleteNode:
         self.nodes = node
 
         self.validate_arguments()
-        self.build_parent()
+        self.manage_node()
 
     def validate_arguments(self):
         if not isinstance(self.trees, list):
@@ -40,12 +40,12 @@ class DeleteNode:
         if not isinstance(self.nodes, list):
             self.nodes = [self.nodes]
 
-    def build_parent(self):
+    def manage_node(self):
         for tree in self.trees:
             queue_delete = []
 
-            for parent in UtilityDecider(tree, self.nodes.copy()):
-                child = self.get_nodes(tree, parent,
+            for position in UtilityDecider(tree, self.nodes.copy()):
+                child = self.get_nodes(tree, position,
                                        UtilityLibrarian.existing_trees[tree][list(
                                            UtilityLibrarian.existing_trees[tree])[0]])
                 queue_delete.append(child)
@@ -58,18 +58,18 @@ class DeleteNode:
                         self.delete_node_attributes(tree, child_nodes[parent_node])
                         del child_nodes[parent_node]
 
-    def get_nodes(self, tree, parent, child):
+    def get_nodes(self, tree, position, child):
         count = 0
         for parent_node, child_nodes in child.items():
             count = count + 1
 
-            if count == int(parent[0]):
-                if len(parent) == 1:
+            if count == int(position[0]):
+                if len(position) == 1:
                     return {parent_node: child}
                 else:
                     if child_nodes:
-                        parent.pop(0)
-                        return self.get_nodes(tree, parent, child_nodes)
+                        position.pop(0)
+                        return self.get_nodes(tree, position, child_nodes)
 
     def delete_node_attributes(self, tree, child):
         for parent_node, child_nodes in child.items():

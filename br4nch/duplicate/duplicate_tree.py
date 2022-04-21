@@ -10,47 +10,48 @@ from ..utility.utility_handler import InstanceStringError, InstanceBooleanError,
 
 
 class DuplicateTree:
-    def __init__(self, tree, sibling, attributes=False):
-        self.tree = tree
-        self.sibling = sibling
+    def __init__(self, new_tree, target_tree, attributes=False):
+        self.new_tree = new_tree
+        self.target_tree = target_tree
         self.attributes = attributes
 
         self.validate_arguments()
         self.duplicate_tree()
 
     def validate_arguments(self):
-        if not isinstance(self.tree, str):
-            raise InstanceStringError("tree", self.tree)
+        if not isinstance(self.new_tree, str):
+            raise InstanceStringError("new_tree", self.new_tree)
 
-        if not self.tree.isalnum():
-            raise InvalidTreeNameError(self.tree)
+        if not self.new_tree.isalnum():
+            raise InvalidTreeNameError(self.new_tree)
 
-        if self.tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise DuplicateTreeError(self.tree)
+        if self.new_tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
+            raise DuplicateTreeError(self.new_tree)
 
-        if not isinstance(self.sibling, str):
-            raise InstanceStringError("sibling", self.sibling)
+        if not isinstance(self.target_tree, str):
+            raise InstanceStringError("target_tree", self.target_tree)
 
-        if self.sibling.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise NotExistingTreeError(self.sibling)
+        if self.target_tree.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
+            raise NotExistingTreeError(self.target_tree)
 
         for existing_tree in list(UtilityLibrarian.existing_trees):
-            if self.sibling.lower() == existing_tree.lower():
-                self.sibling = existing_tree
+            if self.target_tree.lower() == existing_tree.lower():
+                self.target_tree = existing_tree
 
         if self.attributes:
             if not isinstance(self.attributes, bool):
                 raise InstanceBooleanError("attributes", self.attributes)
 
     def duplicate_tree(self):
-        UtilityLibrarian.existing_trees.update({self.tree: UtilityLibrarian.existing_trees[self.sibling]})
-        UtilityLibrarian.existing_output.update({self.tree: []})
+        UtilityLibrarian.existing_trees.update({self.new_tree: UtilityLibrarian.existing_trees[self.target_tree]})
+        UtilityLibrarian.existing_output.update({self.new_tree: []})
 
         if self.attributes:
-            UtilityLibrarian.existing_uids.update({self.tree: UtilityLibrarian.existing_uids[self.sibling]})
-            UtilityLibrarian.existing_sizes.update({self.tree: UtilityLibrarian.existing_sizes[self.sibling]})
-            UtilityLibrarian.existing_symbols.update({self.tree: UtilityLibrarian.existing_symbols[self.sibling]})
+            UtilityLibrarian.existing_uids.update({self.new_tree: UtilityLibrarian.existing_uids[self.target_tree]})
+            UtilityLibrarian.existing_sizes.update({self.new_tree: UtilityLibrarian.existing_sizes[self.target_tree]})
+            UtilityLibrarian.existing_symbols.update(
+                {self.new_tree: UtilityLibrarian.existing_symbols[self.target_tree]})
         else:
-            UtilityLibrarian.existing_uids.update({self.tree: []})
-            UtilityLibrarian.existing_sizes.update({self.tree: 0})
-            UtilityLibrarian.existing_symbols.update({self.tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            UtilityLibrarian.existing_uids.update({self.new_tree: []})
+            UtilityLibrarian.existing_sizes.update({self.new_tree: 0})
+            UtilityLibrarian.existing_symbols.update({self.new_tree: {"line": "┃", "split": "┣━", "end": "┗━"}})

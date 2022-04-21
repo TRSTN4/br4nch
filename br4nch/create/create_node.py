@@ -17,7 +17,7 @@ class CreateNode:
         self.parents = parent
 
         self.validate_arguments()
-        self.build_parent()
+        self.build_position()
 
     def validate_arguments(self):
         if not isinstance(self.trees, list):
@@ -55,14 +55,14 @@ class CreateNode:
         if not isinstance(self.parents, list):
             self.parents = [self.parents]
 
-    def build_parent(self):
+    def build_position(self):
         for tree in self.trees:
-            for parent in UtilityDecider(tree, self.parents).get_package():
-                self.create_node(
-                    tree, parent, UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
+            for position in UtilityDecider(tree, self.parents).get_package():
+                self.create_node(tree, position,
+                                 UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
 
-    def create_node(self, tree, parent, child):
-        if parent[0] == "0":
+    def create_node(self, tree, position, child):
+        if position[0] == "0":
             for node in self.nodes:
                 UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]].update(
                     {node + UtilityGenerator(tree).generate_uid(): {}})
@@ -72,13 +72,13 @@ class CreateNode:
         for child_nodes in child.values():
             count = count + 1
 
-            if count == int(parent[0]):
-                if len(parent) == 1:
+            if count == int(position[0]):
+                if len(position) == 1:
                     for node in self.nodes:
                         child_nodes.update(
                             {node + UtilityGenerator(tree).generate_uid(): {}})
                     return
                 else:
                     if child_nodes:
-                        parent.pop(0)
-                        return self.create_node(tree, parent, child)
+                        position.pop(0)
+                        return self.create_node(tree, position, child)

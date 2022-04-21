@@ -11,10 +11,10 @@ from ..utility.utility_decider import UtilityDecider
 
 
 class ReplaceNode:
-    def __init__(self, tree, node, parent):
+    def __init__(self, tree, new_node, target_node):
         self.trees = tree
-        self.node = node
-        self.parents = parent
+        self.new_node = new_node
+        self.target_nodes = target_node
 
         self.validate_arguments()
         self.replace_node()
@@ -39,44 +39,44 @@ class ReplaceNode:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.node, str):
-            raise InstanceStringError("node", self.node)
+        if not isinstance(self.new_node, str):
+            raise InstanceStringError("new_node", self.new_node)
 
         while True:
-            if self.node and self.node[-1] == "\n":
-                self.node = self.node[:-1]
+            if self.new_node and self.new_node[-1] == "\n":
+                self.new_node = self.new_node[:-1]
             else:
                 break
 
-        if not isinstance(self.parents, list):
-            self.parents = [self.parents]
+        if not isinstance(self.target_nodes, list):
+            self.target_nodes = [self.target_nodes]
 
     def replace_node(self):
         for tree in self.trees:
-            for parent in UtilityDecider(tree, self.parents.copy()):
-                child = self.get_nodes(parent,
+            for position in UtilityDecider(tree, self.target_nodes.copy()):
+                child = self.get_nodes(position,
                                        UtilityLibrarian.existing_trees[tree][list(
                                            UtilityLibrarian.existing_trees[tree])[0]])
                 if child:
                     for parent_node, child_nodes in child.items():
-                        parent_node_uid = self.node + UtilityGenerator(tree).generate_uid()
+                        parent_node_uid = self.new_node + UtilityGenerator(tree).generate_uid()
                         UtilityLibrarian.existing_uids[tree].remove(parent_node[-10:])
 
                         index = list(child_nodes).index(parent_node)
                         child_nodes[parent_node_uid] = child_nodes.pop(parent_node)
 
-                        for number in list(child_nodes)[index:-1]:
-                            child_nodes[number] = child_nodes.pop(number)
+                        for index in list(child_nodes)[index:-1]:
+                            child_nodes[index] = child_nodes.pop(index)
 
-    def get_nodes(self, parent, child):
+    def get_nodes(self, position, child):
         count = 0
         for parent_node, child_nodes in child.items():
             count = count + 1
 
-            if count == int(parent[0]):
-                if len(parent) == 1:
+            if count == int(position[0]):
+                if len(position) == 1:
                     return {parent_node: child}
                 else:
                     if child_nodes:
-                        parent.pop(0)
-                        return self.get_nodes(parent, child_nodes)
+                        position.pop(0)
+                        return self.get_nodes(position, child_nodes)
