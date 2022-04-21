@@ -83,8 +83,8 @@ class DuplicateNode:
             queue_delete = []
             queue_add = []
 
-            for node_position in UtilityDecider(tree, self.nodes.copy()):
-                for parent_position in UtilityDecider(tree, self.parents.copy()):
+            for node_position in UtilityDecider(tree, self.nodes.copy()).get_formatted_positions():
+                for parent_position in UtilityDecider(tree, self.parents.copy()).get_formatted_positions():
                     children = self.get_nodes(tree, node_position, [],
                                               UtilityLibrarian.existing_trees[tree][list(
                                                   UtilityLibrarian.existing_trees[tree])[0]])

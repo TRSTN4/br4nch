@@ -44,7 +44,7 @@ class DeleteNode:
         for tree in self.trees:
             queue_delete = []
 
-            for position in UtilityDecider(tree, self.nodes.copy()):
+            for position in UtilityDecider(tree, self.nodes.copy()).get_formatted_positions():
                 child = self.get_nodes(tree, position,
                                        UtilityLibrarian.existing_trees[tree][list(
                                            UtilityLibrarian.existing_trees[tree])[0]])

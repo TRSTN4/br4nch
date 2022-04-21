@@ -51,7 +51,7 @@ class DisplayPosition:
         tree_package = []
 
         for tree in self.trees:
-            for position in UtilityDecider(tree, self.positions.copy()):
+            for position in UtilityDecider(tree, self.positions.copy()).get_formatted_positions():
                 visual_position = ""
                 for number in position:
                     visual_position = visual_position + "." + number

@@ -67,8 +67,8 @@ class CheckVersion:
                     "https://api.github.com/repos/TRSTN4/br4nch/releases/latest").read())["tag_name"])
 
         if file_update_available[17:] != __version__:
-            print("[!] There is a new br4nch version (" + file_update_available[17:] + ") available, The current installed br4nch "
-                  + "version (" + __version__ + ") is outdated.")
+            print("[!] There is a new br4nch version (" + file_update_available[17:]
+                  + ") available, The current installed br4nch " + "version (" + __version__ + ") is outdated.")
 
         update_check_file.close()
 
