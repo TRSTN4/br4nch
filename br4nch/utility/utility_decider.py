@@ -9,10 +9,76 @@ from ..utility.utility_handler import InstanceStringError, InvalidParentError
 
 
 class UtilityDecider:
+    def __init__(self, tree, nodes):
+        self.tree = tree
+        self.nodes = nodes
+
+        self.positions = FormatNode(self.tree, self.nodes).get_positions()
+        self.formatted_positions = FormatPosition(self.tree, self.positions).get_position_package()
+
+    def get_formatted_positions(self):
+        return self.formatted_positions
+
+
+class FormatNode:
+    def __init__(self, tree, nodes):
+        self.tree = tree
+        self.nodes = nodes
+
+        self.positions = []
+
+        self.manage_nodes()
+
+    def manage_nodes(self):
+        levels = [0]
+        self.elevator(levels,
+                      UtilityLibrarian.existing_trees[self.tree][list(
+                          UtilityLibrarian.existing_trees[self.tree])[0]])
+        levels.append(0)
+
+        for node in self.nodes:
+            self.format_node(node, levels, [0],
+                             UtilityLibrarian.existing_trees[self.tree][list(
+                                 UtilityLibrarian.existing_trees[self.tree])[0]], "")
+
+    def elevator(self, levels, nested_dictionary, height=0):
+        for children in nested_dictionary.values():
+            levels.append(height)
+            self.elevator(levels, children, height + 1)
+
+    def format_node(self, node, levels, trace, nested_dictionary, visual_position):
+        count = 0
+        for parent, children in nested_dictionary.items():
+            count = count + 1
+            trace[0] = trace[0] + 1
+
+            if levels[trace[0]] <= levels[trace[0] - 1]:
+                visual_position = visual_position[:-2]
+
+            visual_position = visual_position + "." + str(count)
+
+            if parent[:-15].lower() == node.lower():
+                for character in visual_position:
+                    if character == ".":
+                        visual_position = visual_position[1:]
+                    else:
+                        break
+
+                self.positions.append(visual_position)
+
+            if children:
+                self.format_node(node, levels, trace, children, visual_position)
+
+    def get_positions(self):
+        return self.positions
+
+
+class FormatPosition:
     def __init__(self, tree, position_package):
         self.tree = tree
+        self.position_package = position_package
 
-        self.position_package = self.format_position(position_package)
+        self.format_position(self.position_package)
 
     def format_position(self, position_package):
         for number in range(len(position_package)):
@@ -119,17 +185,17 @@ class UtilityDecider:
 
         return position_package
 
-    def calculate_operator(self, position, child):
+    def calculate_operator(self, position, nested_dictionary):
         count = 0
-        for child_nodes in child.values():
+        for children in nested_dictionary.values():
             count = count + 1
 
             if "*" in position[0] or "<" in position[0] or count == int(position[0]):
-                return len(child)
+                return len(nested_dictionary)
 
-            if child_nodes and count == int(position[0]):
+            if children and count == int(position[0]):
                 position.pop(0)
-                return self.calculate_operator(position, child_nodes)
+                return self.calculate_operator(position, children)
 
-    def get_package(self):
+    def get_position_package(self):
         return self.position_package
