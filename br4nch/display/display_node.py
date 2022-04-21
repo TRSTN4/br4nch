@@ -98,49 +98,64 @@ class DisplayNode:
 
             DisplayTree(tree_uid, True)
 
-    def elevator(self, levels, child, height=0):
-        for child_nodes in child.values():
+    def elevator(self, levels, nested_dictionary, height=0):
+        for children in nested_dictionary.values():
             levels.append(height)
-            self.elevator(levels, child_nodes, height + 1)
+            self.elevator(levels, children, height + 1)
 
-    def get_node(self, tree, node, levels, trace, child, tree_package, position):
+    def get_node(self, tree, node, levels, trace, nested_dictionary, tree_package, visual_position):
         count = 0
-        for parent_node, child_nodes in child.items():
+        for parent, children in nested_dictionary.items():
             count = count + 1
 
             trace[0] = trace[0] + 1
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
-                position = position[:-2]
+                visual_position = visual_position[:-2]
 
-            position = position + "." + str(count)
+            visual_position = visual_position + "." + str(count)
 
             if self.sensitive:
-                if parent_node[:-15] == node:
-                    tree_package.append([tree, parent_node[:-15], position[1:]])
-                    if not self.beautify:
-                        print(position[1:])
-            else:
-                if parent_node[:-15].lower() == node.lower():
-                    tree_package.append([tree, parent_node[:-15], position[1:]])
-                    if not self.beautify:
-                        print(position[1:])
+                if parent[:-15] == node:
+                    for character in visual_position:
+                        if character == ".":
+                            visual_position = visual_position[1:]
+                        else:
+                            break
 
-            if child_nodes:
-                self.get_node(tree, node, levels, trace, child_nodes, tree_package, position)
+                    tree_package.append([tree, parent[:-15], visual_position])
+                    if not self.beautify:
+                        print(visual_position)
+            else:
+                if parent[:-15].lower() == node.lower():
+                    for character in visual_position:
+                        if character == ".":
+                            visual_position = visual_position[1:]
+                        else:
+                            break
+
+                    tree_package.append([tree, parent[:-15], visual_position])
+                    if not self.beautify:
+                        print(visual_position)
+
+            if children:
+                self.get_node(tree, node, levels, trace, children, tree_package, visual_position)
 
         return tree_package
 
-    def update_tree(self, tree, child, height=0):
-        for parent_node, child_nodes in child.copy().items():
+    def update_tree(self, tree, nested_dictionary, height=0):
+        for parent, children in nested_dictionary.copy().items():
             if height == 1:
-                child["Tree: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
+                nested_dictionary["Tree: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                    nested_dictionary.pop(parent)
 
             if height == 2:
-                child["Node: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
+                nested_dictionary["Node: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                    nested_dictionary.pop(parent)
 
             if height == 3:
-                child["Position: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
+                nested_dictionary["Position: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                    nested_dictionary.pop(parent)
 
-            if child_nodes:
-                self.update_tree(tree, child_nodes, height + 1)
+            if children:
+                self.update_tree(tree, children, height + 1)

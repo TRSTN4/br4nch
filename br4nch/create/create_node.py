@@ -57,11 +57,11 @@ class CreateNode:
 
     def build_position(self):
         for tree in self.trees:
-            for position in UtilityDecider(tree, self.parents).get_package():
+            for position in UtilityDecider(tree, self.parents).get_formatted_positions():
                 self.create_node(tree, position,
                                  UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
 
-    def create_node(self, tree, position, child):
+    def create_node(self, tree, position, nested_dictionary):
         if position[0] == "0":
             for node in self.nodes:
                 UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]].update(
@@ -69,16 +69,17 @@ class CreateNode:
             return
 
         count = 0
-        for child_nodes in child.values():
+        for children in nested_dictionary.values():
             count = count + 1
 
             if count == int(position[0]):
+                print(position[0], children)
                 if len(position) == 1:
                     for node in self.nodes:
-                        child_nodes.update(
+                        children.update(
                             {node + UtilityGenerator(tree).generate_uid(): {}})
                     return
                 else:
-                    if child_nodes:
+                    if children:
                         position.pop(0)
-                        return self.create_node(tree, position, child)
+                        return self.create_node(tree, position, children)

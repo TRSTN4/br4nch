@@ -92,34 +92,37 @@ class DisplayPosition:
 
             DisplayTree(tree_uid, True)
 
-    def get_position(self, tree, position, visual_position, child, tree_package):
+    def get_position(self, tree, position, visual_position, nested_dictionary, tree_package):
         count = 0
-        for parent_node, child_nodes in child.items():
+        for parent, children in nested_dictionary.items():
             count = count + 1
 
             if count == int(position[0]):
                 if len(position) == 1:
                     if self.beautify:
-                        tree_package.append([tree, visual_position, parent_node[:-15]])
+                        tree_package.append([tree, visual_position, parent[:-15]])
                     else:
-                        print(parent_node[:-15])
+                        print(parent[:-15])
                 else:
-                    if child_nodes:
+                    if children:
                         position.pop(0)
-                        return self.get_position(tree, position, visual_position, child_nodes, tree_package)
+                        return self.get_position(tree, position, visual_position, children, tree_package)
 
         return tree_package
 
-    def update_tree(self, tree, child, height=0):
-        for parent_node, child_nodes in child.copy().items():
+    def update_tree(self, tree, nested_dictionary, height=0):
+        for parent, children in nested_dictionary.copy().items():
             if height == 1:
-                child["Tree: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
+                nested_dictionary["Tree: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                    nested_dictionary.pop(parent)
 
             if height == 2:
-                child["Position: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
+                nested_dictionary["Position: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                    nested_dictionary.pop(parent)
 
             if height == 3:
-                child["Node: " + parent_node + UtilityGenerator(tree).generate_uid()] = child.pop(parent_node)
+                nested_dictionary["Node: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                    nested_dictionary.pop(parent)
 
-            if child_nodes:
-                self.update_tree(tree, child_nodes, height + 1)
+            if children:
+                self.update_tree(tree, children, height + 1)

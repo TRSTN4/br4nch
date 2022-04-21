@@ -58,23 +58,23 @@ class DeleteNode:
                         self.delete_node_attributes(tree, child_nodes[parent_node])
                         del child_nodes[parent_node]
 
-    def get_nodes(self, tree, position, child):
+    def get_nodes(self, tree, position, nested_dictionary):
         count = 0
-        for parent_node, child_nodes in child.items():
+        for parent, children in nested_dictionary.items():
             count = count + 1
 
             if count == int(position[0]):
                 if len(position) == 1:
-                    return {parent_node: child}
+                    return {parent: nested_dictionary}
                 else:
-                    if child_nodes:
+                    if children:
                         position.pop(0)
-                        return self.get_nodes(tree, position, child_nodes)
+                        return self.get_nodes(tree, position, children)
 
-    def delete_node_attributes(self, tree, child):
-        for parent_node, child_nodes in child.items():
-            if parent_node[-10:] in UtilityLibrarian.existing_uids[tree]:
-                UtilityLibrarian.existing_uids[tree].remove(str(parent_node[-10:]))
+    def delete_node_attributes(self, tree, nested_dictionary):
+        for parent, children in nested_dictionary.items():
+            if parent[-10:] in UtilityLibrarian.existing_uids[tree]:
+                UtilityLibrarian.existing_uids[tree].remove(str(parent[-10:]))
 
-            if child_nodes:
-                self.delete_node_attributes(tree, child_nodes)
+            if children:
+                self.delete_node_attributes(tree, children)

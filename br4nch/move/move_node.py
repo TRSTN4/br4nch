@@ -72,8 +72,8 @@ class MoveNode:
             queue_delete = []
             queue_add = []
 
-            for position in UtilityDecider(tree, self.nodes.copy()).get_package():
-                children = self.get_nodes(tree, position, [],
+            for node_position in UtilityDecider(tree, self.nodes.copy()).get_formatted_positions():
+                children = self.get_nodes(tree, node_position, [],
                                           UtilityLibrarian.existing_trees[tree][list(
                                               UtilityLibrarian.existing_trees[tree])[0]])
 
@@ -83,9 +83,9 @@ class MoveNode:
                     if self.target_tree:
                         tree = self.target_tree
 
-                    queue_add.append([children[0], self.get_nodes(
-                        tree, [], self.parent.split("."),
-                        UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])])
+                    queue_add.append([children[0], self.get_nodes(tree, [], self.parent.split("."),
+                                                                  UtilityLibrarian.existing_trees[tree][list(
+                                                                      UtilityLibrarian.existing_trees[tree])[0]])])
 
             for delete_node in queue_delete:
                 if delete_node:
@@ -97,35 +97,35 @@ class MoveNode:
                     self.change_nodes_uid(list(add_node[1])[0], add_node[0])
                     add_node[1][list(add_node[1])[0]].update(add_node[0])
 
-    def get_nodes(self, tree, position, parent, child):
-        if parent and parent[0] == "0":
+    def get_nodes(self, tree, node_position, parent_position, nested_dictionary):
+        if parent_position and parent_position[0] == "0":
             return {tree: UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]]}
 
         count = 0
-        for parent_node, child_nodes in child.items():
+        for parent, children in nested_dictionary.items():
             count = count + 1
 
-            if position and count == int(position[0]):
-                if len(position) == 1:
-                    return [{parent_node: child_nodes}, {parent_node: child}]
+            if node_position and count == int(node_position[0]):
+                if len(node_position) == 1:
+                    return [{parent: children}, {parent: nested_dictionary}]
                 else:
-                    if child_nodes:
-                        position.pop(0)
-                        return self.get_nodes(tree, position, parent, child_nodes)
+                    if children:
+                        node_position.pop(0)
+                        return self.get_nodes(tree, node_position, parent_position, children)
 
-            if parent and count == int(parent[0]):
-                if len(parent) == 1:
-                    return {tree: child_nodes}
+            if parent_position and count == int(parent_position[0]):
+                if len(parent_position) == 1:
+                    return {tree: children}
                 else:
-                    if child_nodes:
-                        parent.pop(0)
-                        return self.get_nodes(tree, position, parent, child_nodes)
+                    if children:
+                        parent_position.pop(0)
+                        return self.get_nodes(tree, node_position, parent_position, children)
 
-    def change_nodes_uid(self, tree, child):
-        for parent_node, child_nodes in child.copy().items():
+    def change_nodes_uid(self, tree, nested_dictionary):
+        for parent_node, children in nested_dictionary.copy().items():
             parent_node_uid = parent_node[:-15] + UtilityGenerator(tree).generate_uid()
 
-            child[parent_node_uid] = child.pop(parent_node)
+            nested_dictionary[parent_node_uid] = nested_dictionary.pop(parent_node)
 
-            if child_nodes:
-                self.change_nodes_uid(tree, child_nodes)
+            if children:
+                self.change_nodes_uid(tree, children)

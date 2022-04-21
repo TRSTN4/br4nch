@@ -68,15 +68,15 @@ class ReplaceNode:
                         for index in list(child_nodes)[index:-1]:
                             child_nodes[index] = child_nodes.pop(index)
 
-    def get_nodes(self, position, child):
+    def get_nodes(self, position, nested_dictionary):
         count = 0
-        for parent_node, child_nodes in child.items():
+        for parent, children in nested_dictionary.items():
             count = count + 1
 
             if count == int(position[0]):
                 if len(position) == 1:
-                    return {parent_node: child}
+                    return {parent: nested_dictionary}
                 else:
-                    if child_nodes:
+                    if children:
                         position.pop(0)
-                        return self.get_nodes(position, child_nodes)
+                        return self.get_nodes(position, children)

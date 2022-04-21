@@ -74,11 +74,11 @@ class LogNode:
             for node in nodes:
                 print(node[:-15])
 
-    def get_node(self, tree, child, nodes):
-        for parent_node, child_nodes in child.items():
-            nodes.append(parent_node)
+    def get_node(self, tree, nested_dictionary, nodes):
+        for parent, children in nested_dictionary.items():
+            nodes.append(parent)
 
-            if child_nodes:
-                self.get_node(tree, child_nodes, nodes)
+            if children:
+                self.get_node(tree, children, nodes)
 
         return nodes

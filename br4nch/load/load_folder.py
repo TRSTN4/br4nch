@@ -49,8 +49,8 @@ class LoadFolder:
             if not isinstance(self.header, str):
                 raise InstanceStringError("header", self.header)
 
-            if not self.header:
-                self.header = self.folder_path
+        if not self.header:
+            self.header = self.folder_path
 
         if self.includes:
             if not isinstance(self.includes, list):

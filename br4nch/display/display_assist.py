@@ -92,14 +92,14 @@ class DisplayAssist:
 
             DisplayTree(tree_uid, True)
 
-    def elevator(self, levels, child, height=0):
-        for child_nodes in child.values():
+    def elevator(self, levels, nested_dictionary, height=0):
+        for children in nested_dictionary.values():
             levels.append(height)
-            self.elevator(levels, child_nodes, height + 1)
+            self.elevator(levels, children, height + 1)
 
-    def set_node_positions(self, levels, trace, child, position=""):
+    def set_node_positions(self, levels, trace, nested_dictionary, position=""):
         count = 0
-        for parent_node, child_nodes in child.copy().items():
+        for parent, children in nested_dictionary.copy().items():
             count = count + 1
             trace[0] = trace[0] + 1
 
@@ -107,7 +107,7 @@ class DisplayAssist:
                 position = position[:-2]
             position = position + "." + str(count)
 
-            child[position[1:] + ": " + parent_node] = child.pop(parent_node)
+            nested_dictionary[position[1:] + ": " + parent] = nested_dictionary.pop(parent)
 
-            if child_nodes:
-                self.set_node_positions(levels, trace, child_nodes, position)
+            if children:
+                self.set_node_positions(levels, trace, children, position)

@@ -112,43 +112,43 @@ class DuplicateNode:
                     self.change_node_uid(list(add_node[1])[0], add_node[0])
                     add_node[1][list(add_node[1])[0]].update(add_node[0])
 
-    def get_nodes(self, tree, node_position, parent_position, child):
+    def get_nodes(self, tree, node_position, parent_position, nested_dictionary):
         if parent_position and parent_position[0] == "0":
             return {tree: UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]]}
 
         count = 0
-        for parent_node, child_nodes in child.items():
+        for parent, children in nested_dictionary.items():
             count = count + 1
 
             if node_position and count == int(node_position[0]):
                 if len(node_position) == 1:
-                    return [{parent_node: copy.deepcopy(child_nodes)}, {parent_node: child}]
+                    return [{parent: copy.deepcopy(children)}, {parent: nested_dictionary}]
                 else:
-                    if child_nodes:
+                    if children:
                         node_position.pop(0)
-                        return self.get_nodes(tree, node_position, parent_position, child_nodes)
+                        return self.get_nodes(tree, node_position, parent_position, children)
 
             if parent_position and count == int(parent_position[0]):
                 if len(parent_position) == 1:
-                    return {tree: child_nodes}
+                    return {tree: children}
                 else:
-                    if child_nodes:
+                    if children:
                         parent_position.pop(0)
-                        return self.get_nodes(tree, node_position, parent_position, child_nodes)
+                        return self.get_nodes(tree, node_position, parent_position, children)
 
-    def delete_node_attributes(self, tree, child):
-        for parent_node, child_nodes in child.items():
-            if parent_node[-10:] in UtilityLibrarian.existing_uids[tree]:
-                UtilityLibrarian.existing_uids[tree].remove(str(parent_node[-10:]))
+    def delete_node_attributes(self, tree, nested_dictionary):
+        for parent, children in nested_dictionary.items():
+            if parent[-10:] in UtilityLibrarian.existing_uids[tree]:
+                UtilityLibrarian.existing_uids[tree].remove(str(parent[-10:]))
 
-            if child_nodes:
-                self.delete_node_attributes(tree, child_nodes)
+            if children:
+                self.delete_node_attributes(tree, children)
 
-    def change_node_uid(self, tree, child):
-        for parent_node, child_nodes in child.copy().items():
-            parent_node_uid = parent_node[:-15] + UtilityGenerator(tree).generate_uid()
+    def change_node_uid(self, tree, nested_dictionary):
+        for parent, children in nested_dictionary.copy().items():
+            parent_node_uid = parent[:-15] + UtilityGenerator(tree).generate_uid()
 
-            child[parent_node_uid] = child.pop(parent_node)
+            nested_dictionary[parent_node_uid] = nested_dictionary.pop(parent)
 
-            if child_nodes:
-                self.change_node_uid(tree, child_nodes)
+            if children:
+                self.change_node_uid(tree, children)

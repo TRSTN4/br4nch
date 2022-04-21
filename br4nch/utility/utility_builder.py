@@ -25,36 +25,36 @@ class UtilityBuilder:
             [levels, [0], [], [], [0]],
             UtilityLibrarian.existing_trees[self.tree][list(UtilityLibrarian.existing_trees[self.tree])[0]])
 
-    def elevator(self, levels, child, height=0):
-        for child_nodes in child.values():
+    def elevator(self, levels, nested_dictionary, height=0):
+        for children in nested_dictionary.values():
             levels.append(height)
-            self.elevator(levels, child_nodes, height + 1)
+            self.elevator(levels, children, height + 1)
 
-    def build_nodes(self, package, child):
-        for parent_node, child_nodes in child.items():
+    def build_nodes(self, package, nested_dictionary):
+        for parent, children in nested_dictionary.items():
             package[1][0] = package[1][0] + 1
 
-            extend = self.build_extender(parent_node, child, package[0], package[1], package[2], package[3], package[4])
+            extend = self.build_extender(parent, nested_dictionary, package[0], package[1], package[2], package[3],
+                                         package[4])
 
             size = ""
             for _ in range(UtilityLibrarian.existing_sizes[self.tree]):
                 size = size + extend + UtilityLibrarian.existing_symbols[self.tree].get("line") + "\n"
 
-            if parent_node != list(child)[-1]:
+            if parent != list(nested_dictionary)[-1]:
                 UtilityLibrarian.existing_output[self.tree].append(
                     size + extend + UtilityLibrarian.existing_symbols[self.tree].get("split") + " "
-                    + parent_node[:-15].replace("\n", "\n" + extend
-                                                + UtilityLibrarian.existing_symbols[self.tree].get("line")
-                                                + " "
-                                                * int(len(UtilityLibrarian.existing_symbols[self.tree].get("split")))))
+                    + parent[:-15].replace("\n", "\n" + extend
+                                           + UtilityLibrarian.existing_symbols[self.tree].get("line") + " "
+                                           * int(len(UtilityLibrarian.existing_symbols[self.tree].get("split")))))
             else:
                 UtilityLibrarian.existing_output[self.tree].append(
                     size + extend + UtilityLibrarian.existing_symbols[self.tree].get("end") + " "
-                    + parent_node[:-15].replace("\n", "\n" + extend + " " * int(
+                    + parent[:-15].replace("\n", "\n" + extend + " " * int(
                         len(UtilityLibrarian.existing_symbols[self.tree].get("end")) + 1)))
 
-            if child_nodes:
-                self.build_nodes(package, child_nodes)
+            if children:
+                self.build_nodes(package, children)
 
     def build_extender(self, node, child, levels, trace, chain, queue, last):
         if levels[trace[0]] != 0:
