@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidParentError, \
+from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidPositionError, \
     NotExistingTreeError
 from ..utility.utility_generator import UtilityGenerator
 from ..utility.utility_decider import UtilityDecider
@@ -50,7 +50,7 @@ class MoveNode:
 
         for parent in self.parent.split("."):
             if not parent.isnumeric():
-                raise InvalidParentError("parent", self.parent)
+                raise InvalidPositionError("parent", self.parent)
 
         if self.target_tree:
             if not isinstance(self.target_tree, str):
@@ -72,7 +72,7 @@ class MoveNode:
             queue_delete = []
             queue_add = []
 
-            for node_position in UtilityDecider(tree, self.nodes.copy()).get_formatted_positions():
+            for node_position in UtilityDecider(tree, "node", self.nodes.copy()).get_formatted_positions():
                 children = self.get_nodes(tree, node_position, [],
                                           UtilityLibrarian.existing_trees[tree][list(
                                               UtilityLibrarian.existing_trees[tree])[0]])

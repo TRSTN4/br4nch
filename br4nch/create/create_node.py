@@ -57,7 +57,7 @@ class CreateNode:
 
     def build_position(self):
         for tree in self.trees:
-            for position in UtilityDecider(tree, self.parents).get_formatted_positions():
+            for position in UtilityDecider(tree, "parent", self.parents).get_formatted_positions():
                 self.create_node(tree, position,
                                  UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
 
@@ -73,7 +73,6 @@ class CreateNode:
             count = count + 1
 
             if count == int(position[0]):
-                print(position[0], children)
                 if len(position) == 1:
                     for node in self.nodes:
                         children.update(

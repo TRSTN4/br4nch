@@ -53,7 +53,7 @@ class ReplaceNode:
 
     def replace_node(self):
         for tree in self.trees:
-            for position in UtilityDecider(tree, self.target_nodes.copy()).get_formatted_positions():
+            for position in UtilityDecider(tree, "node", self.target_nodes.copy()).get_formatted_positions():
                 child = self.get_nodes(position,
                                        UtilityLibrarian.existing_trees[tree][list(
                                            UtilityLibrarian.existing_trees[tree])[0]])

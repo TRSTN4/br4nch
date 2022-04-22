@@ -112,7 +112,6 @@ class DisplayNode:
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
                 visual_position = visual_position[:-2]
-
             visual_position = visual_position + "." + str(count)
 
             if self.sensitive:

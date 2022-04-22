@@ -51,7 +51,7 @@ class InvalidTreeNameError(Exception):
                + "' is not valid. Only numbers and/or letters may be used to add a tree."
 
 
-class InvalidParentError(Exception):
+class InvalidPositionError(Exception):
     __module__ = Exception.__module__
 
     def __init__(self, argument, value):
@@ -59,9 +59,9 @@ class InvalidParentError(Exception):
         self.value = value
 
     def __str__(self):
-        return "The parent: '" + self.value \
-               + "' is not valid. Only numbers and operators may be used to add a parent to the " + self.argument \
-               + " argument."
+        return "The " + self.argument + ": '" + self.value \
+               + "' is not valid. Only numbers, operators and existing nodes can be used to decide the position for " \
+                 "the " + self.argument + " argument."
 
 
 class InvalidSizeError(Exception):

@@ -5,16 +5,17 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InvalidParentError
+from ..utility.utility_handler import InstanceStringError, InvalidPositionError
 
 
 class UtilityDecider:
-    def __init__(self, tree, nodes):
+    def __init__(self, tree, argument, nodes):
         self.tree = tree
+        self.argument = argument
         self.nodes = nodes
 
-        self.positions = FormatNode(self.tree, self.nodes).get_positions()
-        self.formatted_positions = FormatPosition(self.tree, self.positions).get_position_package()
+        self.nodes = FormatNode(self.tree, self.nodes).get_positions()
+        self.formatted_positions = FormatPosition(self.tree, self.argument, self.nodes).get_position_package()
 
     def get_formatted_positions(self):
         return self.formatted_positions
@@ -25,7 +26,8 @@ class FormatNode:
         self.tree = tree
         self.nodes = nodes
 
-        self.positions = []
+        self.select = 0
+        self.position = False
 
         self.manage_nodes()
 
@@ -41,6 +43,23 @@ class FormatNode:
                              UtilityLibrarian.existing_trees[self.tree][list(
                                  UtilityLibrarian.existing_trees[self.tree])[0]], "")
 
+        for node in self.nodes.copy():
+            if "#" in node:
+                skip = False
+                for character in node.split("#")[-1]:
+                    if not character.isnumeric():
+                        skip = True
+
+                if not skip:
+                    stripped_node = ""
+                    for part in node.rsplit("#", 1)[:1]:
+                        stripped_node = stripped_node + part
+                    self.format_node_number(stripped_node, levels, [0],
+                                            UtilityLibrarian.existing_trees[self.tree][list(
+                                                UtilityLibrarian.existing_trees[self.tree])[0]], "",
+                                            int(node.split("#")[-1]), node)
+            self.select = 0
+
     def elevator(self, levels, nested_dictionary, height=0):
         for children in nested_dictionary.values():
             levels.append(height)
@@ -54,7 +73,6 @@ class FormatNode:
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
                 visual_position = visual_position[:-2]
-
             visual_position = visual_position + "." + str(count)
 
             if parent[:-15].lower() == node.lower():
@@ -64,18 +82,79 @@ class FormatNode:
                     else:
                         break
 
-                self.positions.append(visual_position)
+                stripped_node = ""
+                for character in node.split("."):
+                    stripped_node = stripped_node + character
+
+                skip = False
+                for character in stripped_node:
+                    if not character.isnumeric():
+                        skip = True
+
+                if not skip:
+                    self.validate_position(node.split("."),
+                                           UtilityLibrarian.existing_trees[self.tree][list(
+                                               UtilityLibrarian.existing_trees[self.tree])[0]])
+
+                if skip or not self.position:
+                    self.position = False
+                    self.nodes.append(visual_position)
+
+                    if node in self.nodes:
+                        self.nodes.remove(node)
 
             if children:
                 self.format_node(node, levels, trace, children, visual_position)
 
+    def validate_position(self, position, nested_dictionary):
+        count = 0
+        for parent, children in nested_dictionary.items():
+            count = count + 1
+
+            if count == int(position[0]):
+                if len(position) == 1:
+                    self.position = True
+                else:
+                    if children:
+                        position.pop(0)
+                        return self.validate_position(position, children)
+
     def get_positions(self):
-        return self.positions
+        return self.nodes
+
+    def format_node_number(self, node, levels, trace, nested_dictionary, visual_position, number=0, full_node=""):
+        count = 0
+        for parent, children in nested_dictionary.items():
+            count = count + 1
+            trace[0] = trace[0] + 1
+
+            if levels[trace[0]] <= levels[trace[0] - 1]:
+                visual_position = visual_position[:-2]
+            visual_position = visual_position + "." + str(count)
+
+            if parent[:-15].lower() == node.lower():
+                if full_node:
+                    self.select = self.select + 1
+
+                if not number or number == self.select:
+                    for character in visual_position:
+                        if character == ".":
+                            visual_position = visual_position[1:]
+                        else:
+                            break
+
+                    self.nodes.append(visual_position)
+                    if full_node in self.nodes:
+                        self.nodes.remove(full_node)
+
+            if children:
+                self.format_node_number(node, levels, trace, children, visual_position, number, full_node)
 
 
 class FormatPosition:
-    def __init__(self, tree, position_package):
+    def __init__(self, tree, argument, position_package):
         self.tree = tree
+        self.argument = argument
         self.position_package = position_package
 
         self.format_position(self.position_package)
@@ -85,20 +164,19 @@ class FormatPosition:
             if isinstance(position_package[number], list):
                 for position in position_package[number]:
                     if not isinstance(position, str):
-                        raise InstanceStringError("position", position)
+                        raise InstanceStringError(self.argument, position)
                     else:
                         for character in position:
                             if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">",
                                                  "<"]:
-                                print(position_package[number])
-                                raise InvalidParentError("position", position_package[number])
+                                raise InvalidPositionError(self.argument, position_package[number])
             else:
                 if not isinstance(position_package[number], str):
                     raise InstanceStringError("pos", position_package[number])
                 else:
                     for character in position_package[number]:
                         if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">", "<"]:
-                            raise InvalidParentError("position", position_package[number])
+                            raise InvalidPositionError(self.argument, position_package[number])
 
             if "." in position_package[number]:
                 position_package[number] = position_package[number].split(".")
@@ -111,7 +189,7 @@ class FormatPosition:
                 if "/" in position_package[number][position]:
                     for multiple_position in position_package[number][position].split("/"):
                         if not multiple_position:
-                            raise InvalidParentError("position", position_package[number][position])
+                            raise InvalidPositionError(self.argument, position_package[number][position])
 
                     for count in range(len(position_package[number][position].split("/"))):
                         position_package.append(position_package[number].copy())
@@ -140,7 +218,7 @@ class FormatPosition:
                     if ">" in position_package[number][position]:
                         for including_position in position_package[number][position].split(">"):
                             if not including_position:
-                                raise InvalidParentError("position", position_package[number][position])
+                                raise InvalidPositionError(self.argument, position_package[number][position])
 
                     including_positions = position_package[number][position].split(">")
                     total_including_positions = len(including_positions)
@@ -160,7 +238,7 @@ class FormatPosition:
                     if "<" in position_package[number][position]:
                         for excluding_position in position_package[number][position].split("<"):
                             if not excluding_position:
-                                raise InvalidParentError("position", position_package[number][position])
+                                raise InvalidPositionError(self.argument, position_package[number][position])
 
                     excluding_positions = []
 
