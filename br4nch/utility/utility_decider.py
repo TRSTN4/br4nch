@@ -15,10 +15,14 @@ class UtilityDecider:
         self.nodes = nodes
 
         self.nodes = FormatNode(self.tree, self.nodes).get_positions()
-        self.formatted_positions = FormatPosition(self.tree, self.argument, self.nodes).get_position_package()
+        self.positions = FormatPosition(self.tree, self.argument, self.nodes).get_position_package()
 
     def get_formatted_positions(self):
-        return self.formatted_positions
+        for package in self.positions:
+            while "" in package:
+                package.remove("")
+
+        return self.positions
 
 
 class FormatNode:
@@ -52,12 +56,19 @@ class FormatNode:
 
                 if not skip:
                     stripped_node = ""
-                    for part in node.rsplit("#", 1)[:1]:
-                        stripped_node = stripped_node + part
-                    self.format_node_number(stripped_node, levels, [0],
-                                            UtilityLibrarian.existing_trees[self.tree][list(
-                                                UtilityLibrarian.existing_trees[self.tree])[0]], "",
-                                            int(node.split("#")[-1]), node)
+
+                    split_node = node.rsplit("#", 1)
+
+                    while "" in split_node:
+                        split_node.remove("")
+
+                    if len(split_node) > 1:
+                        for part in node.rsplit("#", 1)[:1]:
+                            stripped_node = stripped_node + part
+                        self.format_node_number(stripped_node, levels, [0],
+                                                UtilityLibrarian.existing_trees[self.tree][list(
+                                                    UtilityLibrarian.existing_trees[self.tree])[0]], "",
+                                                int(node.split("#")[-1]), node)
             self.select = 0
 
     def elevator(self, levels, nested_dictionary, height=0):
