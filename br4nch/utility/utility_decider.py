@@ -55,13 +55,11 @@ class FormatNode:
                         skip = True
 
                 if not skip:
-                    stripped_node = ""
-
                     split_node = node.rsplit("#", 1)
-
                     while "" in split_node:
                         split_node.remove("")
 
+                    stripped_node = ""
                     if len(split_node) > 1:
                         for part in node.rsplit("#", 1)[:1]:
                             stripped_node = stripped_node + part
