@@ -11,7 +11,7 @@ from ..utility.utility_decider import UtilityDecider
 
 
 class CreateNode:
-    def __init__(self, tree, node, parent):
+    def __init__(self, tree, node, parent=""):
         self.trees = tree
         self.nodes = node
         self.parents = parent
@@ -51,6 +51,9 @@ class CreateNode:
                     self.nodes[index] = self.nodes[index][:-1]
                 else:
                     break
+
+        if not self.parents:
+            self.parents = "0"
 
         if not isinstance(self.parents, list):
             self.parents = [self.parents]
