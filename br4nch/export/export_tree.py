@@ -59,14 +59,14 @@ class ExportTree:
                 os.mkdir(self.output_folder + "/br4nch-" + tree)
 
             with open(
-                    self.output_folder + "/br4nch-" + tree + "/branch-" + tree + ".br4nch", 'w', encoding='utf-8') \
+                    self.output_folder + "/br4nch-" + tree + "/tree-" + tree + ".br4nch", 'w', encoding='utf-8') \
                     as file:
                 file.write("tag=tree\n")
                 file.write(str({tree: UtilityLibrarian.existing_trees[tree]}))
 
             if self.attributes:
                 with open(
-                        self.output_folder + "/br4nch-" + tree + "/package-" + tree + ".br4nch", 'w',
+                        self.output_folder + "/br4nch-" + tree + "/attributes-" + tree + ".br4nch", 'w',
                         encoding='utf-8') as file:
                     file.write("tag=attributes\n")
                     file.write(str(export_attributes))

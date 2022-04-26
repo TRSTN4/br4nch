@@ -13,12 +13,11 @@ from ..utility.utility_decider import UtilityDecider
 
 
 class DuplicateNode:
-    def __init__(self, tree, node, parent, target_tree="", attributes=False, delete=False):
+    def __init__(self, tree, duplicate_node, to_parent="", target_tree="", delete=False):
         self.trees = tree
-        self.nodes = node
-        self.parents = parent
+        self.duplicate_nodes = duplicate_node
+        self.to_parents = to_parent
         self.target_trees = target_tree
-        self.attributes = attributes
         self.delete = delete
 
         self.validate_arguments()
@@ -44,11 +43,14 @@ class DuplicateNode:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.nodes, list):
-            self.nodes = [self.nodes]
+        if not isinstance(self.duplicate_nodes, list):
+            self.duplicate_nodes = [self.duplicate_nodes]
 
-        if not isinstance(self.parents, list):
-            self.parents = [self.parents]
+        if not self.to_parents:
+            self.to_parents = "0"
+
+        if not isinstance(self.to_parents, list):
+            self.to_parents = [self.to_parents]
 
         if self.target_trees:
             if not isinstance(self.target_trees, list):
@@ -70,10 +72,6 @@ class DuplicateNode:
                 if self.target_trees[index].lower() == existing_tree.lower():
                     self.target_trees[index] = existing_tree
 
-        if self.attributes:
-            if not isinstance(self.attributes, bool):
-                raise InstanceBooleanError("attributes", self.attributes)
-
         if self.delete:
             if not isinstance(self.delete, bool):
                 raise InstanceBooleanError("delete", self.delete)
@@ -83,8 +81,9 @@ class DuplicateNode:
             queue_delete = []
             queue_add = []
 
-            for node_position in UtilityDecider(tree, "node", self.nodes.copy()).get_formatted_positions():
-                for parent_position in UtilityDecider(tree, "parent", self.parents.copy()).get_formatted_positions():
+            for node_position in UtilityDecider(tree, "to_parent",
+                                                self.duplicate_nodes.copy()).get_formatted_positions():
+                for parent_position in UtilityDecider(tree, "parent", self.to_parents.copy()).get_formatted_positions():
                     children = self.get_nodes(tree, node_position, [],
                                               UtilityLibrarian.existing_trees[tree][list(
                                                   UtilityLibrarian.existing_trees[tree])[0]])

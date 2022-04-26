@@ -4,6 +4,8 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
+import copy
+
 from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidTreeNameError, \
     DuplicateTreeError, NotExistingTreeError
@@ -43,7 +45,8 @@ class DuplicateTree:
                 raise InstanceBooleanError("attributes", self.attributes)
 
     def duplicate_tree(self):
-        UtilityLibrarian.existing_trees.update({self.new_tree: UtilityLibrarian.existing_trees[self.target_tree]})
+        UtilityLibrarian.existing_trees.update(
+            {self.new_tree: copy.deepcopy(UtilityLibrarian.existing_trees[self.target_tree])})
         UtilityLibrarian.existing_output.update({self.new_tree: []})
 
         if self.attributes:
@@ -52,6 +55,6 @@ class DuplicateTree:
             UtilityLibrarian.existing_symbols.update(
                 {self.new_tree: UtilityLibrarian.existing_symbols[self.target_tree]})
         else:
-            UtilityLibrarian.existing_uids.update({self.new_tree: []})
+            UtilityLibrarian.existing_uids.update({self.new_tree: UtilityLibrarian.existing_uids[self.target_tree]})
             UtilityLibrarian.existing_sizes.update({self.new_tree: 0})
             UtilityLibrarian.existing_symbols.update({self.new_tree: {"line": "┃", "split": "┣━", "end": "┗━"}})

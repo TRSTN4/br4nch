@@ -53,6 +53,8 @@ class DeleteNode:
             for delete_child in queue_delete:
                 if delete_child:
                     for parent_node, child_nodes in delete_child.items():
+                        print(parent_node[-10:])
+                        print(UtilityLibrarian.existing_uids)
                         UtilityLibrarian.existing_uids[tree].remove(str(parent_node[-10:]))
 
                         self.delete_node_attributes(tree, child_nodes[parent_node])

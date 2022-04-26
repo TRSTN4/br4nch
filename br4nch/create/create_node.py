@@ -78,8 +78,7 @@ class CreateNode:
             if count == int(position[0]):
                 if len(position) == 1:
                     for node in self.nodes:
-                        children.update(
-                            {node + UtilityGenerator(tree).generate_uid(): {}})
+                        children.update({node + UtilityGenerator(tree).generate_uid(): {}})
                     return
                 else:
                     if children:
