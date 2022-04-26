@@ -42,13 +42,11 @@ class ReplaceTree:
 
         UtilityLibrarian.existing_trees[self.new_tree] = UtilityLibrarian.existing_trees.pop(self.target_tree)
         UtilityLibrarian.existing_output[self.new_tree] = UtilityLibrarian.existing_output.pop(self.target_tree)
-        UtilityLibrarian.existing_uids[self.new_tree] = UtilityLibrarian.existing_uids.pop(self.target_tree)
         UtilityLibrarian.existing_sizes[self.new_tree] = UtilityLibrarian.existing_sizes.pop(self.target_tree)
         UtilityLibrarian.existing_symbols[self.new_tree] = UtilityLibrarian.existing_symbols.pop(self.target_tree)
 
         for index in list(UtilityLibrarian.existing_trees)[index:-1]:
             UtilityLibrarian.existing_trees[index] = UtilityLibrarian.existing_trees.pop(index)
             UtilityLibrarian.existing_output[index] = UtilityLibrarian.existing_output.pop(index)
-            UtilityLibrarian.existing_uids[index] = UtilityLibrarian.existing_uids.pop(index)
             UtilityLibrarian.existing_sizes[index] = UtilityLibrarian.existing_sizes.pop(index)
             UtilityLibrarian.existing_symbols[index] = UtilityLibrarian.existing_symbols.pop(index)

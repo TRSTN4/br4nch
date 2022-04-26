@@ -50,11 +50,9 @@ class DuplicateTree:
         UtilityLibrarian.existing_output.update({self.new_tree: []})
 
         if self.attributes:
-            UtilityLibrarian.existing_uids.update({self.new_tree: UtilityLibrarian.existing_uids[self.target_tree]})
             UtilityLibrarian.existing_sizes.update({self.new_tree: UtilityLibrarian.existing_sizes[self.target_tree]})
             UtilityLibrarian.existing_symbols.update(
                 {self.new_tree: UtilityLibrarian.existing_symbols[self.target_tree]})
         else:
-            UtilityLibrarian.existing_uids.update({self.new_tree: UtilityLibrarian.existing_uids[self.target_tree]})
             UtilityLibrarian.existing_sizes.update({self.new_tree: 0})
             UtilityLibrarian.existing_symbols.update({self.new_tree: {"line": "┃", "split": "┣━", "end": "┗━"}})

@@ -7,6 +7,5 @@
 class UtilityLibrarian:
     existing_trees = {}
     existing_output = {}
-    existing_uids = {}
     existing_sizes = {}
     existing_symbols = {}

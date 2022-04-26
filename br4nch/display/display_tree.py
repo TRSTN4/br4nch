@@ -52,6 +52,5 @@ class DisplayTree:
             if self.delete:
                 del UtilityLibrarian.existing_trees[tree]
                 del UtilityLibrarian.existing_output[tree]
-                del UtilityLibrarian.existing_uids[tree]
                 del UtilityLibrarian.existing_sizes[tree]
                 del UtilityLibrarian.existing_symbols[tree]

@@ -81,7 +81,6 @@ class DisplayAssist:
             UtilityLibrarian.existing_trees[tree_uid][str("0: " + list(UtilityLibrarian.existing_trees[tree])[0])] = \
                 UtilityLibrarian.existing_trees[tree_uid].pop(list(UtilityLibrarian.existing_trees[tree_uid])[0])
             UtilityLibrarian.existing_output.update({tree_uid: []})
-            UtilityLibrarian.existing_uids.update({tree_uid: []})
             UtilityLibrarian.existing_sizes.update({tree_uid: self.size})
             UtilityLibrarian.existing_symbols.update(
                 {tree_uid: {"line": self.line, "split": self.split, "end": self.end}})

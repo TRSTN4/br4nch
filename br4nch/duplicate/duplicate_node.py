@@ -46,9 +46,6 @@ class DuplicateNode:
         if not isinstance(self.duplicate_nodes, list):
             self.duplicate_nodes = [self.duplicate_nodes]
 
-        if not self.to_parents:
-            self.to_parents = "0"
-
         if not isinstance(self.to_parents, list):
             self.to_parents = [self.to_parents]
 
@@ -83,7 +80,8 @@ class DuplicateNode:
 
             for node_position in UtilityDecider(tree, "to_parent",
                                                 self.duplicate_nodes.copy()).get_formatted_positions():
-                for parent_position in UtilityDecider(tree, "parent", self.to_parents.copy()).get_formatted_positions():
+                for parent_position in UtilityDecider(tree, "to_parent",
+                                                      self.to_parents.copy()).get_formatted_positions():
                     children = self.get_nodes(tree, node_position, [],
                                               UtilityLibrarian.existing_trees[tree][list(
                                                   UtilityLibrarian.existing_trees[tree])[0]])
@@ -101,9 +99,6 @@ class DuplicateNode:
                 for delete_node in queue_delete:
                     if delete_node:
                         for parent_node, child_nodes in delete_node.items():
-                            UtilityLibrarian.existing_uids[tree].remove(str(parent_node[-10:]))
-
-                            self.delete_node_attributes(tree, child_nodes[parent_node])
                             del child_nodes[parent_node]
 
             for add_node in queue_add:
@@ -134,14 +129,6 @@ class DuplicateNode:
                     if children:
                         parent_position.pop(0)
                         return self.get_nodes(tree, node_position, parent_position, children)
-
-    def delete_node_attributes(self, tree, nested_dictionary):
-        for parent, children in nested_dictionary.items():
-            if parent[-10:] in UtilityLibrarian.existing_uids[tree]:
-                UtilityLibrarian.existing_uids[tree].remove(str(parent[-10:]))
-
-            if children:
-                self.delete_node_attributes(tree, children)
 
     def change_node_uid(self, tree, nested_dictionary):
         for parent, children in nested_dictionary.copy().items():

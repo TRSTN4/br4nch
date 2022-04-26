@@ -52,8 +52,7 @@ class ExportTree:
 
     def export_tree(self):
         for tree in self.trees:
-            export_attributes = {tree: [UtilityLibrarian.existing_uids[tree], UtilityLibrarian.existing_sizes[tree],
-                                        UtilityLibrarian.existing_symbols[tree]]}
+            export_attributes = {tree: [UtilityLibrarian.existing_sizes[tree], UtilityLibrarian.existing_symbols[tree]]}
 
             if not os.path.isdir(self.output_folder + "/br4nch-" + tree):
                 os.mkdir(self.output_folder + "/br4nch-" + tree)

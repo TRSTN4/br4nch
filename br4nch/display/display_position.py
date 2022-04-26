@@ -68,7 +68,6 @@ class DisplayPosition:
 
             UtilityLibrarian.existing_trees.update({tree_uid: {"Get Position Result:": {}}})
             UtilityLibrarian.existing_output.update({tree_uid: []})
-            UtilityLibrarian.existing_uids.update({tree_uid: []})
             UtilityLibrarian.existing_sizes.update({tree_uid: 0})
             UtilityLibrarian.existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
 

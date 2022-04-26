@@ -60,12 +60,10 @@ class LoadTree:
 
         if self.attributes_file and list(self.attributes_file)[0] == list(self.tree_file)[0] \
                 and len(list(self.attributes_file.values())[0]) == 6:
-            UtilityLibrarian.existing_uids.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][0]})
-            UtilityLibrarian.existing_sizes.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][1]})
+            UtilityLibrarian.existing_sizes.update({list(self.tree_file)[0]: list(self.attributes_file.values())[0][0]})
             UtilityLibrarian.existing_symbols.update({list(
-                self.tree_file)[0]: list(self.attributes_file.values())[0][2]})
+                self.tree_file)[0]: list(self.attributes_file.values())[0][1]})
         else:
-            UtilityLibrarian.existing_uids.update({list(self.tree_file)[0]: []})
             UtilityLibrarian.existing_sizes.update({list(self.tree_file)[0]: 0})
             UtilityLibrarian.existing_symbols.update({list(
                 self.tree_file)[0]: {"line": "┃", "split": "┣━", "end": "┗━"}})

@@ -8,7 +8,6 @@ import copy
 
 from ..utility.utility_librarian import UtilityLibrarian
 from ..utility.utility_handler import InstanceStringError, InvalidPositionError, NotExistingTreeError
-from ..utility.utility_generator import UtilityGenerator
 from ..utility.utility_decider import UtilityDecider
 
 
@@ -93,7 +92,6 @@ class MoveNode:
 
             for add_node in queue_add:
                 if add_node and add_node[0] and add_node[1]:
-                    self.change_nodes_uid(list(add_node[1])[0], add_node[0])
                     add_node[1][list(add_node[1])[0]].update(add_node[0])
 
     def get_nodes(self, tree, node_position, parent_position, nested_dictionary):
@@ -119,12 +117,3 @@ class MoveNode:
                     if children:
                         parent_position.pop(0)
                         return self.get_nodes(tree, node_position, parent_position, children)
-
-    def change_nodes_uid(self, tree, nested_dictionary):
-        for parent_node, children in nested_dictionary.copy().items():
-            parent_node_uid = parent_node[:-15] + UtilityGenerator(tree).generate_uid()
-
-            nested_dictionary[parent_node_uid] = nested_dictionary.pop(parent_node)
-
-            if children:
-                self.change_nodes_uid(tree, children)

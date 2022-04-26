@@ -140,7 +140,6 @@ class LoadFolder:
                         path.split("/")[path_length:][number], [self.header] + previous_file, tree_structure)
 
             UtilityLibrarian.existing_output.update({tree: []})
-            UtilityLibrarian.existing_uids.update({tree: []})
             UtilityLibrarian.existing_sizes.update({tree: 0})
             UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
 
