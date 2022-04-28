@@ -53,21 +53,21 @@ class DuplicateNode:
             if not isinstance(self.target_trees, list):
                 self.target_trees = [self.target_trees]
 
-        if "*" in self.target_trees:
-            self.target_trees.clear()
-            for existing_tree in list(UtilityLibrarian.existing_trees):
-                self.target_trees.append(existing_tree)
+            if "*" in self.target_trees:
+                self.target_trees.clear()
+                for existing_tree in list(UtilityLibrarian.existing_trees):
+                    self.target_trees.append(existing_tree)
 
-        for index in range(len(self.target_trees)):
-            if not isinstance(self.target_trees[index], str):
-                raise InstanceStringError("target_tree", self.target_trees[index])
+            for index in range(len(self.target_trees)):
+                if not isinstance(self.target_trees[index], str):
+                    raise InstanceStringError("target_tree", self.target_trees[index])
 
-            if self.target_trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.target_trees[index])
+                if self.target_trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
+                    raise NotExistingTreeError(self.target_trees[index])
 
-            for existing_tree in list(UtilityLibrarian.existing_trees):
-                if self.target_trees[index].lower() == existing_tree.lower():
-                    self.target_trees[index] = existing_tree
+                for existing_tree in list(UtilityLibrarian.existing_trees):
+                    if self.target_trees[index].lower() == existing_tree.lower():
+                        self.target_trees[index] = existing_tree
 
         if self.delete:
             if not isinstance(self.delete, bool):
@@ -89,11 +89,16 @@ class DuplicateNode:
                     if children:
                         queue_delete.append(children[1])
 
-                        for sibling in self.target_trees:
-                            queue_add.append([children[0], self.get_nodes(
-                                sibling, [], parent_position,
-                                UtilityLibrarian.existing_trees[sibling][list(
-                                    UtilityLibrarian.existing_trees[sibling])[0]])])
+                        queue_add.append([children[0], self.get_nodes(
+                            tree, [], parent_position, UtilityLibrarian.existing_trees[tree][list(
+                                UtilityLibrarian.existing_trees[tree])[0]])])
+
+                        if self.target_trees:
+                            for sibling in self.target_trees:
+                                queue_add.append([children[0], self.get_nodes(
+                                    sibling, [], parent_position,
+                                    UtilityLibrarian.existing_trees[sibling][list(
+                                        UtilityLibrarian.existing_trees[sibling])[0]])])
 
             if self.delete:
                 for delete_node in queue_delete:
