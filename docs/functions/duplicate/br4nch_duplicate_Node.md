@@ -1,4 +1,4 @@
-# duplicate.layer
+# br4nch.duplicate.Node
 
 To duplicate a layer, use the **following function:**
 

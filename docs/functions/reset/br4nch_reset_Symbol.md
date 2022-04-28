@@ -1,4 +1,4 @@
-# reset.symbol
+# br4nch.reset.Symbol
 
 To reset one or multiple symbol(s), use the **following function:**
 

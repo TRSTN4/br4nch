@@ -1,4 +1,4 @@
-# duplicate.branch
+# br4nch.duplicate.Tree
 
 To duplicate a branch, use the **following function:**
 

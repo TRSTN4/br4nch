@@ -35,28 +35,11 @@
   - [delete.layer](functions/delete/delete.layer.md)
 - Set
 
-  - Paint
-
-    - [set.paint.branch](functions/set/paint/set.paint.branch.md)
-
-    - [set.paint.header](functions/set/paint/set.paint.header.md)
-
-    - [set.paint.layer](functions/set/paint/set.paint.layer.md)
-
   - [set.size](functions/set/set.size.md)
   - [set.symbol](functions/set/set.symbol.md)
 - Reset
 
-  - Paint
-
-    - [reset.paint.branch](functions/reset/paint/reset.paint.branch.md)
-
-    - [reset.paint.header](functions/reset/paint/reset.paint.header.md)
-
-    - [reset.paint.layer](functions/reset/paint/reset.paint.layer.md)
-
   - [reset.size](functions/reset/reset.size.md)
-
   - [reset.symbol](functions/reset/reset.symbol.md)
 - Export
   - [export.branch](functions/export/export.branch.md)
@@ -65,12 +48,9 @@
 - Load
   - [load.branch](functions/load/load.branch.md)
   - [load.folder](functions/load/load.folder.md)
+- Get
+  - [get.layer](functions/get/get.node.md)
+  - [get.position](functions/get/get.position.md)
 - Display
   - [display.assist](functions/display/display.assist.md)
-
   - [display.branch](functions/display/display.branch.md)
-
-  - [display.layer](functions/display/display.layer.md)
-
-  - [display.position](functions/display/display.position.md)
-

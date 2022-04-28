@@ -1,4 +1,4 @@
-# load.folder
+# br4nch.load.Folder
 
 To load an folder, use the **following function:**
 

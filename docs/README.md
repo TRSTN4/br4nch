@@ -8,14 +8,15 @@ You can easily make a simple branch. We recommend reading [Getting Started](guid
 
 ```python
 # Creates the branch with the header.
->>> br4nch.create.branch(branch="MyBranch", header="My Header")
+>>> br4nch.create.Tree(tree="MyBranch", header="My Header")
 
 # Adds multiple layers.
->>> br4nch.create.layer(branch="MyBranch", layer="Hello World!", position="0")
->>> br4nch.create.layer(branch="MyBranch", layer=["Sub-layer 1", "Sub-layer 1"], position="1")
+>>> br4nch.create.Node(tree="MyBranch", node="Hello World!")
+>>> br4nch.create.Node(tree="MyBranch", node=["Sub-layer 1", "Sub-layer 1"],
+                       parent="Hello World!")
 
 # Prints the branch.
->>> br4nch.display.branch(branch="MyBranch")
+>>> br4nch.display.Tree(tree="MyBranch")
 My Header
 ┗━ Hello World!
 ˑˑˑ┣━ Sub layer 1
@@ -41,6 +42,7 @@ pip install br4nch
 - [Reset](https://docs.br4nch.com/functions/reset)
 - [Load](https://docs.br4nch.com/functions/load)
 - [Export](https://docs.br4nch.com/functions/export)
+- [Get](https://docs.br4nch.com/functions/get)
 - [Display](https://docs.br4nch.com/functions/display)
 
 ## 👍 Contribute
@@ -58,5 +60,3 @@ If you want to say **thank you** and/or support the active development of `br4nc
 ## ⚠️ License
 
 `br4nch` is free and open-source software licensed under the [GPL-3.0 License](https://github.com/TRSTN4/br4nch/blob/release/LICENSE).
-Copyright (c) 2021-2022 [TRSTN4](https://github.com/TRSTN4) and [Contributors](https://github.com/TRSTN4/br4nch/graphs/contributors).
-

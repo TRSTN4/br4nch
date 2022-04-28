@@ -1,4 +1,4 @@
-# move.layer
+# br4nch.move.Node
 
 To move a layer, use the **following function:**
 

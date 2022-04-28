@@ -1,4 +1,4 @@
-# export.txt
+# br4nch.export.Text
 
 To export the branch output to an txt file, use the **following function:**
 

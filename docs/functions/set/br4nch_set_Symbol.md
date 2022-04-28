@@ -1,4 +1,4 @@
-# set.symbol
+# br4nch.set.Symbol
 
 To set one or multiple symbol(s), use the **following function:**
 
