@@ -5,52 +5,52 @@
 ## Guides
 
 - [Getting Started](guides/getting_started.md)
-- [Positions](guides/positions.md)
+- [Parents](guides/parents.md)
 - [Operators](guides/operators.md)
-- [Paint](guides/paint.md)
 - [Errors](guides/errors.md)
 
 ## Functions
 
 - Create
 
-  - [create.branch](functions/create/create.branch.md)
+  - [br4nch.create.Tree](functions/create/br4nch_create_Tree.md)
 
-  - [create.layer](functions/create/create.layer.md)
+  - [br4nch.create.Node](functions/create/br4nch_create_Node.md)
 - Duplicate
-  - [duplicate.branch](functions/duplicate/duplicate.branch.md)
+  - [br4nch.duplicate.Tree](functions/duplicate/br4nch_duplicate_Tree.md)
 
-  - [duplicate.layer](functions/duplicate/duplicate.layer.md)
+  - [br4nch.duplicate.Node](functions/duplicate/br4nch_duplicate_Node.md)
 - Move
-  - [move.layer](functions/move/move.layer.md)
+  - [br4nch.move.Node](functions/move/br4nch_move_Node.md)
 - Replace
-  - [replace.branch](functions/replace/replace.branch.md)
+  - [br4nch.replace.Tree](functions/replace/br4nch_replace_Tree.md)
 
-  - [replace.header](functions/replace/replace.header.md)
+  - [br4nch.replace.Header](functions/replace/br4nch_replace_Header.md)
 
-  - [replace.layer](functions/replace/replace.layer.md)
+  - [br4nch.replace.Node](functions/replace/br4nch_replace_Node.md)
 - Delete
-  - [delete.branch](functions/delete/delete.branch.md)
+  - [br4nch.delete.Tree](functions/delete/br4nch_delete_Tree.md)
 
-  - [delete.layer](functions/delete/delete.layer.md)
+  - [br4nch.delete.Node](functions/delete/br4nch_delete_Node.md)
 - Set
 
-  - [set.size](functions/set/set.size.md)
-  - [set.symbol](functions/set/set.symbol.md)
+  - [br4nch.set.Size](functions/set/br4nch_set_Size.md)
+  - [br4nch.set.Symbol](functions/set/br4nch_set_Symbol.md)
 - Reset
 
-  - [reset.size](functions/reset/reset.size.md)
-  - [reset.symbol](functions/reset/reset.symbol.md)
+  - [br4nch.reset.Size](functions/reset/br4nch_reset_Size.md)
+  - [br4nch.reset.Symbol](functions/reset/br4nch_reset_Symbol.md)
 - Export
-  - [export.branch](functions/export/export.branch.md)
+  - [br4nch.export.Tree](functions/export/br4nch_export_Tree.md)
 
-  - [export.txt](functions/export/export.txt.md)
+  - [br4nch.export.Text](functions/export/br4nch_export_Text.md)
 - Load
-  - [load.branch](functions/load/load.branch.md)
-  - [load.folder](functions/load/load.folder.md)
+  - [br4nch.load.Tree](functions/load/br4nch_load_Tree.md)
+  - [br4nch.load.Folder](functions/load/br4nch_load_Folder.md)
 - Get
-  - [get.layer](functions/get/get.node.md)
-  - [get.position](functions/get/get.position.md)
+  - [br4nch.get.Tree](functions/get/br4nch_get_Tree.md)
+  - [br4nch.get.Node](functions/get/br4nch_get_Node.md)
+  - [br4nch.get.Position](functions/get/br4nch_get_Position.md)
 - Display
-  - [display.assist](functions/display/display.assist.md)
-  - [display.branch](functions/display/display.branch.md)
+  - [br4nch.display.Assist](functions/display/br4nch_display_Assist.md)
+  - [br4nch.display.Tree](functions/display/br4nch_display_Tree.md)
