@@ -1,37 +1,56 @@
 # move.Node
 
-To move a layer, use the **following function:**
+To move a node, use the **following function:**
 
-> br4nch.**move**.**layer**(*branch*, *move*, *position*, *put=""*, *paint=False*)
+> br4nch.**move**.**Node**(*tree*, *move_node*, *to_parent*, *target_tree=""*)
 
 **Required argument(s):**
 
-- *branch* - The branch(es) where the layer(s) to be moved are located.
-- *move* - The position(s) of the layer(s) to be moved.
-- *position* - The position where to add the moved layer(s).
+- *tree* - The tree(s) where the node(s) that will be moved are located.
+- *move_node* - The position(s) of the node(s) that will be moved.
 
 **Optional argument(s):**
 
-- *put* -  The branch where the copied layer(s) will be placed at the chosen position.
-- *paint* - If this argument is 'True', the paint is copied and linked to the moved layer.
+- *to_parent* - The position/parent where to move the node(s) to.
+- *target_tree* -  The tree where the copied node(s) will get placed at the chosen position.
 
 **Guide:**
 
-> To move a layer, specify the branch name, the layer you want to move in the `move` argument and specify the position to move the layer(s) to in the `position` argument.
->
-> *For more information about positions, head to [positions](../../guides/positions.md).*
+> To move a node, specify the tree name and the node you want to copy in the `move_node` argument.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
 > ┃ˑˑ┗━ Series
 > ┗━ Prime Video
 > 
-> >>> br4nch.move.layer(branch="Stream", move="1.1", position="2")
+> >>> br4nch.move.Node(tree="Stream", move_node="Movies")
 > 
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
+> Movies & Series
+> ┣━ Netflix
+> ┃ˑˑ┗━ Series
+> ┣━ Prime Video
+> ┗━ Movies
+> ```
+>
+> You can also specify the parent where the node should be moved to in the tree using the `to_parent` argument. 
+>
+> *For more information about parents/positions, head to [positions](../../guides/positions.md).*
+>
+> ```python
+> >>> br4nch.display.Tree(tree="Stream")
+> Movies & Series
+> ┣━ Netflix
+> ┃ˑˑ┗━ Series
+> ┣━ Prime Video
+> ┗━ Movies
+> 
+> >>> br4nch.move.Node(tree="Stream", move_node="Movies", to_parent="Prime Video")
+> 
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┗━ Series
@@ -39,10 +58,10 @@ To move a layer, use the **following function:**
 > ˑˑˑ┗━ Movies
 > ```
 >
-> To move the layer(s) to another existing branch, specify the branch name the layer(s) should go to in the `put` argument.
+> To move the node(s) to another existing tree, specify the tree name where the node(s) should go to in the `target_tree` argument.
 >
 > ```python
-> >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
+> >>> br4nch.display.Tree(tree=["Stream", "MyTree"])
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -54,9 +73,9 @@ To move a layer, use the **following function:**
 > ˑˑˑ┗━ Dirt
 > ˑˑˑˑˑˑ┗━ Stone
 > 
-> >>> br4nch.move.layer(branch="Stream", move="1.1", position="0", put="MyBranch")
+> >>> br4nch.move.Node(tree="Stream", move_node="Movies", target_tree="MyTree")
 > 
-> >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
+> >>> br4nch.display.Tree(tree=["Stream", "MyTree"])
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┗━ Series
@@ -69,32 +88,10 @@ To move a layer, use the **following function:**
 > ┗━ Movies
 > ```
 >
-> To take the paint from the moved layer(s) to the new position(s), set the `paint` argument to `True`.
+> To move the node(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream")
-> Movies & Series
-> ┣━ Netflix
-> ┃ˑˑ┣━ Movies
-> ┃ˑˑ┗━ Series
-> ┗━ Prime Video
-> ˑˑˑ┗━ Movies
-> 
-> >>> br4nch.move.layer(branch="Stream", move="1.2", position="2", paint=True)
-> 
-> >>> br4nch.display.branch(branch="Stream")
-> Movies & Series
-> ┣━ Netflix
-> ┃ˑˑ┗━ Movies
-> ┗━ Prime Video
-> ˑˑˑ┣━ Movies
-> ˑˑˑ┗━ Series
-> ```
->
-> To move the position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
->
-> ```python
-> >>> br4nch.display.branch(branch=["Cars", "Electronics"])
+> >>> br4nch.display.Tree(tree=["Cars", "Electronics"])
 > Garage
 > ┗━ Cars
 > ˑˑˑ┣━ Mercedes
@@ -107,9 +104,9 @@ To move a layer, use the **following function:**
 > ˑˑˑ┣━ Steel Series
 > ˑˑˑ┗━ Omen
 > 
-> >>> br4nch.move.layer(branch=["Cars", "Electronics"], move="1.1", position="2")
+> >>> br4nch.move.Node(tree=["Cars", "Electronics"], move_node="1.1", to_parent="2")
 > 
-> >>> br4nch.display.branch(branch="Cars")
+> >>> br4nch.display.Tree(tree="Cars")
 > Garage
 > ┣━ Cars
 > ┃ˑˑ┣━ Mercedes
@@ -125,19 +122,19 @@ To move a layer, use the **following function:**
 > ┗━ Microsoft
 > ```
 >
-> To move multiple layers in the same function call, you can use a list for the `move` argument.
+> To move multiple nodes in the same function call, you can use a list for the `move_node` argument.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Fruits")
+> >>> br4nch.display.Tree(tree="Fruits")
 > Fruits
 > ┣━ Trees
 > ┃ˑˑ┣━ Apple
 > ┃ˑˑ┗━ Pear
 > ┗━ Plant
 > 
-> >>> br4nch.move.layer(branch="Fruits", move=["1.1", "1,2"], position="2")
+> >>> br4nch.move.Node(tree="Fruits", move_node=["Apple", "Pear"], to_parent="Plant")
 > 
-> >>> br4nch.display.branch(branch="Fruits")
+> >>> br4nch.display.Tree(tree="Fruits")
 > Fruits
 > ┣━ Trees
 > ┃ˑˑ┣━ Apple
