@@ -2,21 +2,21 @@
 
 To set an size, use the **following function:**
 
-> br4nch.**set**.**size**(*branch*, *size*)
+> br4nch.**set**.**Size**(*tree*, *size*)
 
 **Required argument(s):**
 
-- branch - The branch(es) where the symbols are added.
-- size - The size of the space in the branch structure.
+- tree - The tree(s) where the symbols are added.
+- size - The size of the space in the tree structure.
 
 **Guide:**
 
-> To add sizes, you must specify the name of the branch(es) and the size of the `size` argument.
+> To add sizes, you must specify the name of the tree(s) and the size of the `size` argument.
 >
 > ```python
-> >>> br4nch.set.size(branch="MyBranch", size=1)
+> >>> br4nch.set.Size(tree="MyTree", size=1)
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > Just a header
 > ┃
 > ┣━━ First layer
@@ -28,10 +28,10 @@ To set an size, use the **following function:**
 > ┗━━ Second layer
 > ```
 >
-> To set the size for multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the size for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.set.size(branch=["BranchOne", "BranchTwo"], size=1)
+> >>> br4nch.set.Size(tree=["TreeOne", "TreeTwo"], size=1)
 > ```
 
 **Possible error(s):**

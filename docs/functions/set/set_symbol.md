@@ -2,11 +2,11 @@
 
 To set one or multiple symbol(s), use the **following function:**
 
-> br4nch.**set**.**symbol**(*branch*, *line=""*, *split=""*, *end=""*)
+> br4nch.**set**.**Symbol**(*tree*, *line=""*, *split=""*, *end=""*)
 
 **Required argument(s):**
 
-- *branch* - The branch where the symbols are set.
+- *tree* - The tree where the symbols are set.
 
 **Optional argument(s):**
 
@@ -16,12 +16,12 @@ To set one or multiple symbol(s), use the **following function:**
 
 **Guide:**
 
-> To add symbols, you must specify the name of the branch(es) and symbol(s) argument(s).
+> To add symbols, you must specify the name of the tree(s) and symbol(s) argument(s).
 >
 > ```python
-> >>> br4nch.set.symbol(branch="Streaming", line="║", split="╠═", end="╚═")
+> >>> br4nch.set.Symbol(tree="Streaming", line="║", split="╠═", end="╚═")
 > 
-> >>> br4nch.display.branch(branch="Streaming")
+> >>> br4nch.display.Tree(tree="Streaming")
 > Movies & Series
 > ╠═ Netflix
 > ║ˑˑ╠═ Movies
@@ -37,10 +37,10 @@ To set one or multiple symbol(s), use the **following function:**
 > ˑˑˑˑˑˑ╚═ The Walking Dead
 > ```
 >
-> To set the symbol(s) for multiple branches in the same function call, you can use a list for the `branch` argument.
+> To set the symbol(s) for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.set.symbol(branch=["BranchOne", "BranchTwo"], line="║", split="╠═", end="╚═")
+> >>> br4nch.set.Symbol(tree=["TreeOne", "TreeTwo"], line="║", split="╠═", end="╚═")
 > ```
 
 **Possible error(s):**
