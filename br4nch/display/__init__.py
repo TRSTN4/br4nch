@@ -6,5 +6,3 @@
 
 from .display_tree import DisplayTree as Tree
 from .display_assist import DisplayAssist as Assist
-from .display_position import DisplayPosition as Position
-from .display_node import DisplayNode as Node

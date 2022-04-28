@@ -68,7 +68,7 @@ class CreateNode:
         if position[0] == "0":
             for node in self.nodes:
                 UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]].update(
-                    {node + UtilityGenerator(tree).generate_uid(): {}})
+                    {node + UtilityGenerator().generate_uid(): {}})
             return
 
         count = 0
@@ -78,7 +78,7 @@ class CreateNode:
             if count == int(position[0]):
                 if len(position) == 1:
                     for node in self.nodes:
-                        children.update({node + UtilityGenerator(tree).generate_uid(): {}})
+                        children.update({node + UtilityGenerator().generate_uid(): {}})
                     return
                 else:
                     if children:

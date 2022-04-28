@@ -4,5 +4,6 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from .log_tree import LogTree as Tree
-from .log_node import LogNode as Node
+from .get_tree import GetTree as Tree
+from .get_node import GetNode as Node
+from .get_position import GetPosition as Position

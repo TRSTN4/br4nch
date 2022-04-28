@@ -10,7 +10,7 @@ from ..utility.utility_librarian import UtilityLibrarian
 
 
 class UtilityGenerator:
-    def __init__(self, tree):
+    def __init__(self, tree=False):
         self.tree = tree
 
         self.generate_uid()

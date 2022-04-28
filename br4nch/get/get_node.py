@@ -4,17 +4,17 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
-from ..utility.utility_generator import UtilityGenerator
-from ..utility.utility_decider import UtilityDecider
-from ..display.display_tree import DisplayTree
+from br4nch.utility.utility_librarian import UtilityLibrarian
+from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingTreeError
+from br4nch.utility.utility_generator import UtilityGenerator
+from br4nch.display.display_tree import DisplayTree
 
 
-class DisplayPosition:
-    def __init__(self, tree, position="", beautify=True):
+class GetNode:
+    def __init__(self, tree, node="", sensitive=False, beautify=True):
         self.trees = tree
-        self.positions = position
+        self.nodes = node
+        self.sensitive = sensitive
         self.beautify = beautify
 
         self.validate_arguments()
@@ -40,9 +40,17 @@ class DisplayPosition:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if self.positions:
-            if not isinstance(self.positions, list):
-                self.positions = [self.positions]
+        if self.nodes:
+            if not isinstance(self.nodes, list):
+                self.nodes = [self.nodes]
+
+            for node in self.nodes:
+                if not isinstance(node, str):
+                    raise InstanceStringError("node", node)
+
+        if self.sensitive:
+            if not isinstance(self.sensitive, bool):
+                raise InstanceBooleanError("sensitive", self.sensitive)
 
         if self.beautify:
             if not isinstance(self.beautify, bool):
@@ -52,32 +60,24 @@ class DisplayPosition:
         tree_package = []
 
         for tree in self.trees:
-            if self.positions:
-                for position in UtilityDecider(tree, "position", self.positions.copy()).get_formatted_positions():
-                    visual_position = ""
-                    for number in position:
-                        visual_position = visual_position + "." + number
+            levels = [0]
+            self.elevator(levels, UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
+            levels.append(0)
 
-                    tree_package = self.get_position(tree, position, visual_position[1:],
-                                                     UtilityLibrarian.existing_trees[tree][list(
-                                                         UtilityLibrarian.existing_trees[tree])[0]], tree_package)
+            if self.nodes:
+                for node in self.nodes:
+                    tree_package = self.get_node(tree, node, levels, [0],
+                                                 UtilityLibrarian.existing_trees[tree][list(
+                                                     UtilityLibrarian.existing_trees[tree])[0]], tree_package, "")
             else:
-                levels = [0]
-                self.elevator(levels,
-                              UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
-                levels.append(0)
-
-                tree_package = self.get_all_positions(tree, levels, [0],
-                                                      UtilityLibrarian.existing_trees[tree][list(
-                                                          UtilityLibrarian.existing_trees[tree])[0]], tree_package, "")
+                tree_package = self.get_all_nodes(tree, levels, [0],
+                                                  UtilityLibrarian.existing_trees[tree][list(
+                                                      UtilityLibrarian.existing_trees[tree])[0]], tree_package, "")
 
         if tree_package and self.beautify:
-            while True:
-                tree_uid = UtilityGenerator("-").generate_uid()
-                if tree_uid not in UtilityLibrarian.existing_trees:
-                    break
+            tree_uid = UtilityGenerator(True).generate_uid()
 
-            UtilityLibrarian.existing_trees.update({tree_uid: {"Get Position Result:": {}}})
+            UtilityLibrarian.existing_trees.update({tree_uid: {"Get Node Result:": {}}})
             UtilityLibrarian.existing_output.update({tree_uid: []})
             UtilityLibrarian.existing_sizes.update({tree_uid: 0})
             UtilityLibrarian.existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
@@ -102,30 +102,51 @@ class DisplayPosition:
 
             DisplayTree(tree_uid, True)
 
-    def get_position(self, tree, position, visual_position, nested_dictionary, tree_package):
-        count = 0
-        for parent, children in nested_dictionary.items():
-            count = count + 1
-
-            if count == int(position[0]):
-                if len(position) == 1:
-                    if self.beautify:
-                        tree_package.append([tree, visual_position, parent[:-15]])
-                    else:
-                        print(parent[:-15])
-                else:
-                    if children:
-                        position.pop(0)
-                        return self.get_position(tree, position, visual_position, children, tree_package)
-
-        return tree_package
-
     def elevator(self, levels, nested_dictionary, height=0):
         for children in nested_dictionary.values():
             levels.append(height)
             self.elevator(levels, children, height + 1)
 
-    def get_all_positions(self, tree, levels, trace, nested_dictionary, tree_package, visual_position):
+    def get_node(self, tree, node, levels, trace, nested_dictionary, tree_package, visual_position):
+        count = 0
+        for parent, children in nested_dictionary.items():
+            count = count + 1
+
+            trace[0] = trace[0] + 1
+
+            if levels[trace[0]] <= levels[trace[0] - 1]:
+                visual_position = visual_position[:-2]
+            visual_position = visual_position + "." + str(count)
+
+            if self.sensitive:
+                if parent[:-15] == node:
+                    for character in visual_position:
+                        if character == ".":
+                            visual_position = visual_position[1:]
+                        else:
+                            break
+
+                    tree_package.append([tree, parent[:-15], visual_position])
+                    if not self.beautify:
+                        print(visual_position)
+            else:
+                if parent[:-15].lower() == node.lower():
+                    for character in visual_position:
+                        if character == ".":
+                            visual_position = visual_position[1:]
+                        else:
+                            break
+
+                    tree_package.append([tree, parent[:-15], visual_position])
+                    if not self.beautify:
+                        print(visual_position)
+
+            if children:
+                self.get_node(tree, node, levels, trace, children, tree_package, visual_position)
+
+        return tree_package
+
+    def get_all_nodes(self, tree, levels, trace, nested_dictionary, tree_package, visual_position):
         count = 0
         for parent, children in nested_dictionary.items():
             count = count + 1
@@ -142,27 +163,27 @@ class DisplayPosition:
                 else:
                     break
 
-            tree_package.append([tree, visual_position, parent[:-15]])
+            tree_package.append([tree, parent[:-15], visual_position])
             if not self.beautify:
                 print(visual_position)
 
             if children:
-                self.get_all_positions(tree, levels, trace, children, tree_package, visual_position)
+                self.get_all_nodes(tree, levels, trace, children, tree_package, visual_position)
 
         return tree_package
 
     def update_tree(self, tree, nested_dictionary, height=0):
         for parent, children in nested_dictionary.copy().items():
             if height == 1:
-                nested_dictionary["Tree: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                nested_dictionary["Tree: " + parent + UtilityGenerator().generate_uid()] = \
                     nested_dictionary.pop(parent)
 
             if height == 2:
-                nested_dictionary["Position: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                nested_dictionary["Node: " + parent + UtilityGenerator().generate_uid()] = \
                     nested_dictionary.pop(parent)
 
             if height == 3:
-                nested_dictionary["Node: " + parent + UtilityGenerator(tree).generate_uid()] = \
+                nested_dictionary["Position: " + parent + UtilityGenerator().generate_uid()] = \
                     nested_dictionary.pop(parent)
 
             if children:

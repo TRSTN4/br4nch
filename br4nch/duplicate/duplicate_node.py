@@ -132,7 +132,7 @@ class DuplicateNode:
 
     def change_node_uid(self, tree, nested_dictionary):
         for parent, children in nested_dictionary.copy().items():
-            parent_node_uid = parent[:-15] + UtilityGenerator(tree).generate_uid()
+            parent_node_uid = parent[:-15] + UtilityGenerator().generate_uid()
 
             nested_dictionary[parent_node_uid] = nested_dictionary.pop(parent)
 

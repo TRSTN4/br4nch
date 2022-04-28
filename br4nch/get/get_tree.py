@@ -4,14 +4,17 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError
+from br4nch.utility.utility_librarian import UtilityLibrarian
+from br4nch.utility.utility_handler import InstanceStringError
+from br4nch.utility.utility_generator import UtilityGenerator
+from br4nch.display.display_tree import DisplayTree
 
 
-class LogTree:
-    def __init__(self, include="", exclude=""):
+class GetTree:
+    def __init__(self, include="", exclude="", beautify=True):
         self.includes = include
         self.excludes = exclude
+        self.beautify = beautify
 
         self.validate_arguments()
         self.log_tree()
@@ -50,5 +53,19 @@ class LogTree:
                         if tree in trees:
                             trees.remove(tree)
 
-        for tree in trees:
-            print(tree)
+        if self.beautify:
+            tree_uid = UtilityGenerator(True).generate_uid()
+
+            UtilityLibrarian.existing_trees.update({tree_uid: {"Get Tree Result:": {}}})
+            UtilityLibrarian.existing_output.update({tree_uid: []})
+            UtilityLibrarian.existing_sizes.update({tree_uid: 0})
+            UtilityLibrarian.existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
+
+            for tree in trees:
+                UtilityLibrarian.existing_trees[tree_uid][list(UtilityLibrarian.existing_trees[tree_uid])[0]]\
+                    .update({tree + UtilityGenerator().generate_uid(): {}})
+
+            DisplayTree(tree_uid, True)
+        else:
+            for tree in trees:
+                print(tree)

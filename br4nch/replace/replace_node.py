@@ -59,7 +59,7 @@ class ReplaceNode:
                                            UtilityLibrarian.existing_trees[tree])[0]])
                 if child:
                     for parent_node, child_nodes in child.items():
-                        parent_node_uid = self.new_node + UtilityGenerator(tree).generate_uid()
+                        parent_node_uid = self.new_node + UtilityGenerator().generate_uid()
 
                         index = list(child_nodes).index(parent_node)
                         child_nodes[parent_node_uid] = child_nodes.pop(parent_node)
