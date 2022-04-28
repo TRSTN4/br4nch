@@ -1,22 +1,22 @@
 # delete.Node
 
-To delete an layer, use the **following function:**
+To delete an node, use the **following function:**
 
-> br4nch.**delete**.**layer**(*branch*, *position*)
+> br4nch.**delete**.**Node**(*tree*, *node*)
 
 **Required argument(s):**
 
-- *branch* - The name of the branch(es) to which the layer will be deleted.
-- *position* - The position(s) where the layer(s) will be deleted.
+- *tree* - The name of the tree(s) in which the node will be deleted.
+- *node* - The node(s) that will be deleted.
 
 **Guide:**
 
-> To delete a layer, specify the position linked to the layer you want to delete.
+> To delete a node, specify the node you want to delete.
 >
-> *For more information about positions, head to [positions](../../guides/positions.md).*
+> *For more information about node positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
-> >>> br4nch.display.branch(branch="Board")
+> >>> br4nch.display.Tree(tree="Board")
 > Information
 > ┣━ Animals
 > ┃ˑˑ┣━ Dog
@@ -24,24 +24,24 @@ To delete an layer, use the **following function:**
 > ┣━ Food
 > ┗━ Bread
 > 
-> >>> br4nch.delete.layer(branch="Board", position="1")
+> >>> br4nch.delete.Node(tree="Board", node="Animals")
 > 
-> >>> br4nch.display.branch(branch="Board")
+> >>> br4nch.display.Tree(tree="Board")
 > Information
 > ┣━ Food
 > ┗━ Bread
 > ```
 >
-> To delete the given position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To delete the given node(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.delete.layer(branch=["BranchOne", "BranchTwo"], position="1")
+> >>> br4nch.delete.Node(tree=["TreeOne", "TreeTwo"], node="Test")
 > ```
 >
-> To delete multiple positions in the same function call, you can use a list for the `position` argument.
+> To delete multiple nodes in the same function call, you can use a list for the `node` argument.
 >
 > ```python
-> >>> br4nch.delete.layer(branch="TestBranch", position=["1", "2.3", "3.1"])
+> >>> br4nch.delete.Node(tree="TestTree", node=["First", "Second", "Third"])
 > ```
 
 **Possible error(s):**

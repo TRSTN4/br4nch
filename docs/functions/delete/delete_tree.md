@@ -1,28 +1,28 @@
 # delete.Tree
 
-To delete a branch, use the **following function:**
+To delete a tree, use the **following function:**
 
-> br4nch.**delete**.**branch**(*branch*)
+> br4nch.**delete**.**Tree**(*tree*)
 
 **Required argument(s):**
 
-- *branch* - The name of the branch(es) that will be deleted.
+- *tree* - The name of the tree(s) that will be deleted.
 
 **Guide:**
 
-> To delete a branch, specify the branch name.
+> To delete a tree, specify the tree name.
 >
 > ```python
-> >>> br4nch.delete.branch(branch="MyBranch")
+> >>> br4nch.delete.Tree(tree="MyTree")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
-> NotExistingBranchError: The branch: 'MyBranch' does not exists.
+> >>> br4nch.display.Tree(tree="MyTree")
+> NotExistingTreeError: The tree: 'MyTree' does not exists.
 > ```
 >
-> To delete multiple branches in the same function call, you can use a list for the `branch` argument.
+> To delete multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.delete.branch(branch=["BranchOne", "BranchTwo"])
+> >>> br4nch.delete.Tree(tree=["TreeOne", "TreeTwo"])
 > ```
 
 **Possible error(s):**

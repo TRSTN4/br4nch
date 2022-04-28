@@ -66,7 +66,7 @@ To duplicate a node, use the **following function:**
 > To copy the node(s) to another existing tree, specify the tree(s) name in the `target_tree` argument.
 >
 > ```python
-> >>> br4nch.display.Tree(tree=["Stream", "MyBranch"])
+> >>> br4nch.display.Tree(tree=["Stream", "MyTree"])
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -79,9 +79,9 @@ To duplicate a node, use the **following function:**
 > ˑˑˑ┗━ Dirt
 > ˑˑˑˑˑˑ┗━ Stone
 > 
-> >>> br4nch.duplicate.Node(tree="Stream", duplicate_node="Movies", target_tree="MyBranch")
+> >>> br4nch.duplicate.Node(tree="Stream", duplicate_node="Movies", target_tree="MyTree")
 > 
-> >>> br4nch.display.Tree(tree=["Stream", "MyBranch"])
+> >>> br4nch.display.Tree(tree=["Stream", "MyTree"])
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
