@@ -1,13 +1,17 @@
 # export.Text
 
-To export the branch output to an txt file, use the **following function:**
+To export the tree to a text file, use the **following function:**
 
-> br4nch.**export**.**txt**(*branch*, *directory*)
+> br4nch.**export**.**Text**(*tree*, *output_folder*, *attributes=False*)
 
 **Required argument(s):**
 
-- branch - The branch that will be exported to an txt file.
-- directory  - The output directory for the txt file.
+- *tree* - The branch that will be exported to an txt file.
+- *output_folder* - The output directory for the txt file.
+
+**Optional argument(s):**
+
+- *attributes* - If this argument is True, then the size and symbols are copied and linked to the text file.
 
 **Guide:**
 

@@ -6,8 +6,8 @@ To set an size, use the **following function:**
 
 **Required argument(s):**
 
-- tree - The tree(s) where the symbols are added.
-- size - The size of the space in the tree structure.
+- *tree* - The tree(s) where the symbols are added.
+- *size* - The size of the space in the tree structure.
 
 **Guide:**
 

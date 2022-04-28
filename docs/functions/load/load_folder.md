@@ -6,16 +6,16 @@ To load an folder, use the **following function:**
 
 **Required argument(s):**
 
-- branch - The name for the new branch(es) that will be created for the imported folder.
-- directory - The path of the folder that will be imported.
+- *branch* - The name for the new branch(es) that will be created for the imported folder.
+- *directory* - The path of the folder that will be imported.
 
 **Optional argument(s):**
 
-- header - The header name for the branch(es).
-- include - The file extension(s) that will be displayed.
-- exclude - The file extension(s) that won't be displayed.
-- unused - If this argument is 'False', all directories with no content will not be displayed.
-- folder_priority - If this argument is 'False', the files will be displayed at the top instead of the directories.
+- *header* - The header name for the branch(es).
+- *include* - The file extension(s) that will be displayed.
+- *exclude* - The file extension(s) that won't be displayed.
+- *unused* - If this argument is 'False', all directories with no content will not be displayed.
+- *folder_priority* - If this argument is 'False', the files will be displayed at the top instead of the directories.
 
 **Guide:**
 

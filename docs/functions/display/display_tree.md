@@ -6,7 +6,7 @@ To display a tree, use the **following function:**
 
 **Required argument(s):**
 
-- tree- The tree(s) to display.
+- *tree* - The tree(s) to display.
 
 **Optional argument(s):**
 

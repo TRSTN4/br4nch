@@ -6,12 +6,12 @@ To export an branch, use the **following function:**
 
 **Required argument(s):**
 
-- branch - The branch that will be exported to an file.
-- directory  - The output directory for the branch file.
+- *branch* - The branch that will be exported to an file.
+- *directory*  - The output directory for the branch file.
 
 **Optional argument(s):**
 
-- package - If this argument is 'True', then the size, symbols and paint will also be exported.
+- *package* - If this argument is 'True', then the size, symbols and paint will also be exported.
 
 **Guide:**
 

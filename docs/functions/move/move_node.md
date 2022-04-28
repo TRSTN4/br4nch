@@ -6,14 +6,14 @@ To move a layer, use the **following function:**
 
 **Required argument(s):**
 
-- branch - The branch(es) where the layer(s) to be moved are located.
-- move - The position(s) of the layer(s) to be moved.
-- position - The position where to add the moved layer(s).
+- *branch* - The branch(es) where the layer(s) to be moved are located.
+- *move* - The position(s) of the layer(s) to be moved.
+- *position* - The position where to add the moved layer(s).
 
 **Optional argument(s):**
 
-- put -  The branch where the copied layer(s) will be placed at the chosen position.
-- paint - If this argument is 'True', the paint is copied and linked to the moved layer.
+- *put* -  The branch where the copied layer(s) will be placed at the chosen position.
+- *paint* - If this argument is 'True', the paint is copied and linked to the moved layer.
 
 **Guide:**
 

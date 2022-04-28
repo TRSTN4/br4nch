@@ -6,11 +6,11 @@ To load an branch, use the **following function:**
 
 **Required argument(s):**
 
-- branch - The exported branch file path.
+- *branch* - The exported branch file path.
 
 **Optional argument(s):**
 
-- package - The exported package file path.
+- *package* - The exported package file path.
 
 **Guide:**
 
