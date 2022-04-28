@@ -38,3 +38,4 @@ class ResetSize:
     def reset_size(self):
         for tree in self.trees:
             UtilityLibrarian.existing_sizes.update({tree: 0})
+            UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})

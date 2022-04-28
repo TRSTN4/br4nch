@@ -131,6 +131,13 @@ class NotExistingAttributesFileError(Exception):
         return "The attributes file: '" + str(self.value) + "' does not exist."
 
 
+class NotSizeableError(Exception):
+    __module__ = Exception.__module__
+
+    def __str__(self):
+        return "You can only use the 'size' function with the default symbols."
+
+
 class DuplicateTreeError(Exception):
     __module__ = Exception.__module__
 

@@ -13,7 +13,7 @@ from ..display.display_tree import DisplayTree
 
 
 class DisplayAssist:
-    def __init__(self, tree, size=0, line="", split="", end=""):
+    def __init__(self, tree, size=0, line="┃", split="┣━", end="┗━"):
         self.trees = tree
         self.size = size
         self.line = line
@@ -67,13 +67,6 @@ class DisplayAssist:
             levels = [0]
             self.elevator(levels, UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
             levels.append(0)
-
-            if not self.line:
-                self.line = UtilityLibrarian.existing_symbols[tree]["line"]
-            if not self.split:
-                self.split = UtilityLibrarian.existing_symbols[tree]["split"]
-            if not self.end:
-                self.end = UtilityLibrarian.existing_symbols[tree]["end"]
 
             tree_uid = UtilityGenerator("-").generate_uid()
 

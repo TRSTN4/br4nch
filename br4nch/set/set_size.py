@@ -5,7 +5,8 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceIntegerError, InstanceStringError, InvalidSizeError, NotExistingTreeError
+from ..utility.utility_handler import InstanceIntegerError, InstanceStringError, InvalidSizeError, \
+    NotExistingTreeError, NotSizeableError
 
 
 class SetSize:
@@ -38,6 +39,14 @@ class SetSize:
 
         if not isinstance(self.size, int):
             raise InstanceIntegerError("size", self.size)
+
+        for tree in self.trees:
+            if UtilityLibrarian.existing_symbols[tree]["line"] != "┃":
+                raise NotSizeableError
+            if UtilityLibrarian.existing_symbols[tree]["split"] != "┣━":
+                raise NotSizeableError
+            if UtilityLibrarian.existing_symbols[tree]["end"] != "┗━":
+                raise NotSizeableError
 
         if self.size < 0 or self.size > 20:
             raise InvalidSizeError
