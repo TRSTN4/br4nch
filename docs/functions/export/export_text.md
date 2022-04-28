@@ -1,31 +1,27 @@
 # export.Text
 
-To export the tree to a text file, use the **following function:**
+To export the tree output to a text file, use the **following function:**
 
-> br4nch.**export**.**Text**(*tree*, *output_folder*, *attributes=False*)
+> br4nch.**export**.**Text**(*tree*, *output_folder*)
 
 **Required argument(s):**
 
-- *tree* - The branch that will be exported to an txt file.
-- *output_folder* - The output directory for the txt file.
-
-**Optional argument(s):**
-
-- *attributes* - If this argument is True, then the size and symbols are copied and linked to the text file.
+- *tree* - The tree that will be exported to a text file.
+- *output_folder* - The output directory for the text file.
 
 **Guide:**
 
-> To export the output of the branch to a txt file, specify the branch in the `branch` argument and specify the path to export the file to in the `directory` argument.
+> To export the output of the tree to a text file, specify the tree in the `tree` argument and specify the path to export the file to in the `output_folder` argument.
 >
 > ```python
-> >>> br4nch.export.txt(branch="MyBranch", directory="D:/MyOutput")
+> >>> br4nch.export.Text(tree="MyTree", output_folder="D:/MyOutput")
 > # Path: D:/br4nch-MyBranch.txt
 > ```
 >
-> To export multiple branches to an txt file in the same function call, you can use a list for the `branch` argument.
+> To export multiple trees to a text file in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.export.txt(branch=["MyBranch", "Stream"], directory="D:/MyOutput")
+> >>> br4nch.export.Text(tree=["MyTree", "Stream"], output_folder="D:/MyOutput")
 > # Path: D:\MyOutput\br4nch-MyBranch
 > # Path: D:\MyOutput\br4nch-Stream
 > ```

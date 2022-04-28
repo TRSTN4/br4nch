@@ -1,39 +1,39 @@
 # export.Tree
 
-To export an branch, use the **following function:**
+To export a tree, use the **following function:**
 
-> br4nch.**export**.**branch**(*branch*, *directory*, *package=False*)
+> br4nch.**export**.**Tree**(*tree*, *output_folder*, *attributes=False*)
 
 **Required argument(s):**
 
-- *branch* - The branch that will be exported to an file.
-- *directory*  - The output directory for the branch file.
+- *tree* - The tree that will be exported to a br4nch file.
+- *output_folder*  - The output folder for the br4nch file.
 
 **Optional argument(s):**
 
-- *package* - If this argument is 'True', then the size, symbols and paint will also be exported.
+- *attributes* - If this argument is True, then the size and symbols are copied and linked to the text file.
 
 **Guide:**
 
-> To export the output of the branch to a file, specify the branch in the `branch` argument and specify the path to export the file to, in the `directory` argument.
+> To export the output of the tree to a file, specify the tree in the `tree` argument and specify the path to export the file to, in the `output_folder  ` argument.
 >
 > ```python
-> >>> br4nch.export.branch(branch="MyBranch", directory="D:/MyOutput")
-> # Path: D:\MyOutput\br4nch-MyBranch
+> >>> br4nch.export.Tree(tree="MyTree", output_folder="D:/MyOutput")
+> # Path: D:\MyOutput\br4nch-MyTree
 > ```
 >
-> To also export the size, symbols and paint, set the `package` argument to `True`.
+> To also export the size and symbols, set the `attributes` argument to `True`.
 >
 > ```python
-> >>> br4nch.export.branch(branch="MyBranch", directory="D:/MyOutput", package=True)
-> # Path: D:\MyOutput\br4nch-MyBranch
+> >>> br4nch.export.Tree(tree="MyTree", output_folder="D:/MyOutput", attributes=True)
+> # Path: D:\MyOutput\br4nch-MyTree
 > ```
 >
-> To export multiple branches in the same function call, you can use a list for the `branch` argument.
+> To export multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.export.branch(branch=["MyBranch", "Stream"], directory="D:/MyOutput")
-> # Path: D:\MyOutput\br4nch-MyBranch
+> >>> br4nch.export.Tree(tree=["MyTree", "Stream"], output_folder="D:/MyOutput")
+> # Path: D:\MyOutput\br4nch-MyTree
 > # Path: D:\MyOutput\br4nch-Stream
 > ```
 
