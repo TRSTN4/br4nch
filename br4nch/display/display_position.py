@@ -12,7 +12,7 @@ from ..display.display_tree import DisplayTree
 
 
 class DisplayPosition:
-    def __init__(self, tree, position, beautify=True):
+    def __init__(self, tree, position="", beautify=True):
         self.trees = tree
         self.positions = position
         self.beautify = beautify
@@ -40,8 +40,9 @@ class DisplayPosition:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.positions, list):
-            self.positions = [self.positions]
+        if self.positions:
+            if not isinstance(self.positions, list):
+                self.positions = [self.positions]
 
         if self.beautify:
             if not isinstance(self.beautify, bool):
@@ -51,14 +52,24 @@ class DisplayPosition:
         tree_package = []
 
         for tree in self.trees:
-            for position in UtilityDecider(tree, "position", self.positions.copy()).get_formatted_positions():
-                visual_position = ""
-                for number in position:
-                    visual_position = visual_position + "." + number
+            if self.positions:
+                for position in UtilityDecider(tree, "position", self.positions.copy()).get_formatted_positions():
+                    visual_position = ""
+                    for number in position:
+                        visual_position = visual_position + "." + number
 
-                tree_package = self.get_position(tree, position, visual_position[1:],
-                                                 UtilityLibrarian.existing_trees[tree][list(
-                                                     UtilityLibrarian.existing_trees[tree])[0]], tree_package)
+                    tree_package = self.get_position(tree, position, visual_position[1:],
+                                                     UtilityLibrarian.existing_trees[tree][list(
+                                                         UtilityLibrarian.existing_trees[tree])[0]], tree_package)
+            else:
+                levels = [0]
+                self.elevator(levels,
+                              UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
+                levels.append(0)
+
+                tree_package = self.get_all_positions(tree, levels, [0],
+                                                      UtilityLibrarian.existing_trees[tree][list(
+                                                          UtilityLibrarian.existing_trees[tree])[0]], tree_package, "")
 
         if tree_package and self.beautify:
             while True:
@@ -106,6 +117,37 @@ class DisplayPosition:
                     if children:
                         position.pop(0)
                         return self.get_position(tree, position, visual_position, children, tree_package)
+
+        return tree_package
+
+    def elevator(self, levels, nested_dictionary, height=0):
+        for children in nested_dictionary.values():
+            levels.append(height)
+            self.elevator(levels, children, height + 1)
+
+    def get_all_positions(self, tree, levels, trace, nested_dictionary, tree_package, visual_position):
+        count = 0
+        for parent, children in nested_dictionary.items():
+            count = count + 1
+
+            trace[0] = trace[0] + 1
+
+            if levels[trace[0]] <= levels[trace[0] - 1]:
+                visual_position = visual_position[:-2]
+            visual_position = visual_position + "." + str(count)
+
+            for character in visual_position:
+                if character == ".":
+                    visual_position = visual_position[1:]
+                else:
+                    break
+
+            tree_package.append([tree, visual_position, parent[:-15]])
+            if not self.beautify:
+                print(visual_position)
+
+            if children:
+                self.get_all_positions(tree, levels, trace, children, tree_package, visual_position)
 
         return tree_package
 
