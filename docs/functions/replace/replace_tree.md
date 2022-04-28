@@ -1,22 +1,22 @@
 # replace.Tree
 
-To replace a branch, use the **following function:**
+To replace a tree, use the **following function:**
 
-> br4nch.**replace**.**branch**(*branch*, *replace*)
+> br4nch.**replace**.**Tree**(*new_tree*, *target_tree*)
 
 **Required argument(s):**
 
-- *branch* - The name of the branch to be replaced.
-- *replace* - The new name for the branch.
+- *new_tree* - The name of the tree to be replaced.
+- *target_tree* - The new name for the tree.
 
 **Guide:**
 
-> To replace the name of a branch, specify the branch name in the `branch` argument and the new name for the branch in the `replace` argument.
+> To replace the name of a tree, specify the new name for the tree in the `new_tree` argument and specify the target tree name in the `target_tree` argument.
 >
 > ```python
-> >>> br4nch.replace.branch(branch="MyBranch", replace="ReplacedBranch")
+> >>> br4nch.replace.Tree(new_tree="ReplacedTree", target_tree="MyTree")
 > 
-> >>> br4nch.display.branch(branch="ReplacedBranch")
+> >>> br4nch.display.Tree(tree="ReplacedTree")
 > Just a header
 > ┣━ ABCD
 > ┃ˑˑ┣━ Just text

@@ -2,21 +2,21 @@
 
 To replace a header, use the **following function:**
 
-> br4nch.**replace**.**header**(*branch*, *replace*)
+> br4nch.**replace**.**Header**(*tree*, *new_header*)
 
 **Required argument(s):**
 
-- *branch* - The name of branch(es) whose header is to be replaced.
-- *replace* - The new name for the header(s).
+- *tree* - The name of tree(s) whose header will be replaced.
+- *new_header* - The new name for the header(s).
 
 **Guide:**
 
-> To replace a header name, specify the branch name in the `branch` argument and the new header name in the `replace` argument.
+> To replace a header name, specify the tree name in the `tree` argument and the new header name in the `new_header` argument.
 >
 > ```python
-> >>> br4nch.replace.header(branch="MyBranch", replace="Replaced Header!")
+> >>> br4nch.replace.Header(tree="MyTree", new_header="Replaced Header!")
 > 
-> >>> br4nch.display.branch(branch="ReplacedBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > Replaced Header!
 > ┣━ ABCD
 > ┃ˑˑ┣━ Just text
@@ -24,10 +24,10 @@ To replace a header, use the **following function:**
 > ┗━ Second layer
 > ```
 >
-> To replace headers for multiple branches in the same function call, you can use a list for the `branch` argument.
+> To replace headers for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.replace.header(branch=["BranchOne", "BranchTwo"], replace="Replaced Header!")
+> >>> br4nch.replace.Header(branch=["TreeOne", "TreeTwo"], new_header="Replaced Header!")
 > ```
 
 **Possible error(s):**

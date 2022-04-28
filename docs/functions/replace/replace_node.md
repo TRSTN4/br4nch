@@ -1,26 +1,25 @@
 # replace.Node
 
-To replace a layer, use the **following function:**
+To replace a node, use the **following function:**
 
-> br4nch.**replace**.**layer**(*branch*, *replace*, *position*)
+> br4nch.**replace**.**Node**(*tree*, *new_node*, *target_node*)
 
 **Required argument(s):**
 
-- *branch* - The name of branch(es) whose layer(s) is to be replaced.
-- *position* - The position(s) where the layer(s) in the branch(es) are replaced.
-
-- *replace* - The new name for the layer(s).
+- *tree* - The name of the tree(s) whose node(s) will be replaced.
+- *new_node* - The new name for the node(s).
+- *target_node* - The position(s) where the node(s) in the tree(s) will be replaced.
 
 **Guide:**
 
-> To replace the layer(s) name(s), specify the branch name in the `branch` argument and the new name for the layer(s) in the `replace` argument.
+> To replace the node(s) name(s), specify the tree name in the `tree` argument and the new name for the node(s) in the `new_node` argument. You also need to specify the target node(s) in the `target_node` argument.
 >
-> *For more information about positions, head to [positions](../../guides/positions.md).*
+> For more information about parents/positions, head to [positions](../../guides/positions.md).
 >
 > ```python
-> >>> br4nch.replace.layer(branch="MyBranch", position="1", replace="Replaced layer!")
+> >>> br4nch.replace.Node(tree="MyTree", new_node="Replaced layer!", target_node="First layer")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > Replaced Header!
 > ┣━ Replaced layer!
 > ┃ˑˑ┣━ Just text
@@ -28,30 +27,30 @@ To replace a layer, use the **following function:**
 > ┗━ Second layer
 > ```
 >
-> To replace layers for multiple branches in the same function call, you can use a list for the `branch` argument.
+> To replace the node(s) for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.replace.layer(branch=["BranchOne", "BranchTwo"], position="1.2", replace="Replaced layer!")
+> >>> br4nch.replace.Node(tree=["TreeOne", "TreeTwo"], new_node="Replaced layer!", target_node="Test Two")
 > 
-> >>> br4nch.display.branch(branch=["BranchOne", "BranchTwo"])
-> Branch One
+> >>> br4nch.display.Tree(tree=["TreeOne", "TreeTwo"])
+> Tree One
 > ┣━ Alpha
-> ┃ˑˑ┣━ Charlie
+> ┃ˑˑ┣━ Test One
 > ┃ˑˑ┗━ Replaced layer!
 > ┗━ Beta
-> Branch Two
+> Tree Two
 > ┣━ Alpha
-> ┃ˑˑ┣━ Charlie
+> ┃ˑˑ┣━ Test One
 > ┃ˑˑ┗━ Replaced layer!
 > ┗━ Beta
 > ```
 >
-> To replace the layer(s) for multiple position in the same function call, you can use a list for the `position` argument.
+> To replace multiple target node(s) in the same function call, you can use a list for the `target_node` argument.
 >
 > ```python
-> >>> br4nch.replace.layer(branch="MyBranch", position=["1.1", "1.2"], replace="Replaced This layer too!")
+> >>> br4nch.replace.Node(tree="MyTree", new_node="Replaced This layer too!", target_node=["ABC", "DEF"])
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > Replaced Header!
 > ┣━ Replaced layer!
 > ┃ˑˑ┣━ Replaced This layer too!
