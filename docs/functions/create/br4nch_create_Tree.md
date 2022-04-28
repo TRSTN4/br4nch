@@ -1,26 +1,26 @@
 # br4nch.create.Tree
 
-To create a new branch, use the **following function:**
+To create a new tree, use the **following function:**
 
-> br4nch.**create**.**branch**(*branch*, *header*)
+> br4nch.**create**.**Tree**(*tree*, *header*)
 
 **Required argument(s):**
 
-- *branch* - The name for the branch(es).
-- *header* - The header for the branch(es).
+- *tree* - The name for the tree.
+- *header* - The header for the tree.
 
 **Guide:**
 
-> To create a new branch you have to give the branch a name, we call the branch `MyBranch`. You also need to add a header to the branch, we call the header `My Header!`.
+> To create a new tree you have to give the tree a name, we call the tree `MyBranch`. You also need to add a header to the tree, we call the header `My Header!`.
 >
 > ```python
-> >>> br4nch.create.branch(branch="MyBranch", header="My Header!")
+> >>> br4nch.create.Tree(tree="MyTree", header="My Header!")
 > ```
 >
-> To create multiple branches in the same function call, you can use a list for the `branch` argument.
+> To create multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.create.branch(branch=["BranchOne", "BranchTwo"], header="My Header!")
+> >>> br4nch.create.Tree(tree=["TreeOne", "TreeTwo"], header="My Header!")
 > ```
 
 **Possible error(s):**

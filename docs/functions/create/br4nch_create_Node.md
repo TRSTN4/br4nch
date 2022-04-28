@@ -1,81 +1,98 @@
 # br4nch.create.Node
 
-To create a new layer, use the **following function:**
+To create a new node, use the **following function:**
 
-> br4nch.**create**.**layer**(*branch*, *layer*, *position*)
+> br4nch.**create**.**Node**(*tree*, *node*, *parent=""*)
 
 **Required argument(s):**
 
-- *branch* - The name of the branch(es) where the layer(s) will be created.
-- *layer* - The name for the layer(s).
-- *position* - The position(s) where the layer(s) in the branch(es) are created.
+- *tree* - The name of the tree(s) where the node(s) will be created.
+- *node* - The name for the node(s).
+
+**Optional argument(s):**
+
+- *parent* - The parent(s) where the node(s) in the tree(s) are created.
 
 **Guide:**
 
-> To add a new layer to a branch, first indicate in which branch the layer should be created, We use the branch `MyBranch`. Then you specify the name of the layer(s) you want to create, you also need to specify the position where the layer should be created in the branch. 
->
-> *For more information about positions, head to [positions](../../guides/positions.md).*
+> To add a new node for a tree, first indicate in which tree the node should be created, We use the tree `MyTree`. Then you specify the name of the node(s) you want to create.
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer="My Layer", position="0")
+> >>> br4nch.create.Node(tree="MyTree", node="My Node")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My header!
-> ┗━ My Layer
+> ┗━ My Node
 > ```
 >
-> You can also use `\n` in a layer name.
+> You can also specify the parent where the node should be created in the tree. 
+>
+> *For more information about parents, head to [parents](../../guides/parents.md).*
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer="One\nTwo\nThree", position="0")
+> >>> br4nch.create.Node(tree="MyTree", node="Set node", parent="My node")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My header!
-> ┣━ My Layer
+> ┗━ My Node
+> ˑˑˑ┗━ Set node
+> ```
+>
+> You can also use `\n` in a node name.
+>
+> ```python
+> >>> br4nch.create.Node(tree="MyTree", node="One\nTwo\nThree")
+> 
+> >>> br4nch.display.Tree(tree="MyTree")
+> My header!
+> ┣━ My node
+> ┃ˑˑ┗━ Set node
 > ┗━ One
 > ˑˑˑTwo
 > ˑˑˑThree
 > ```
 >
-> To create the layer(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To create the node(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.create.layer(branch=["ZooA", "ZooB"], layer="Animals", position="0")
+> >>> br4nch.create.Node(tree=["ZooA", "ZooB"], node="Animals")
 > 
-> >>> br4nch.display.branch(branch=["ZooA", "ZooB"])
+> >>> br4nch.display.Tree(tree=["ZooA", "ZooB"])
 > Zoo Alpha
 > ┗━ Animals
 > Zoo Beta
 > ┗━ Animals
 > ```
 >
-> To create multiple layer in the same function call, you can use list for the `layer` argument.
+> To create multiple node in the same function call, you can use list for the `node` argument.
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer=["Sublayer One", "Sublayer Two"], position="1")
+> >>> br4nch.create.Node(tree="MyTree", node=["Subnode One", "Subnode Two"], parent="My node")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My header!
-> ┣━ My Layer
-> ┃ˑˑ┣━ Sublayer One
-> ┃ˑˑ┗━ Sublayer Two
+> ┣━ My node
+> ┃ˑˑ┣━ Set node
+> ┃ˑˑ┣━ Subnode One
+> ┃ˑˑ┗━ Subnode Two
 > ┗━ One
 > ˑˑˑTwo
 > ˑˑˑThree
 > ```
 >
-> To create the layer(s) for multiple position in the same function call, you can use a list for the `position` argument.
+> To create the node(s) for multiple parents in the same function call, you can use a list for the `parent` argument.
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer="Last Layer", position=["1.1", "1.2"])
+> >>> br4nch.create.Node(tree="MyTree", node="Last Node", parent=["Subnode One", "Subnode Two"])
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My header!
-> ┣━ My Layer
-> ┃ˑˑ┣━ Sublayer One
-> ┃ˑˑ┃ˑˑ┗━ Last Layer
-> ┃ˑˑ┗━ Sublayer Two
-> ┃ˑˑˑˑˑ┗━ Last Layer
+> ┣━ My node
+> ┃ˑˑ┣━ Set node
+> ┃ˑˑ┣━ Subnode One
+> ┃ˑˑ┃ˑˑ┗━ Last node
+> ┃ˑˑ┗━ Subnode Two
+> ┃ˑˑˑˑˑ┗━ Last node
 > ┗━ One
 > ˑˑˑTwo
 > ˑˑˑThree
