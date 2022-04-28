@@ -2,24 +2,24 @@
 
 To reset an size, use the **following function:**
 
-> br4nch.**reset**.**size**(*branch*)
+> br4nch.**reset**.**Size**(*tree*)
 
 **Required argument(s):**
 
-- *branch* - The branch(es) whose size should be reset.
+- *tree* - The tree(s) whose size should be reset.
 
 **Guide:**
 
-> To reset the size of the branch, specify the branch name in the `branch` argument.
+> To reset the size of the tree, specify the tree name in the `tree` argument.
 >
 > ```python
-> >>> br4nch.reset.size(branch="MyBranch")
+> >>> br4nch.reset.Size(tree="MyTree")
 > ```
 >
-> To reset the size for multiple branches in the same function call, you can use a list for the `branch` argument.
+> To reset the size for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.reset.size(branch=["BranchOne", "BranchTwo"])
+> >>> br4nch.reset.Size(tree=["TreeOne", "TreeTwo"])
 > ```
 
 **Possible error(s):**

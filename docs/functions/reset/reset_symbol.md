@@ -2,11 +2,11 @@
 
 To reset one or multiple symbol(s), use the **following function:**
 
-> br4nch.**reset**.**symbol**(*branch*, *line=True*, *split=True*, *end=True*)
+> br4nch.**reset**.**symbol**(*tree*, *line=True*, *split=True*, *end=True*)
 
 **Required argument(s):**
 
-- *branch* - The branch(es) whose symbol(s) should be reset.
+- *tree* - The tree(s) whose symbol(s) should be reset.
 
 **Optional argument(s):**
 
@@ -16,22 +16,22 @@ To reset one or multiple symbol(s), use the **following function:**
 
 **Guide:**
 
-> To reset the symbols of the branch, specify the branch name in the `branch` argument.
+> To reset the symbols of the tree, specify the tree name in the `tree` argument.
 >
 > ```python
-> >>> br4nch.reset.symbol(branch="MyBranch")
+> >>> br4nch.reset.Symbol(tree="MyTree")
 > ```
 >
 > For example, to reset only the `split` symbol, set the `line` and `end` symbols to 'False'.
 >
 > ```python
-> >>> br4nch.reset.symbol(branch="MyBranch", line=False, end=False)
+> >>> br4nch.reset.Symbol(tree="MyTree", line=False, end=False)
 > ```
 >
-> To reset the symbols for multiple branches in the same function call, you can use a list for the `branch` argument.
+> To reset the symbols for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.reset.symbol(branch=["BranchOne", "BranchTwo"])
+> >>> br4nch.reset.Symbol(tree=["TreeOne", "TreeTwo"])
 > ```
 
 **Possible error(s):**
