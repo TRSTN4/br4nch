@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/TRSTN4/br4nch/release/assets/images/logo.png)
+![logo](https://raw.githubusercontent.com/TRSTN4/br4nch/2.0/assets/images/logo_ua.png)
 
 `br4nch` is a Data Structure Tree Builder for Python. It is built in 100%/Pure Python, which means it does not use 3rd party libraries. We **listen** to our users in [issues](https://github.com/TRSTN4/br4nch/issues), Discord [channel](https://discord.gg/gKASxGEEUC) *and all over the Internet* to create a **fast**, **flexible** and **friendly** Data Structure Tree Builder.
 
@@ -7,20 +7,32 @@
 You can easily make a simple branch. We recommend reading [Getting Started](guides/getting_started.md). To create more complex branches that can even be automated, we recommend reading the entire documentation.
 
 ```python
-# Creates the branch with the header.
->>> br4nch.create.Tree(tree="MyBranch", header="My Header")
+>>> br4nch.create.Tree(tree="Ukraine", header="Ukraine <3")
 
-# Adds multiple layers.
->>> br4nch.create.Node(tree="MyBranch", node="Hello World!")
->>> br4nch.create.Node(tree="MyBranch", node=["Sub-layer 1", "Sub-layer 1"],
-                       parent="Hello World!")
+>>> br4nch.create.Node(tree="Ukraine", node=["Cities", "Information"])
+>>> br4nch.create.Node(tree="Ukraine", node=["Donetsk Oblast", "Kiev Oblast"], parent="Cities")
+>>> br4nch.create.Node(tree="Ukraine", node="Mariupol", parent="Donetsk")
+>>> br4nch.create.Node(tree="Ukraine", node=["Bucha", "Tsjernobyl"], parent="Kiev")
+>>> br4nch.create.Node(tree="Ukraine", node=["President", "Area", "Population"], parent="Information")
+>>> br4nch.create.Node(tree="Ukraine", node="Zelensky", parent="President")
+>>> br4nch.create.Node(tree="Ukraine", node="603.628 km2", parent="Area")
+>>> br4nch.create.Node(tree="Ukraine", node="44 Million", parent="Population")
 
-# Prints the branch.
->>> br4nch.display.Tree(tree="MyBranch")
-My Header
-┗━ Hello World!
-ˑˑˑ┣━ Sub layer 1
-ˑˑˑ┗━ Sub layer 2
+>>> br4nch.display.Tree(tree="Ukraine")
+Ukraine <3
+┣━ Cities
+┃  ┣━ Donetsk Oblast
+┃  ┃  ┗━ Mariupol
+┃  ┗━ Kiev Oblast
+┃     ┣━ Bucha
+┃     ┗━ Tsjernobyl
+┗━ Information
+   ┣━ President
+   ┃  ┗━ Zelensky
+   ┣━ Area
+   ┃  ┗━ 603.628 km2
+   ┗━ Population
+      ┗━ 44 Million
 ```
 
 ## ⚙️ Installation
