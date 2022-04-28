@@ -1,26 +1,26 @@
 # br4nch.duplicate.Tree
 
-To duplicate a branch, use the **following function:**
+To duplicate a tree, use the **following function:**
 
-> br4nch.**duplicate**.**branch**(*branch*, *name*, *package=False*)
+> br4nch.**duplicate**.**Tree**(*new_tree*, *target_tree*, *attributes=False*)
 
 **Required argument(s):**
 
-- *branch* - The name of the branch being copied.
-- *name* - The name for the new branch.
+- *new_tree* - The name for the new tree.
+- *target_tree* - The target tree that wil be copied.
 
 **Optional argument(s):**
 
-- *package* - If this argument is True, then the size, symbols and paint are also copied and linked to the new branch.
+- *attributes* - If this argument is True, then the size and symbols are copied and linked to the new tree.
 
 **Guide:**
 
-> To copy a branch, specify the name of the branch to be copied in the `branch` argument. You also specify the name of what the copied branch should be called in the `name` argument.
+> Specify the name for the new tree in the `new_tree` argument. To copy a tree, specify the name of the tree to be copied in the `target_tree` argument.
 >
 > ```python
-> >>> br4nch.duplicate.branch(branch="MyBranch", name="CopiedOne")
+> >>> br4nch.duplicate.Tree(new_tree="Copied", target_tree="MyBranch")
 > 
-> >>> br4nch.display.branch(branch="CopiedOne")
+> >>> br4nch.display.Tree(tree="Copied")
 > Copy Me!
 > ┣━ First layer
 > ┃ˑˑ┣━ Just text
@@ -30,12 +30,12 @@ To duplicate a branch, use the **following function:**
 > ˑˑˑ┗━ Two lines
 > ```
 >
-> If the argument package is `True`, then the `size`, `symbols` and `paint` are also copied and linked to the new branch.
+> If the argument attributes is `True`, then the `size` and`symbols` are copied and linked to the new tree.
 >
 > ```python
-> >>> br4nch.duplicate.branch(branch="MyBranch", name="CopiedTwo", package=True)
+> >>> br4nch.duplicate.branch(new_tree="CopiedAttr", target_tree="MyBranch", attributes=True)
 > 
-> >>> br4nch.display.branch(branch="CopiedTwo")
+> >>> br4nch.display.branch(branch="CopiedAttr")
 > Copy Me!
 > ┃
 > ┣━━ First layer
