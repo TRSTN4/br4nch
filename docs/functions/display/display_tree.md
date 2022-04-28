@@ -1,23 +1,23 @@
 # display.Tree
 
-To display a branch, use the **following function:**
+To display a tree, use the **following function:**
 
-> br4nch.**display**.**branch**(*branch*, *delete=False*)
+> br4nch.**display**.**Tree**(*tree*, *delete=False*)
 
 **Required argument(s):**
 
-- *branch* - The branch(es) to display.
+- tree- The tree(s) to display.
 
 **Optional argument(s):**
 
-- *delete* - If this argument is 'True', the branch(es) will be removed after it is printed.
+- *delete* - If this argument is 'True', the tree(s) will be deleted after it is printed.
 
 **Guide:**
 
-> Prints the branch given in the branch argument. In this example we will print the branch `Stream`.
+> Prints the tree given in the `tree` argument. In this example we will print the tree `Stream`.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -33,10 +33,10 @@ To display a branch, use the **following function:**
 > ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 >
-> To print a branch and immediately delete it, specify the value `True` in the `delete` argument.
+> To print a tree and delete after printed, specify the value `True` in the `delete` argument.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream", delete=True)
+> >>> br4nch.display.Tree(tree="Stream", delete=True)
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -51,14 +51,14 @@ To display a branch, use the **following function:**
 > ˑˑˑ┗━ Series
 > ˑˑˑˑˑˑ┗━ The Walking Dead
 > 
-> >>> br4nch.display.branch(branch="Stream")
-> NotExistingBranchError: The branch: 'Stream' does not exists.
+> >>> br4nch.display.Tree(tree="Stream")
+> NotExistingTreeError: The tree: 'Stream' does not exists.
 > ```
 >
-> To print multiple branches in the same function call, you can use a list for the `branch` argument.
+> To print multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.display.branch(branch=["Stream", "MyBranch"])
+> >>> br4nch.display.Tree(tree=["Stream", "MyTree"])
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
