@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/TRSTN4/br4nch/release/assets/images/logo.png)
+![logo](https://raw.githubusercontent.com/TRSTN4/br4nch/2.0/assets/images/logo_ua.png)
 
 `br4nch` is a Data Structure Tree Builder for Python. It is built in 100%/Pure Python, which means it does not use 3rd party libraries. We **listen** to our users in [issues](https://github.com/TRSTN4/br4nch/issues), Discord [channel](https://discord.gg/gKASxGEEUC) *and all over the Internet* to create a **fast**, **flexible** and **friendly** Data Structure Tree Builder.
 
@@ -7,29 +7,32 @@
 If you want to see more code examples and guide, please visit our [documentation](https://docs.br4nch.com).
 
 ```python
->>> br4nch.create.branch(branch="Stream", header="Movies & Series")
+>>> br4nch.create.Tree(tree="Ukraine", header="Ukraine <3")
 
->>> br4nch.create.layer(branch="Stream", layer=["Netflix", "Prime Video"], position="0")
->>> br4nch.create.layer(branch="Stream", layer=["Movies", "Series"], position="*")
->>> br4nch.create.layer(branch="Stream", layer="Interstellar", position="1.1")
->>> br4nch.create.layer(branch="Stream", layer=["Squid Game", "The Crown"], position="1.2")
->>> br4nch.create.layer(branch="Stream", layer=["Tenet", "Parasite"], position="2.1")
->>> br4nch.create.layer(branch="Stream", layer="The Walking Dead", position="2.2")
+>>> br4nch.create.Node(tree="Ukraine", node=["Cities", "Information"])
+>>> br4nch.create.Node(tree="Ukraine", node=["Donetsk Oblast", "Kiev Oblast"], parent="Cities")
+>>> br4nch.create.Node(tree="Ukraine", node="Mariupol", parent="Donetsk")
+>>> br4nch.create.Node(tree="Ukraine", node=["Bucha", "Tsjernobyl"], parent="Kiev")
+>>> br4nch.create.Node(tree="Ukraine", node=["President", "Area", "Population"], parent="Information")
+>>> br4nch.create.Node(tree="Ukraine", node="Zelensky", parent="President")
+>>> br4nch.create.Node(tree="Ukraine", node="603.628 km2", parent="Area")
+>>> br4nch.create.Node(tree="Ukraine", node="44 Million", parent="Population")
 
->>> br4nch.display.branch(branch="Stream")
-Movies & Series
-┣━ Netflix
-┃  ┣━ Movies
-┃  ┃  ┗━ Interstellar
-┃  ┗━ Series
-┃     ┣━ Squid Game
-┃     ┗━ The Crown
-┗━ Prime Video
-   ┣━ Movies
-   ┃  ┣━ Tenet
-   ┃  ┗━ Parasite
-   ┗━ Series
-      ┗━ The Walking Dead
+>>> br4nch.display.Tree(tree="Ukraine")
+Ukraine <3
+┣━ Cities
+┃  ┣━ Donetsk Oblast
+┃  ┃  ┗━ Mariupol
+┃  ┗━ Kiev Oblast
+┃     ┣━ Bucha
+┃     ┗━ Tsjernobyl
+┗━ Information
+   ┣━ President
+   ┃  ┗━ Zelensky
+   ┣━ Area
+   ┃  ┗━ 603.628 km2
+   ┗━ Population
+      ┗━ 44 Million
 ```
 
 ## ⚙️ Installation
@@ -51,6 +54,7 @@ pip install br4nch
 - [Reset](https://docs.br4nch.com/functions/reset)
 - [Load](https://docs.br4nch.com/functions/load)
 - [Export](https://docs.br4nch.com/functions/export)
+- [Get](https://docs.br4nch.com/functions/get)
 - [Display](https://docs.br4nch.com/functions/display)
 
 ## 👍 Contribute
@@ -76,5 +80,3 @@ To get started with developing `br4nch`, see [CONTRIBUTING](https://github.com/T
 ## ⚠️ License
 
 `br4nch` is free and open-source software licensed under the [GPL-3.0 License](https://github.com/TRSTN4/br4nch/blob/release/LICENSE).
-Copyright (c) 2021-2022 [TRSTN4](https://github.com/TRSTN4) and [Contributors](https://github.com/TRSTN4/br4nch/graphs/contributors).
-
