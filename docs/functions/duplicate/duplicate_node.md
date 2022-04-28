@@ -1,4 +1,4 @@
-# br4nch.duplicate.Node
+# duplicate.Node
 
 To duplicate a node, use the **following function:**
 

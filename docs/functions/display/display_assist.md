@@ -1,4 +1,4 @@
-# br4nch.display.Assist
+# display.Assist
 
 To display a assist for an branch, use the **following function:**
 

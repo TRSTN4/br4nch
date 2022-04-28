@@ -1,4 +1,4 @@
-# br4nch.create.Node
+# create.Node
 
 To create a new node, use the **following function:**
 
@@ -27,7 +27,7 @@ To create a new node, use the **following function:**
 >
 > You can also specify the parent where the node should be created in the tree. 
 >
-> *For more information about parents, head to [parents](../../guides/parents.md).*
+> *For more information about parents/positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
 > >>> br4nch.create.Node(tree="MyTree", node="Set node", parent="My node")

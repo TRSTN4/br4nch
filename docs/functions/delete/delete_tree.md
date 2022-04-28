@@ -1,4 +1,4 @@
-# br4nch.delete.Tree
+# delete.Tree
 
 To delete a branch, use the **following function:**
 

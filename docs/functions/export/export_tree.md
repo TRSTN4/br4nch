@@ -1,4 +1,4 @@
-# br4nch.export.Tree
+# export.Tree
 
 To export an branch, use the **following function:**
 

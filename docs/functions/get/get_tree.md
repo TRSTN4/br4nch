@@ -1,4 +1,4 @@
-# br4nch.get.Tree
+# get.Tree
 
 To display a layer, use the **following function:**
 

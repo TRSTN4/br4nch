@@ -1,4 +1,4 @@
-# br4nch.duplicate.Tree
+# duplicate.Tree
 
 To duplicate a tree, use the **following function:**
 

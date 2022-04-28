@@ -1,4 +1,4 @@
-# br4nch.replace.Tree
+# replace.Tree
 
 To replace a branch, use the **following function:**
 

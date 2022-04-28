@@ -1,4 +1,4 @@
-# br4nch.set.Size
+# set.Size
 
 To set an size, use the **following function:**
 

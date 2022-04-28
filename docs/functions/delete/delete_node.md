@@ -1,4 +1,4 @@
-# br4nch.delete.Node
+# delete.Node
 
 To delete an layer, use the **following function:**
 

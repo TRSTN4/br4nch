@@ -1,4 +1,4 @@
-# br4nch.create.Tree
+# create.Tree
 
 To create a new tree, use the **following function:**
 

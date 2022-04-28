@@ -1,4 +1,4 @@
-# br4nch.load.Tree
+# load.Tree
 
 To load an branch, use the **following function:**
 

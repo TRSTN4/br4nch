@@ -1,4 +1,4 @@
-# br4nch.reset.Size
+# reset.Size
 
 To reset an size, use the **following function:**
 

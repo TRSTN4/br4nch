@@ -1,4 +1,4 @@
-# br4nch.display.Tree
+# display.Tree
 
 To display a branch, use the **following function:**
 
