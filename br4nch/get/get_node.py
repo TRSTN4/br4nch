@@ -11,10 +11,12 @@ from br4nch.display.display_tree import DisplayTree
 
 
 class GetNode:
-    def __init__(self, tree, node="", sensitive=False, beautify=True):
+    def __init__(self, tree, node="", sensitive=False, include="", exclude="", beautify=True):
         self.trees = tree
         self.nodes = node
         self.sensitive = sensitive
+        self.includes = include
+        self.excludes = exclude
         self.beautify = beautify
 
         self.validate_arguments()
@@ -51,6 +53,22 @@ class GetNode:
         if self.sensitive:
             if not isinstance(self.sensitive, bool):
                 raise InstanceBooleanError("sensitive", self.sensitive)
+
+        if self.includes:
+            if not isinstance(self.includes, list):
+                self.includes = [self.includes]
+
+            for include in self.includes:
+                if not isinstance(include, str):
+                    raise InstanceStringError("include", include)
+
+        if self.excludes:
+            if not isinstance(self.excludes, list):
+                self.excludes = [self.excludes]
+
+            for exclude in self.excludes:
+                if not isinstance(exclude, str):
+                    raise InstanceStringError("exclude", exclude)
 
         if self.beautify:
             if not isinstance(self.beautify, bool):
@@ -111,35 +129,46 @@ class GetNode:
         count = 0
         for parent, children in nested_dictionary.items():
             count = count + 1
-
             trace[0] = trace[0] + 1
+            skip = False
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
                 visual_position = visual_position[:-2]
             visual_position = visual_position + "." + str(count)
 
-            if self.sensitive:
-                if parent[:-15] == node:
-                    for character in visual_position:
-                        if character == ".":
-                            visual_position = visual_position[1:]
-                        else:
-                            break
+            if self.includes:
+                for include in self.includes:
+                    if include not in parent[:-15]:
+                        skip = True
 
-                    tree_package.append([tree, parent[:-15], visual_position])
-                    if not self.beautify:
-                        print(visual_position)
-            else:
-                if parent[:-15].lower() == node.lower():
-                    for character in visual_position:
-                        if character == ".":
-                            visual_position = visual_position[1:]
-                        else:
-                            break
+            if self.excludes:
+                for exclude in self.excludes:
+                    if exclude in parent[:-15]:
+                        skip = True
 
-                    tree_package.append([tree, parent[:-15], visual_position])
-                    if not self.beautify:
-                        print(visual_position)
+            if not skip:
+                if self.sensitive:
+                    if parent[:-15] == node:
+                        for character in visual_position:
+                            if character == ".":
+                                visual_position = visual_position[1:]
+                            else:
+                                break
+
+                        tree_package.append([tree, parent[:-15], visual_position])
+                        if not self.beautify:
+                            print(visual_position)
+                else:
+                    if parent[:-15].lower() == node.lower():
+                        for character in visual_position:
+                            if character == ".":
+                                visual_position = visual_position[1:]
+                            else:
+                                break
+
+                        tree_package.append([tree, parent[:-15], visual_position])
+                        if not self.beautify:
+                            print(visual_position)
 
             if children:
                 self.get_node(tree, node, levels, trace, children, tree_package, visual_position)
@@ -150,8 +179,8 @@ class GetNode:
         count = 0
         for parent, children in nested_dictionary.items():
             count = count + 1
-
             trace[0] = trace[0] + 1
+            skip = False
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
                 visual_position = visual_position[:-2]
@@ -163,9 +192,20 @@ class GetNode:
                 else:
                     break
 
-            tree_package.append([tree, parent[:-15], visual_position])
-            if not self.beautify:
-                print(visual_position)
+            if self.includes:
+                for include in self.includes:
+                    if include not in parent[:-15]:
+                        skip = True
+
+            if self.excludes:
+                for exclude in self.excludes:
+                    if exclude in parent[:-15]:
+                        skip = True
+
+            if not skip:
+                tree_package.append([tree, parent[:-15], visual_position])
+                if not self.beautify:
+                    print(visual_position)
 
             if children:
                 self.get_all_nodes(tree, levels, trace, children, tree_package, visual_position)

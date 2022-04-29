@@ -12,9 +12,11 @@ from br4nch.display.display_tree import DisplayTree
 
 
 class GetPosition:
-    def __init__(self, tree, position="", beautify=True):
+    def __init__(self, tree, position="", include="", exclude="", beautify=True):
         self.trees = tree
         self.positions = position
+        self.includes = include
+        self.excludes = exclude
         self.beautify = beautify
 
         self.validate_arguments()
@@ -43,6 +45,22 @@ class GetPosition:
         if self.positions:
             if not isinstance(self.positions, list):
                 self.positions = [self.positions]
+
+        if self.includes:
+            if not isinstance(self.includes, list):
+                self.includes = [self.includes]
+
+            for include in self.includes:
+                if not isinstance(include, str):
+                    raise InstanceStringError("include", include)
+
+        if self.excludes:
+            if not isinstance(self.excludes, list):
+                self.excludes = [self.excludes]
+
+            for exclude in self.excludes:
+                if not isinstance(exclude, str):
+                    raise InstanceStringError("exclude", exclude)
 
         if self.beautify:
             if not isinstance(self.beautify, bool):
@@ -83,20 +101,33 @@ class GetPosition:
             UtilityLibrarian.existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
 
             for box in tree_package:
-                if box[0] not in UtilityLibrarian.existing_trees[tree_uid][list(
-                        UtilityLibrarian.existing_trees[tree_uid])[0]]:
-                    UtilityLibrarian.existing_trees[tree_uid][list(
-                        UtilityLibrarian.existing_trees[tree_uid])[0]].update({box[0]: {}})
+                skip = False
 
-                if box[1] not in UtilityLibrarian.existing_trees[tree_uid][list(
-                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]]:
-                    UtilityLibrarian.existing_trees[tree_uid][list(
-                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]].update({box[1]: {}})
+                if self.includes:
+                    for include in self.includes:
+                        if include not in box[2]:
+                            skip = True
 
-                if box[2] not in UtilityLibrarian.existing_trees[tree_uid][list(
-                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]]:
-                    UtilityLibrarian.existing_trees[tree_uid][list(
-                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]].update({box[2]: {}})
+                if self.excludes:
+                    for exclude in self.excludes:
+                        if exclude in box[2]:
+                            skip = True
+
+                if not skip:
+                    if box[0] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                            UtilityLibrarian.existing_trees[tree_uid])[0]]:
+                        UtilityLibrarian.existing_trees[tree_uid][list(
+                            UtilityLibrarian.existing_trees[tree_uid])[0]].update({box[0]: {}})
+
+                    if box[1] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]]:
+                        UtilityLibrarian.existing_trees[tree_uid][list(
+                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]].update({box[1]: {}})
+
+                    if box[2] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]]:
+                        UtilityLibrarian.existing_trees[tree_uid][list(
+                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]].update({box[2]: {}})
 
             self.update_tree(tree_uid, UtilityLibrarian.existing_trees[tree_uid])
 
@@ -106,13 +137,25 @@ class GetPosition:
         count = 0
         for parent, children in nested_dictionary.items():
             count = count + 1
+            skip = False
+
+            if self.includes:
+                for include in self.includes:
+                    if include not in parent[:-15]:
+                        skip = True
+
+            if self.excludes:
+                for exclude in self.excludes:
+                    if exclude in parent[:-15]:
+                        skip = True
 
             if count == int(position[0]):
                 if len(position) == 1:
-                    if self.beautify:
-                        tree_package.append([tree, visual_position, parent[:-15]])
-                    else:
-                        print(parent[:-15])
+                    if not skip:
+                        if self.beautify:
+                            tree_package.append([tree, visual_position, parent[:-15]])
+                        else:
+                            print(parent[:-15])
                 else:
                     if children:
                         position.pop(0)
@@ -129,8 +172,8 @@ class GetPosition:
         count = 0
         for parent, children in nested_dictionary.items():
             count = count + 1
-
             trace[0] = trace[0] + 1
+            skip = False
 
             if levels[trace[0]] <= levels[trace[0] - 1]:
                 visual_position = visual_position[:-2]
@@ -142,9 +185,20 @@ class GetPosition:
                 else:
                     break
 
-            tree_package.append([tree, visual_position, parent[:-15]])
-            if not self.beautify:
-                print(visual_position)
+            if self.includes:
+                for include in self.includes:
+                    if include not in parent[:-15]:
+                        skip = True
+
+            if self.excludes:
+                for exclude in self.excludes:
+                    if exclude in parent[:-15]:
+                        skip = True
+
+            if not skip:
+                tree_package.append([tree, visual_position, parent[:-15]])
+                if not self.beautify:
+                    print(visual_position)
 
             if children:
                 self.get_all_positions(tree, levels, trace, children, tree_package, visual_position)
