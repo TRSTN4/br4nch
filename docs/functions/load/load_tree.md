@@ -1,29 +1,29 @@
 # load.Tree
 
-To load an branch, use the **following function:**
+To load a tree file, use the **following function:**
 
-> br4nch.**load**.**branch**(*branch*, *package=""*)
+> br4nch.**load**.**Tree**(*tree_file*, *attributes_file=""*)
 
 **Required argument(s):**
 
-- *branch* - The exported branch file path.
+- *tree_file* - The exported tree file path.
 
 **Optional argument(s):**
 
-- *package* - The exported package file path.
+- *attributes_file* - The exported attributes file path.
 
 **Guide:**
 
-> To import an exported branch file, specify the path of the branch file in the `branch` argument.
+> To import a exported tree file, specify the path of the tree file in the `tree_file` argument.
 >
 > ```python
-> >>> br4nch.load.branch(branch="D:/br4nch-MyBranch/branch-MyBranch")
+> >>> br4nch.load.Tree(tree_file="D:/br4nch-MyTree/tree-MyTree.br4nch")
 > ```
 >
-> To also import an exported package file, specify the path of the package file in the `package` argument.
+> To also import a exported attributes file, specify the path of the attributes file in the `attributes_file` argument.
 >
 > ```python
-> >>> br4nch.load.branch(branch="D:/br4nch-MyBranch/branch-MyBranch", package="D:/br4nch-MyBranch/package-MyBranch")
+> >>> br4nch.load.Tree(tree_file="D:/br4nch-MyTree/tree-MyBranch.br4nch", attributes_file="D:/br4nch-MyBranch/attributes-MyTree.br4nch")
 > ```
 
 **Possible error(s):**
