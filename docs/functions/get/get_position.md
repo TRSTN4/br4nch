@@ -1,62 +1,138 @@
 # get.Position
 
-To display a position, use the **following function:**
+To get any position, use the **following function:**
 
-> br4nch.**display**.**position**(*branch*, *position*, *beautify=True*)
+> br4nch.**get**.**Position**(*tree*, *position=""*, *include=""*, *exclude=""*, *beautify=True*)
 
 **Required argument(s):**
 
-- *branch* - The branch(es) to display an position for.
-- *position* - The position(s) that are displayed.
+- *tree* - The tree(s) to display an position for.
 
 **Optional argument(s):**
 
-- *beautify* - If this argument is 'True', then the result will be displayed with a special branch format.
+- *position* - The position(s) that are displayed.
+- *include* - If the given word(s) are in the node, the node will be displayed. Else, it will not be displayed.
+- *exclude* - If the given word(s) are in the node, the node will not be displayed. Else, it will be displayed.
+- *beautify* - If this argument is 'True', then the result will be displayed with a special tree format.
 
 **Guide:**
 
-> To print the layer of a position in a branch, specify the position in the `position` argument.
+> To print all positions in a tree, specify the tree name in the `tree` argument.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Test")
+> Get Position Result:
+> ┗━ Tree: Test
+> ˑˑˑ┣━ Position: 1
+> ˑˑˑ┃ˑˑ┗━ Node: First Node
+> ˑˑˑ┣━ Position: 1.1
+> ˑˑˑ┃ˑˑ┗━ Node: Second Node
+> ˑˑˑ┣━ Position: 1.1.1
+> ˑˑˑ┃ˑˑ┗━ Node: Third Node
+> ˑˑˑ┣━ Position: 2
+> ˑˑˑ┃ˑˑ┗━ Node: New Line One
+> ˑˑˑ┃ˑˑˑˑˑNew Line Two
+> ˑˑˑ┃ˑˑˑˑˑNew Line Three
+> ˑˑˑ┗━ Position: 2.1
+> ˑˑˑˑˑˑ┗━ Node: Sub Node One
+> ˑˑˑˑˑˑˑˑˑSub Node Two
+> ```
+>
+> To print the node of a position in a tree, specify the position in the `position` argument.
 >
 > *For more information about positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
-> >>> br4nch.display.layer(branch="Stream", layer="Squid Game")
+> >>> br4nch.get.Position(tree="Stream", layer="Squid Game")
 > Get Position Result:
-> ┗━ Branch: Stream
-> ˑˑˑ┗━ Layer: Squid Game                  
-> ˑˑˑˑˑˑ┗━ Position: 1.2.1
+> ┗━ Tree: Stream
+> ˑˑˑ┗━ Position: 1.2.1
+> ˑˑˑˑˑˑ┗━ Node: Squid Game
 > ```
 >
-> To print the result without a branch structure in the result, set the `beautify` argument to `False`.
+> To filter only nodes with a certain word, put the word in the `include` argument.
 >
 > ```python
-> >>> br4nch.display.layer(branch="Stream", position="1.2.1", beautify=False)
+> >>> br4nch.get.Position(tree="Test", include="Line")
+> Get Position Result:
+> ┗━ Tree: Test
+> ˑˑˑ┗━ Position: 2
+> ˑˑˑˑˑˑ┗━ Node: New Line One
+> ˑˑˑˑˑˑˑˑˑNew Line Two
+> ˑˑˑˑˑˑˑˑˑNew Line Three
+> ```
+>
+> To filter out only nodes with a certain word, put the word in the `exclude` argument.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Test", exclude="Node")
+> Get Position Result:
+> ┗━ Tree: Test
+> ˑˑˑ┗━ Position: 2
+> ˑˑˑˑˑˑ┗━ Node: New Line One
+> ˑˑˑˑˑˑˑˑˑNew Line Two
+> ˑˑˑˑˑˑˑˑˑNew Line Three
+> ```
+>
+> To print the result without a tree structure in the result, set the `beautify` argument to `False`.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Stream", beautify=False)
 > Squid Game
 > ```
 >
-> To print the position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To print the position(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.display.layer(branch=["Stream"], ["Stream2"], position="2.1.1")
+> >>> br4nch.get.Position(tree=["Stream"], ["Stream2"], position="2.1.1")
 > Get Position Result:
-> ┣━ Branch: Stream
-> ┃ˑˑ┗━ Layer: The Walking Dead              
-> ┃ˑˑˑˑˑ┗━ Position: 2.1.1
-> ┗━ Branch: Stream2
-> ˑˑˑ┗━ Layer: The Walking Dead                
-> ˑˑˑˑˑˑ┗━ Position: 2.1.1
+> ┣━ Tree: Stream
+> ┃ˑˑ┗━ Position: 2.1.1
+> ┃ˑˑˑˑˑ┗━ Node: The Walking Dead
+> ┗━ Tree: Stream2
+> ˑˑˑ┗━ Position: 2.1.1
+> ˑˑˑˑˑˑ┗━ Node: The Walking Dead
 > ```
-> 
->To print multiple positions in the same function call, you can use a list for the `position` argument.
-> 
->```python
-> >>> br4nch.display.layer(branch="Stream", position=["1.1.1", "1.2.1"])
+>
+> To print multiple positions in the same function call, you can use a list for the `position` argument.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Stream", position=["1.1.1", "1.2.1"])
 > Get Position Result:
-> ┗━ Branch: Stream
-> ˑˑˑ┣━ Layer: Interstellar                 
-> ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
-> ˑˑˑ┗━ Layer: Squid Game                  
-> ˑˑˑˑˑˑ┗━ Position: 1.2.1
+> ┗━ Tree: Stream
+> ˑˑˑ┣━ Position: 1.1.1                
+> ˑˑˑ┃ˑˑ┗━ Node: Interstellar
+> ˑˑˑ┗━ Position: 1.2.1               
+> ˑˑˑˑˑˑ┗━ Node: Squid Game
+> ```
+>
+> To include multiple words in the same function call, you can use a list for the `include` argument.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Test", include=["Second", "Third"])
+> Get Position Result:
+> ┗━ Tree: Test
+> ˑˑˑ┣━ Position: 1.1
+> ˑˑˑ┃ˑˑ┗━ Node: Second Node
+> ˑˑˑ┗━ Position: 1.1.1
+> ˑˑˑˑˑˑ┗━ Node: Third Node
+> ```
+>
+> To exclude multiple words in the same function call, you can use a list for the `exclude` argument.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Test", exclude=["Second", "Third"])
+> Get Position Result:
+> ┗━ Tree: Test
+> ˑˑˑ┣━ Position: 1
+> ˑˑˑ┃ˑˑ┗━ Node: First Node
+> ˑˑˑ┣━ Position: 2
+> ˑˑˑ┃ˑˑ┗━ Node: New Line One
+> ˑˑˑ┃ˑˑˑˑˑNew Line Two
+> ˑˑˑ┃ˑˑˑˑˑNew Line Three
+> ˑˑˑ┗━ Position: 2.1
+> ˑˑˑˑˑˑ┗━ Node: Sub Node One
+> ˑˑˑˑˑˑˑˑˑSub Node Two
 > ```
 
 **Possible error(s):**

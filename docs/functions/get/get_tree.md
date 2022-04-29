@@ -1,67 +1,71 @@
 # get.Tree
 
-To display a layer, use the **following function:**
+To get any tree, use the **following function:**
 
-> br4nch.**get**.**Tree**(*branch*, *layer*, *sensitive=False*, *beautify=True*)
-
-**Required argument(s):**
-
-- *branch* - The branch(es) to display the layer(s) for.
-- *layer* - The layer(s) that are displayed.
+> br4nch.**get**.**Tree**(*include=""*, *exclude=""*, *beautify=True*)
 
 **Optional argument(s):**
 
-- *sensitive* - If this argument is 'True', then the filled in layer must be case-sensitive.
+- *include* - If the given word(s) are in the tree, the tree will be displayed. Else, it will not be displayed.
+- *exclude* - If the given word(s) are in the tree, the tree will not be displayed. Else, it will be displayed.
 - *beautify* - If this argument is 'True', then the result will be displayed with a special branch format.
 
 **Guide:**
 
-> To print the layer of a position in a branch, specify the name of the layer in the `layer` argument.
+> To print all trees, use this function.
 >
 > ```python
-> >>> br4nch.display.layer(branch="Stream", layer="Squid Game")
-> Get Position Result:
-> ┗━ Branch: Stream
-> ˑˑˑ┗━ Layer: Squid Game                  
-> ˑˑˑˑˑˑ┗━ Position: 1.2.1
+> >>> br4nch.get.Tree()
+> Get Tree Result:
+> ┣━ MyTree
+> ┣━ Earth
+> ┣━ SecondTree
+> ┗━ Games
 > ```
 >
-> To make the name of the layer case-sensitive, set the `sensitive` argument to True.
+> To filter only trees with a certain word, put the word in the `include` argument.
 >
 > ```python
-> >>> br4nch.display.layer(branch="Stream", layer="squid game", sensitive=True)
+> >>> br4nch.get.Tree(include="Tree")
+> Get Tree Result:
+> ┣━ MyTree
+> ┗━ SecondTree
 > ```
 >
-> To print the result without a branch structure in the result, set the `beautify` argument to ˑFalseˑ.
+> To filter out only trees with a certain word, put the word in the `exclude` argument.
 >
 > ```python
-> >>> br4nch.display.layer(branch="Stream", layer="Squid Game", beautify=False)
-> 1.2.1
+> >>> br4nch.get.Tree(exclude="Tree")
+> Get Tree Result:
+> ┣━ Earth
+> ┗━ Games
 > ```
 >
-> To print the position(s) in multiple branches in the same function call, you can use a list for the `branch` argument.
+> To print the result without a tree structure in the result, set the `beautify` argument to `False`.
 >
 > ```python
-> >>> br4nch.display.layer(branch=["Stream"], ["Stream2"], layer="The Walking Dead")
-> Get Position Result:
-> ┣━ Branch: Stream
-> ┃ˑˑ┗━ Layer: The Walking Dead              
-> ┃ˑˑˑˑˑ┗━ Position: 2.1.1
-> ┗━ Branch: Stream2
-> ˑˑˑ┗━ Layer: The Walking Dead                
-> ˑˑˑˑˑˑ┗━ Position: 2.1.1
+> >>> br4nch.get.Tree(beautify=False)
+> MyTree
+> Earth
+> SecondTree
+> Games
 > ```
-> 
->To print multiple positions in the same function call, you can use a list for the `layer` argument.
-> 
->```python
-> >>> br4nch.display.layer(branch="Stream", layer=["Interstellar", "Squid Game"])
-> Get Position Result:
-> ┗━ Branch: Stream
-> ˑˑˑ┣━ Layer: Interstellar                 
-> ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
-> ˑˑˑ┗━ Layer: Squid Game                  
-> ˑˑˑˑˑˑ┗━ Position: 1.2.1
+>
+> To include multiple words in the same function call, you can use a list for the `include` argument.
+>
+> ```python
+> >>> br4nch.get.Tree(include=["Earth", "Games"])
+> Get Tree Result:
+> ┣━ Earth
+> ┗━ Games
+> ```
+>
+> To exclude multiple words in the same function call, you can use a list for the `exclude` argument.
+>
+> ```python
+> >>> br4nch.get.Tree(exclude=["Tree", "Earth"])
+> Get Tree Result:
+> ┗━ Games
 > ```
 
 **Possible error(s):**
