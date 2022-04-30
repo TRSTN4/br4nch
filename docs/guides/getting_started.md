@@ -4,47 +4,59 @@
 
 **Guide:**
 
-> First we need to create a branch, we will call the branch `MyBranch` and the name of the header will be `My Header!`.
+> First we need to create a tree, we will call the tree `MyTree` and the name of the header will be `My Header!`.
 >
 > ```python
-> >>> br4nch.create.branch(branch="MyBranch", header="My Header!")
+> >>> br4nch.create.Tree(tree="MyTree", header="My Header!")
 > ```
 
 ## Step 2
 
 **Guide:**
 
-> To print the result of the branch created so far, specify the name of the branch you want to print. In this case the branch `MyBranch`.
+> To print the result of the tree created so far, specify the name of the tree you want to print. In this case the tree `MyTree`.
 >
 > ```python
-> >>> br4nch.display.branch(branch="MyBranch")
-> My custom header!
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
 > ```
 
 ## Step 3
 
 **Guide:**
 
-> To create a layer to the branch, first specify the branch where the layer should be created, the name of the layer you want to create (we use the name `Hello World!`) and the position where the layer must be created. The position `0` indicates that the layer is created at the first height.
->
-> *For more information about positions, head to [positions](../guides/positions.md).*
+> To create a node to the tree, first specify the tree where the node should be created, the name of the node you want to create (we use the name `Hello World`).
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer="Hello World!", position="0")
+> >>> br4nch.create.Node(tree="MyTree", node="Hello World")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
-> My custom header!
-> ┗━ Hello World!
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┗━ Hello World
 > ```
 >
-> To create multiple layer in the same function call, you can use list for the `layer` argument.
+> To place a node in a specific position, use the argument `parent`. The position `0` indicates that the node will be created at the first height (to create nodes at the first height, you can leave out the `parent` argument).
+>
+> *For more information about parents/positions, head to [positions](../guides/positions.md).*
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer=["Apple", "Pear"], position="0")
+> >>> br4nch.create.Node(tree="MyTree", node="Second node", parent="0")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
-> My custom header!
-> ┣━ Hello World!
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┣━ Hello World
+> ┗━ Second node
+> ```
+>
+> To create multiple nodes in the same function call, you can use list for the `layer` argument.
+>
+> ```python
+> >>> br4nch.create.Node(tree="MyTree", node=["Apple", "Pear"], parent="0")
+> 
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┣━ Hello World
+> ┣━ Second node
 > ┣━ Apple
 > ┗━ Pear
 > ```
@@ -53,61 +65,114 @@
 
 **Guide:**
 
-> To create a sublayer in for example the layer `Hello World!`, adjust the position to `1`. This is because the `Hello World!` layer is in place `1` in the first height.
+> To create a child in for example the parent node `Hello World`, indicate the name of the node in the `parent` argument.
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer="Tree", position="1")
+> >>> br4nch.create.Node(tree="MyTree", node="Earth", parent="Hello World")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
-> My custom header!
-> ┣━ Hello World!
-> ┃ˑˑ┗━ Tree
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┣━ Hello World
+> ┃ˑˑ┗━ Earth
+> ┣━ Second node
 > ┣━ Apple
 > ┗━ Pear
 > ```
 >
-> To create an layer at  multiple positions in the same function call, you can use list for the `position` argument.
+> You can also adjust the position to `1`. This is because the `Hello World` node is in the first place and in the first height.
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer="Plant", position=["2", "3"])
+> >>> br4nch.create.Node(tree="MyTree", node="Moon", parent="1")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
-> My custom header!
-> ┣━ Hello World!
-> ┃ˑˑ┗━ Tree
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┗━ Moon
+> ┣━ Second node
+> ┣━ Apple
+> ┗━ Pear
+> ```
+>
+> To create a node at multiple parents/positions in the same function call, you can use list for the `parent` argument.
+>
+> ```python
+> >>> br4nch.create.Node(tree="MyTree", node="Plant", parent=["Apple", "Pear"])
+> 
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┗━ Moon
+> ┣━ Second node
 > ┣━ Apple
 > ┃ˑˑ┗━ Plant
 > ┗━ Pear
 > ˑˑˑ┗━ Plant
 > ```
 >
-> *Need help with the positions? then use the function `display.assist` .*
+> *Need help with the positions? then use the function [display.Assist](../functions/display/display_assist.md).*
 >
 > ```python
-> >>> br4nch.display.assist(branch="MyBranch")
-> 0: My custom header!
-> ┣━ 1: Hello World!
-> ┃ˑˑ┗━ 1.1: Tree
-> ┣━ 2: Apple
-> ┃ˑˑ┗━ 2.1: Plant
-> ┗━ 3: Pear
-> ˑˑˑ┗━ 3.1: Plant
+> >>> br4nch.display.Assist(tree="MyTree")
+> 0: My Header!
+> ┣━ 1: Hello World
+> ┃ˑˑ┣━ 1.1: Earth
+> ┃ˑˑ┗━ 1.2: Moon
+> ┣━ 2: Second node
+> ┣━ 3: Apple
+> ┃ˑˑ┗━ 3.1: Plant
+> ┗━ 4: Pear
+> ˑˑˑ┗━ 4.1: Plant
 > ```
 
 ## Step 5
 
 **Guide:**
 
-> To create another sublayer in for example the layer `Tree`, adjust the position to `1.1`. (See example above).
+> To create another child in for example the node `Earth`, adjust the parent to `Earth`.
 >
 > ```python
-> >>> br4nch.create.layer(branch="MyBranch", layer="Birds", position="1.1")
+> >>> br4nch.create.Node(tree="MyTree", node="Life", parent="Earth")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
-> My custom header!
-> ┣━ Hello World!
-> ┃ˑˑ┗━ Tree
-> ┃ˑˑˑˑˑ┗━ Birds
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┃ˑˑ┗━ Life
+> ┃ˑˑ┗━ Moon
+> ┣━ Second node
+> ┣━ Apple
+> ┃ˑˑ┗━ Plant
+> ┗━ Pear
+> ˑˑˑ┗━ Plant
+> ```
+>
+> You can also adjust the position to `1.1`. This is because the `Hello World` node is in place the first place in the first height and the `Earth` node is in the first place in the second height.
+>
+> ```python
+> >>> br4nch.display.Assist(tree="MyTree")
+> 0: My Header!
+> ┣━ 1: Hello World
+> ┃ˑˑ┣━ 1.1: Earth
+> ┃ˑˑ┃ˑˑ┗━ 1.1.1: Life
+> ┃ˑˑ┗━ 1.2: Moon
+> ┣━ 2: Second node
+> ┣━ 3: Apple
+> ┃ˑˑ┗━ 3.1: Plant
+> ┗━ 4: Pear
+> ˑˑˑ┗━ 4.1: Plant
+> 
+> >>> br4nch.create.Node(tree="MyTree", node="Asteroid", parent="1.1")
+> 
+> >>> br4nch.display.Tree(tree="MyTree")
+> My Header!
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┃ˑˑ┣━ Life
+> ┃ˑˑ┃ˑˑ┗━ Astertoid
+> ┃ˑˑ┗━ Moon
+> ┣━ Second node
 > ┣━ Apple
 > ┃ˑˑ┗━ Plant
 > ┗━ Pear

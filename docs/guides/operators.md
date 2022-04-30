@@ -6,17 +6,17 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 
 **Guide:**
 
-> Using the `/`/`combinator` operator.
+> Using the `/` aka `combinator` operator.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┗━ Prime Video
 > 
-> >>> br4nch.add.layer(branch="Stream", layer=["Movies", "Series"], position="1/2")
+> >>> br4nch.add.Node(tree="Stream", node=["Movies", "Series"], parent="1/2")
 > 
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -26,10 +26,10 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > ˑˑˑ┗━ Series
 > ```
 >
-> Using the `/`/`combinator` operator followed by a position.
+> Using the `/` aka `combinator` operator followed by a position.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -38,9 +38,9 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > ˑˑˑ┣━ Movies
 > ˑˑˑ┗━ Series
 > 
-> >>> br4nch.add.layer(branch="Stream", layer=["The Hobbit"], position="1/2.1")
+> >>> br4nch.add.Node(tree="Stream", node=["The Hobbit"], parent="1/2.1")
 > 
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -58,17 +58,17 @@ The operator 'selector' is used to include all positions at the same height as t
 
 **Guide**
 
-> Using the `*`/`selector` operator.
+> Using the `*` aka `selector` operator.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┗━ Prime Video
 > 
-> >>> br4nch.add.layer(branch="Stream", layer=["Movies", "Series"], position="*")
+> >>> br4nch.add.Node(tree="Stream", node=["Movies", "Series"], parent="*")
 > 
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -78,10 +78,10 @@ The operator 'selector' is used to include all positions at the same height as t
 > ˑˑˑ┗━ Series
 > ```
 >
-> Using the `*`/`selector` operator followed by a position.
+> Using the `*` aka `selector` operator followed by a position.
 >
 > ```python
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -90,9 +90,9 @@ The operator 'selector' is used to include all positions at the same height as t
 > ˑˑˑ┣━ Movies
 > ˑˑˑ┗━ Series
 > 
-> >>> br4nch.add.layer(branch="Stream", layer=["The Hobbit"], position="*.1")
+> >>> br4nch.add.Node(tree="Stream", node=["The Hobbit"], parent="*.1")
 > 
-> >>> br4nch.display.branch(branch="Stream")
+> >>> br4nch.display.Tree(tree="Stream")
 > Movies & Series
 > ┣━ Netflix
 > ┃ˑˑ┣━ Movies
@@ -104,18 +104,18 @@ The operator 'selector' is used to include all positions at the same height as t
 > ˑˑˑ┗━ Series
 > ```
 >
-> The `selector` operator can also be used to define all existing branches.
+> The `selector` operator can also be used to define all existing trees.
 >
-> For example to display all branches.
+> For example to display all trees.
 >
 > ```python
-> >>> br4nch.display.branch(branch="*")
+> >>> br4nch.display.Tree(tree="*")
 > ```
 >
-> For example to create an layer in all branches on the position `0`.
+> For example to create a node in all trees on the position `0`.
 >
 > ```python
-> >>> br4nch.add.layer(branch="*", layer="Test", position="0")
+> >>> br4nch.add.Node(tree="*", node="Test", position="0")
 > ```
 
 ## Inclusor - >
@@ -124,18 +124,18 @@ The operator 'inclusor' is used to include all positions between two values at t
 
 **Guide:**
 
-> Using the `>`/`inclusor` operator followed by a position.
+> Using the `>` aka `inclusor` operator followed by a position.
 >
 > ```python
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
 > ┗━ Layer Three
 > 
-> >>> br4nch.add.layer(branch="MyBranch", layer=["Sub Layer"], position="2>3")
+> >>> br4nch.add.Node(tree="MyTree", node=["Sub Layer"], parent="2>3")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
@@ -144,10 +144,10 @@ The operator 'inclusor' is used to include all positions between two values at t
 > ˑˑˑ┗━ Sub Layer
 > ```
 >
-> And
+> And...
 >
 > ```python
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
@@ -155,9 +155,9 @@ The operator 'inclusor' is used to include all positions between two values at t
 > ┗━ Layer Three
 > ˑˑˑ┗━ Sub Layer
 > 
-> >>> br4nch.add.layer(branch="MyBranch", layer=["Final Layer"], position="2>3.1")
+> >>> br4nch.add.Node(tree="MyTree", node=["Final Layer"], parent="2>3.1")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
@@ -174,18 +174,18 @@ The operator 'exclusor' is used to avoid using all positions between two values 
 
 **Guide:**
 
-> Using the `<`/`exclusor` operator followed by a position.
+> Using the `<` aka `exclusor` operator followed by a position.
 >
 > ```python
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┣━ Layer Two
 > ┗━ Layer Three
 > 
-> >>> br4nch.add.layer(branch="MyBranch", layer=["Sub Layer"], position="2<3")
+> >>> br4nch.add.Node(tree="MyTree", node=["Sub Layer"], parent="2<3")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┃ˑˑ┗━ Sub Layer
@@ -193,19 +193,19 @@ The operator 'exclusor' is used to avoid using all positions between two values 
 > ┗━ Layer Three
 > ```
 >
-> And
+> And...
 >
 > ```python
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┃ˑˑ┗━ Sub Layer
 > ┣━ Layer Two
 > ┗━ Layer Three
 > 
-> >>> br4nch.add.layer(branch="MyBranch", layer=["Final Layer"], position="2<3.1")
+> >>> br4nch.add.Node(tree="MyTree", node=["Final Layer"], parent="2<3.1")
 > 
-> >>> br4nch.display.branch(branch="MyBranch")
+> >>> br4nch.display.Tree(tree="MyTree")
 > My Header
 > ┣━ Layer One
 > ┃ˑˑ┗━ Sub Layer
