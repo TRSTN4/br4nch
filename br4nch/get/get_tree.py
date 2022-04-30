@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from br4nch.utility.utility_librarian import UtilityLibrarian
-from br4nch.utility.utility_handler import InstanceStringError
+from br4nch.utility.utility_handler import InstanceStringError, InstanceBooleanError
 from br4nch.utility.utility_generator import UtilityGenerator
 from br4nch.display.display_tree import DisplayTree
 
@@ -35,6 +35,10 @@ class GetTree:
             for exclude in self.excludes:
                 if not isinstance(exclude, str):
                     raise InstanceStringError("exclude", exclude)
+
+        if self.beautify:
+            if not isinstance(self.beautify, bool):
+                raise InstanceBooleanError("beautify", self.beautify)
 
     def log_tree(self):
         trees = []

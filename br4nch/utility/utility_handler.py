@@ -60,8 +60,8 @@ class InvalidPositionError(Exception):
 
     def __str__(self):
         return "The " + self.argument + ": '" + self.value \
-               + "' is not valid. Only numbers, operators and existing nodes can be used to decide the position for " \
-                 "the " + self.argument + " argument."
+               + "' is not valid. Only valid positions, operators and existing nodes can be used to decide the " \
+                 "position for the " + self.argument + " argument."
 
 
 class InvalidSizeError(Exception):
