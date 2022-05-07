@@ -15,7 +15,7 @@ from br4nch.utility.utility_generator import UtilityGenerator
 
 class LoadJson:
     def __init__(self, new_tree, header, json_file):
-        self.new_tree = new_tree
+        self.new_trees = new_tree
         self.header = header
         self.json_file = json_file
 
@@ -25,14 +25,18 @@ class LoadJson:
         self.task_manager()
 
     def validate_arguments(self):
-        if not isinstance(self.new_tree, str):
-            raise InstanceStringError("tree_name", self.new_tree)
+        if not isinstance(self.new_trees, list):
+            self.new_trees = [self.new_trees]
 
-        if not self.new_tree.isalnum():
-            raise InvalidTreeNameError(self.new_tree)
+        for tree in self.new_trees:
+            if not isinstance(tree, str):
+                raise InstanceStringError("new_trees", tree)
 
-        if self.new_tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise DuplicateTreeError(self.new_tree)
+            if not tree.isalnum():
+                raise InvalidTreeNameError(tree)
+
+            if tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
+                raise DuplicateTreeError(tree)
 
         if not isinstance(self.header, str):
             raise InstanceStringError("header", self.header)
@@ -57,10 +61,11 @@ class LoadJson:
 
         self.add_uid(json_content)
 
-        UtilityLibrarian.existing_output.update({self.new_tree: []})
-        UtilityLibrarian.existing_sizes.update({self.new_tree: 0})
-        UtilityLibrarian.existing_symbols.update({self.new_tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
-        UtilityLibrarian.existing_trees.update({self.new_tree: {self.header: json_content}})
+        for tree in self.new_trees:
+            UtilityLibrarian.existing_output.update({tree: []})
+            UtilityLibrarian.existing_sizes.update({tree: 0})
+            UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
+            UtilityLibrarian.existing_trees.update({tree: {self.header: json_content}})
 
     def convert_non_strings(self, nested_dictionary):
         if not isinstance(nested_dictionary, dict):
