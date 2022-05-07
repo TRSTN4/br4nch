@@ -142,7 +142,7 @@ To load a folder, use the **following function:**
 > ˑˑˑˑˑˑ┗━ First_Upload.mp4
 > ```
 >
-> To load multiple trees in the same function call, you can use a list for the `new_tree` argument.
+> To load multiple trees with the folder content in the same function call, you can use a list for the `new_tree` argument.
 >
 > ```python
 > >>> br4nch.load.Folder(new_tree=["MyFolder", "MyFolderTwo"], folder_path="D:/Vault")

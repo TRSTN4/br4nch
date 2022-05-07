@@ -18,6 +18,26 @@ To export the tree output to a text file, use the **following function:**
 > # Path: D:/br4nch-MyBranch.txt
 > ```
 >
+> The content of the file that we exported to a text file.
+>
+> ***file:** "D:/MyOutput/br4nch-WynncraftAPI.txt"*
+>
+> ```
+> Movies & Series
+> ┣━ Netflix
+> ┃  ┣━ Movies
+> ┃  ┃  ┗━ Interstellar
+> ┃  ┗━ Series
+> ┃     ┣━ Squid Game
+> ┃     ┗━ The Crown
+> ┗━ Prime Video
+>    ┣━ Movies
+>    ┃  ┣━ Tenet
+>    ┃  ┗━ Parasite
+>    ┗━ Series
+>       ┗━ The Walking Dead
+> ```
+>
 > To export multiple trees to a text file in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
