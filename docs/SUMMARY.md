@@ -46,6 +46,7 @@
   - [export.Text](functions/export/export_text.md)
 - Load
   - [load.Tree](functions/load/load_tree.md)
+  - [load.Json](functions/load/load_json.md)
   - [load.Folder](functions/load/load_folder.md)
 - Get
   - [get.Tree](functions/get/get_tree.md)
