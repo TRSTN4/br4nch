@@ -5,4 +5,5 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from .load_tree import LoadTree as Tree
+from .load_json import LoadJson as Json
 from .load_folder import LoadFolder as Folder

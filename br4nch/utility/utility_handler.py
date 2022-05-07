@@ -131,6 +131,16 @@ class NotExistingAttributesFileError(Exception):
         return "The attributes file: '" + str(self.value) + "' does not exist."
 
 
+class NotExistingJsonFileError(Exception):
+    __module__ = Exception.__module__
+
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return "The json file: '" + str(self.value) + "' does not exist."
+
+
 class NotSizeableError(Exception):
     __module__ = Exception.__module__
 
