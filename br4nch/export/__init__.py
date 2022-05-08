@@ -5,4 +5,5 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from .export_tree import ExportTree as Tree
+from .export_json import ExportJson as Json
 from .export_text import ExportText as Text
