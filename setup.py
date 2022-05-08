@@ -28,12 +28,11 @@ setup(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.6"],
+        "Programming Language :: Python :: 3.7"],
     keywords=["br4nch", "python", "python3", "data", "structure", "tree", "builder", "generate", "algorithm"],
     license="GNU General Public License v3.0",
     download_url="https://github.com/TRSTN4/br4nch/archive/refs/tags/" + __version__ + ".tar.gz",
     packages=find_packages(),
     install_requires=[],
-    python_requires='>=3.6'
+    python_requires='>=3.7'
 )
