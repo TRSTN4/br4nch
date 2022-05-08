@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InvalidPositionError
+from ..utility.utility_handler import UtilityHandler
 
 
 class UtilityDecider:
@@ -173,19 +173,19 @@ class FormatPosition:
             if isinstance(position_package[number], list):
                 for position in position_package[number]:
                     if not isinstance(position, str):
-                        raise InstanceStringError(self.argument, position)
+                        raise UtilityHandler.InstanceStringError(self.argument, position)
                     else:
                         for character in position:
                             if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">",
                                                  "<"]:
-                                raise InvalidPositionError(self.argument, position_package[number])
+                                raise UtilityHandler.InvalidPositionError(self.argument, position_package[number])
             else:
                 if not isinstance(position_package[number], str):
-                    raise InstanceStringError("pos", position_package[number])
+                    raise UtilityHandler.InstanceStringError("pos", position_package[number])
                 else:
                     for character in position_package[number]:
                         if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "/", "*", ">", "<"]:
-                            raise InvalidPositionError(self.argument, position_package[number])
+                            raise UtilityHandler.InvalidPositionError(self.argument, position_package[number])
 
             if "." in position_package[number]:
                 position_package[number] = position_package[number].split(".")
@@ -198,7 +198,7 @@ class FormatPosition:
                 if "/" in position_package[number][position]:
                     for multiple_position in position_package[number][position].split("/"):
                         if not multiple_position:
-                            raise InvalidPositionError(self.argument, position_package[number][position])
+                            raise UtilityHandler.InvalidPositionError(self.argument, position_package[number][position])
 
                     for count in range(len(position_package[number][position].split("/"))):
                         position_package.append(position_package[number].copy())
@@ -227,7 +227,8 @@ class FormatPosition:
                     if ">" in position_package[number][position]:
                         for including_position in position_package[number][position].split(">"):
                             if not including_position:
-                                raise InvalidPositionError(self.argument, position_package[number][position])
+                                raise UtilityHandler.InvalidPositionError(
+                                    self.argument, position_package[number][position])
 
                     including_positions = position_package[number][position].split(">")
                     total_including_positions = len(including_positions)
@@ -247,7 +248,8 @@ class FormatPosition:
                     if "<" in position_package[number][position]:
                         for excluding_position in position_package[number][position].split("<"):
                             if not excluding_position:
-                                raise InvalidPositionError(self.argument, position_package[number][position])
+                                raise UtilityHandler.InvalidPositionError(
+                                    self.argument, position_package[number][position])
 
                     excluding_positions = []
 

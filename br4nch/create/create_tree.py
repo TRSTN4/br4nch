@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InvalidTreeNameError, DuplicateTreeError
+from ..utility.utility_handler import UtilityHandler
 
 
 class CreateTree:
@@ -22,16 +22,16 @@ class CreateTree:
 
         for tree in self.trees:
             if not isinstance(tree, str):
-                raise InstanceStringError("tree", tree)
+                raise UtilityHandler.InstanceStringError("tree", tree)
 
             if not tree.isalnum():
-                raise InvalidTreeNameError(tree)
+                raise UtilityHandler.InvalidTreeNameError(tree)
 
             if tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise DuplicateTreeError(tree)
+                raise UtilityHandler.DuplicateTreeError(tree)
 
         if not isinstance(self.header, str):
-            raise InstanceStringError("header", self.header)
+            raise UtilityHandler.InstanceStringError("header", self.header)
 
     def create_tree(self):
         for tree in self.trees:

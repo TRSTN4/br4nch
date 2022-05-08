@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 from ..utility.utility_builder import UtilityBuilder
 
 
@@ -28,10 +28,10 @@ class DisplayTree:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
@@ -39,7 +39,7 @@ class DisplayTree:
 
         if self.delete:
             if not isinstance(self.delete, bool):
-                raise InstanceBooleanError("delete", self.delete)
+                raise UtilityHandler.InstanceBooleanError("delete", self.delete)
 
     def display_tree(self):
         for tree in self.trees:

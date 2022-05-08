@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 from ..utility.utility_generator import UtilityGenerator
 from ..utility.utility_decider import UtilityDecider
 
@@ -30,17 +30,17 @@ class ReplaceNode:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if not isinstance(self.new_node, str):
-            raise InstanceStringError("new_node", self.new_node)
+            raise UtilityHandler.InstanceStringError("new_node", self.new_node)
 
         while True:
             if self.new_node and self.new_node[-1] == "\n":

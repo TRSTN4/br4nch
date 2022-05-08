@@ -7,7 +7,7 @@
 import copy
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InvalidPositionError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 from ..utility.utility_decider import UtilityDecider
 
 
@@ -32,10 +32,10 @@ class MoveNode:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
@@ -48,18 +48,18 @@ class MoveNode:
             self.to_parent = "0"
 
         if not isinstance(self.to_parent, str):
-            raise InstanceStringError("to_parent", self.to_parent)
+            raise UtilityHandler.InstanceStringError("to_parent", self.to_parent)
 
         for parent in self.to_parent.split("."):
             if not parent.isnumeric():
-                raise InvalidPositionError("to_parent", self.to_parent)
+                raise UtilityHandler.InvalidPositionError("to_parent", self.to_parent)
 
         if self.target_tree:
             if not isinstance(self.target_tree, str):
-                raise InstanceStringError("target_tree", self.target_tree)
+                raise UtilityHandler.InstanceStringError("target_tree", self.target_tree)
 
             if self.target_tree.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.target_tree)
+                raise UtilityHandler.NotExistingTreeError(self.target_tree)
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.target_tree.lower() == existing_tree.lower():

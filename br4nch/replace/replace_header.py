@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 
 
 class ReplaceHeader:
@@ -27,17 +27,17 @@ class ReplaceHeader:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if not isinstance(self.new_header, str):
-            raise InstanceStringError("new_header", self.new_header)
+            raise UtilityHandler.InstanceStringError("new_header", self.new_header)
 
     def replace_header(self):
         for tree in self.trees:

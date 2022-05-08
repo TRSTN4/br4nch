@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 
 
 class DeleteTree:
@@ -26,10 +26,10 @@ class DeleteTree:
 
         for tree in self.trees:
             if not isinstance(tree, str):
-                raise InstanceStringError("tree", tree)
+                raise UtilityHandler.InstanceStringError("tree", tree)
 
             if tree.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(tree)
+                raise UtilityHandler.NotExistingTreeError(tree)
 
     def delete_tree(self):
         for tree in self.trees:

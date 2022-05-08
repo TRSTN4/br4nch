@@ -8,8 +8,7 @@ import os
 import json
 
 from br4nch.utility.utility_librarian import UtilityLibrarian
-from br4nch.utility.utility_handler import InstanceStringError, InvalidTreeNameError, DuplicateTreeError, \
-    NotExistingJsonFileError
+from br4nch.utility.utility_handler import UtilityHandler
 from br4nch.utility.utility_generator import UtilityGenerator
 
 
@@ -30,22 +29,22 @@ class LoadJson:
 
         for tree in self.new_trees:
             if not isinstance(tree, str):
-                raise InstanceStringError("new_trees", tree)
+                raise UtilityHandler.InstanceStringError("new_trees", tree)
 
             if not tree.isalnum():
-                raise InvalidTreeNameError(tree)
+                raise UtilityHandler.InvalidTreeNameError(tree)
 
             if tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise DuplicateTreeError(tree)
+                raise UtilityHandler.DuplicateTreeError(tree)
 
         if not isinstance(self.header, str):
-            raise InstanceStringError("header", self.header)
+            raise UtilityHandler.InstanceStringError("header", self.header)
 
         if not isinstance(self.json_file, str):
-            raise InstanceStringError("json_file", self.json_file)
+            raise UtilityHandler.InstanceStringError("json_file", self.json_file)
 
         if not os.path.isfile(self.json_file):
-            raise NotExistingJsonFileError(self.json_file)
+            raise UtilityHandler.NotExistingJsonFileError(self.json_file)
 
     def task_manager(self):
         file = open(self.json_file)

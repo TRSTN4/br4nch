@@ -7,7 +7,7 @@
 import copy
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 from ..utility.utility_generator import UtilityGenerator
 from ..utility.utility_decider import UtilityDecider
 
@@ -34,10 +34,10 @@ class DuplicateNode:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
@@ -60,10 +60,10 @@ class DuplicateNode:
 
             for index in range(len(self.target_trees)):
                 if not isinstance(self.target_trees[index], str):
-                    raise InstanceStringError("target_tree", self.target_trees[index])
+                    raise UtilityHandler.InstanceStringError("target_tree", self.target_trees[index])
 
                 if self.target_trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                    raise NotExistingTreeError(self.target_trees[index])
+                    raise UtilityHandler.NotExistingTreeError(self.target_trees[index])
 
                 for existing_tree in list(UtilityLibrarian.existing_trees):
                     if self.target_trees[index].lower() == existing_tree.lower():
@@ -71,7 +71,7 @@ class DuplicateNode:
 
         if self.delete:
             if not isinstance(self.delete, bool):
-                raise InstanceBooleanError("delete", self.delete)
+                raise UtilityHandler.InstanceBooleanError("delete", self.delete)
 
     def duplicate_node(self):
         for tree in self.trees:

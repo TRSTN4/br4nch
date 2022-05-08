@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, RequiredSymbolChangeError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 
 
 class SetSymbol:
@@ -29,10 +29,10 @@ class SetSymbol:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
@@ -40,18 +40,18 @@ class SetSymbol:
 
         if self.line:
             if not isinstance(self.line, str):
-                raise InstanceStringError("line", self.line)
+                raise UtilityHandler.InstanceStringError("line", self.line)
 
         if self.split:
             if not isinstance(self.split, str):
-                raise InstanceStringError("split", self.split)
+                raise UtilityHandler.InstanceStringError("split", self.split)
 
         if self.end:
             if not isinstance(self.end, str):
-                raise InstanceStringError("end", self.end)
+                raise UtilityHandler.InstanceStringError("end", self.end)
 
         if not self.line and not self.split and not self.end:
-            raise RequiredSymbolChangeError
+            raise UtilityHandler.RequiredSymbolChangeError
 
     def set_symbol(self):
         for tree in self.trees:

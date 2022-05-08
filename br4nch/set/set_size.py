@@ -5,8 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceIntegerError, InstanceStringError, InvalidSizeError, \
-    NotExistingTreeError, NotSizeableError
+from ..utility.utility_handler import UtilityHandler
 
 
 class SetSize:
@@ -28,28 +27,28 @@ class SetSize:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
         if not isinstance(self.size, int):
-            raise InstanceIntegerError("size", self.size)
+            raise UtilityHandler.InstanceIntegerError("size", self.size)
 
         for tree in self.trees:
             if UtilityLibrarian.existing_symbols[tree]["line"] != "┃":
-                raise NotSizeableError
+                raise UtilityHandler.NotSizeableError
             if UtilityLibrarian.existing_symbols[tree]["split"] != "┣━":
-                raise NotSizeableError
+                raise UtilityHandler.NotSizeableError
             if UtilityLibrarian.existing_symbols[tree]["end"] != "┗━":
-                raise NotSizeableError
+                raise UtilityHandler.NotSizeableError
 
         if self.size < 0 or self.size > 20:
-            raise InvalidSizeError
+            raise UtilityHandler.InvalidSizeError
 
     def set_size(self):
         for tree in self.trees:

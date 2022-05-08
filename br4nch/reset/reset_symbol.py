@@ -5,7 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceBooleanError, InstanceStringError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 
 
 class ResetSymbol:
@@ -29,10 +29,10 @@ class ResetSymbol:
 
         for index in range(len(self.trees)):
             if not isinstance(self.trees[index], str):
-                raise InstanceStringError("tree", self.trees[index])
+                raise UtilityHandler.InstanceStringError("tree", self.trees[index])
 
             if self.trees[index].lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise NotExistingTreeError(self.trees[index])
+                raise UtilityHandler.NotExistingTreeError(self.trees[index])
 
             for existing_tree in list(UtilityLibrarian.existing_trees):
                 if self.trees[index].lower() == existing_tree.lower():
@@ -40,15 +40,15 @@ class ResetSymbol:
 
         if self.line:
             if not isinstance(self.line, bool):
-                raise InstanceBooleanError("line", self.line)
+                raise UtilityHandler.InstanceBooleanError("line", self.line)
 
         if self.split:
             if not isinstance(self.split, bool):
-                raise InstanceBooleanError("split", self.split)
+                raise UtilityHandler.InstanceBooleanError("split", self.split)
 
         if self.end:
             if not isinstance(self.end, bool):
-                raise InstanceBooleanError("end", self.end)
+                raise UtilityHandler.InstanceBooleanError("end", self.end)
 
     def reset_symbol(self):
         for tree in self.trees:

@@ -8,8 +8,7 @@ import os
 import ast
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, DuplicateTreeError, NotExistingTreeFileError, \
-    InvalidTreeFileError, NotExistingAttributesFileError, InvalidAttributesFileError
+from ..utility.utility_handler import UtilityHandler
 
 
 class LoadTree:
@@ -22,28 +21,28 @@ class LoadTree:
 
     def validate_arguments(self):
         if not isinstance(self.tree_file, str):
-            raise InstanceStringError("tree_file", self.tree_file)
+            raise UtilityHandler.InstanceStringError("tree_file", self.tree_file)
 
         if not self.tree_file or self.tree_file and not os.path.isfile(self.tree_file):
-            raise NotExistingTreeFileError(self.tree_file)
+            raise UtilityHandler.NotExistingTreeFileError(self.tree_file)
 
         with open(self.tree_file, 'r', encoding="utf8") as file:
             file = file.readlines()
 
             if str(file[0][:-1]) != "tag=tree":
-                raise InvalidTreeFileError(self.tree_file)
+                raise UtilityHandler.InvalidTreeFileError(self.tree_file)
 
             self.tree_file = ast.literal_eval(file[1])
 
         if list(self.tree_file)[0].lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise DuplicateTreeError(list(self.tree_file)[0])
+            raise UtilityHandler.DuplicateTreeError(list(self.tree_file)[0])
 
         if self.attributes_file:
             if not isinstance(self.attributes_file, str):
-                raise InstanceStringError("attributes_file", self.attributes_file)
+                raise UtilityHandler.InstanceStringError("attributes_file", self.attributes_file)
 
             if not self.attributes_file or self.attributes_file and not os.path.isfile(self.attributes_file):
-                raise NotExistingAttributesFileError(self.attributes_file)
+                raise UtilityHandler.NotExistingAttributesFileError(self.attributes_file)
 
     def load_tree(self):
         if self.attributes_file:
@@ -51,7 +50,7 @@ class LoadTree:
                 file = file.readlines()
 
                 if str(file[0][:-1]) != "tag=attributes":
-                    raise InvalidAttributesFileError(self.attributes_file)
+                    raise UtilityHandler.InvalidAttributesFileError(self.attributes_file)
 
                 self.attributes_file = ast.literal_eval(file[1])
 

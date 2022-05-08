@@ -7,8 +7,7 @@
 import os
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, NotExistingDirectoryError, \
-    InvalidTreeNameError, DuplicateTreeError
+from ..utility.utility_handler import UtilityHandler
 from ..utility.utility_generator import UtilityGenerator
 
 
@@ -31,23 +30,23 @@ class LoadFolder:
 
         for tree in self.new_trees:
             if not isinstance(tree, str):
-                raise InstanceStringError("new_tree", tree)
+                raise UtilityHandler.InstanceStringError("new_tree", tree)
 
             if not tree.isalnum():
-                raise InvalidTreeNameError(tree)
+                raise UtilityHandler.InvalidTreeNameError(tree)
 
             if tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-                raise DuplicateTreeError(tree)
+                raise UtilityHandler.DuplicateTreeError(tree)
 
         if not isinstance(self.folder_path, str):
-            raise InstanceStringError("folder_path", self.folder_path)
+            raise UtilityHandler.InstanceStringError("folder_path", self.folder_path)
 
         if not os.path.isdir(self.folder_path):
-            raise NotExistingDirectoryError(self.folder_path)
+            raise UtilityHandler.NotExistingDirectoryError(self.folder_path)
 
         if self.header:
             if not isinstance(self.header, str):
-                raise InstanceStringError("header", self.header)
+                raise UtilityHandler.InstanceStringError("header", self.header)
 
         if not self.header:
             self.header = self.folder_path
@@ -58,7 +57,7 @@ class LoadFolder:
 
             for index in range(len(self.includes)):
                 if not isinstance(self.includes[index], str):
-                    raise InstanceStringError("include", self.includes[index])
+                    raise UtilityHandler.InstanceStringError("include", self.includes[index])
 
                 if not self.includes[index][0] == ".":
                     self.includes[index] = "." + self.includes[index]
@@ -69,18 +68,18 @@ class LoadFolder:
 
             for index in range(len(self.excludes)):
                 if not isinstance(self.excludes[index][0], str):
-                    raise InstanceStringError("exclude", self.excludes[index][0])
+                    raise UtilityHandler.InstanceStringError("exclude", self.excludes[index][0])
 
                 if not self.excludes[index][0] == ".":
                     self.excludes[index] = "." + self.excludes[index]
 
         if self.unused:
             if not isinstance(self.unused, bool):
-                raise InstanceBooleanError("unused", self.unused)
+                raise UtilityHandler.InstanceBooleanError("unused", self.unused)
 
         if self.folder_priority:
             if not isinstance(self.folder_priority, bool):
-                raise InstanceBooleanError("folder_priority", self.folder_priority)
+                raise UtilityHandler.InstanceBooleanError("folder_priority", self.folder_priority)
 
             if self.folder_priority:
                 self.folder_priority = False

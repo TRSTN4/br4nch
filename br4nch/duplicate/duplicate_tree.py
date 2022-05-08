@@ -7,8 +7,7 @@
 import copy
 
 from ..utility.utility_librarian import UtilityLibrarian
-from ..utility.utility_handler import InstanceStringError, InstanceBooleanError, InvalidTreeNameError, \
-    DuplicateTreeError, NotExistingTreeError
+from ..utility.utility_handler import UtilityHandler
 
 
 class DuplicateTree:
@@ -22,19 +21,19 @@ class DuplicateTree:
 
     def validate_arguments(self):
         if not isinstance(self.new_tree, str):
-            raise InstanceStringError("new_tree", self.new_tree)
+            raise UtilityHandler.InstanceStringError("new_tree", self.new_tree)
 
         if not self.new_tree.isalnum():
-            raise InvalidTreeNameError(self.new_tree)
+            raise UtilityHandler.InvalidTreeNameError(self.new_tree)
 
         if self.new_tree.lower() in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise DuplicateTreeError(self.new_tree)
+            raise UtilityHandler.DuplicateTreeError(self.new_tree)
 
         if not isinstance(self.target_tree, str):
-            raise InstanceStringError("target_tree", self.target_tree)
+            raise UtilityHandler.InstanceStringError("target_tree", self.target_tree)
 
         if self.target_tree.lower() not in list(map(str.lower, UtilityLibrarian.existing_trees)):
-            raise NotExistingTreeError(self.target_tree)
+            raise UtilityHandler.NotExistingTreeError(self.target_tree)
 
         for existing_tree in list(UtilityLibrarian.existing_trees):
             if self.target_tree.lower() == existing_tree.lower():
@@ -42,7 +41,7 @@ class DuplicateTree:
 
         if self.attributes:
             if not isinstance(self.attributes, bool):
-                raise InstanceBooleanError("attributes", self.attributes)
+                raise UtilityHandler.InstanceBooleanError("attributes", self.attributes)
 
     def duplicate_tree(self):
         UtilityLibrarian.existing_trees.update(
