@@ -75,8 +75,6 @@ Help in testing, development, documentation and other tasks is highly appreciate
 
 To get started with developing `br4nch`, see [CONTRIBUTING](https://github.com/TRSTN4/br4nch/blob/release/CONTRIBUTING.md).
 
-- [TRSTN4](https://github.com/TRSTN4)
-
 ## ⚠️ License
 
 `br4nch` is free and open-source software licensed under the [GPL-3.0 License](https://github.com/TRSTN4/br4nch/blob/release/LICENSE).
