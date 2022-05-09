@@ -20,6 +20,7 @@ To load a tree file, use the **following function:**
 > >>> br4nch.load.Tree(tree_file="D:/br4nch-MyTree/tree-MyTree.br4nch")
 > ```
 >
+
 > To also import a exported attributes file, specify the path of the attributes file in the `attributes_file` argument.
 >
 > ```python

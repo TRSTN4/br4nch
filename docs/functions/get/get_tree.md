@@ -23,6 +23,7 @@ To get any tree, use the **following function:**
 > ┗━ Games
 > ```
 >
+
 > To filter only trees with a certain word, put the word in the `include` argument.
 >
 > ```python
@@ -32,6 +33,7 @@ To get any tree, use the **following function:**
 > ┗━ SecondTree
 > ```
 >
+
 > To filter out only trees with a certain word, put the word in the `exclude` argument.
 >
 > ```python
@@ -41,6 +43,8 @@ To get any tree, use the **following function:**
 > ┗━ Games
 > ```
 >
+> 
+
 > To print the result without a tree structure in the result, set the `beautify` argument to `False`.
 >
 > ```python
@@ -51,6 +55,7 @@ To get any tree, use the **following function:**
 > Games
 > ```
 >
+
 > To include multiple words in the same function call, you can use a list for the `include` argument.
 >
 > ```python
@@ -60,6 +65,7 @@ To get any tree, use the **following function:**
 > ┗━ Games
 > ```
 >
+
 > To exclude multiple words in the same function call, you can use a list for the `exclude` argument.
 >
 > ```python

@@ -16,6 +16,7 @@
 > ┗━ Hello World
 > ```
 >
+
 > To place a node in a specific position, use the argument `parent`. The position `0` indicates that the node will be created at the first height (to create nodes at the first height, you can leave out the `parent` argument).
 >
 > *For more information about parents/positions, head to [positions](../guides/positions.md).*
@@ -48,6 +49,7 @@
 > ┗━ Pear
 > ```
 >
+
 > You can also adjust the position to `1`. This is because the `Hello World` node is in the first place and in the first height.
 >
 > ```python
@@ -63,6 +65,7 @@
 > ┗━ Pear
 > ```
 >
+
 > To create another child in for example the node `Earth`, adjust the parent to `Earth`.
 >
 > ```python
@@ -79,6 +82,7 @@
 > ┗━ Pear
 > ```
 >
+
 > You can also adjust the position to `1.1`. This is because the `Hello World` node is in place the first place in the first height and the `Earth` node is in the first place in the second height.
 >
 > ```python
@@ -95,7 +99,7 @@
 > ┣━ Apple
 > ┗━ Pear
 > ```
-> 
+>
 
 ## Branch assist
 

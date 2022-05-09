@@ -19,6 +19,7 @@ To delete a tree, use the **following function:**
 > NotExistingTreeError: The tree: 'MyTree' does not exists.
 > ```
 >
+
 > To delete multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

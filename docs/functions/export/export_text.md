@@ -38,6 +38,7 @@ To export the tree output to a text file, use the **following function:**
 > ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 >
+
 > To export multiple trees to a text file in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -46,6 +47,7 @@ To export the tree output to a text file, use the **following function:**
 > # Path: D:/MyOutput/br4nch-Stream.txt
 > ```
 >
+
 > To export the output in multiple folders in the same function call, you can use a list for the `output_folder` argument.
 >
 > ```python

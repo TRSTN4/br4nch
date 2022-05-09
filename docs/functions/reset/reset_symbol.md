@@ -22,12 +22,14 @@ To reset one or multiple symbol(s), use the **following function:**
 > >>> br4nch.reset.Symbol(tree="MyTree")
 > ```
 >
+
 > For example, to reset only the `split` symbol, set the `line` and `end` symbols to 'False'.
 >
 > ```python
 > >>> br4nch.reset.Symbol(tree="MyTree", line=False, end=False)
 > ```
 >
+
 > To reset the symbols for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

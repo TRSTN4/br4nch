@@ -6,42 +6,44 @@
 
 You can easily make a simple branch. We recommend reading [Getting Started](guides/getting_started.md). To create more complex branches that can even be automated, we recommend reading the entire documentation.
 
-```python
->>> br4nch.create.Tree(tree="Ukraine", header="Ukraine <3")
-
->>> br4nch.create.Node(tree="Ukraine", node=["Cities", "Information"])
->>> br4nch.create.Node(tree="Ukraine", node=["Donetsk Oblast", "Kiev Oblast"], parent="Cities")
->>> br4nch.create.Node(tree="Ukraine", node="Mariupol", parent="Donetsk Oblast")
->>> br4nch.create.Node(tree="Ukraine", node=["Bucha", "Tsjernobyl"], parent="Kiev Oblast")
->>> br4nch.create.Node(tree="Ukraine", node=["President", "Area", "Population"], parent="Information")
->>> br4nch.create.Node(tree="Ukraine", node="Zelensky", parent="President")
->>> br4nch.create.Node(tree="Ukraine", node="603.628 km2", parent="Area")
->>> br4nch.create.Node(tree="Ukraine", node="44 Million", parent="Population")
-
->>> br4nch.display.Tree(tree="Ukraine")
-Ukraine <3
-┣━ Cities
-┃  ┣━ Donetsk Oblast
-┃  ┃  ┗━ Mariupol
-┃  ┗━ Kiev Oblast
-┃     ┣━ Bucha
-┃     ┗━ Tsjernobyl
-┗━ Information
-   ┣━ President
-   ┃  ┗━ Zelensky
-   ┣━ Area
-   ┃  ┗━ 603.628 km2
-   ┗━ Population
-      ┗━ 44 Million
-```
+> ```python
+> >>> br4nch.create.Tree(tree="Ukraine", header="Ukraine <3")
+> 
+> >>> br4nch.create.Node(tree="Ukraine", node=["Cities", "Information"])
+> >>> br4nch.create.Node(tree="Ukraine", node=["Donetsk Oblast", "Kiev Oblast"], parent="Cities")
+> >>> br4nch.create.Node(tree="Ukraine", node="Mariupol", parent="Donetsk Oblast")
+> >>> br4nch.create.Node(tree="Ukraine", node=["Bucha", "Tsjernobyl"], parent="Kiev Oblast")
+> >>> br4nch.create.Node(tree="Ukraine", node=["President", "Area", "Population"], parent="Information")
+> >>> br4nch.create.Node(tree="Ukraine", node="Zelensky", parent="President")
+> >>> br4nch.create.Node(tree="Ukraine", node="603.628 km2", parent="Area")
+> >>> br4nch.create.Node(tree="Ukraine", node="44 Million", parent="Population")
+> 
+> >>> br4nch.display.Tree(tree="Ukraine")
+> Ukraine <3
+> ┣━ Cities
+> ┃  ┣━ Donetsk Oblast
+> ┃  ┃  ┗━ Mariupol
+> ┃  ┗━ Kiev Oblast
+> ┃     ┣━ Bucha
+> ┃     ┗━ Tsjernobyl
+> ┗━ Information
+>    ┣━ President
+>    ┃  ┗━ Zelensky
+>    ┣━ Area
+>    ┃  ┗━ 603.628 km2
+>    ┗━ Population
+>       ┗━ 44 Million
+> ```
+>
 
 ## ⚙️ Installation
 
 Install `br4nch` with the `pip install` command:
 
-```
-pip install br4nch
-```
+> ```
+> pip install br4nch
+> ```
+>
 
 ## 🎯 Features
 

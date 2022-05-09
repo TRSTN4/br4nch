@@ -41,6 +41,7 @@ To load a folder, use the **following function:**
 > ┗━ VoiceRecording.mp3
 > ```
 >
+
 > To use a header other than the provided path, specify the name for the header in the `header` argument.
 >
 > ```python
@@ -63,6 +64,7 @@ To load a folder, use the **following function:**
 > ┗━ VoiceRecording.mp3
 > ```
 >
+
 > To filter only files with a certain extension, put the extension in the `include` argument.
 >
 > ```python
@@ -80,6 +82,7 @@ To load a folder, use the **following function:**
 > ┗━ Identity.txt
 > ```
 >
+
 > To filter out only files with a certain extension, put the extension in the `exclude` argument.
 >
 > ```python
@@ -99,6 +102,7 @@ To load a folder, use the **following function:**
 > ┗━ VoiceRecording.mp3
 > ```
 >
+
 > To filter out folders that contain no files, set the `unused` argument to `False`.
 >
 > ```python
@@ -120,6 +124,7 @@ To load a folder, use the **following function:**
 > ┗━ VoiceRecording.mp3
 > ```
 >
+
 > To put the folders under the other files, set the `folder_priority` argument to `False`.
 >
 > ```python
@@ -142,6 +147,7 @@ To load a folder, use the **following function:**
 > ˑˑˑˑˑˑ┗━ First_Upload.mp4
 > ```
 >
+
 > To load multiple trees with the folder content in the same function call, you can use a list for the `new_tree` argument.
 >
 > ```python
@@ -178,6 +184,7 @@ To load a folder, use the **following function:**
 > ┗━ VoiceRecording.mp3
 > ```
 >
+
 > To include multiple extensions in the same function call, you can use a list for the `include` argument.
 >
 > ```python
@@ -198,6 +205,7 @@ To load a folder, use the **following function:**
 > ┗━ Identity.txt
 > ```
 >
+
 > To exclude multiple extensions in the same function call, you can use a list for the `exclude` argument.
 >
 > ```python

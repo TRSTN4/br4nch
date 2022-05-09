@@ -7,7 +7,7 @@ To duplicate a tree, use the **following function:**
 **Required argument(s):**
 
 - *new_tree* - The name for the new tree.
-- *target_tree* - The target tree that wil be copied.
+- *target_tree* - The target tree that will be copied.
 
 **Optional argument(s):**
 
@@ -30,6 +30,7 @@ To duplicate a tree, use the **following function:**
 > ˑˑˑ┗━ Two lines
 > ```
 >
+
 > If the argument attributes is `True`, then the `size` and`symbols` are copied and linked to the new tree.
 >
 > ```python

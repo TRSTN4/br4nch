@@ -24,6 +24,7 @@ To replace a header, use the **following function:**
 > ┗━ Second layer
 > ```
 >
+
 > To replace headers for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

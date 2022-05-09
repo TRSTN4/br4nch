@@ -25,6 +25,7 @@ To create a new node, use the **following function:**
 > ┗━ My Node
 > ```
 >
+
 > You can also specify the parent where the node should be created in the tree. 
 >
 > *For more information about parents/positions, head to [positions](../../guides/positions.md).*
@@ -38,6 +39,7 @@ To create a new node, use the **following function:**
 > ˑˑˑ┗━ Set node
 > ```
 >
+
 > You can also use `\n` in a node name.
 >
 > ```python
@@ -52,6 +54,7 @@ To create a new node, use the **following function:**
 > ˑˑˑThree
 > ```
 >
+
 > To create the node(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -64,6 +67,7 @@ To create a new node, use the **following function:**
 > ┗━ Animals
 > ```
 >
+
 > To create multiple node in the same function call, you can use list for the `node` argument.
 >
 > ```python
@@ -80,6 +84,7 @@ To create a new node, use the **following function:**
 > ˑˑˑThree
 > ```
 >
+
 > To create the node(s) for multiple parents in the same function call, you can use a list for the `parent` argument.
 >
 > ```python

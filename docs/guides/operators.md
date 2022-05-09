@@ -26,6 +26,7 @@ The operator 'Combinator' is used to perform multiple position actions at the sa
 > ˑˑˑ┗━ Series
 > ```
 >
+
 > Using the `/` aka `combinator` operator followed by a position.
 >
 > ```python
@@ -78,6 +79,7 @@ The operator 'selector' is used to include all positions at the same height as t
 > ˑˑˑ┗━ Series
 > ```
 >
+
 > Using the `*` aka `selector` operator followed by a position.
 >
 > ```python
@@ -104,6 +106,7 @@ The operator 'selector' is used to include all positions at the same height as t
 > ˑˑˑ┗━ Series
 > ```
 >
+
 > The `selector` operator can also be used to define all existing trees.
 >
 > For example to display all trees.
@@ -112,6 +115,7 @@ The operator 'selector' is used to include all positions at the same height as t
 > >>> br4nch.display.Tree(tree="*")
 > ```
 >
+
 > For example to create a node in all trees on the position `0`.
 >
 > ```python
@@ -220,9 +224,10 @@ Combinations can also be made with positions and operators together in the same 
 
 **Here is an list for example:**
 
-- */1
-- 1>2/5>6
-- 1<2/3
-- 2/3/5/6
-- 2/5>7/9
+> - */1
+> - 1>2/5>6
+> - 1<2/3
+> - 2/3/5/6
+> - 2/5>7/9
+>
 

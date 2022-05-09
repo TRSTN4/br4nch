@@ -29,6 +29,7 @@ To display a assist for an tree, use the **following function:**
 > ˑˑˑˑˑˑ┗━ 2.2.1: The Walking Dead
 > ```
 >
+
 > To print an assist for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

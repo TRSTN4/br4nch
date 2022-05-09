@@ -38,18 +38,20 @@ To get any position, use the **following function:**
 > ˑˑˑˑˑˑˑˑˑSub Node Two
 > ```
 >
+
 > To print the node of a position in a tree, specify the position in the `position` argument.
 >
 > *For more information about positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
-> >>> br4nch.get.Position(tree="Stream", layer="Squid Game")
+> >>> br4nch.get.Position(tree="Stream", position="1.2.1")
 > Get Position Result:
 > ┗━ Tree: Stream
 > ˑˑˑ┗━ Position: 1.2.1
 > ˑˑˑˑˑˑ┗━ Node: Squid Game
 > ```
 >
+
 > To filter only nodes with a certain word, put the word in the `include` argument.
 >
 > ```python
@@ -62,6 +64,7 @@ To get any position, use the **following function:**
 > ˑˑˑˑˑˑˑˑˑNew Line Three
 > ```
 >
+
 > To filter out only nodes with a certain word, put the word in the `exclude` argument.
 >
 > ```python
@@ -74,6 +77,7 @@ To get any position, use the **following function:**
 > ˑˑˑˑˑˑˑˑˑNew Line Three
 > ```
 >
+
 > To print the result without a tree structure in the result, set the `beautify` argument to `False`.
 >
 > ```python
@@ -81,6 +85,7 @@ To get any position, use the **following function:**
 > Squid Game
 > ```
 >
+
 > To print the position(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -94,6 +99,7 @@ To get any position, use the **following function:**
 > ˑˑˑˑˑˑ┗━ Node: The Walking Dead
 > ```
 >
+
 > To print multiple positions in the same function call, you can use a list for the `position` argument.
 >
 > ```python
@@ -106,6 +112,7 @@ To get any position, use the **following function:**
 > ˑˑˑˑˑˑ┗━ Node: Squid Game
 > ```
 >
+
 > To include multiple words in the same function call, you can use a list for the `include` argument.
 >
 > ```python
@@ -118,6 +125,7 @@ To get any position, use the **following function:**
 > ˑˑˑˑˑˑ┗━ Node: Third Node
 > ```
 >
+
 > To exclude multiple words in the same function call, you can use a list for the `exclude` argument.
 >
 > ```python

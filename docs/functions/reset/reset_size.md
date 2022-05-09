@@ -16,6 +16,7 @@ To reset an size, use the **following function:**
 > >>> br4nch.reset.Size(tree="MyTree")
 > ```
 >
+
 > To reset the size for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

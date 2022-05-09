@@ -37,6 +37,7 @@ To set one or multiple symbol(s), use the **following function:**
 > ˑˑˑˑˑˑ╚═ The Walking Dead
 > ```
 >
+
 > To set the symbol(s) for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

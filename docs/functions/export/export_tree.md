@@ -22,6 +22,7 @@ To export a tree, use the **following function:**
 > # Path: D:\MyOutput\br4nch-MyTree
 > ```
 >
+
 > To also export the size and symbols, set the `attributes` argument to `True`.
 >
 > ```python
@@ -29,6 +30,7 @@ To export a tree, use the **following function:**
 > # Path: D:\MyOutput\br4nch-MyTree
 > ```
 >
+
 > To export multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -37,6 +39,7 @@ To export a tree, use the **following function:**
 > # Path: D:\MyOutput\br4nch-Stream
 > ```
 >
+
 > To export the output in multiple folders in the same function call, you can use a list for the `output_folder` argument.
 >
 > ```python

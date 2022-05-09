@@ -33,6 +33,7 @@ To display a tree, use the **following function:**
 > ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 >
+
 > To print a tree and delete after printed, specify the value `True` in the `delete` argument.
 >
 > ```python
@@ -55,6 +56,7 @@ To display a tree, use the **following function:**
 > NotExistingTreeError: The tree: 'Stream' does not exists.
 > ```
 >
+
 > To print multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

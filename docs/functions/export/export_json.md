@@ -48,38 +48,40 @@ To export a tree structure to a json file, use the **following function:**
 > ```json
 > {
 > "Users":{
->    "Manager":"Ben",
->    "Scientists":[
->       "Jerry",
->       "Hank"
->    ]
+> "Manager":"Ben",
+> "Scientists":[
+>    "Jerry",
+>    "Hank"
+> ]
 > },
 > "Information":{
->    "Temperature":"44",
->    "Statements":{
->       "Content":"None",
->       "Overheat":"False",
->       "Active":"True"
->    }
+> "Temperature":"44",
+> "Statements":{
+>    "Content":"None",
+>    "Overheat":"False",
+>    "Active":"True"
+> }
 > }
 > }
 > ```
 >
+
 > If there is a duplicate node in the tree, a number is added to each duplicate key in the json file.
 >
 > ```json
 > {
 > "Test#1":[
->    "ABC",
->    123
+> "ABC",
+> 123
 > ],
 > "Test#2":[
->    "Hey",
->    "Hai"
+> "Hey",
+> "Hai"
 > ]
 > }
 > ```
 >
+
 > To convert the python 'string data types' to 'json data types' in the json file, set the `data_types` argument to `True`.
 >
 > ```python
@@ -115,21 +117,22 @@ To export a tree structure to a json file, use the **following function:**
 > "Users":{
 > "Manager":"Ben",
 > "Scientists":[
->    "Jerry",
->    "Hank"
+> "Jerry",
+> "Hank"
 > ]
 > },
 > "Information":{
 > "Temperature":44,
 > "Statements":{
->   "Content":null,
->    "Overheat":false,
->   "Active":true
+> "Content":null,
+> "Overheat":false,
+> "Active":true
 > }
 > }
 > }
 > ```
 >
+
 > To export multiple trees to a json file in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -138,6 +141,7 @@ To export a tree structure to a json file, use the **following function:**
 > # Path: D:/MyOutput/br4nch-Stream.json
 > ```
 >
+
 > To export the output in multiple folders in the same function call, you can use a list for the `output_folder` argument.
 >
 > ```python

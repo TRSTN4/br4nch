@@ -36,6 +36,7 @@ To move a node, use the **following function:**
 > ┗━ Movies
 > ```
 >
+
 > You can also specify the parent where the node should be moved to in the tree using the `to_parent` argument. 
 >
 > *For more information about parents/positions, head to [positions](../../guides/positions.md).*
@@ -58,6 +59,7 @@ To move a node, use the **following function:**
 > ˑˑˑ┗━ Movies
 > ```
 >
+
 > To move the node(s) to another existing tree, specify the tree name where the node(s) should go to in the `target_tree` argument.
 >
 > ```python
@@ -88,6 +90,7 @@ To move a node, use the **following function:**
 > ┗━ Movies
 > ```
 >
+
 > To move the node(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -122,6 +125,7 @@ To move a node, use the **following function:**
 > ┗━ Microsoft
 > ```
 >
+
 > To move multiple nodes in the same function call, you can use a list for the `move_node` argument.
 >
 > ```python

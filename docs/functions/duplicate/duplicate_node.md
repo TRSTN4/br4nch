@@ -38,6 +38,7 @@ To duplicate a node, use the **following function:**
 > ┗━ Series
 > ```
 >
+
 > You can also specify the parent where the node should be duplicated to in the tree using the `to_parent` argument. 
 >
 > *For more information about parents/positions, head to [positions](../../guides/positions.md).*
@@ -63,6 +64,7 @@ To duplicate a node, use the **following function:**
 > ┗━ Series
 > ```
 >
+
 > To copy the node(s) to another existing tree, specify the tree(s) name in the `target_tree` argument.
 >
 > ```python
@@ -96,6 +98,7 @@ To duplicate a node, use the **following function:**
 > ┗━ Movies
 > ```
 >
+
 > To copy the node(s) and then delete it directly from the original position(s), set the `delete` argument to `True`.
 >
 > ```python
@@ -122,6 +125,7 @@ To duplicate a node, use the **following function:**
 > ┗━ Series
 > ```
 >
+
 > To duplicate the node(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -156,6 +160,7 @@ To duplicate a node, use the **following function:**
 > ┗━ Microsoft
 > ```
 >
+
 > To duplicate multiple nodes in the same function call, you can use a list for the `duplicate_node` argument.
 >
 > ```python
@@ -178,6 +183,7 @@ To duplicate a node, use the **following function:**
 > ˑˑˑ┗━ Pear
 > ```
 >
+
 > To duplicate the node(s) to multiple parents in the same function call, you can use a list for the `to_parent` argument.
 >
 > ```python
@@ -200,6 +206,7 @@ To duplicate a node, use the **following function:**
 > ┗━ Texas
 > ```
 >
+
 > To duplicate the node(s) to multiple diffrent trees in the same function call, you can use a list for the `target_tree` argument.
 >
 > ```python

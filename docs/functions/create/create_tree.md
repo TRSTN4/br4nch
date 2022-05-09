@@ -17,6 +17,7 @@ To create a new tree, use the **following function:**
 > >>> br4nch.create.Tree(tree="MyTree", header="My Header!")
 > ```
 >
+
 > To create multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python

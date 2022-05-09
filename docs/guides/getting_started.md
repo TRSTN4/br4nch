@@ -35,6 +35,7 @@
 > ┗━ Hello World
 > ```
 >
+
 > To place a node in a specific position, use the argument `parent`. The position `0` indicates that the node will be created at the first height (to create nodes at the first height, you can leave out the `parent` argument).
 >
 > *For more information about parents/positions, head to [positions](../guides/positions.md).*
@@ -48,7 +49,8 @@
 > ┗━ Second node
 > ```
 >
-> To create multiple nodes in the same function call, you can use list for the `layer` argument.
+
+> To create multiple nodes in the same function call, you can use list for the `node` argument.
 >
 > ```python
 > >>> br4nch.create.Node(tree="MyTree", node=["Apple", "Pear"], parent="0")
@@ -79,6 +81,7 @@
 > ┗━ Pear
 > ```
 >
+
 > You can also adjust the position to `1`. This is because the `Hello World` node is in the first place and in the first height.
 >
 > ```python
@@ -94,6 +97,7 @@
 > ┗━ Pear
 > ```
 >
+
 > To create a node at multiple parents/positions in the same function call, you can use list for the `parent` argument.
 >
 > ```python
@@ -111,6 +115,7 @@
 > ˑˑˑ┗━ Plant
 > ```
 >
+
 > *Need help with the positions? then use the function [display.Assist](../functions/display/display_assist.md).*
 >
 > ```python
@@ -148,6 +153,7 @@
 > ˑˑˑ┗━ Plant
 > ```
 >
+
 > You can also adjust the position to `1.1`. This is because the `Hello World` node is in place the first place in the first height and the `Earth` node is in the first place in the second height.
 >
 > ```python

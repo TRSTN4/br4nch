@@ -32,12 +32,14 @@ To delete an node, use the **following function:**
 > ┗━ Bread
 > ```
 >
+
 > To delete the given node(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
 > >>> br4nch.delete.Node(tree=["TreeOne", "TreeTwo"], node="Test")
 > ```
 >
+
 > To delete multiple nodes in the same function call, you can use a list for the `node` argument.
 >
 > ```python

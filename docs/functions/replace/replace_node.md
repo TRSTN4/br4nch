@@ -27,6 +27,7 @@ To replace a node, use the **following function:**
 > ┗━ Second layer
 > ```
 >
+
 > To replace the node(s) for multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
@@ -45,6 +46,7 @@ To replace a node, use the **following function:**
 > ┗━ Beta
 > ```
 >
+
 > To replace multiple target node(s) in the same function call, you can use a list for the `target_node` argument.
 >
 > ```python
