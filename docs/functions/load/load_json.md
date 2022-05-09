@@ -17,32 +17,34 @@ To load a json file, use the **following function:**
 > ***file:** "d:/JsonFile.json"*
 >
 > ```json
-> {"widget": {
->  "debug": "on",
->  "window": {
->      "title": "Sample Konfabulator Widget",
->      "name": "main_window",
->      "width": 500,
->      "height": 500
->  },
->  "image": { 
->      "src": "Images/Sun.png",
->      "name": "sun1",
->      "hOffset": 250,
->      "vOffset": 250,
->      "alignment": "center"
->  },
->  "text": {
->      "data": "Click Here",
->      "size": 36,
->      "style": "bold",
->      "name": "text1",
->      "hOffset": 250,
->      "vOffset": 100,
->      "alignment": "center",
->      "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
->  }
-> }}
+> {
+>    "widget":{
+>       "debug":"on",
+>       "window":{
+>          "title":"Sample Konfabulator Widget",
+>          "name":"main_window",
+>          "width":500,
+>          "height":500
+>       },
+>       "image":{
+>          "src":"Images/Sun.png",
+>          "name":"sun1",
+>          "hOffset":250,
+>          "vOffset":250,
+>          "alignment":"center"
+>       },
+>       "text":{
+>          "data":"Click Here",
+>          "size":36,
+>          "style":"bold",
+>          "name":"text1",
+>          "hOffset":250,
+>          "vOffset":100,
+>          "alignment":"center",
+>          "onMouseUp":"sun1.opacity = (sun1.opacity / 100) * 90;"
+>       }
+>    }
+> }
 > ```
 >
 > To display the json content in a tree form, specify the name of the tree in the `new_tree` argument, the header name in the `header` argument and final the json file path in the `json_file` argument.
@@ -65,22 +67,22 @@ To load a json file, use the **following function:**
 > ˑˑˑ┃ˑˑ┗━ alignment
 > ˑˑˑ┃ˑˑˑˑˑ┗━ center
 > ˑˑˑ┗━ text
->    ˑˑˑˑˑˑ┣━ data
->    ˑˑˑˑˑˑ┃ˑˑ┗━ Click Here
->    ˑˑˑˑˑˑ┣━ size
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 36
->    ˑˑˑˑˑˑ┣━ style
->    ˑˑˑˑˑˑ┃ˑˑ┗━ bold
->    ˑˑˑˑˑˑ┣━ name
->    ˑˑˑˑˑˑ┃ˑˑ┗━ text1
->    ˑˑˑˑˑˑ┣━ hOffset
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 250
->    ˑˑˑˑˑˑ┣━ vOffset
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 100
->    ˑˑˑˑˑˑ┣━ alignment
->    ˑˑˑˑˑˑ┃ˑˑ┗━ center
->    ˑˑˑˑˑˑ┗━ onMouseUp
->    ˑˑˑˑˑˑˑˑˑ┗━ sun1.opacity = (sun1.opacity / 100) * 90;
+> ˑˑˑˑˑˑ┣━ data
+> ˑˑˑˑˑˑ┃ˑˑ┗━ Click Here
+> ˑˑˑˑˑˑ┣━ size
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 36
+> ˑˑˑˑˑˑ┣━ style
+> ˑˑˑˑˑˑ┃ˑˑ┗━ bold
+> ˑˑˑˑˑˑ┣━ name
+> ˑˑˑˑˑˑ┃ˑˑ┗━ text1
+> ˑˑˑˑˑˑ┣━ hOffset
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 250
+> ˑˑˑˑˑˑ┣━ vOffset
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 100
+> ˑˑˑˑˑˑ┣━ alignment
+> ˑˑˑˑˑˑ┃ˑˑ┗━ center
+> ˑˑˑˑˑˑ┗━ onMouseUp
+> ˑˑˑˑˑˑˑˑˑ┗━ sun1.opacity = (sun1.opacity / 100) * 90;
 > ```
 >
 > To load multiple trees with the json content in the same function call, you can use a list for the `new_tree` argument.
@@ -103,22 +105,22 @@ To load a json file, use the **following function:**
 > ˑˑˑ┃ˑˑ┗━ alignment
 > ˑˑˑ┃ˑˑˑˑˑ┗━ center
 > ˑˑˑ┗━ text
->    ˑˑˑˑˑˑ┣━ data
->    ˑˑˑˑˑˑ┃ˑˑ┗━ Click Here
->    ˑˑˑˑˑˑ┣━ size
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 36
->    ˑˑˑˑˑˑ┣━ style
->    ˑˑˑˑˑˑ┃ˑˑ┗━ bold
->    ˑˑˑˑˑˑ┣━ name
->    ˑˑˑˑˑˑ┃ˑˑ┗━ text1
->    ˑˑˑˑˑˑ┣━ hOffset
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 250
->    ˑˑˑˑˑˑ┣━ vOffset
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 100
->    ˑˑˑˑˑˑ┣━ alignment
->    ˑˑˑˑˑˑ┃ˑˑ┗━ center
->    ˑˑˑˑˑˑ┗━ onMouseUp
->    ˑˑˑˑˑˑˑˑˑ┗━ sun1.opacity = (sun1.opacity / 100) * 90;
+> ˑˑˑˑˑˑ┣━ data
+> ˑˑˑˑˑˑ┃ˑˑ┗━ Click Here
+> ˑˑˑˑˑˑ┣━ size
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 36
+> ˑˑˑˑˑˑ┣━ style
+> ˑˑˑˑˑˑ┃ˑˑ┗━ bold
+> ˑˑˑˑˑˑ┣━ name
+> ˑˑˑˑˑˑ┃ˑˑ┗━ text1
+> ˑˑˑˑˑˑ┣━ hOffset
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 250
+> ˑˑˑˑˑˑ┣━ vOffset
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 100
+> ˑˑˑˑˑˑ┣━ alignment
+> ˑˑˑˑˑˑ┃ˑˑ┗━ center
+> ˑˑˑˑˑˑ┗━ onMouseUp
+> ˑˑˑˑˑˑˑˑˑ┗━ sun1.opacity = (sun1.opacity / 100) * 90;
 > My Json Tree
 > ┗━ widget
 > ˑˑˑ┣━ image
@@ -133,22 +135,22 @@ To load a json file, use the **following function:**
 > ˑˑˑ┃ˑˑ┗━ alignment
 > ˑˑˑ┃ˑˑˑˑˑ┗━ center
 > ˑˑˑ┗━ text
->    ˑˑˑˑˑˑ┣━ data
->    ˑˑˑˑˑˑ┃ˑˑ┗━ Click Here
->    ˑˑˑˑˑˑ┣━ size
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 36
->    ˑˑˑˑˑˑ┣━ style
->    ˑˑˑˑˑˑ┃ˑˑ┗━ bold
->    ˑˑˑˑˑˑ┣━ name
->    ˑˑˑˑˑˑ┃ˑˑ┗━ text1
->    ˑˑˑˑˑˑ┣━ hOffset
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 250
->    ˑˑˑˑˑˑ┣━ vOffset
->    ˑˑˑˑˑˑ┃ˑˑ┗━ 100
->    ˑˑˑˑˑˑ┣━ alignment
->    ˑˑˑˑˑˑ┃ˑˑ┗━ center
->    ˑˑˑˑˑˑ┗━ onMouseUp
->    ˑˑˑˑˑˑˑˑˑ┗━ sun1.opacity = (sun1.opacity / 100) * 90;
+> ˑˑˑˑˑˑ┣━ data
+> ˑˑˑˑˑˑ┃ˑˑ┗━ Click Here
+> ˑˑˑˑˑˑ┣━ size
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 36
+> ˑˑˑˑˑˑ┣━ style
+> ˑˑˑˑˑˑ┃ˑˑ┗━ bold
+> ˑˑˑˑˑˑ┣━ name
+> ˑˑˑˑˑˑ┃ˑˑ┗━ text1
+> ˑˑˑˑˑˑ┣━ hOffset
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 250
+> ˑˑˑˑˑˑ┣━ vOffset
+> ˑˑˑˑˑˑ┃ˑˑ┗━ 100
+> ˑˑˑˑˑˑ┣━ alignment
+> ˑˑˑˑˑˑ┃ˑˑ┗━ center
+> ˑˑˑˑˑˑ┗━ onMouseUp
+> ˑˑˑˑˑˑˑˑˑ┗━ sun1.opacity = (sun1.opacity / 100) * 90;
 > ```
 >
 

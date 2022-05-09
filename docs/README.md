@@ -11,8 +11,8 @@ You can easily make a simple branch. We recommend reading [Getting Started](guid
 
 >>> br4nch.create.Node(tree="Ukraine", node=["Cities", "Information"])
 >>> br4nch.create.Node(tree="Ukraine", node=["Donetsk Oblast", "Kiev Oblast"], parent="Cities")
->>> br4nch.create.Node(tree="Ukraine", node="Mariupol", parent="Donetsk")
->>> br4nch.create.Node(tree="Ukraine", node=["Bucha", "Tsjernobyl"], parent="Kiev")
+>>> br4nch.create.Node(tree="Ukraine", node="Mariupol", parent="Donetsk Oblast")
+>>> br4nch.create.Node(tree="Ukraine", node=["Bucha", "Tsjernobyl"], parent="Kiev Oblast")
 >>> br4nch.create.Node(tree="Ukraine", node=["President", "Area", "Population"], parent="Information")
 >>> br4nch.create.Node(tree="Ukraine", node="Zelensky", parent="President")
 >>> br4nch.create.Node(tree="Ukraine", node="603.628 km2", parent="Area")

@@ -14,35 +14,35 @@ To export the tree output to a text file, use the **following function:**
 > To export the output of the tree to a text file, specify the tree in the `tree` argument and specify the path to export the file to in the `output_folder` argument.
 >
 > ```python
-> >>> br4nch.export.Text(tree="MyTree", output_folder="D:/MyOutput")
-> # Path: D:/br4nch-MyBranch.txt
+> >>> br4nch.export.Text(tree="Stream", output_folder="D:/MyOutput")
+> # Path: D:/br4nch-Stream.txt
 > ```
 >
 > The content of the file that we exported to a text file.
 >
-> ***file:** "D:/MyOutput/br4nch-WynncraftAPI.txt"*
+> ***file:** "D:/MyOutput/br4nch-Stream.txt"*
 >
 > ```
 > Movies & Series
 > ┣━ Netflix
-> ┃  ┣━ Movies
-> ┃  ┃  ┗━ Interstellar
-> ┃  ┗━ Series
-> ┃     ┣━ Squid Game
-> ┃     ┗━ The Crown
+> ┃ˑˑ┣━ Movies
+> ┃ˑˑ┃ˑˑ┗━ Interstellar
+> ┃ˑˑ┗━ Series
+> ┃ˑˑˑˑˑ┣━ Squid Game
+> ┃ˑˑˑˑˑ┗━ The Crown
 > ┗━ Prime Video
->    ┣━ Movies
->    ┃  ┣━ Tenet
->    ┃  ┗━ Parasite
->    ┗━ Series
->       ┗━ The Walking Dead
+> ˑˑˑ┣━ Movies
+> ˑˑˑ┃ˑˑ┣━ Tenet
+> ˑˑˑ┃ˑˑ┗━ Parasite
+> ˑˑˑ┗━ Series
+> ˑˑˑˑˑˑ┗━ The Walking Dead
 > ```
 >
 > To export multiple trees to a text file in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
 > >>> br4nch.export.Text(tree=["MyTree", "Stream"], output_folder="D:/MyOutput")
-> # Path: D:\MyOutput\br4nch-MyBranch
+> # Path: D:\MyOutput\br4nch-MyTree
 > # Path: D:\MyOutput\br4nch-Stream
 > ```
 
