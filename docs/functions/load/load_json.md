@@ -19,30 +19,30 @@ To load a json file, use the **following function:**
 > ```json
 > {
 >    "widget":{
->       "debug":"on",
->       "window":{
->          "title":"Sample Konfabulator Widget",
->          "name":"main_window",
->          "width":500,
->          "height":500
->       },
->       "image":{
->          "src":"Images/Sun.png",
->          "name":"sun1",
->          "hOffset":250,
->          "vOffset":250,
->          "alignment":"center"
->       },
->       "text":{
->          "data":"Click Here",
->          "size":36,
->          "style":"bold",
->          "name":"text1",
->          "hOffset":250,
->          "vOffset":100,
->          "alignment":"center",
->          "onMouseUp":"sun1.opacity = (sun1.opacity / 100) * 90;"
->       }
+>    ˑˑˑ"debug":"on",
+>    ˑˑˑ"window":{
+>    ˑˑˑˑˑˑ"title":"Sample Konfabulator Widget",
+>    ˑˑˑˑˑˑ"name":"main_window",
+>    ˑˑˑˑˑˑ"width":500,
+>    ˑˑˑˑˑˑ"height":500
+>    ˑˑˑ},
+>    ˑˑˑ"image":{
+>    ˑˑˑˑˑˑ"src":"Images/Sun.png",
+>    ˑˑˑˑˑˑ"name":"sun1",
+>    ˑˑˑˑˑˑ"hOffset":250,
+>    ˑˑˑˑˑˑ"vOffset":250,
+>    ˑˑˑˑˑˑ"alignment":"center"
+>    ˑˑˑ},
+>    ˑˑˑ"text":{
+>    ˑˑˑˑˑˑ"data":"Click Here",
+>    ˑˑˑˑˑˑ"size":36,
+>    ˑˑˑˑˑˑ"style":"bold",
+>    ˑˑˑˑˑˑ"name":"text1",
+>    ˑˑˑˑˑˑ"hOffset":250,
+>    ˑˑˑˑˑˑ"vOffset":100,
+>    ˑˑˑˑˑˑ"alignment":"center",
+>    ˑˑˑˑˑˑ"onMouseUp":"sun1.opacity = (sun1.opacity / 100) * 90;"
+>    ˑˑˑ}
 >    }
 > }
 > ```
