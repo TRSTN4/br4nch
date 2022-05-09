@@ -6,7 +6,7 @@ This error occurs when the given value in the specified argument is not an insta
 
 **This error occurs in the following functions:**
 
-[create.Tree](../functions/create/create_tree.md), [create.Node](../functions/create/create_node.md), [delete.Tree](../functions/delete/delete_tree.md), [delete.Node](../functions/delete/delete_node.md), [display.Tree](../functions/display/display_tree.md), [display.Assist](../functions/display/display_assist.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Tree](../functions/export/export_tree.md), [export.Json](functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [get.Tree](../functions/get/get_tree.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [load.Folder](../functions/load/load_folder.md), [load.Json](../functions/load/load_json.md), [load.Tree](../functions/load/load_tree.md), [move.Node](../functions/move/move_node.md), [replace.Tree](../functions/replace/replace_tree.md), [replace.Header](../functions/replace/replace_header.md), [replace.Node](../functions/replace/replace_node.md), [reset.Symbol](../functions/reset/reset_symbol.md), [reset.Size](../functions/reset/reset_size.md), [set.Symbol](../functions/set/set_symbol.md), [set.Size](../functions/set/set_size.md)
+[create.Tree](../functions/create/create_tree.md), [create.Node](../functions/create/create_node.md), [delete.Tree](../functions/delete/delete_tree.md), [delete.Node](../functions/delete/delete_node.md), [display.Tree](../functions/display/display_tree.md), [display.Assist](../functions/display/display_assist.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Tree](../functions/export/export_tree.md), [export.Json](../functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [get.Data](../functions/get/get_data.md), [get.Tree](../functions/get/get_tree.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [load.Folder](../functions/load/load_folder.md), [load.Json](../functions/load/load_json.md), [load.Tree](../functions/load/load_tree.md), [move.Node](../functions/move/move_node.md), [replace.Tree](../functions/replace/replace_tree.md), [replace.Header](../functions/replace/replace_header.md), [replace.Node](../functions/replace/replace_node.md), [reset.Symbol](../functions/reset/reset_symbol.md), [reset.Size](../functions/reset/reset_size.md), [set.Symbol](../functions/set/set_symbol.md), [set.Size](../functions/set/set_size.md)
 
 **Example:**
 
@@ -22,7 +22,7 @@ This error occurs when the given value in the specified argument is not an insta
 
 **This error occurs in the following functions:**
 
-[display.Tree](../functions/display/display_tree.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Json](functions/export/export_json.md), [export.Tree](../functions/export/export_tree.md), [get.Tree](../functions/get/get_tree.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [load.Folder](../functions/load/load_folder.md), [reset.Symbol](../functions/reset/reset_symbol.md)
+[display.Tree](../functions/display/display_tree.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Json](../functions/export/export_json.md), [export.Tree](../functions/export/export_tree.md), [get.Tree](../functions/get/get_tree.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [load.Folder](../functions/load/load_folder.md), [reset.Symbol](../functions/reset/reset_symbol.md)
 
 **Example:**
 
@@ -134,7 +134,7 @@ This error occurs when the specified tree does not exist.
 
 **This error occurs in the following functions:**
 
-[create.Node](../functions/create/create_node.md), [delete.Tree](../functions/delete/delete_tree.md), [delete.Node](../functions/delete/delete_node.md), [display.Tree](../functions/display/display_tree.md), [display.Assist](../functions/display/display_assist.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Tree](../functions/export/export_tree.md), [export.Json](functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [move.Node](../functions/move/move_node.md), [replace.Tree](../functions/replace/replace_tree.md), [replace.Header](../functions/replace/replace_header.md), [replace.Node](../functions/replace/replace_node.md), [reset.Symbol](../functions/reset/reset_symbol.md), [reset.Size](../functions/reset/reset_size.md), [set.Symbol](../functions/set/set_symbol.md), [set.Size](../functions/set/set_size.md)
+[create.Node](../functions/create/create_node.md), [delete.Tree](../functions/delete/delete_tree.md), [delete.Node](../functions/delete/delete_node.md), [display.Tree](../functions/display/display_tree.md), [display.Assist](../functions/display/display_assist.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Tree](../functions/export/export_tree.md), [export.Json](../functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [get.Data](../functions/get/get_data.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [move.Node](../functions/move/move_node.md), [replace.Tree](../functions/replace/replace_tree.md), [replace.Header](../functions/replace/replace_header.md), [replace.Node](../functions/replace/replace_node.md), [reset.Symbol](../functions/reset/reset_symbol.md), [reset.Size](../functions/reset/reset_size.md), [set.Symbol](../functions/set/set_symbol.md), [set.Size](../functions/set/set_size.md)
 
 **Example:**
 
@@ -150,7 +150,7 @@ This error occurs when the given directory does not exist.
 
 **This error occurs in the following functions:**
 
-[export.Tree](../functions/export/export_tree.md), [export.Json](functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [load.Folder](../functions/load/load_folder.md)
+[export.Tree](../functions/export/export_tree.md), [export.Json](../functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [load.Folder](../functions/load/load_folder.md)
 
 **Example:**
 

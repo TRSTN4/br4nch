@@ -49,6 +49,7 @@
   - [load.Json](functions/load/load_json.md)
   - [load.Folder](functions/load/load_folder.md)
 - Get
+  - [get.Data](functions/get/get_data.md)
   - [get.Tree](functions/get/get_tree.md)
   - [get.Node](functions/get/get_node.md)
   - [get.Position](functions/get/get_position.md)
