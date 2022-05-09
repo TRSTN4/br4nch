@@ -127,7 +127,7 @@ class ExportJson:
 
                         for index in range(len(saved_children)):
                             for grandchild, great_grandchildren in saved_children[index].items():
-                                if not great_grandchildren:
+                                if isinstance(great_grandchildren, dict) and not great_grandchildren:
                                     set_list = True
                                     saved_children[index] = grandchild
 
