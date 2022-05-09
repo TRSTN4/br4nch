@@ -42,7 +42,7 @@
   - [reset.Symbol](functions/reset/reset_symbol.md)
 - Export
   - [export.Tree](functions/export/export_tree.md)
-
+  - [export.Json](functions/export/export_json.md)
   - [export.Text](functions/export/export_text.md)
 - Load
   - [load.Tree](functions/load/load_tree.md)
