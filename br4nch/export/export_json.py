@@ -62,21 +62,21 @@ class ExportJson:
 
     def task_manager(self):
         for tree in self.trees:
-            structure = copy.deepcopy(UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
+            data = copy.deepcopy(UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
 
-            self.get_nodes(structure)
+            self.get_nodes(data)
             self.sort_duplicates()
-            self.update_node(structure)
-            self.get_content(structure)
+            self.update_node(data)
+            self.get_content(data)
 
             while True:
-                self.convert_to_dict(structure)
+                self.convert_to_dict(data)
                 if not self.content:
                     break
 
             for folder in self.output_folders:
                 with open(folder + "/br4nch-" + tree + ".json", 'w', encoding='utf-8') as file:
-                    json.dump(structure, file, indent=4)
+                    json.dump(data, file, indent=4)
 
     def get_nodes(self, nested_dictionary):
         for parent, children in nested_dictionary.copy().items():
