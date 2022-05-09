@@ -5,6 +5,7 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 import os
+import copy
 import json
 
 from br4nch.utility.utility_librarian import UtilityLibrarian
@@ -61,7 +62,7 @@ class ExportJson:
 
     def task_manager(self):
         for tree in self.trees:
-            structure = UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]]
+            structure = copy.deepcopy(UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
 
             self.get_nodes(structure)
             self.sort_duplicates()
