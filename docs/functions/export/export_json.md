@@ -66,7 +66,7 @@ To export a tree structure to a json file, use the **following function:**
 > ```
 >
 
-> If there is a duplicate node in the tree, a number is added to each duplicate key in the json file.
+> If there is a duplicate node in the tree, a number is added to each duplicate node in the json file.
 >
 > ```json
 > {
