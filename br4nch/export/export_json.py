@@ -72,8 +72,6 @@ class ExportJson:
             with open(self.output_folder + "/br4nch-" + tree + ".json", 'w', encoding='utf-8') as file:
                 json.dump(structure, file, indent=4)
 
-            print(structure)
-
     def get_nodes(self, nested_dictionary):
         for parent, children in nested_dictionary.copy().items():
             if children:
@@ -145,7 +143,7 @@ class ExportJson:
                                             try:
                                                 saved_children[index] = float(saved_children[index])
                                             except ValueError:
-                                                print("Not a float")
+                                                pass
 
                             if len(saved_children) > 1:
                                 nested_dictionary.update({parent: saved_children})
