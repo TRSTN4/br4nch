@@ -36,6 +36,14 @@ To export a tree, use the **following function:**
 > # Path: D:\MyOutput\br4nch-MyTree
 > # Path: D:\MyOutput\br4nch-Stream
 > ```
+>
+> To export the output in multiple folders in the same function call, you can use a list for the `output_folder` argument.
+>
+> ```python
+> >>> br4nch.export.Tree(tree="MyTree", output_folder=["D:/MyOutput", "D:/DataOutput"])
+> # Path: D:\MyOutput\br4nch-MyTree
+> # Path: D:\DataOutput\br4nch-MyTree
+> ```
 
 **Possible error(s):**
 These are the errors that may pop up when the function is used incorrectly.

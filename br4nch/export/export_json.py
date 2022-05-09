@@ -14,7 +14,7 @@ from br4nch.utility.utility_handler import UtilityHandler
 class ExportJson:
     def __init__(self, tree, output_folder, data_types=False):
         self.trees = tree
-        self.output_folder = output_folder
+        self.output_folders = output_folder
         self.data_types = data_types
 
         self.nodes = []
@@ -45,11 +45,15 @@ class ExportJson:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if not isinstance(self.output_folder, str):
-            raise UtilityHandler.InstanceStringError("output_folder", self.output_folder)
+        if not isinstance(self.output_folders, list):
+            self.output_folders = [self.output_folders]
 
-        if not os.path.isdir(self.output_folder):
-            raise UtilityHandler.NotExistingDirectoryError(self.output_folder)
+        for folder in self.output_folders:
+            if not isinstance(folder, str):
+                raise UtilityHandler.InstanceStringError("output_folder", folder)
+
+            if not os.path.isdir(folder):
+                raise UtilityHandler.NotExistingDirectoryError(folder)
 
         if not self.data_types:
             if not isinstance(self.data_types, bool):
@@ -69,8 +73,9 @@ class ExportJson:
                 if not self.content:
                     break
 
-            with open(self.output_folder + "/br4nch-" + tree + ".json", 'w', encoding='utf-8') as file:
-                json.dump(structure, file, indent=4)
+            for folder in self.output_folders:
+                with open(folder + "/br4nch-" + tree + ".json", 'w', encoding='utf-8') as file:
+                    json.dump(structure, file, indent=4)
 
     def get_nodes(self, nested_dictionary):
         for parent, children in nested_dictionary.copy().items():

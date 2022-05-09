@@ -21,24 +21,24 @@ To export a tree structure to a json file, use the **following function:**
 > >>> br4nch.display.Tree(tree="MyData")
 > Database
 > ┣━ Users
-> ┃  ┣━ Manager
-> ┃  ┃  ┗━ Ben
-> ┃  ┗━ Scientists
-> ┃     ┣━ Jerry
-> ┃     ┗━ Hank
+> ┃ˑˑ┣━ Manager
+> ┃ˑˑ┃ˑˑ┗━ Ben
+> ┃ˑˑ┗━ Scientists
+> ┃ˑˑˑˑˑ┣━ Jerry
+> ┃ˑˑˑˑˑ┗━ Hank
 > ┗━ Information
->    ┣━ Temperature
->    ┃  ┗━ 44
->    ┗━ Statements
->       ┣━ Content
->       ┃  ┗━ None
->       ┣━ Overheat
->       ┃  ┗━ False
->       ┗━ Active
->          ┗━ True
+> ˑˑˑ┣━ Temperature
+> ˑˑˑ┃ˑˑ┗━ 44
+> ˑˑˑ┗━ Statements
+> ˑˑˑˑˑˑ┣━ Content
+> ˑˑˑˑˑˑ┃ˑˑ┗━ None
+> ˑˑˑˑˑˑ┣━ Overheat
+> ˑˑˑˑˑˑ┃ˑˑ┗━ False
+> ˑˑˑˑˑˑ┗━ Active
+> ˑˑˑˑˑˑˑˑˑ┗━ True
 > 
-> >>> br4nch.export.Json(tree="MyData", output_folder="D:/", data_types=False)
-> # Path: D:/br4nch-MyData.json
+> >>> br4nch.export.Json(tree="MyData", output_folder="D:/MyOutput", data_types=False)
+> # Path: D:/MyOutput/br4nch-MyData.json
 > ```
 >
 > The content of the file that we exported to a json file.
@@ -47,21 +47,21 @@ To export a tree structure to a json file, use the **following function:**
 >
 > ```json
 > {
->     "Users": {
->         "Manager": "Ben",
->         "Scientists": [
->             "Jerry",
->             "Hank"
->         ]
->     },
->     "Information": {
->         "Temperature": "44",
->         "Statements": {
->             "Content": "None",
->             "Overheat": "False",
->             "Active": "True"
->         }
->     }
+>  "Users": {
+>      "Manager": "Ben",
+>      "Scientists": [
+>          "Jerry",
+>          "Hank"
+>      ]
+>  },
+>  "Information": {
+>      "Temperature": "44",
+>      "Statements": {
+>          "Content": "None",
+>          "Overheat": "False",
+>          "Active": "True"
+>      }
+>  }
 > }
 > ```
 >
@@ -71,24 +71,24 @@ To export a tree structure to a json file, use the **following function:**
 > >>> br4nch.display.Tree(tree="MyData")
 > Database
 > ┣━ Users
-> ┃  ┣━ Manager
-> ┃  ┃  ┗━ Ben
-> ┃  ┗━ Scientists
-> ┃     ┣━ Jerry
-> ┃     ┗━ Hank
+> ┃ˑˑ┣━ Manager
+> ┃ˑˑ┃ˑˑ┗━ Ben
+> ┃ˑˑ┗━ Scientists
+> ┃ˑˑˑˑˑ┣━ Jerry
+> ┃ˑˑˑˑˑ┗━ Hank
 > ┗━ Information
->    ┣━ Temperature
->    ┃  ┗━ 44
->    ┗━ Statements
->       ┣━ Content
->       ┃  ┗━ None
->       ┣━ Overheat
->       ┃  ┗━ False
->       ┗━ Active
->          ┗━ True
+> ˑˑˑ┣━ Temperature
+> ˑˑˑ┃ˑˑ┗━ 44
+> ˑˑˑ┗━ Statements
+> ˑˑˑˑˑˑ┣━ Content
+> ˑˑˑˑˑˑ┃ˑˑ┗━ None
+> ˑˑˑˑˑˑ┣━ Overheat
+> ˑˑˑˑˑˑ┃ˑˑ┗━ False
+> ˑˑˑˑˑˑ┗━ Active
+> ˑˑˑˑˑˑˑˑˑ┗━ True
 > 
-> >>> br4nch.export.Json(tree="MyData", output_folder="D:/", data_types=False)
-> # Path: D:/br4nch-MyData.json
+> >>> br4nch.export.Json(tree="MyData", output_folder="D:/MyOutput", data_types=False)
+> # Path: D:/MyOutput/br4nch-MyData.json
 > ```
 >
 > The content of the file that we exported to a json file.
@@ -97,30 +97,38 @@ To export a tree structure to a json file, use the **following function:**
 >
 > ```json
 > {
->     "Users": {
->         "Manager": "Ben",
->         "Scientists": [
->             "Jerry",
->             "Hank"
->         ]
->     },
->     "Information": {
->         "Temperature": 44,
->         "Statements": {
->             "Content": null,
->             "Overheat": false,
->             "Active": true
->         }
->     }
+>  "Users": {
+>      "Manager": "Ben",
+>      "Scientists": [
+>          "Jerry",
+>          "Hank"
+>      ]
+>  },
+>  "Information": {
+>      "Temperature": 44,
+>      "Statements": {
+>          "Content": null,
+>          "Overheat": false,
+>          "Active": true
+>      }
+>  }
 > }
 > ```
 >
 > To export multiple trees to a json file in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.export.Json(tree=["MyData", "Stream"], output_folder="D:/")
-> # Path: D:/br4nch-MyData.json
-> # Path: D:/br4nch-Stream.json
+> >>> br4nch.export.Json(tree=["MyData", "Stream"], output_folder="D:/MyOutput")
+> # Path: D:/MyOutput/br4nch-MyData.json
+> # Path: D:/MyOutput/br4nch-Stream.json
+> ```
+>
+> To export the output in multiple folders in the same function call, you can use a list for the `output_folder` argument.
+>
+> ```python
+> >>> br4nch.export.Json(tree="MyData", output_folder=["D:/MyOutput", "D:/DataOutput"])
+> # Path: D:/MyOutput/br4nch-MyData.json
+> # Path: D:/DataOutput/br4nch-MyData.json
 > ```
 
 **Possible error(s):**

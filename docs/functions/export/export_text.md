@@ -15,7 +15,7 @@ To export the tree output to a text file, use the **following function:**
 >
 > ```python
 > >>> br4nch.export.Text(tree="Stream", output_folder="D:/MyOutput")
-> # Path: D:/br4nch-Stream.txt
+> # Path: D:/MyOutput/br4nch-Stream.txt
 > ```
 >
 > The content of the file that we exported to a text file.
@@ -42,8 +42,16 @@ To export the tree output to a text file, use the **following function:**
 >
 > ```python
 > >>> br4nch.export.Text(tree=["MyTree", "Stream"], output_folder="D:/MyOutput")
-> # Path: D:\MyOutput\br4nch-MyTree
-> # Path: D:\MyOutput\br4nch-Stream
+> # Path: D:/MyOutput/br4nch-Stream.txt
+> # Path: D:/MyOutput/br4nch-Stream.txt
+> ```
+>
+> To export the output in multiple folders in the same function call, you can use a list for the `output_folder` argument.
+>
+> ```python
+> >>> br4nch.export.Text(tree="MyTree", output_folder=["D:/MyOutput", "D:/DataOutput"])
+> # Path: D:/MyOutput/br4nch-Stream.txt
+> # Path: D:/DataOutput/br4nch-Stream.txt
 > ```
 
 **Possible error(s):**
