@@ -136,7 +136,7 @@ To export a tree structure to a json file, use the **following function:**
 > To export multiple trees to a json file in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
->    >>> br4nch.export.Json(tree=["MyData", "Stream"], output_folder="D:/MyOutput")
+> >>> br4nch.export.Json(tree=["MyData", "Stream"], output_folder="D:/MyOutput")
 > # Path: D:/MyOutput/br4nch-MyData.json
 > # Path: D:/MyOutput/br4nch-Stream.json
 > ```
@@ -145,7 +145,7 @@ To export a tree structure to a json file, use the **following function:**
 > To export the output in multiple folders in the same function call, you can use a list for the `output_folder` argument.
 >
 > ```python
->    >>> br4nch.export.Json(tree="MyData", output_folder=["D:/MyOutput", "D:/DataOutput"])
+> >>> br4nch.export.Json(tree="MyData", output_folder=["D:/MyOutput", "D:/DataOutput"])
 > # Path: D:/MyOutput/br4nch-MyData.json
 > # Path: D:/DataOutput/br4nch-MyData.json
 > ```
