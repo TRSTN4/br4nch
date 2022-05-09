@@ -99,7 +99,7 @@ class CreateNode:
 
             # If the 'count' value is equal to the right value in the position list, pass.
             if count == int(position[0]):
-                # If the length of the 'position' list equal one, add each node to the position.
+                # If the length of the 'position' list equals one, add each node to the position.
                 if len(position) == 1:
                     for node in self.nodes:
                         children.update({node + UtilityGenerator().generate_uid(): {}})
