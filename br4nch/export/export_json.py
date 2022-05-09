@@ -80,8 +80,9 @@ class ExportJson:
 
     def get_nodes(self, nested_dictionary):
         for parent, children in nested_dictionary.copy().items():
+            self.nodes.append(parent[:-15])
+
             if children:
-                self.nodes.append(parent[:-15])
                 self.get_nodes(children)
 
     def sort_duplicates(self):
