@@ -128,9 +128,6 @@ class FormatNode:
                         position.pop(0)
                         return self.validate_position(position, children)
 
-    def get_positions(self):
-        return self.nodes
-
     def format_node_number(self, node, levels, trace, nested_dictionary, visual_position, number=0, full_node=""):
         count = 0
         for parent, children in nested_dictionary.items():
@@ -158,6 +155,9 @@ class FormatNode:
 
             if children:
                 self.format_node_number(node, levels, trace, children, visual_position, number, full_node)
+
+    def get_positions(self):
+        return self.nodes
 
 
 class FormatPosition:
