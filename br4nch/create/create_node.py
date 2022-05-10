@@ -97,7 +97,7 @@ class CreateNode:
         """
         Creates each node.
         """
-        # If the position value equals zero, the node will be added to the first height from the tree.
+        # If the position value equals zero, the node(s) will be added to the first height from the tree.
         if position[0] == "0":
             for node in self.nodes:
                 UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]].update(

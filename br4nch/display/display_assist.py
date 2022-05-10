@@ -83,6 +83,7 @@ class DisplayAssist:
         """
         Appends each height to a list.
         """
+        # Loops through nested dictionary.
         for children in nested_dictionary.values():
             # Appends the current 'height' value to the list.
             levels.append(height)
@@ -94,6 +95,7 @@ class DisplayAssist:
         Appends each position of each node to the tree.
         """
         count = 0
+        # Loops through nested dictionary.
         for parent, children in nested_dictionary.copy().items():
             count = count + 1
             trace[0] = trace[0] + 1

@@ -64,7 +64,7 @@ class DeleteNode:
         for tree in self.trees:
             queue_delete = []
 
-            # If the position value equals zero, the node will be added to the first height from the tree.
+            # Gets each position from each node and parses them to the 'get_nodes' function.
             for position in UtilityDecider(tree, "node", self.nodes.copy()).get_formatted_positions():
                 child = self.get_nodes(tree, position,
                                        UtilityLibrarian.existing_trees[tree][list(
