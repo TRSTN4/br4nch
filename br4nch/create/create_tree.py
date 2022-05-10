@@ -10,6 +10,14 @@ from ..utility.utility_handler import UtilityHandler
 
 class CreateTree:
     def __init__(self, tree, header):
+        """
+        Required argument(s):
+        - tree
+        - header
+
+        :param tree: The name for the tree.
+        :param header: The header for the tree.
+        """
         self.trees = tree
         self.header = header
 

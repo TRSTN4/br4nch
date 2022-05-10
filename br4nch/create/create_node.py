@@ -12,6 +12,18 @@ from ..utility.utility_decider import UtilityDecider
 
 class CreateNode:
     def __init__(self, tree, node, parent=""):
+        """
+        Required argument(s):
+        - tree
+        - node
+
+        Optional argument(s):
+        - parent
+
+        :param tree: The name of the tree(s) where the node(s) will be created.
+        :param node: The name for the node(s).
+        :param parent: The parent(s) where the node(s) in the tree(s) are created.
+        """
         self.trees = tree
         self.nodes = node
         self.parents = parent
