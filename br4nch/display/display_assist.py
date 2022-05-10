@@ -107,7 +107,7 @@ class DisplayAssist:
             # 'level'/'height' value in the loop, then the last number and dot in the 'position' variable is removed.
             if levels[trace[0]] <= levels[trace[0] - 1]:
                 position = position[:-2]
-            # Variable is added with the value of 'count' separated by a dot to the 'position_structure' variable.
+            # Variable is added with the value of 'count' separated by a dot to the 'position' variable.
             position = position + "." + str(count)
 
             # Combines the position of the node to the node and removes the old node.
