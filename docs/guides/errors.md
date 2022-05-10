@@ -4,7 +4,7 @@
 
 This error occurs when the given value in the specified argument is not an instance of a string.
 
-**This error occurs in the following functions:**
+**This error occurs in the following function(s):**
 
 [create.Tree](../functions/create/create_tree.md), [create.Node](../functions/create/create_node.md), [delete.Tree](../functions/delete/delete_tree.md), [delete.Node](../functions/delete/delete_node.md), [display.Tree](../functions/display/display_tree.md), [display.Assist](../functions/display/display_assist.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Tree](../functions/export/export_tree.md), [export.Json](../functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [get.Data](../functions/get/get_data.md), [get.Tree](../functions/get/get_tree.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [load.Folder](../functions/load/load_folder.md), [load.Json](../functions/load/load_json.md), [load.Tree](../functions/load/load_tree.md), [move.Node](../functions/move/move_node.md), [replace.Tree](../functions/replace/replace_tree.md), [replace.Header](../functions/replace/replace_header.md), [replace.Node](../functions/replace/replace_node.md), [reset.Symbol](../functions/reset/reset_symbol.md), [reset.Size](../functions/reset/reset_size.md), [set.Symbol](../functions/set/set_symbol.md), [set.Size](../functions/set/set_size.md)
 
@@ -20,7 +20,7 @@ This error occurs when the given value in the specified argument is not an insta
 
 This error occurs when the given value in the specified argument is not an instance of a boolean.
 
-**This error occurs in the following functions:**
+**This error occurs in the following function(s):**
 
 [display.Tree](../functions/display/display_tree.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Json](../functions/export/export_json.md), [export.Tree](../functions/export/export_tree.md), [get.Tree](../functions/get/get_tree.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [load.Folder](../functions/load/load_folder.md), [reset.Symbol](../functions/reset/reset_symbol.md)
 
@@ -36,7 +36,7 @@ This error occurs when the given value in the specified argument is not an insta
 
 This error occurs when the given value in the specified argument is not an instance of a integer.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [set.Size](../functions/set/set_size.md)
 
@@ -52,7 +52,7 @@ This error occurs when the given value in the specified argument is not an insta
 
 This error occurs when the tree name uses characters other than letters and/or numbers.
 
-**This error occurs in the following functions:**
+**This error occurs in the following function(s):**
 
 [create.Tree](../functions/create/create_tree.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [load.Folder](../functions/load/load_folder.md), [load.Json](../functions/load/load_json.md), [replace.Tree](../functions/replace/replace_tree.md)
 
@@ -68,7 +68,7 @@ This error occurs when the tree name uses characters other than letters and/or n
 
 This error occurs when the given position contains a character other than valid positions, operators and existing nodes.
 
-**This error occurs in the following functions:**
+**This error occurs in the following function(s):**
 
 [create.Node](../functions/create/create_node.md), [delete.Node](../functions/delete/delete_node.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [get.Position](../functions/get/get_position.md), [move.Node](../functions/move/move_node.md), [replace.Node](../functions/replace/replace_node.md)
 
@@ -84,7 +84,7 @@ This error occurs when the given position contains a character other than valid 
 
 This error occurs when the given size is less than zero or greater than 20.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [set.Size](../functions/set/set_size.md)
 
@@ -100,7 +100,7 @@ This error occurs when the given size is less than zero or greater than 20.
 
 This error occurs when the specified tree file is invalid.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [load.Tree](../functions/load/load_tree.md)
 
@@ -116,7 +116,7 @@ This error occurs when the specified tree file is invalid.
 
 This error occurs when the specified attributes file is invalid.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [load.Tree](../functions/load/load_tree.md)
 
@@ -132,7 +132,7 @@ This error occurs when the specified attributes file is invalid.
 
 This error occurs when the specified tree does not exist.
 
-**This error occurs in the following functions:**
+**This error occurs in the following function(s):**
 
 [create.Node](../functions/create/create_node.md), [delete.Tree](../functions/delete/delete_tree.md), [delete.Node](../functions/delete/delete_node.md), [display.Tree](../functions/display/display_tree.md), [display.Assist](../functions/display/display_assist.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [duplicate.Node](../functions/duplicate/duplicate_node.md), [export.Tree](../functions/export/export_tree.md), [export.Json](../functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [get.Data](../functions/get/get_data.md), [get.Node](../functions/get/get_node.md), [get.Position](../functions/get/get_position.md), [move.Node](../functions/move/move_node.md), [replace.Tree](../functions/replace/replace_tree.md), [replace.Header](../functions/replace/replace_header.md), [replace.Node](../functions/replace/replace_node.md), [reset.Symbol](../functions/reset/reset_symbol.md), [reset.Size](../functions/reset/reset_size.md), [set.Symbol](../functions/set/set_symbol.md), [set.Size](../functions/set/set_size.md)
 
@@ -148,7 +148,7 @@ This error occurs when the specified tree does not exist.
 
 This error occurs when the given directory does not exist.
 
-**This error occurs in the following functions:**
+**This error occurs in the following function(s):**
 
 [export.Tree](../functions/export/export_tree.md), [export.Json](../functions/export/export_json.md), [export.Text](../functions/export/export_text.md), [load.Folder](../functions/load/load_folder.md)
 
@@ -164,7 +164,7 @@ This error occurs when the given directory does not exist.
 
 This error occurs when the specified tree file location does not exist.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [load.Tree](../functions/load/load_tree.md)
 
@@ -180,7 +180,7 @@ This error occurs when the specified tree file location does not exist.
 
 This error occurs when the specified attributes file location does not exist.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [load.Tree](../functions/load/load_tree.md)
 
@@ -196,7 +196,7 @@ This error occurs when the specified attributes file location does not exist.
 
 This error occurs when the specified json file location does not exist.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [load.Json](../functions/load/load_json.md)
 
@@ -211,7 +211,7 @@ This error occurs when the specified json file location does not exist.
 
 This error occurs when you use the function with modified symbols.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [set.Size](../functions/set/set_size.md)
 
@@ -226,7 +226,7 @@ This error occurs when you use the function with modified symbols.
 
 This error occurs when the specified tree name already exists.
 
-**This error occurs in the following functions:**
+**This error occurs in the following function(s):**
 
 [create.Tree](../functions/create/create_tree.md), [duplicate.Tree](../functions/duplicate/duplicate_tree.md), [load.Folder](../functions/load/load_folder.md), [load.Json](../functions/load/load_json.md), [load.Tree](../functions/load/load_tree.md), [replace.Tree](../functions/replace/replace_tree.md)
 
@@ -242,7 +242,7 @@ This error occurs when the specified tree name already exists.
 
 This error occurs when no symbols are changed.
 
-**This error occurs in the following function:**
+**This error occurs in the following function(s):**
 
 [set.Symbol](../functions/set/set_symbol.md)
 
