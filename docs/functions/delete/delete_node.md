@@ -6,7 +6,7 @@ To delete an node, use the **following function:**
 
 **Required argument(s):**
 
-- *tree* - The name of the tree(s) in which the node will be deleted.
+- *tree* - The name of the tree(s) where the node(s) will be deleted.
 - *node* - The node(s) that will be deleted.
 
 **Guide:**

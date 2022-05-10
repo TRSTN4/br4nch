@@ -10,6 +10,12 @@ from ..utility.utility_handler import UtilityHandler
 
 class DeleteTree:
     def __init__(self, tree):
+        """
+        Required argument(s):
+        - tree
+
+        :param tree: The name of the tree(s) that will be deleted.
+        """
         self.trees = tree
 
         self.validate_arguments()

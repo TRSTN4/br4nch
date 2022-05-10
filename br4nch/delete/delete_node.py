@@ -11,6 +11,14 @@ from ..utility.utility_decider import UtilityDecider
 
 class DeleteNode:
     def __init__(self, tree, node):
+        """
+        Required argument(s):
+        - tree
+        - node
+
+        :param tree: The name of the tree(s) where the node(s) will be deleted.
+        :param node: The node(s) that will be deleted.
+        """
         self.trees = tree
         self.nodes = node
 
