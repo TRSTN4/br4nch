@@ -54,6 +54,9 @@ class DisplayAssist:
                     self.trees[index] = existing_tree
 
     def display_assist(self):
+        """
+        Displays the tree assist.
+        """
         for tree in self.trees:
             # Gets each height and stores it in the 'levels' list.
             levels = [0]
