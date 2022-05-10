@@ -6,7 +6,7 @@ To get any position, use the **following function:**
 
 **Required argument(s):**
 
-- *tree* - The tree(s) to display an position for.
+- *tree* - The tree(s) to display a position for.
 
 **Optional argument(s):**
 

@@ -93,7 +93,7 @@ class ExportJson:
             # Deep-copies the current tree structure.
             data = copy.deepcopy(UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
 
-            # Calls each needed function.
+            # Calls each needed functions.
             self.get_nodes(data)
             self.sort_duplicates()
             self.update_node(data)
