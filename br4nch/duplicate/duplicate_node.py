@@ -128,7 +128,7 @@ class DuplicateNode:
 
                     if children:
                         if self.delete:
-                            # Queues for parent dictionary deletion.
+                            # Queues for old node position dictionary deletion.
                             queue_delete.append(children[1])
 
                         if self.target_trees:
