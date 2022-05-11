@@ -18,7 +18,7 @@ This error occurs when the given value in the specified argument is not an insta
 
 ## InstanceBooleanError
 
-This error occurs when the given value in the specified argument is not an instance of a boolean.
+This error occurs when the given value in the specified argument is not an instance of an boolean.
 
 **This error occurs in the following function(s):**
 
@@ -34,7 +34,7 @@ This error occurs when the given value in the specified argument is not an insta
 
 ## InstanceIntegerError
 
-This error occurs when the given value in the specified argument is not an instance of a integer.
+This error occurs when the given value in the specified argument is not an instance of an integer.
 
 **This error occurs in the following function(s):**
 
