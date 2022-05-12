@@ -28,6 +28,8 @@ class UtilityDecider:
             self.tree = tree
             self.nodes = nodes
 
+            self.total_duplicates = 0
+
             self.manage_nodes()
 
         def manage_nodes(self):
@@ -50,14 +52,14 @@ class UtilityDecider:
             for node in self.nodes.copy():
                 # Checks if the '#' duplicate sign is in the node.
                 if "#" in node:
-                    valid = False
-                    # Validates if the given number is an actual number.
+                    valid = True
+                    # Validates if the number is a valid number and the characters are in the list.
                     for character in node.split("#")[-1]:
-                        if not character.isnumeric():
-                            valid = True
+                        if character not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "/", "*", ">", "<"]:
+                            valid = False
 
                     # If the number is valid.
-                    if not valid:
+                    if valid:
                         split_node = node.rsplit("#", 1)
 
                         # Removes all empty strings from the split list.
@@ -70,11 +72,123 @@ class UtilityDecider:
                             for part in node.rsplit("#", 1)[:1]:
                                 stripped_node = stripped_node + part
 
-                            # Creates for the duplicate node a position if the duplicate node exists.
-                            self.create_position(stripped_node, levels, [0],
-                                                 UtilityLibrarian.existing_trees[self.tree][list(
-                                                     UtilityLibrarian.existing_trees[self.tree])[0]], "", node,
-                                                 int(node.split("#")[-1]))
+                            operator = False
+                            # Checks if there is an operator in the given node number.
+                            for character in node.split("#")[-1]:
+                                if character in ["/", "*", ">", "<"]:
+                                    operator = True
+                                    break
+
+                            # Continues if there is an operator in the given node number.
+                            if operator:
+                                serial_numbers = []
+                                operators = []
+
+                                # Gets all duplicates from a specific node.
+                                self.get_total_duplicates(stripped_node,
+                                                          UtilityLibrarian.existing_trees[self.tree][list(
+                                                              UtilityLibrarian.existing_trees[self.tree])[0]])
+
+                                # Separates at each '/' operator.
+                                if "/" in node.split("#")[-1]:
+                                    for separate in node.split("#")[-1].split("/"):
+                                        operators.append(separate)
+                                else:
+                                    # Sets the non node number value in a list.
+                                    operators = [node.split("#")[-1]]
+
+                                for number_operator in operators:
+                                    # Adds all integer only values to the serial numbers list.
+                                    if number_operator.isnumeric():
+                                        serial_numbers.append(stripped_node + "#" + str(int(number_operator)))
+
+                                for number_operator in operators:
+                                    # Checks if the '>' operator is in the number.
+                                    if ">" in number_operator:
+                                        if "*" in number_operator.split(">"):
+                                            # Adds all existing duplicates to the serial numbers list.
+                                            for number in range(self.total_duplicates):
+                                                serial_numbers.append(stripped_node + "#" + str(number + 1))
+
+                                            # Removes the operator number.
+                                            operators.remove(number_operator)
+                                        else:
+                                            # Gets both numbers from the '>' operator.
+                                            including_numbers = number_operator.split(">")
+
+                                            total_including_numbers = len(including_numbers)
+
+                                            # Adds each number between value "x" and "y".
+                                            for count in range(int(min(including_numbers)),
+                                                               int(max(including_numbers)) + 1):
+                                                including_numbers.append(str(count))
+
+                                            # Removes all old values form the '>' operator.
+                                            for _ in range(total_including_numbers):
+                                                including_numbers.pop(0)
+
+                                            # Adds all 'including_numbers' numbers to the serial numbers list.
+                                            for number in including_numbers:
+                                                serial_numbers.append(stripped_node + "#" + str(int(number)))
+
+                                for number_operator in operators:
+                                    # Checks if the '<' operator is in the number.
+                                    if "<" in number_operator:
+                                        if "*" in number_operator.split("<"):
+                                            # Removes the operator number.
+                                            operators.remove(number_operator)
+                                        else:
+                                            excluding_numbers = []
+                                            # Adds all existing duplicates to the 'excluding_numbers' list.
+                                            for number in range(self.total_duplicates):
+                                                excluding_numbers.append(str(number + 1))
+
+                                            # Removes each number between value "x" and "y".
+                                            for count in range(int(min(number_operator.split("<"))),
+                                                               int(max(number_operator.split("<"))) + 1):
+                                                if str(count) in excluding_numbers:
+                                                    excluding_numbers.remove(str(count))
+
+                                            # Adds all 'excluding_numbers' numbers to the serial numbers list.
+                                            for number in excluding_numbers:
+                                                serial_numbers.append(stripped_node + "#" + str(int(number)))
+
+                                for number_operator in operators:
+                                    # Checks if the '*' operator is in the number.
+                                    if "*" in number_operator:
+                                        # Adds all existing duplicates to the serial numbers list.
+                                        for number in range(self.total_duplicates):
+                                            serial_numbers.append(stripped_node + "#" + str(number + 1))
+
+                                        # Removes the operator number.
+                                        operators.remove(number_operator)
+
+                                # Resets the variable.
+                                self.total_duplicates = 0
+
+                                for node_number in serial_numbers:
+                                    # Bypasses node deletion error in 'create_position' function.
+                                    self.nodes.append(node_number)
+
+                                    # Creates for the duplicate node a position if the duplicate node exists.
+                                    self.create_position(stripped_node, levels, [0],
+                                                         UtilityLibrarian.existing_trees[self.tree][list(
+                                                             UtilityLibrarian.existing_trees[self.tree])[0]], "",
+                                                         node_number, int(node_number.split("#")[-1]))
+
+                                # Removes all remaining nodes.
+                                for node_number in serial_numbers:
+                                    if node_number in self.nodes:
+                                        self.nodes.remove(node_number)
+
+                                # Removes the given node.
+                                self.nodes.remove(node)
+                            else:
+                                # Creates for the duplicate node a position if the duplicate node exists.
+                                self.create_position(stripped_node, levels, [0],
+                                                     UtilityLibrarian.existing_trees[self.tree][list(
+                                                         UtilityLibrarian.existing_trees[self.tree])[0]], "", node,
+                                                     int(node.split("#")[-1]))
 
         def elevator(self, levels, nested_dictionary, height=0):
             """
@@ -136,6 +250,21 @@ class UtilityDecider:
                     # Continue the nested loop.
                     self.create_position(node, levels, trace, children, visual_position, full_node, number,
                                          duplicate_hit)
+
+        def get_total_duplicates(self, node, nested_dictionary):
+            """
+            # Counts all duplicates from a specific node.
+            """
+            # Loops through nested dictionary.
+            for parent, children in nested_dictionary.items():
+                # Passes if the given node is equal to the current parent node.
+                if parent[:-15].lower() == node.lower():
+                    # Adds '+1' for each duplicate hit.
+                    self.total_duplicates = self.total_duplicates + 1
+
+                if children:
+                    # Continue the nested loop.
+                    self.get_total_duplicates(node, children)
 
         def get_positions(self):
             """
@@ -237,7 +366,7 @@ class UtilityDecider:
                                 raise UtilityHandler.InvalidPositionError(self.argument,
                                                                           position_package[number][position])
 
-                        # Gets all numbers from the '>' operator.
+                        # Gets both numbers from the '>' operator.
                         including_positions = position_package[number][position].split(">")
 
                         total_including_positions = len(including_positions)
