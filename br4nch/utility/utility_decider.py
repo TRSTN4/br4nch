@@ -316,114 +316,144 @@ class UtilityDecider:
                         position_package[number] = [position_package[number]]
 
             for number in range(len(position_package)):
-                for position in range(len(position_package[number])):
-                    # Checks if the '/' operator is in the current position.
-                    if "/" in position_package[number][position]:
-                        for multiple_position in position_package[number][position].split("/"):
-                            # Raises an error if there are no positions combined with the '/' operator.
-                            if not multiple_position:
-                                raise UtilityHandler.InvalidPositionError(self.argument,
-                                                                          position_package[number][position])
+                if number < len(position_package):
+                    for position in range(len(position_package[number])):
+                        # Checks if the '/' operator is in the current position.
+                        if "/" in position_package[number][position]:
+                            for multiple_position in position_package[number][position].split("/"):
+                                # Raises an error if there are no positions combined with the '/' operator.
+                                if not multiple_position:
+                                    raise UtilityHandler.InvalidPositionError(self.argument,
+                                                                              position_package[number][position])
 
-                        # Loops through all gotten numbers.
-                        for count in range(len(position_package[number][position].split("/"))):
-                            # Adds all gotten numbers each with the copied parent positions.
-                            position_package.append(position_package[number].copy())
-                            position_package[-1][position] = position_package[number][position].split("/")[count]
-
-                        # Removes the old/formatted '/' operator position.
-                        position_package.pop(number)
-
-                        self.format_position(position_package)
-
-            for number in range(len(position_package)):
-                for position in range(len(position_package[number])):
-                    # Checks if the '*' operator is in the current position.
-                    if "*" in position_package[number][position]:
-                        # If there are no nodes in the tree then the position '0' will be used.
-                        if not UtilityLibrarian.existing_trees[self.tree][list(
-                                UtilityLibrarian.existing_trees[self.tree])[0]]:
-                            position_package[number].pop(position)
-                            position_package[number].append("0")
-                        else:
-                            # Loops through the total length from the nodes in the current position.
-                            for count in range(self.get_total_nodes(
-                                    position_package[number].copy(),
-                                    UtilityLibrarian.existing_trees[self.tree][list(
-                                        UtilityLibrarian.existing_trees[self.tree])[0]])):
+                            # Loops through all gotten numbers.
+                            for count in range(len(position_package[number][position].split("/"))):
                                 # Adds all gotten numbers each with the copied parent positions.
                                 position_package.append(position_package[number].copy())
-                                position_package[-1][position] = str(count + 1)
+                                position_package[-1][position] = position_package[number][position].split("/")[count]
 
-                            # Removes the old/formatted '*' operator position.
+                            # Removes the old/formatted '/' operator position.
                             position_package.pop(number)
 
-                    # Checks if the '>' operator is in the current position.
-                    if ">" in position_package[number][position]:
-                        for including_position in position_package[number][position].split(">"):
-                            # Raises an error if there are no positions combined with the '>' operator.
-                            if not including_position:
-                                raise UtilityHandler.InvalidPositionError(self.argument,
-                                                                          position_package[number][position])
+                            self.format_position(position_package)
 
-                        # Gets both numbers from the '>' operator.
-                        including_positions = position_package[number][position].split(">")
+            for number in range(len(position_package)):
+                if number < len(position_package):
+                    for position in range(len(position_package[number])):
+                        # Checks if the '>' operator is in the current position.
+                        if ">" in position_package[number][position]:
+                            for including_position in position_package[number][position].split(">"):
+                                # Raises an error if there are no positions combined with the '>' operator.
+                                if not including_position:
+                                    raise UtilityHandler.InvalidPositionError(self.argument,
+                                                                              position_package[number][position])
 
-                        total_including_positions = len(including_positions)
+                            if "*" in position_package[number][position].split(">"):
+                                # Loops through the total length from the nodes in the current position.
+                                for count in range(self.get_total_nodes(
+                                        position_package[number].copy(),
+                                        UtilityLibrarian.existing_trees[self.tree][list(
+                                            UtilityLibrarian.existing_trees[self.tree])[0]])):
+                                    # Adds all gotten numbers each with the copied parent positions.
+                                    position_package.append(position_package[number].copy())
+                                    position_package[-1][position] = str(count + 1)
 
-                        # Adds each number between value "x" and "y".
-                        for count in range(int(min(including_positions)), int(max(including_positions)) + 1):
-                            including_positions.append(str(count))
+                                # Removes the old/formatted '*' operator position.
+                                position_package.pop(number)
+                            else:
+                                # Gets both numbers from the '>' operator.
+                                including_positions = position_package[number][position].split(">")
 
-                        # Removes all old values form the '>' operator.
-                        for _ in range(total_including_positions):
-                            including_positions.pop(0)
+                                total_including_positions = len(including_positions)
 
-                        # Loops through the total length from the 'including_positions' list.
-                        for count in range(len(including_positions)):
-                            # Adds all gotten numbers each with the copied parent positions.
-                            position_package.append(position_package[number].copy())
-                            position_package[-1][position] = including_positions[count]
+                                # Adds each number between value "x" and "y".
+                                for count in range(int(min(including_positions)), int(max(including_positions)) + 1):
+                                    including_positions.append(str(count))
 
-                        # Removes the old/formatted '>' operator position.
-                        position_package.pop(number)
+                                # Removes all old values form the '>' operator.
+                                for _ in range(total_including_positions):
+                                    including_positions.pop(0)
 
-                    # Checks if the '<' operator is in the current position.
-                    if "<" in position_package[number][position]:
-                        for excluding_position in position_package[number][position].split("<"):
-                            # Raises an error if there are no positions combined with the '<' operator.
-                            if not excluding_position:
-                                raise UtilityHandler.InvalidPositionError(self.argument,
-                                                                          position_package[number][position])
+                                # Loops through the total length from the 'including_positions' list.
+                                for count in range(len(including_positions)):
+                                    # Adds all gotten numbers each with the copied parent positions.
+                                    position_package.append(position_package[number].copy())
+                                    position_package[-1][position] = including_positions[count]
 
-                        excluding_positions = []
+                                # Removes the old/formatted '>' operator position.
+                                position_package.pop(number)
 
-                        # Loops through the total length from the nodes in the current position.
-                        for count in range(self.get_total_nodes(position_package[number].copy(),
-                                                                UtilityLibrarian.existing_trees[self.tree][list(
-                                                                    UtilityLibrarian.existing_trees[self.tree])[0]])):
-                            excluding_positions.append(str(count + 1))
+            for number in range(len(position_package)):
+                if number < len(position_package):
+                    for position in range(len(position_package[number])):
+                        # Checks if the '<' operator is in the current position.
+                        if "<" in position_package[number][position]:
+                            for excluding_position in position_package[number][position].split("<"):
+                                # Raises an error if there are no positions combined with the '<' operator.
+                                if not excluding_position:
+                                    raise UtilityHandler.InvalidPositionError(self.argument,
+                                                                              position_package[number][position])
 
-                        # Removes each number between value "x" and "y".
-                        for count in range(int(min(position_package[number][position].split("<"))),
-                                           int(max(position_package[number][position].split("<"))) + 1):
-                            if str(count) in excluding_positions:
-                                excluding_positions.remove(str(count))
+                            if "*" in position_package[number][position].split("<"):
+                                position_package.append([""])
+                                position_package.pop(number)
+                            else:
+                                excluding_positions = []
 
-                        # Loops through the total length from the 'excluding_positions' list.
-                        for count in range(len(excluding_positions)):
-                            # Adds all gotten numbers each with the copied parent positions.
-                            position_package.append(position_package[number].copy())
-                            position_package[-1][position] = excluding_positions[count]
+                                # Loops through the total length from the nodes in the current position.
+                                for count in range(self.get_total_nodes(
+                                        position_package[number].copy(),
+                                        UtilityLibrarian.existing_trees[self.tree][list(
+                                            UtilityLibrarian.existing_trees[self.tree])[0]])):
+                                    excluding_positions.append(str(count + 1))
 
-                        # Removes the old/formatted '<' operator position.
-                        position_package.pop(number)
+                                # Removes each number between value "x" and "y".
+                                for count in range(int(min(position_package[number][position].split("<"))),
+                                                   int(max(position_package[number][position].split("<"))) + 1):
+                                    if str(count) in excluding_positions:
+                                        excluding_positions.remove(str(count))
 
-                    # If there is a '/', '*', '>' or '<' in the position character.
-                    if "/" in position_package[number][position] or "*" in position_package[number][position] \
-                            or ">" in position_package[number][position] or "<" in position_package[number][position]:
-                        # Calls the 'format_position' function to manage the rest of the operators.
-                        self.format_position(position_package)
+                                # Loops through the total length from the 'excluding_positions' list.
+                                for count in range(len(excluding_positions)):
+                                    # Adds all gotten numbers each with the copied parent positions.
+                                    position_package.append(position_package[number].copy())
+                                    position_package[-1][position] = excluding_positions[count]
+
+                                # Removes the old/formatted '<' operator position.
+                                position_package.pop(number)
+
+            for number in range(len(position_package)):
+                if number < len(position_package):
+                    for position in range(len(position_package[number])):
+                        # Checks if the '*' operator is in the current position.
+                        if "*" in position_package[number][position]:
+                            # If there are no nodes in the tree then the position '0' will be used.
+                            if not UtilityLibrarian.existing_trees[self.tree][list(
+                                    UtilityLibrarian.existing_trees[self.tree])[0]]:
+                                position_package[number].pop(position)
+                                position_package[number].append("0")
+                            else:
+                                # Loops through the total length from the nodes in the current position.
+                                for count in range(self.get_total_nodes(
+                                        position_package[number].copy(),
+                                        UtilityLibrarian.existing_trees[self.tree][list(
+                                            UtilityLibrarian.existing_trees[self.tree])[0]])):
+                                    # Adds all gotten numbers each with the copied parent positions.
+                                    position_package.append(position_package[number].copy())
+                                    position_package[-1][position] = str(count + 1)
+
+                                # Removes the old/formatted '*' operator position.
+                                position_package.pop(number)
+
+            for number in range(len(position_package)):
+                if number < len(position_package):
+                    for position in range(len(position_package[number])):
+                        # If there is a '/', '*', '>' or '<' in the position character.
+                        if "/" in position_package[number][position] or "*" in position_package[number][position] \
+                                or ">" in position_package[number][position] or "<" \
+                                in position_package[number][position]:
+                            # Calls the 'format_position' function to manage the rest of the operators.
+                            self.format_position(position_package)
 
             return position_package
 
@@ -433,12 +463,12 @@ class UtilityDecider:
             """
             count = 0
             # Loops through nested dictionary.
-            for children in nested_dictionary.values():
+            for parent, children in nested_dictionary.items():
                 count = count + 1
 
                 # The '*' or '<' is in the first element in the 'position' list, or if the 'count' variable is equal to
                 # the first element in the 'position' list as an integer.
-                if "*" in position[0] or "<" in position[0] or count == int(position[0]):
+                if "*" in position[0] or "<" in position[0]:
                     # Returns the current node height total positions.
                     return len(nested_dictionary)
 
@@ -454,7 +484,7 @@ class UtilityDecider:
             """
             # Removes all empty strings in the list.
             for package in self.position_package:
-                while "" in package:
-                    package.remove("")
+                if package == [""] or package == "":
+                    self.position_package.remove(package)
 
             return self.position_package
