@@ -79,6 +79,11 @@ class SetSymbol:
         if not self.line and not self.split and not self.end:
             raise UtilityHandler.RequiredSymbolChangeError
 
+        for tree in self.trees:
+            # Raises an error if the size is changed and is not the default size.
+            if UtilityLibrarian.existing_sizes[tree] > 0:
+                raise UtilityHandler.NotChangeableError
+
     def set_symbol(self):
         """
         Sets each symbol.

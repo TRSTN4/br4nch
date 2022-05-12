@@ -178,6 +178,15 @@ class UtilityHandler:
         def __str__(self):
             return "You can only use the 'size' function with the default symbols."
 
+    class NotChangeableError(Exception):
+        """
+        This error occurs when you use the function with modified size.
+        """
+        __module__ = Exception.__module__
+
+        def __str__(self):
+            return "You can only use the 'symbol' function with the default size."
+
     class DuplicateTreeError(Exception):
         """
         This error occurs when the specified tree name already exists.

@@ -51,3 +51,4 @@ These are the errors that may pop up when the function is used incorrectly.
 - InstanceStringError
 - RequiredSymbolChangeError
 - NotExistingTreeError
+- NotChangeableError

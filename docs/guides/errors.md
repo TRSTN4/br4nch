@@ -222,6 +222,21 @@ This error occurs when you use the function with modified symbols.
 > NotSizeableError: You can only use the 'size' function with the default symbols.
 > ```
 
+## NotChangeableError
+
+This error occurs when you use the function with modified symbols.
+
+**This error occurs in the following function(s):**
+
+[set.Symbol](../functions/set/set_symbol.md)
+
+**Example:**
+
+> ```python
+> >>> br4nch.set.Symbol(tree="MyTree", line="║", split="╠═", end="╚═")
+> NotChangeableError: You can only use the 'symbol' function with the default size.
+> ```
+
 ## DuplicateTreeError
 
 This error occurs when the specified tree name already exists.
