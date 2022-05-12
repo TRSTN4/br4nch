@@ -125,10 +125,10 @@
 
 **Guide:**
 
-> If a node already exists in the tree, and you want to add a specific node in one of the two, use the `#` character.
+> If a node already exists in the tree, and you want to add a specific node in one of the two, use the `#` aka `serial` operator.
 >
 > **Example:**
-> You want to add a node `Plant` to the node parent `Apple`, but you want to add it to the second `Apple` node. To do this, use the `#` after the node name with the quantity in the `parent` argument.
+> You want to add a node `Plant` to the node parent `Apple`, but you want to add it to the second `Apple` node. To do this, use the `#` after the node name with the number in the `parent` argument.
 >
 > ```python
 > >>> br4nch.display.Tree(tree="ExampleTree")
@@ -167,6 +167,37 @@
 > ┃ˑˑ┣━ Earth
 > ┃ˑˑ┃ˑˑ┗━ Life
 > ┃ˑˑ┗━ Earth
+> ┣━ Second node
+> ┣━ Apple
+> ┗━ Pear
+> ```
+>
+> Combined with other operators...
+>
+> ```python
+> >>> br4nch.display.Tree(tree="ThirdExampleTree")
+> Example
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┗━ Earth
+> ┣━ Second node
+> ┣━ Apple
+> ┗━ Pear
+> 
+> >>> br4nch.create.Node(tree="ThirdExampleTree", node="Life", parent="Earth#1>2/4")
+> 
+> >>> br4nch.display.Tree(tree="ThirdExampleTree")
+> Example
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┃ˑˑ┗━ Life
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┃ˑˑ┗━ Life
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┗━ Earth
+> ┃ˑˑˑˑˑ┗━ Life
 > ┣━ Second node
 > ┣━ Apple
 > ┗━ Pear

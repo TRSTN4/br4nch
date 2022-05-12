@@ -231,3 +231,87 @@ Combinations can also be made with positions and operators together in the same 
 > - 2/5>7/9
 >
 
+## Serial - # #
+
+The operator 'serial' is used to select a specific duplicate node.
+
+**Guide:**
+
+> If a node already exists in the tree, and you want to add a specific node in one of the two, use the `#` aka `serial` operator.
+>
+> **Example:**
+> You want to add a node `Plant` to the node parent `Apple`, but you want to add it to the second `Apple` node. To do this, use the `#` after the node name with the number in the `parent` argument.
+>
+> ```python
+> >>> br4nch.display.Tree(tree="ExampleTree")
+> Example
+> ┣━ Apple
+> ┣━ Apple
+> ┗━ Apple
+> 
+> >>> br4nch.create.Node(tree="ExampleTree", node="Plant", parent="Apple#2")
+> 
+> >>> br4nch.display.Tree(tree="ExampleTree")
+> Example
+> ┣━ Apple
+> ┣━ Apple
+> ┃ˑˑ┗━ Plant
+> ┗━ Apple
+> ```
+>
+> And...
+>
+> ```python
+> >>> br4nch.display.Tree(tree="SecondExampleTree")
+> Example
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┗━ Earth
+> ┣━ Second node
+> ┣━ Apple
+> ┗━ Pear
+> 
+> >>> br4nch.create.Node(tree="SecondExampleTree", node="Life", parent="Earth#1")
+> 
+> >>> br4nch.display.Tree(tree="SecondExampleTree")
+> Example
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┃ˑˑ┗━ Life
+> ┃ˑˑ┗━ Earth
+> ┣━ Second node
+> ┣━ Apple
+> ┗━ Pear
+> ```
+>
+> Combined with other operators...
+>
+> ```python
+> >>> br4nch.display.Tree(tree="ThirdExampleTree")
+> Example
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┗━ Earth
+> ┣━ Second node
+> ┣━ Apple
+> ┗━ Pear
+> 
+> >>> br4nch.create.Node(tree="ThirdExampleTree", node="Life", parent="Earth#1>2/4")
+> 
+> >>> br4nch.display.Tree(tree="ThirdExampleTree")
+> Example
+> ┣━ Hello World
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┃ˑˑ┗━ Life
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┃ˑˑ┗━ Life
+> ┃ˑˑ┣━ Earth
+> ┃ˑˑ┗━ Earth
+> ┃ˑˑˑˑˑ┗━ Life
+> ┣━ Second node
+> ┣━ Apple
+> ┗━ Pear
+> ```
+
