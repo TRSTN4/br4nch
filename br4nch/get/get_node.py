@@ -318,8 +318,11 @@ class GetNode:
                     nested_dictionary.pop(parent)
 
             if height == 2:
+                # Centers the node in the output if it contains a newline.
+                updated_parent = parent.replace("\n", "\n>>>>> ")
+
                 # Adds each node to the second height
-                nested_dictionary["Node: " + parent + UtilityGenerator().generate_uid()] = \
+                nested_dictionary["Node: " + updated_parent + UtilityGenerator().generate_uid()] = \
                     nested_dictionary.pop(parent)
 
             if height == 3:
