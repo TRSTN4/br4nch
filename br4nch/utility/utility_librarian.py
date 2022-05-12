@@ -5,7 +5,14 @@
 # Github Repository: https://github.com/TRSTN4/br4nch
 
 class UtilityLibrarian:
+    """
+    Global storage of all trees and attributes.
+    """
+    # Stores all trees.
     existing_trees = {}
+    # Stores all output from all trees.
     existing_output = {}
+    # Stores all sizes from all trees.
     existing_sizes = {}
+    # Stores all symbols from all trees.
     existing_symbols = {}

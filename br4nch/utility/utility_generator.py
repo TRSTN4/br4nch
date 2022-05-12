@@ -16,10 +16,16 @@ class UtilityGenerator:
         self.generate_uid()
 
     def generate_uid(self):
+        """
+        Generates new uids.
+        """
+        # Generates the uid.
         uid = str(uuid.uuid4()).replace("-", "")[0:10]
 
-        if self.tree == "-":
+        if self.tree:
+            # Generates an uid for a new tree.
             if uid not in list(UtilityLibrarian.existing_trees):
                 return uid
         else:
+            # Generates an uid for a node.
             return ":uid=" + uid
