@@ -215,10 +215,10 @@ class GetPosition:
                     if not skip:
                         if self.beautify:
                             # Adds the tree, position and node to the dictionary.
-                            tree_package.append([tree, visual_position, parent[:-15]])
+                            tree_package.append([tree, parent[:-15], visual_position])
                         else:
                             # Displays the node without tree format.
-                            print(parent[:-15])
+                            print(visual_position)
                 else:
                     # If there is value, remove the first position in the list and continue the nested loop.
                     if children:
@@ -270,10 +270,10 @@ class GetPosition:
             if not skip:
                 if self.beautify:
                     # Adds the tree, position and node to the dictionary.
-                    tree_package.append([tree, visual_position, parent[:-15]])
+                    tree_package.append([tree, parent[:-15], visual_position])
                 else:
                     # Displays the node without tree format.
-                    print(parent[:-15])
+                    print(visual_position)
 
             if children:
                 # Continues the nested loop.
@@ -293,16 +293,16 @@ class GetPosition:
                     nested_dictionary.pop(parent)
 
             if height == 2:
-                # Adds each position to the second height
-                nested_dictionary["Position: " + parent + UtilityGenerator().generate_uid()] = \
-                    nested_dictionary.pop(parent)
-
-            if height == 3:
                 # Centers the node in the output if it contains a newline.
                 updated_parent = parent.replace("\n", "\n>>>>> ")
 
                 # Adds each node to the third height
                 nested_dictionary["Node: " + updated_parent + UtilityGenerator().generate_uid()] = \
+                    nested_dictionary.pop(parent)
+
+            if height == 3:
+                # Adds each position to the second height
+                nested_dictionary["Position: " + parent + UtilityGenerator().generate_uid()] = \
                     nested_dictionary.pop(parent)
 
             if children:
