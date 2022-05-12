@@ -65,17 +65,12 @@ class DisplayTree:
         Displays each tree.
         """
         for tree in self.trees:
-            # Builds each tree output.
-            UtilityBuilder(tree)
-
-            # Prints each build tree.
-            for line in UtilityLibrarian.existing_output[tree]:
+            # Builds and prints the tree.
+            for line in UtilityBuilder(tree).get_output():
                 print(line)
-            UtilityLibrarian.existing_output[tree].clear()
 
             # If true, all linked dictionaries with the tree will be deleted.
             if self.delete:
                 del UtilityLibrarian.existing_trees[tree]
-                del UtilityLibrarian.existing_output[tree]
                 del UtilityLibrarian.existing_sizes[tree]
                 del UtilityLibrarian.existing_symbols[tree]

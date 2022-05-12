@@ -56,6 +56,5 @@ class CreateTree:
         # Sets all required values for the dictionaries to create a new tree.
         for tree in self.trees:
             UtilityLibrarian.existing_trees.update({tree: {self.header: {}}})
-            UtilityLibrarian.existing_output.update({tree: []})
             UtilityLibrarian.existing_sizes.update({tree: 0})
             UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})

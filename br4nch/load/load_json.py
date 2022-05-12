@@ -90,7 +90,6 @@ class LoadJson:
 
         # Creates the new tree with the needed dictionaries.
         for tree in self.new_trees:
-            UtilityLibrarian.existing_output.update({tree: []})
             UtilityLibrarian.existing_sizes.update({tree: 0})
             UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
             UtilityLibrarian.existing_trees.update({tree: {self.header: json_content}})

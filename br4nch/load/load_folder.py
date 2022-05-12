@@ -200,7 +200,6 @@ class LoadFolder:
                                   tree_structure)
 
             # Sets all required values for the dictionaries to create the new folder tree.
-            UtilityLibrarian.existing_output.update({tree: []})
             UtilityLibrarian.existing_sizes.update({tree: 0})
             UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
 

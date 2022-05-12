@@ -11,6 +11,8 @@ class UtilityBuilder:
     def __init__(self, tree):
         self.tree = tree
 
+        self.output = []
+
         self.manager()
 
     def manager(self):
@@ -18,12 +20,13 @@ class UtilityBuilder:
         Runs all the main tasks.
         """
         # Adds the header to the output.
-        UtilityLibrarian.existing_output[self.tree].append(list(UtilityLibrarian.existing_trees[self.tree])[0])
+        self.output.append(list(UtilityLibrarian.existing_trees[self.tree])[0])
 
         # Gets each height and stores it in the 'levels' list.
         levels = [0]
-        self.elevator(
-            levels, UtilityLibrarian.existing_trees[self.tree][list(UtilityLibrarian.existing_trees[self.tree])[0]])
+        self.elevator(levels,
+                      UtilityLibrarian.existing_trees[self.tree][list(
+                          UtilityLibrarian.existing_trees[self.tree])[0]])
         levels.append(0)
 
         # Build the nodes and adds them to the output list.
@@ -62,13 +65,13 @@ class UtilityBuilder:
             # Checks if the parent/node value is the last value in the dictionary.
             if parent == list(nested_dictionary)[-1]:
                 # Adds the node and end symbol with added extender to the output.
-                UtilityLibrarian.existing_output[self.tree].append(
+                self.output.append(
                     size + extend + UtilityLibrarian.existing_symbols[self.tree].get("end") + " "
                     + parent[:-15].replace("\n", "\n" + extend + " " * int(
                         len(UtilityLibrarian.existing_symbols[self.tree].get("end")) + 1)))
             else:
                 # Adds the node and split symbol with added extender to the output.
-                UtilityLibrarian.existing_output[self.tree].append(
+                self.output.append(
                     size + extend + UtilityLibrarian.existing_symbols[self.tree].get("split") + " "
                     + parent[:-15].replace("\n", "\n" + extend
                                            + UtilityLibrarian.existing_symbols[self.tree].get("line") + " "
@@ -125,3 +128,9 @@ class UtilityBuilder:
         for line in chain:
             extend = extend + line
         return extend
+
+    def get_output(self):
+        """
+        Returns the output list.
+        """
+        return self.output

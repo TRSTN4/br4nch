@@ -10,8 +10,6 @@ class UtilityLibrarian:
     """
     # Stores all trees.
     existing_trees = {}
-    # Stores all output from all trees.
-    existing_output = {}
     # Stores all sizes from all trees.
     existing_sizes = {}
     # Stores all symbols from all trees.
