@@ -223,10 +223,10 @@ class GetNode:
                                 break
 
                         if self.beautify:
-                            # Adds the tree, node and position to the dictionary.
+                            # Adds the tree, position and node to the dictionary.
                             tree_package.append([tree, visual_position, parent[:-15]])
                         else:
-                            # Displays the position without tree format.
+                            # Displays the node without tree format.
                             print(parent[:-15])
                 else:
                     # Checks if the parent node without uid is equal to the current node.
@@ -240,10 +240,10 @@ class GetNode:
                                 break
 
                         if self.beautify:
-                            # Adds the tree, node and position to the dictionary.
+                            # Adds the tree, position and node to the dictionary.
                             tree_package.append([tree, visual_position, parent[:-15]])
                         else:
-                            # Displays the position without tree format.
+                            # Displays the node without tree format.
                             print(parent[:-15])
 
             if children:
@@ -293,10 +293,10 @@ class GetNode:
 
             if not skip:
                 if self.beautify:
-                    # Adds the tree, node and position to the dictionary.
+                    # Adds the tree, position and node to the dictionary.
                     tree_package.append([tree, visual_position, parent[:-15]])
                 else:
-                    # Displays the position without tree format.
+                    # Displays the node without tree format.
                     print(parent[:-15])
 
             if children:

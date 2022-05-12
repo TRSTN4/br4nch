@@ -214,10 +214,10 @@ class GetPosition:
                 if len(position) == 1:
                     if not skip:
                         if self.beautify:
-                            # Adds the tree, position and node to the dictionary.
+                            # Adds the tree, node and position to the dictionary.
                             tree_package.append([tree, parent[:-15], visual_position])
                         else:
-                            # Displays the node without tree format.
+                            # Displays the position without tree format.
                             print(visual_position)
                 else:
                     # If there is value, remove the first position in the list and continue the nested loop.
@@ -269,10 +269,10 @@ class GetPosition:
 
             if not skip:
                 if self.beautify:
-                    # Adds the tree, position and node to the dictionary.
+                    # Adds the tree, node and position to the dictionary.
                     tree_package.append([tree, parent[:-15], visual_position])
                 else:
-                    # Displays the node without tree format.
+                    # Displays the position without tree format.
                     print(visual_position)
 
             if children:
