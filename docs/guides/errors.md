@@ -224,7 +224,7 @@ This error occurs when you use the function with modified symbols.
 
 ## NotChangeableError
 
-This error occurs when you use the function with modified symbols.
+This error occurs when you use the function with modified size.
 
 **This error occurs in the following function(s):**
 
