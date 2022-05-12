@@ -93,7 +93,7 @@ class DeleteNode:
                 if len(position) == 1:
                     return {parent: nested_dictionary}
                 else:
-                    # If there is value, remove the first position in the list and continue the nested loop.
+                    # Remove the first position in the list and continue the nested loop.
                     if children:
                         position.pop(0)
                         return self.get_nodes(tree, position, children)

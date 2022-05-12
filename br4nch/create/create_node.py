@@ -117,7 +117,7 @@ class CreateNode:
                         children.update({node + UtilityGenerator().generate_uid(): {}})
                     return
                 else:
-                    # If there is value, remove the first position in the list and continue the nested loop.
                     if children:
+                        # Remove the first position in the list and continue the nested loop.
                         position.pop(0)
                         return self.create_node(tree, position, children)
