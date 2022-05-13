@@ -75,6 +75,19 @@ class LoadJson:
         json_content = json.loads(json.dumps(json.load(file)))
         file.close()
 
+        save = []
+        # Bypass 'AttributeError' error.
+        if isinstance(json_content, list):
+            # Saves each value in the given json list.
+            for dictionary in json_content:
+                save.append(dictionary)
+
+            # Resets json structure.
+            json_content = {}
+            # Adds all content in the 'save' list and adds an entry number to each value.
+            for number in range(len(save)):
+                json_content.update({"Entry: #" + str(number + 1): save[number]})
+
         while True:
             # Converts all values to string values.
             self.convert_non_strings(json_content)
