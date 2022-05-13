@@ -86,8 +86,6 @@ class LoadTree:
         """
         # Sets the tree structure data in the tree dictionary.
         UtilityLibrarian.existing_trees.update({list(self.tree_file)[0]: list(self.tree_file.values())[0]})
-        # Leaves the output empty.
-        UtilityLibrarian.existing_output.update({list(self.tree_file)[0]: []})
 
         if self.set_attributes:
             # Sets all attributes from the attributes file.

@@ -73,15 +73,9 @@ class ExportText:
         Exports the tree output to a text file.
         """
         for tree in self.trees:
-            # Builds the tree for the output.
-            UtilityBuilder(tree)
-
             for folder in self.output_folders:
                 # Creates the text file.
                 with open(folder + "/br4nch-" + tree + ".txt", 'w', encoding='utf-8') as file:
-                    # Writes each line from the output.
-                    for line in UtilityLibrarian.existing_output[tree]:
+                    # Builds and writes each line from the output.
+                    for line in UtilityBuilder(tree).get_output():
                         file.write(line + "\n")
-
-            # Clears the tree output.
-            UtilityLibrarian.existing_output[tree].clear()

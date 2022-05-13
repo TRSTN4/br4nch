@@ -89,7 +89,6 @@ class GetTree:
 
             # Creates each required dictionary for the tree.
             UtilityLibrarian.existing_trees.update({tree_uid: {"Get Tree Result:": {}}})
-            UtilityLibrarian.existing_output.update({tree_uid: []})
             UtilityLibrarian.existing_sizes.update({tree_uid: 0})
             UtilityLibrarian.existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
 

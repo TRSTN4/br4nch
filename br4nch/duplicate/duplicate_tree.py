@@ -72,7 +72,6 @@ class DuplicateTree:
         # Copies the old tree values and pastes it with the new tree value.
         UtilityLibrarian.existing_trees.update(
             {self.new_tree: copy.deepcopy(UtilityLibrarian.existing_trees[self.target_tree])})
-        UtilityLibrarian.existing_output.update({self.new_tree: []})
 
         if self.attributes:
             # Sets all attributes to the old values.

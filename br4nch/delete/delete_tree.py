@@ -51,6 +51,5 @@ class DeleteTree:
         # Deletes all dictionaries from each tree that must be deleted.
         for tree in self.trees:
             del UtilityLibrarian.existing_trees[tree]
-            del UtilityLibrarian.existing_output[tree]
             del UtilityLibrarian.existing_sizes[tree]
             del UtilityLibrarian.existing_symbols[tree]
