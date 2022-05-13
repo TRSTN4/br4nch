@@ -203,7 +203,7 @@ This error occurs when the specified json file location does not exist.
 **Example:**
 
 > ```python
-> >>> br4nch.load.Json(tree_name="MyJsonTree", header="Json Tree", json_file="ThisJsonFileDoesNotExists!"))
+> >>> br4nch.load.Json(new_tree="MyJsonTree", header="Json Tree", json_file="ThisJsonFileDoesNotExists!")
 > NotExistingJsonFileError: The json file: 'ThisJsonFileDoesNotExists!' does not exist.
 > ```
 
