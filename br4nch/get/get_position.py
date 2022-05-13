@@ -7,12 +7,11 @@
 from br4nch.utility.utility_librarian import UtilityLibrarian
 from br4nch.utility.utility_handler import UtilityHandler
 from br4nch.utility.utility_generator import UtilityGenerator
-from br4nch.utility.utility_decider import UtilityDecider
 from br4nch.display.display_tree import DisplayTree
 
 
 class GetPosition:
-    def __init__(self, tree, position="", include="", exclude="", beautify=True):
+    def __init__(self, tree, node="", sensitive=False, include="", exclude="", beautify=True):
         """
         Required argument(s):
         - tree
@@ -23,8 +22,9 @@ class GetPosition:
         - exclude
         - beautify
 
-        :param tree: The tree(s) to display a position for.
-        :param position: The position(s) that are displayed.
+        :param tree: The tree(s) to display a position(s) for.
+        :param node: The node(s) to display the corresponding position(s).
+        :param sensitive: If this argument is 'True', then the filled in node must be case-sensitive.
         :param include: If the given word(s) are in the node, the node will be displayed. Else, it will not be
         displayed.
         :param exclude: If the given word(s) are in the node, the node will not be displayed. Else, it will be
@@ -32,7 +32,8 @@ class GetPosition:
         :param beautify: If this argument is 'True', then the result will be displayed with a special tree format.
         """
         self.trees = tree
-        self.positions = position
+        self.nodes = node
+        self.sensitive = sensitive
         self.includes = include
         self.excludes = exclude
         self.beautify = beautify
@@ -68,10 +69,20 @@ class GetPosition:
                 if self.trees[index].lower() == existing_tree.lower():
                     self.trees[index] = existing_tree
 
-        if self.positions:
+        if self.nodes:
             # If the value is not an instance of a list, set the value in the list.
-            if not isinstance(self.positions, list):
-                self.positions = [self.positions]
+            if not isinstance(self.nodes, list):
+                self.nodes = [self.nodes]
+
+            for node in self.nodes:
+                # Raises an error when a node value is not a string.
+                if not isinstance(node, str):
+                    raise UtilityHandler.InstanceStringError("node", node)
+
+        if self.sensitive:
+            # Raises an error when each 'sensitive' value is not a bool.
+            if not isinstance(self.sensitive, bool):
+                raise UtilityHandler.InstanceBooleanError("sensitive", self.sensitive)
 
         if self.includes:
             # If the value is not an instance of a list, set the value in the list.
@@ -104,24 +115,19 @@ class GetPosition:
         """
         tree_package = []
         for tree in self.trees:
-            if self.positions:
-                for position in UtilityDecider(tree, "position", self.positions.copy()).get_formatted_positions():
-                    # Creates a position with dots.
-                    visual_position = ""
-                    for number in position:
-                        visual_position = visual_position + "." + number
+            # Gets each height and stores it in the 'levels' list.
+            levels = [0]
+            self.elevator(levels, UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
+            levels.append(0)
 
+            if self.nodes:
+                for node in self.nodes:
                     # Gets all specific data that is needed.
-                    tree_package = self.get_specific_data(tree, position, visual_position[1:],
+                    tree_package = self.get_specific_data(tree, node, levels, [0],
                                                           UtilityLibrarian.existing_trees[tree][list(
-                                                              UtilityLibrarian.existing_trees[tree])[0]], tree_package)
+                                                              UtilityLibrarian.existing_trees[tree])[0]], tree_package,
+                                                          "")
             else:
-                # Gets each height and stores it in the 'levels' list.
-                levels = [0]
-                self.elevator(levels,
-                              UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]])
-                levels.append(0)
-
                 # Gets all data that is needed.
                 tree_package = self.get_all_data(tree, levels, [0],
                                                  UtilityLibrarian.existing_trees[tree][list(
@@ -137,38 +143,23 @@ class GetPosition:
             UtilityLibrarian.existing_symbols.update({tree_uid: {"line": "┃", "split": "┣━", "end": "┗━"}})
 
             for box in tree_package:
-                skip = False
+                # Adds current tree value in the box to the tree.
+                if box[0] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]]:
+                    UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]].update({box[0]: {}})
 
-                if self.includes:
-                    for include in self.includes:
-                        # Skips the parent/node if it does not contain the value of 'include'.
-                        if include not in box[2]:
-                            skip = True
+                # Adds current node value in the box to the tree.
+                if box[1] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]]:
+                    UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]].update({box[1]: {}})
 
-                if self.excludes:
-                    for exclude in self.excludes:
-                        # Skips the parent/node if it does contain the value of 'exclude'.
-                        if exclude in box[2]:
-                            skip = True
-
-                if not skip:
-                    # Adds current tree value in the box to the tree.
-                    if box[0] not in UtilityLibrarian.existing_trees[tree_uid][list(
-                            UtilityLibrarian.existing_trees[tree_uid])[0]]:
-                        UtilityLibrarian.existing_trees[tree_uid][list(
-                            UtilityLibrarian.existing_trees[tree_uid])[0]].update({box[0]: {}})
-
-                    # Adds current position value in the box to the tree.
-                    if box[1] not in UtilityLibrarian.existing_trees[tree_uid][list(
-                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]]:
-                        UtilityLibrarian.existing_trees[tree_uid][list(
-                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]].update({box[1]: {}})
-
-                    # Adds current node value in the box to the tree.
-                    if box[2] not in UtilityLibrarian.existing_trees[tree_uid][list(
-                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]]:
-                        UtilityLibrarian.existing_trees[tree_uid][list(
-                            UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]].update({box[2]: {}})
+                # Adds current position value in the box to the tree.
+                if box[2] not in UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]]:
+                    UtilityLibrarian.existing_trees[tree_uid][list(
+                        UtilityLibrarian.existing_trees[tree_uid])[0]][box[0]][box[1]].update({box[2]: {}})
 
             # Adds uids and other visual elements to the tree.
             self.update_tree(tree_uid, UtilityLibrarian.existing_trees[tree_uid])
@@ -187,7 +178,7 @@ class GetPosition:
             # Appends the current 'height' value with '+1' and continues nesting the loop.
             self.elevator(levels, children, height + 1)
 
-    def get_specific_data(self, tree, position, visual_position, nested_dictionary, tree_package):
+    def get_specific_data(self, tree, node, levels, trace, nested_dictionary, tree_package, visual_position):
         """
         Gets all specific data and prints if beautify is 'False'.
         """
@@ -195,7 +186,16 @@ class GetPosition:
         # Loops through nested dictionary.
         for parent, children in nested_dictionary.items():
             count = count + 1
+            trace[0] = trace[0] + 1
             skip = False
+
+            # If the 'level'/'height' of the current value in the loop is equal to or smaller than the previous
+            # 'level'/'height' value in the loop, then the last number and dot in the 'visual_position' variable is
+            # removed.
+            if levels[trace[0]] <= levels[trace[0] - 1]:
+                visual_position = visual_position[:-2]
+            # Variable is added with the value of 'count' separated by a dot to the 'visual_position' variable.
+            visual_position = visual_position + "." + str(count)
 
             if self.includes:
                 for include in self.includes:
@@ -209,10 +209,18 @@ class GetPosition:
                     if exclude in parent[:-15]:
                         skip = True
 
-            # If the 'count' value is equal to the right value in the position list, pass.
-            if count == int(position[0]):
-                if len(position) == 1:
-                    if not skip:
+            if not skip:
+                if self.sensitive:
+                    # Checks if the parent node without uid is equal to the current node in case-sensitive mode.
+                    if parent[:-15] == node:
+                        # If the first character contains a dot, it will be removed.
+                        for character in visual_position:
+                            if character == ".":
+                                # Removes the dot in the first character.
+                                visual_position = visual_position[1:]
+                            else:
+                                break
+
                         if self.beautify:
                             # Adds the tree, node and position to the dictionary.
                             tree_package.append([tree, parent[:-15], visual_position])
@@ -220,11 +228,26 @@ class GetPosition:
                             # Displays the position without tree format.
                             print(visual_position)
                 else:
-                    # If there is value, remove the first position in the list and continue the nested loop.
-                    if children:
-                        position.pop(0)
-                        # Continues the nested loop.
-                        return self.get_specific_data(tree, position, visual_position, children, tree_package)
+                    # Checks if the parent node without uid is equal to the current node.
+                    if parent[:-15].lower() == node.lower():
+                        # If the first character contains a dot, it will be removed.
+                        for character in visual_position:
+                            if character == ".":
+                                # Removes the dot in the first character.
+                                visual_position = visual_position[1:]
+                            else:
+                                break
+
+                        if self.beautify:
+                            # Adds the tree, node and position to the dictionary.
+                            tree_package.append([tree, parent[:-15], visual_position])
+                        else:
+                            # Displays the position without tree format.
+                            print(visual_position)
+
+            if children:
+                # Continues the nested loop.
+                self.get_specific_data(tree, node, levels, trace, children, tree_package, visual_position)
 
         return tree_package
 
