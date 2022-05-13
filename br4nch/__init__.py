@@ -4,7 +4,7 @@
 # Documentation: https://docs.br4nch.com
 # Github Repository: https://github.com/TRSTN4/br4nch
 
-__version__ = "2.3"
+__version__ = "2.3.1"
 __description__ = "Data Structure Tree Builder"
 __url__ = "https://github.com/TRSTN4/br4nch"
 
