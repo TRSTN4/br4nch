@@ -2,7 +2,7 @@
 
 To get any node, use the **following function:**
 
-> br4nch.**get**.**Node**(*tree*, *node=""*, *sensitive=False*, *include=""*, *exclude=""*, *beautify=True*)
+> br4nch.**get**.**Node**(*tree*, *position=""*, *include=""*, *exclude=""*, *beautify=True*)
 
 **Required argument(s):**
 
@@ -10,8 +10,7 @@ To get any node, use the **following function:**
 
 **Optional argument(s):**
 
-- *node* - The node(s) that are displayed.
-- *sensitive* - If this argument is 'True', then the filled in node must be case-sensitive.
+- *position* - The position(s) to display the corresponding node(s).
 - *include* - If the given word(s) are in the node, the node will be displayed. Else, it will not be displayed.
 - *exclude* - If the given word(s) are in the node, the node will not be displayed. Else, it will be displayed.
 - *beautify* - If this argument is 'True', then the result will be displayed with a special tree format.
@@ -24,37 +23,32 @@ To get any node, use the **following function:**
 > >>> br4nch.get.Node(tree="Test")
 > Get Node Result:
 > ┗━ Tree: Test
-> ˑˑˑ┣━ Node: First Node
-> ˑˑˑ┃ˑˑ┗━ Position: 1
-> ˑˑˑ┣━ Node: Second Node
-> ˑˑˑ┃ˑˑ┗━ Position: 1.1
-> ˑˑˑ┣━ Node: Third Node
-> ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
-> ˑˑˑ┣━ Node: New Line One
-> ˑˑˑ┃ˑˑNew Line Two
-> ˑˑˑ┃ˑˑNew Line Three
-> ˑˑˑ┃ˑˑ┗━ Position: 2
-> ˑˑˑ┗━ Node: Sub Node One
-> ˑˑˑˑˑˑSub Node Two
-> ˑˑˑˑˑˑ┗━ Position: 2.1
+> ˑˑˑ┣━ Position: 1
+> ˑˑˑ┃ˑˑ┗━ Node: First Node
+> ˑˑˑ┣━ Position: 1.1
+> ˑˑˑ┃ˑˑ┗━ Node: Second Node
+> ˑˑˑ┣━ Position: 1.1.1
+> ˑˑˑ┃ˑˑ┗━ Node: Third Node
+> ˑˑˑ┣━ Position: 2
+> ˑˑˑ┃ˑˑ┗━ Node: New Line One
+> ˑˑˑ┃ˑˑˑˑˑ>>>>> New Line Two
+> ˑˑˑ┃ˑˑˑˑˑ>>>>> New Line Three
+> ˑˑˑ┗━ Position: 2.1
+> ˑˑˑˑˑˑ┗━ Node: Sub Node One
+> ˑˑˑˑˑˑˑˑˑ>>>>> Sub Node Two
 > ```
->
+> 
 
-> To print a specfic position of node in a tree, specify the name of the node in the `node` argument.
+> To print a position of a node in a tree, specify the name of the node in the `position` argument.
+>
+> *For more information about positions, head to [positions](../../guides/positions.md).*
 >
 > ```python
-> >>> br4nch.get.Node(tree="Stream", node="Squid Game")
+> >>> br4nch.get.Node(tree="Stream", position="1.2.1")
 > Get Node Result:
 > ┗━ Tree: Stream
-> ˑˑˑ┗━ Node: Squid Game                  
-> ˑˑˑˑˑˑ┗━ Position: 1.2.1
-> ```
->
-
-> To make the name of the node case-sensitive, set the `sensitive` argument to True.
->
-> ```python
-> >>> br4nch.get.Node(tree="Stream", node="squid game", sensitive=True)
+> ˑˑˑ┗━ Position: 1.2.1
+> ˑˑˑˑˑˑ┗━ Node: Squid Game
 > ```
 >
 
@@ -64,10 +58,10 @@ To get any node, use the **following function:**
 > >>> br4nch.get.Node(tree="Test", include="Line")
 > Get Node Result:
 > ┗━ Tree: Test
-> ˑˑˑ┗━ Node: New Line One
-> ˑˑˑˑˑˑNew Line Two
-> ˑˑˑˑˑˑNew Line Three
-> ˑˑˑˑˑˑ┗━ Position: 2
+> ˑˑˑ┗━ Position: 2
+> ˑˑˑˑˑˑ┗━ Node: New Line One
+> ˑˑˑˑˑˑˑˑˑ>>>>> New Line Two
+> ˑˑˑˑˑˑˑˑˑ>>>>> New Line Three
 > ```
 >
 
@@ -77,10 +71,10 @@ To get any node, use the **following function:**
 > >>> br4nch.get.Node(tree="Test", exclude="Node")
 > Get Node Result:
 > ┗━ Tree: Test
-> ˑˑˑ┗━ Node: New Line One
-> ˑˑˑˑˑˑNew Line Two
-> ˑˑˑˑˑˑNew Line Three
-> ˑˑˑˑˑˑ┗━ Position: 2
+> ˑˑˑ┗━ Position: 2
+> ˑˑˑˑˑˑ┗━ Node: New Line One
+> ˑˑˑˑˑˑˑˑˑ>>>>> New Line Two
+> ˑˑˑˑˑˑˑˑˑ>>>>> New Line Three
 > ```
 >
 
@@ -88,38 +82,45 @@ To get any node, use the **following function:**
 >
 > ```python
 > >>> br4nch.get.Node(tree="Stream", beautify=False)
-> 1
-> 1.1
-> 1.1.1
-> 2
-> 2.1
+> Netflix
+> Movies
+> Interstellar
+> Series
+> Squid Game
+> The Crown
+> Prime Video
+> Movies
+> Tenet
+> Parasite
+> Series
+> The Walking Dead
 > ```
 >
 
 > To print the position(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.get.Node(tree=["Stream"], ["Stream2"], node="The Walking Dead")
+> >>> br4nch.get.Node(tree=["Stream"], ["Stream2"], position="2.1.1")
 > Get Node Result:
 > ┣━ Tree: Stream
-> ┃ˑˑ┗━ Node: The Walking Dead              
-> ┃ˑˑˑˑˑ┗━ Position: 2.1.1
+> ┃ˑˑ┗━ Position: 2.1.1
+> ┃ˑˑˑˑˑ┗━ Node: The Walking Dead
 > ┗━ Tree: Stream2
-> ˑˑˑ┗━ Node: The Walking Dead                
-> ˑˑˑˑˑˑ┗━ Position: 2.1.1
+> ˑˑˑ┗━ Position: 2.1.1
+> ˑˑˑˑˑˑ┗━ Node: The Walking Dead
 > ```
 >
 
-> To print multiple positions in the same function call, you can use a list for the `node` argument.
+> To print multiple positions in the same function call, you can use a list for the `position` argument.
 >
 > ```python
-> >>> br4nch.get.Node(tree="Stream", node=["Interstellar", "Squid Game"])
+> >>> br4nch.get.Node(tree="Stream", position=["1.1.1", "1.2.1"])
 > Get Node Result:
 > ┗━ Tree: Stream
-> ˑˑˑ┣━ Node: Interstellar                 
-> ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
-> ˑˑˑ┗━ Node: Squid Game                  
-> ˑˑˑˑˑˑ┗━ Position: 1.2.1
+> ˑˑˑ┣━ Position: 1.1.1                
+> ˑˑˑ┃ˑˑ┗━ Node: Interstellar
+> ˑˑˑ┗━ Position: 1.2.1               
+> ˑˑˑˑˑˑ┗━ Node: Squid Game
 > ```
 >
 
@@ -129,10 +130,10 @@ To get any node, use the **following function:**
 > >>> br4nch.get.Node(tree="Test", include=["Second", "Third"])
 > Get Node Result:
 > ┗━ Tree: Test
-> ˑˑˑ┣━ Node: Second Node
-> ˑˑˑ┃ˑˑ┗━ Position: 1.1
-> ˑˑˑ┗━ Node: Third Node
-> ˑˑˑˑˑˑ┗━ Position: 1.1.1
+> ˑˑˑ┣━ Position: 1.1
+> ˑˑˑ┃ˑˑ┗━ Node: Second Node
+> ˑˑˑ┗━ Position: 1.1.1
+> ˑˑˑˑˑˑ┗━ Node: Third Node
 > ```
 >
 
@@ -142,15 +143,15 @@ To get any node, use the **following function:**
 > >>> br4nch.get.Node(tree="Test", exclude=["Second", "Third"])
 > Get Node Result:
 > ┗━ Tree: Test
-> ˑˑˑ┣━ Node: First Node
-> ˑˑˑ┃ˑˑ┗━ Position: 1
-> ˑˑˑ┣━ Node: New Line One
-> ˑˑˑ┃ˑˑNew Line Two
-> ˑˑˑ┃ˑˑNew Line Three
-> ˑˑˑ┃ˑˑ┗━ Position: 2
-> ˑˑˑ┗━ Node: Sub Node One
-> ˑˑˑˑˑˑSub Node Two
-> ˑˑˑˑˑˑ┗━ Position: 2.1
+> ˑˑˑ┣━ Position: 1
+> ˑˑˑ┃ˑˑ┗━ Node: First Node
+> ˑˑˑ┣━ Position: 2
+> ˑˑˑ┃ˑˑ┗━ Node: New Line One
+> ˑˑˑ┃ˑˑˑˑˑ>>>>> New Line Two
+> ˑˑˑ┃ˑˑˑˑˑ>>>>> New Line Three
+> ˑˑˑ┗━ Position: 2.1
+> ˑˑˑˑˑˑ┗━ Node: Sub Node One
+> ˑˑˑˑˑˑˑˑˑSub Node Two
 > ```
 
 **Possible error(s):**

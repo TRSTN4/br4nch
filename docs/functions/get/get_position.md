@@ -2,15 +2,16 @@
 
 To get any position, use the **following function:**
 
-> br4nch.**get**.**Position**(*tree*, *position=""*, *include=""*, *exclude=""*, *beautify=True*)
+> br4nch.**get**.**Position**(*tree*, *node=""*, *sensitive=False*, *include=""*, *exclude=""*, *beautify=True*)
 
 **Required argument(s):**
 
-- *tree* - The tree(s) to display a position for.
+- *tree* - The tree(s) to display a position(s) for.
 
 **Optional argument(s):**
 
-- *position* - The position(s) that are displayed.
+- *node* - The node(s) to display the corresponding position(s).
+- *sensitive* - If this argument is 'True', then the filled in node must be match case-sensitive.
 - *include* - If the given word(s) are in the node, the node will be displayed. Else, it will not be displayed.
 - *exclude* - If the given word(s) are in the node, the node will not be displayed. Else, it will be displayed.
 - *beautify* - If this argument is 'True', then the result will be displayed with a special tree format.
@@ -23,32 +24,37 @@ To get any position, use the **following function:**
 > >>> br4nch.get.Position(tree="Test")
 > Get Position Result:
 > ┗━ Tree: Test
-> ˑˑˑ┣━ Position: 1
-> ˑˑˑ┃ˑˑ┗━ Node: First Node
-> ˑˑˑ┣━ Position: 1.1
-> ˑˑˑ┃ˑˑ┗━ Node: Second Node
-> ˑˑˑ┣━ Position: 1.1.1
-> ˑˑˑ┃ˑˑ┗━ Node: Third Node
-> ˑˑˑ┣━ Position: 2
-> ˑˑˑ┃ˑˑ┗━ Node: New Line One
-> ˑˑˑ┃ˑˑˑˑˑNew Line Two
-> ˑˑˑ┃ˑˑˑˑˑNew Line Three
-> ˑˑˑ┗━ Position: 2.1
-> ˑˑˑˑˑˑ┗━ Node: Sub Node One
-> ˑˑˑˑˑˑˑˑˑSub Node Two
+> ˑˑˑ┣━ Node: First Node
+> ˑˑˑ┃ˑˑ┗━ Position: 1
+> ˑˑˑ┣━ Node: Second Node
+> ˑˑˑ┃ˑˑ┗━ Position: 1.1
+> ˑˑˑ┣━ Node: Third Node
+> ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
+> ˑˑˑ┣━ Node: New Line One
+> ˑˑˑ┃ˑˑ>>>>> New Line Two
+> ˑˑˑ┃ˑˑ>>>>> New Line Three
+> ˑˑˑ┃ˑˑ┗━ Position: 2
+> ˑˑˑ┗━ Node: Sub Node One
+> ˑˑˑˑˑˑ>>>>> Sub Node Two
+> ˑˑˑˑˑˑ┗━ Position: 2.1
 > ```
 >
 
-> To print the node of a position in a tree, specify the position in the `position` argument.
->
-> *For more information about positions, head to [positions](../../guides/positions.md).*
+> To print the node of a position in a tree, specify the node in the `node` argument.
 >
 > ```python
-> >>> br4nch.get.Position(tree="Stream", position="1.2.1")
+>>>> br4nch.get.Position(tree="Stream", node="Squid Game")
 > Get Position Result:
 > ┗━ Tree: Stream
-> ˑˑˑ┗━ Position: 1.2.1
-> ˑˑˑˑˑˑ┗━ Node: Squid Game
+> ˑˑˑ┗━ Node: Squid Game                  
+> ˑˑˑˑˑˑ┗━ Position: 1.2.1
+> ```
+> 
+
+> To make the name of the node case-sensitive, set the `sensitive` argument to True.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Stream", node="squid game", sensitive=True)
 > ```
 >
 
@@ -58,10 +64,10 @@ To get any position, use the **following function:**
 > >>> br4nch.get.Position(tree="Test", include="Line")
 > Get Position Result:
 > ┗━ Tree: Test
-> ˑˑˑ┗━ Position: 2
-> ˑˑˑˑˑˑ┗━ Node: New Line One
-> ˑˑˑˑˑˑˑˑˑNew Line Two
-> ˑˑˑˑˑˑˑˑˑNew Line Three
+> ˑˑˑ┗━ Node: New Line One
+> ˑˑˑˑˑˑ>>>>> New Line Two
+> ˑˑˑˑˑˑ>>>>> New Line Three
+> ˑˑˑˑˑˑ┗━ Position: 2
 > ```
 >
 
@@ -71,10 +77,10 @@ To get any position, use the **following function:**
 > >>> br4nch.get.Position(tree="Test", exclude="Node")
 > Get Position Result:
 > ┗━ Tree: Test
-> ˑˑˑ┗━ Position: 2
-> ˑˑˑˑˑˑ┗━ Node: New Line One
-> ˑˑˑˑˑˑˑˑˑNew Line Two
-> ˑˑˑˑˑˑˑˑˑNew Line Three
+> ˑˑˑ┗━ Node: New Line One
+> ˑˑˑˑˑˑ>>>>> New Line Two
+> ˑˑˑˑˑˑ>>>>> New Line Three
+> ˑˑˑˑˑˑ┗━ Position: 2
 > ```
 >
 
@@ -82,34 +88,45 @@ To get any position, use the **following function:**
 >
 > ```python
 > >>> br4nch.get.Position(tree="Stream", beautify=False)
-> Squid Game
+> 1
+> 1.1
+> 1.1.1
+> 1.2
+> 1.2.1
+> 1.2.2
+> 2
+> 2.1
+> 2.1.1
+> 2.1.2
+> 2.2
+> 2.2.1
 > ```
 >
 
 > To print the position(s) in multiple trees in the same function call, you can use a list for the `tree` argument.
 >
 > ```python
-> >>> br4nch.get.Position(tree=["Stream"], ["Stream2"], position="2.1.1")
+> >>> br4nch.get.Position(tree=["Stream"], ["Stream2"], node="The Walking Dead")
 > Get Position Result:
 > ┣━ Tree: Stream
-> ┃ˑˑ┗━ Position: 2.1.1
-> ┃ˑˑˑˑˑ┗━ Node: The Walking Dead
+> ┃ˑˑ┗━ Node: The Walking Dead              
+> ┃ˑˑˑˑˑ┗━ Position: 2.1.1
 > ┗━ Tree: Stream2
-> ˑˑˑ┗━ Position: 2.1.1
-> ˑˑˑˑˑˑ┗━ Node: The Walking Dead
+> ˑˑˑ┗━ Node: The Walking Dead                
+> ˑˑˑˑˑˑ┗━ Position: 2.1.1
 > ```
 >
 
-> To print multiple positions in the same function call, you can use a list for the `position` argument.
+> To print multiple positions in the same function call, you can use a list for the `node` argument.
 >
 > ```python
-> >>> br4nch.get.Position(tree="Stream", position=["1.1.1", "1.2.1"])
+> >>> br4nch.get.Position(tree="Stream", node=["Interstellar", "Squid Game"])
 > Get Position Result:
 > ┗━ Tree: Stream
-> ˑˑˑ┣━ Position: 1.1.1                
-> ˑˑˑ┃ˑˑ┗━ Node: Interstellar
-> ˑˑˑ┗━ Position: 1.2.1               
-> ˑˑˑˑˑˑ┗━ Node: Squid Game
+> ˑˑˑ┣━ Node: Interstellar                 
+> ˑˑˑ┃ˑˑ┗━ Position: 1.1.1
+> ˑˑˑ┗━ Node: Squid Game                  
+> ˑˑˑˑˑˑ┗━ Position: 1.2.1
 > ```
 >
 
@@ -119,10 +136,10 @@ To get any position, use the **following function:**
 > >>> br4nch.get.Position(tree="Test", include=["Second", "Third"])
 > Get Position Result:
 > ┗━ Tree: Test
-> ˑˑˑ┣━ Position: 1.1
-> ˑˑˑ┃ˑˑ┗━ Node: Second Node
-> ˑˑˑ┗━ Position: 1.1.1
-> ˑˑˑˑˑˑ┗━ Node: Third Node
+> ˑˑˑ┣━ Node: Second Node
+> ˑˑˑ┃ˑˑ┗━ Position: 1.1
+> ˑˑˑ┗━ Node: Third Node
+> ˑˑˑˑˑˑ┗━ Position: 1.1.1
 > ```
 >
 
@@ -132,15 +149,15 @@ To get any position, use the **following function:**
 > >>> br4nch.get.Position(tree="Test", exclude=["Second", "Third"])
 > Get Position Result:
 > ┗━ Tree: Test
-> ˑˑˑ┣━ Position: 1
-> ˑˑˑ┃ˑˑ┗━ Node: First Node
-> ˑˑˑ┣━ Position: 2
-> ˑˑˑ┃ˑˑ┗━ Node: New Line One
-> ˑˑˑ┃ˑˑˑˑˑNew Line Two
-> ˑˑˑ┃ˑˑˑˑˑNew Line Three
-> ˑˑˑ┗━ Position: 2.1
-> ˑˑˑˑˑˑ┗━ Node: Sub Node One
-> ˑˑˑˑˑˑˑˑˑSub Node Two
+> ˑˑˑ┣━ Node: First Node
+> ˑˑˑ┃ˑˑ┗━ Position: 1
+> ˑˑˑ┣━ Node: New Line One
+> ˑˑˑ┃ˑˑ>>>>> New Line Two
+> ˑˑˑ┃ˑˑ>>>>> New Line Three
+> ˑˑˑ┃ˑˑ┗━ Position: 2
+> ˑˑˑ┗━ Node: Sub Node One
+> ˑˑˑˑˑˑSub Node Two
+> ˑˑˑˑˑˑ┗━ Position: 2.1
 > ```
 
 **Possible error(s):**
