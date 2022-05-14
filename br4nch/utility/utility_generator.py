@@ -10,8 +10,8 @@ from ..utility.utility_librarian import UtilityLibrarian
 
 
 class UtilityGenerator:
-    def __init__(self, tree=False):
-        self.tree = tree
+    def __init__(self, uid_only=False):
+        self.uid_only = uid_only
 
         self.generate_uid()
 
@@ -22,7 +22,7 @@ class UtilityGenerator:
         # Generates the uid.
         uid = str(uuid.uuid4()).replace("-", "")[0:10]
 
-        if self.tree:
+        if self.uid_only:
             # Generates an uid for a new tree.
             if uid not in list(UtilityLibrarian.existing_trees):
                 return uid
