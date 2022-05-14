@@ -71,9 +71,8 @@ class LoadJson:
         Runs the main tasks and adds the tree.
         """
         # Loads the json structure in the file.
-        file = open(self.json_file)
-        json_content = json.loads(json.dumps(json.load(file)))
-        file.close()
+        with open(self.json_file, 'r', encoding="utf-8-sig") as default_file:
+            json_content = json.loads(json.dumps(json.load(default_file)))
 
         save = []
         # Bypass 'AttributeError' error.
