@@ -19,7 +19,7 @@ import urllib.request
 
 from datetime import datetime, timedelta, date
 
-from . import create, duplicate, move, replace, delete, set, reset, load, export, get, display, utility
+from . import create, duplicate, move, replace, delete, set, reset, load, export, get, filter, display, utility
 
 
 class CheckVersion:
