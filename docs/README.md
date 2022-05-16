@@ -7,7 +7,7 @@
 You can easily make a simple branch. We recommend reading [Getting Started](guides/getting_started.md). To create more complex branches that can even be automated, we recommend reading the entire documentation.
 
 > ```python
-> >>> br4nch.create.Tree(tree="Ukraine", header="Ukraine <3")
+> >>> br4nch.create.Tree(new_tree="Ukraine", header="Ukraine <3")
 > 
 > >>> br4nch.create.Node(tree="Ukraine", node=["Cities", "Information"])
 > >>> br4nch.create.Node(tree="Ukraine", node=["Donetsk Oblast", "Kiev Oblast"], parent="Cities")
@@ -57,6 +57,7 @@ Install `br4nch` with the `pip install` command:
 - [Load](https://docs.br4nch.com/functions/load)
 - [Export](https://docs.br4nch.com/functions/export)
 - [Get](https://docs.br4nch.com/functions/get)
+- [Filter](https://docs.br4nch.com/functions/filter)
 - [Display](https://docs.br4nch.com/functions/display)
 
 ## 👍 Contribute
