@@ -56,7 +56,7 @@ class DisplayTree:
                     self.trees[index] = existing_tree
 
         if self.delete:
-            # Raises an error when the value is not a string.
+            # Raises an error when the value is not a bool.
             if not isinstance(self.delete, bool):
                 raise UtilityHandler.InstanceBooleanError("delete", self.delete)
 
