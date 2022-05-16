@@ -32,7 +32,7 @@ class FilterNode:
         self.match_include = match_include
         self.match_exclude = match_exclude
 
-        self.content = []
+        self.build_nodes = []
 
         self.validate_arguments()
         self.task_manager()
@@ -96,90 +96,115 @@ class FilterNode:
                 raise UtilityHandler.InstanceBooleanError("match_exclude", self.match_exclude)
 
     def task_manager(self):
+        """
+        Runs the head tasks to build the new filtered tree.
+        """
         for tree in self.trees:
+            # The current tree structure.
             tree_structure = UtilityLibrarian.existing_trees[tree][list(UtilityLibrarian.existing_trees[tree])[0]]
 
             if self.includes:
+                # Adds all matching 'include' nodes in the list.
                 self.handle_includes(tree_structure)
 
                 if self.excludes:
+                    # Removes all matching 'exclude' nodes in the list.
                     self.handle_excludes(tree_structure)
 
                 filtered_tree = {}
+                # Builds the new filtered tree.
                 self.build_tree(tree_structure, filtered_tree)
 
                 tree_structure.clear()
+                # Replaces the old tree with the new filtered tree.
                 tree_structure.update(filtered_tree)
 
+            # Continues if there is no given 'includes'.
             if not self.includes and self.excludes:
-                self.remove_excludes(tree_structure)
+                # Removes all matching 'exclude' nodes.
+                self.exclude_nested(tree_structure)
 
     def handle_includes(self, nested_dictionary):
+        """
+        Adds the given 'include' value nodes.
+        """
+        # Loops through nested dictionary.
         for parent, children in nested_dictionary.copy().items():
             for include in self.includes:
+                # Continues if the given 'include' value is in the parent value.
                 if not self.match_include and include.lower() in parent[:-15].lower():
-                    if parent not in self.content:
-                        self.content.append(parent)
+                    if parent not in self.build_nodes:
+                        # Adds the parent/node to the build list.
+                        self.build_nodes.append(parent)
 
+                # Continues if the given 'include' value is an exact match with the parent value.
                 if self.match_include and include == parent[:-15]:
-                    if parent not in self.content:
-                        self.content.append(parent)
+                    if parent not in self.build_nodes:
+                        # Adds the parent/node to the build list.
+                        self.build_nodes.append(parent)
 
             if children:
+                # Continue the nested loop.
                 self.handle_includes(children)
 
-    def get_nested(self, nested_dictionary):
-        for parent, children in nested_dictionary.copy().items():
-            if parent not in self.content:
-                self.content.append(parent)
-
-            if children:
-                self.handle_excludes(children)
-
     def handle_excludes(self, nested_dictionary):
+        """
+        Removes the given 'exclude' value nodes.
+        """
+        # Loops through nested dictionary.
         for parent, children in nested_dictionary.copy().items():
             for exclude in self.excludes:
+                # Continues if the given 'exclude' value is in the parent value.
                 if not self.match_exclude and exclude.lower() in parent[:-15].lower():
-                    if parent in self.content:
-                        self.content.remove(parent)
+                    if parent in self.build_nodes:
+                        # Removes the parent/node from the build list.
+                        self.build_nodes.remove(parent)
 
+                # Continues if the given 'exclude' value is an exact match with the parent value.
                 if self.match_exclude and exclude == parent[:-15]:
-                    if parent in self.content:
-                        self.content.remove(parent)
+                    if parent in self.build_nodes:
+                        # Removes the parent/node from the build list.
+                        self.build_nodes.remove(parent)
 
             if children:
+                # Continue the nested loop.
                 self.handle_excludes(children)
 
     def build_tree(self, nested_dictionary, filtered_tree):
+        """
+        Builds the filtered tree.
+        """
+        # Loops through nested dictionary.
         for parent, children in nested_dictionary.items():
-            for node in self.content:
+            for node in self.build_nodes:
+                # Matching nodes.
                 if parent == node:
+                    # Removes matching 'exclude' nodes.
                     self.exclude_nested(children)
+                    # Adds the node and children to the new tree.
                     filtered_tree.update({parent: children})
 
             if children:
+                # Continue the nested loop.
                 self.build_tree(children, filtered_tree)
 
     def exclude_nested(self, nested_dictionary):
+        """
+        Removes all matching 'exclude' nodes in the nested children value.
+        """
+        # Loops through nested dictionary.
         for parent, children in nested_dictionary.copy().items():
             for exclude in self.excludes:
+                # Continues if the given 'exclude' value is in the parent value.
                 if not self.match_exclude and exclude.lower() in parent[:-15].lower():
+                    # Removes matching 'exclude' parent/node.
                     nested_dictionary.pop(parent)
 
+                # Continues if the given 'exclude' value is an exact match with the parent value.
                 if self.match_exclude and exclude == parent[:-15]:
+                    # Removes matching 'exclude' parent/node.
                     nested_dictionary.pop(parent)
 
             if children:
+                # Continue the nested loop.
                 self.handle_excludes(children)
-
-    def remove_excludes(self, nested_dictionary):
-        for parent, children in nested_dictionary.copy().items():
-            for exclude in self.excludes:
-                if not self.match_exclude and exclude.lower() in parent[:-15].lower():
-                    nested_dictionary.pop(parent)
-
-                if self.match_exclude and exclude == parent[:-15]:
-                    nested_dictionary.pop(parent)
-
-            if children:
-                self.remove_excludes(children)
