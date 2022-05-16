@@ -74,7 +74,8 @@ class GetTree:
                 for include in self.includes:
                     # Removes the tree from displaying if it does not contain the value of 'include'.
                     if include not in tree:
-                        trees.remove(tree)
+                        if tree in trees:
+                            trees.remove(tree)
 
             if self.excludes:
                 for exclude in self.excludes:
