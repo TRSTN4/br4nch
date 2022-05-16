@@ -9,16 +9,16 @@ from ..utility.utility_handler import UtilityHandler
 
 
 class CreateTree:
-    def __init__(self, tree, header):
+    def __init__(self, new_tree, header):
         """
         Required argument(s):
-        - tree
+        - new_tree
         - header
 
-        :param tree: The name for the tree.
+        :param new_tree: The name for the tree.
         :param header: The header for the tree.
         """
-        self.trees = tree
+        self.new_trees = new_tree
         self.header = header
 
         self.validate_arguments()
@@ -29,13 +29,13 @@ class CreateTree:
         Validates the arguments.
         """
         # If the value is not an instance of a list, set the value in the list.
-        if not isinstance(self.trees, list):
-            self.trees = [self.trees]
+        if not isinstance(self.new_trees, list):
+            self.new_trees = [self.new_trees]
 
-        for tree in self.trees:
+        for tree in self.new_trees:
             # Raises an error when the tree value is not a string.
             if not isinstance(tree, str):
-                raise UtilityHandler.InstanceStringError("tree", tree)
+                raise UtilityHandler.InstanceStringError("new_tree", tree)
 
             # Raises an error when the tree only uses numbers as name.
             if not tree.isalnum():
@@ -54,7 +54,7 @@ class CreateTree:
         Creates each tree.
         """
         # Sets all required values for the dictionaries to create a new tree.
-        for tree in self.trees:
+        for tree in self.new_trees:
             UtilityLibrarian.existing_trees.update({tree: {self.header: {}}})
             UtilityLibrarian.existing_sizes.update({tree: 0})
             UtilityLibrarian.existing_symbols.update({tree: {"line": "┃", "split": "┣━", "end": "┗━"}})
