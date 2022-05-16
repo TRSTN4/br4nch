@@ -12,8 +12,8 @@ To filter a node, use the **following function:**
 
 - *include* - If the given word(s) are in the node, the node will be included. Else, it will not be excluded.
 - *exclude* - If the given word(s) are in the node, the node will not be excluded. Else, it will be included.
-- *match_include* - If this argument is 'True', then the filled in node(s) must be case-sensitive and words.
-- *match_exclude* -  If this argument is 'True', then the filled in node(s) must be case-sensitive and words.
+- *match_include* - If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
+- *match_exclude* -  If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
 
 **Guide:**
 

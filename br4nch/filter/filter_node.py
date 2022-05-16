@@ -23,8 +23,8 @@ class FilterNode:
         :param tree: The tree that will be filtered.
         :param include: If the given word(s) are in the node, the node will be included. Else, it will not be excluded.
         :param exclude: If the given word(s) are in the node, the node will not be excluded. Else, it will be included.
-        :param match_include: If this argument is 'True', then the filled in node(s) must be case-sensitive and words.
-        :param match_exclude: If this argument is 'True', then the filled in node(s) must be case-sensitive and words.
+        :param match_include: If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
+        :param match_exclude: If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
         """
         self.trees = tree
         self.includes = include
