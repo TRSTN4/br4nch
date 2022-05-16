@@ -11,7 +11,7 @@ This error occurs when the given value in the specified argument is not an insta
 **Example:**
 
 > ```python
-> >>> br4nch.add.Tree(tree=123, header="MyHeader")
+> >>> br4nch.create.Tree(new_tree=123, header="MyHeader")
 > InstanceStringError: The tree argument: '123' must be an instance of a 'string' and not 'int'.
 > ```
 >
@@ -59,7 +59,7 @@ This error occurs when the tree name uses characters other than letters and/or n
 **Example:**
 
 > ```python
-> >>> br4nch.add.Tree(tree="%", header="MyHeader")
+> >>> br4nch.create.Tree(new_tree="%", header="MyHeader")
 > InvalidTreeNameError: The tree name: '%' is not valid. Only numbers and/or letters may be used to add a tree.
 > ```
 >
@@ -75,7 +75,7 @@ This error occurs when the given position contains a character other than valid 
 **Example:**
 
 > ```python
-> >>> br4nch.add.Node(tree="MyTree", node="MyNode", parent="%")
+> >>> br4nch.create.Node(tree="MyTree", node="MyNode", parent="%")
 > InvalidPositionError: The position: '#' is not valid. Only valid positions, operators and existing nodes  can be used to decide the position for the parent argument.
 > ```
 >
@@ -139,7 +139,7 @@ This error occurs when the specified tree does not exist.
 **Example:**
 
 > ```python
-> >>> br4nch.add.Node(tree="MyNotExistingBranch", node="MyNode", position="Test")
+> >>> br4nch.create.Node(tree="MyNotExistingBranch", node="MyNode", position="Test")
 > NotExistingTreeError: The tree: 'MyNotExistingBranch' does not exists.
 > ```
 >
@@ -248,7 +248,7 @@ This error occurs when the specified tree name already exists.
 **Example:**
 
 > ```python
-> >>> br4nch.create.Tree(tree="MyTree", header="MyHeader")
+> >>> br4nch.create.Tree(new_tree="MyTree", header="MyHeader")
 > DuplicateTreeError: The tree: 'MyTree' already exists.
 > ```
 >

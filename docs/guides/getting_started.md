@@ -7,7 +7,7 @@
 > First we need to create a tree, we will call the tree `MyTree` and the name of the header will be `My Header!`.
 >
 > ```python
-> >>> br4nch.create.Tree(tree="MyTree", header="My Header!")
+> >>> br4nch.create.Tree(new_tree="MyTree", header="My Header!")
 > ```
 
 ## Step 2
