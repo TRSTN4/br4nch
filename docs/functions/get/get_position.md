@@ -2,7 +2,7 @@
 
 To get any position, use the **following function:**
 
-> br4nch.**get**.**Position**(*tree*, *node=""*, *sensitive=False*, *include=""*, *exclude=""*, *beautify=True*)
+> br4nch.**get**.**Position**(*tree*, *node=""*, *match_node=False*, *include=""*, *exclude=""*, *match_include=False*, *match_exclude=False*, *beautify=True*)
 
 **Required argument(s):**
 
@@ -11,9 +11,11 @@ To get any position, use the **following function:**
 **Optional argument(s):**
 
 - *node* - The node(s) to display the corresponding position(s).
-- *sensitive* - If this argument is 'True', then the filled in node must be match case-sensitive.
+- *match_node* - If this argument is 'True', then the filled in node(s) must be case-sensitive and words.
 - *include* - If the given word(s) are in the node, the node will be displayed. Else, it will not be displayed.
 - *exclude* - If the given word(s) are in the node, the node will not be displayed. Else, it will be displayed.
+- *match_include* - If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
+- *match_exclude* -  If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
 - *beautify* - If this argument is 'True', then the result will be displayed with a special tree format.
 
 **Guide:**
@@ -51,10 +53,10 @@ To get any position, use the **following function:**
 > ```
 > 
 
-> To make the name of the node case-sensitive, set the `sensitive` argument to True.
+> To make the name of the node case-sensitive and words, set the `match_node` argument to True.
 >
 > ```python
-> >>> br4nch.get.Position(tree="Stream", node="squid game", sensitive=True)
+> >>> br4nch.get.Position(tree="Stream", node="squid game", match_node=True)
 > ```
 >
 
@@ -81,6 +83,20 @@ To get any position, use the **following function:**
 > ˑˑˑˑˑˑ>>>>> New Line Two
 > ˑˑˑˑˑˑ>>>>> New Line Three
 > ˑˑˑˑˑˑ┗━ Position: 2
+> ```
+>
+
+> To make the name of the word case-sensitive and words, set the `match_include` argument to True.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Stream", include="squid game", match_include=True)
+> ```
+>
+
+> To make the name of the word case-sensitive and words, set the `match_exclude` argument to True.
+>
+> ```python
+> >>> br4nch.get.Position(tree="Stream", exclude="squid game", match_exclude=True)
 > ```
 >
 

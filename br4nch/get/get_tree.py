@@ -11,7 +11,7 @@ from br4nch.display.display_tree import DisplayTree
 
 
 class GetTree:
-    def __init__(self, include="", exclude="", beautify=True):
+    def __init__(self, include="", exclude="", match_include=False, match_exclude=False, beautify=True):
         """
         Optional argument(s):
         - node
@@ -22,10 +22,14 @@ class GetTree:
         displayed.
         :param exclude: If the given word(s) are in the tree, the tree will not be displayed. Else, it will be
         displayed.
+        :param match_include: If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
+        :param match_exclude: If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
         :param beautify: If this argument is 'True', then the result will be displayed with a special branch format.
         """
         self.includes = include
         self.excludes = exclude
+        self.match_include = match_include
+        self.match_exclude = match_exclude
         self.beautify = beautify
 
         self.validate_arguments()
@@ -55,6 +59,16 @@ class GetTree:
                 if not isinstance(exclude, str):
                     raise UtilityHandler.InstanceStringError("exclude", exclude)
 
+        if self.match_include:
+            # Raises an error when each 'match_include' value is not a bool.
+            if not isinstance(self.match_include, bool):
+                raise UtilityHandler.InstanceBooleanError("match_include", self.match_include)
+
+        if self.match_exclude:
+            # Raises an error when each 'match_exclude' value is not a bool.
+            if not isinstance(self.match_exclude, bool):
+                raise UtilityHandler.InstanceBooleanError("match_exclude", self.match_exclude)
+
         if self.beautify:
             # Raises an error when the 'beautify' value is not a bool.
             if not isinstance(self.beautify, bool):
@@ -72,15 +86,25 @@ class GetTree:
         for tree in trees.copy():
             if self.includes:
                 for include in self.includes:
-                    # Removes the tree from displaying if it does not contain the value of 'include'.
-                    if include not in tree:
+                    # Continues if the given 'include' value is in the tree value.
+                    if not self.match_include and include.lower() not in tree.lower():
+                        if tree in trees:
+                            trees.remove(tree)
+
+                    # Continues if the given 'include' value is an exact match with the tree value.
+                    if self.match_include and include != tree:
                         if tree in trees:
                             trees.remove(tree)
 
             if self.excludes:
                 for exclude in self.excludes:
-                    # Removes the tree from displaying if it does contain the value of 'exclude'.
-                    if exclude in tree:
+                    # Continues if the given 'exclude' value is in the tree value.
+                    if not self.match_exclude and exclude.lower() in tree.lower():
+                        if tree in trees:
+                            trees.remove(tree)
+
+                    # Continues if the given 'exclude' value is an exact match with the tree value.
+                    if self.match_exclude and exclude == tree:
                         if tree in trees:
                             trees.remove(tree)
 

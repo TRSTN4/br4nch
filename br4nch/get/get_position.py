@@ -11,7 +11,8 @@ from br4nch.display.display_tree import DisplayTree
 
 
 class GetPosition:
-    def __init__(self, tree, node="", sensitive=False, include="", exclude="", beautify=True):
+    def __init__(self, tree, node="", match_node=False, include="", exclude="", match_include=False,
+                 match_exclude=False, beautify=True):
         """
         Required argument(s):
         - tree
@@ -20,22 +21,28 @@ class GetPosition:
         - position
         - include
         - exclude
+        - match_include
+        - match_exclude
         - beautify
 
         :param tree: The tree(s) to display a position(s) for.
         :param node: The node(s) to display the corresponding position(s).
-        :param sensitive: If this argument is 'True', then the filled in node must be case-sensitive.
-        :param include: If the given word(s) are in the node, the node will be displayed. Else, it will not be
+        :param match_node: If this argument is 'True', then the filled in node must be case-sensitive and words.
+        :param include: If the given word(s) are in the node, the node(s) will be displayed. Else, it will not be
         displayed.
-        :param exclude: If the given word(s) are in the node, the node will not be displayed. Else, it will be
+        :param exclude: If the given word(s) are in the node, the node(s) will not be displayed. Else, it will be
         displayed.
+        :param match_include: If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
+        :param match_exclude: If this argument is 'True', then the filled in word(s) must be case-sensitive and words.
         :param beautify: If this argument is 'True', then the result will be displayed with a special tree format.
         """
         self.trees = tree
         self.nodes = node
-        self.sensitive = sensitive
+        self.match_node = match_node
         self.includes = include
         self.excludes = exclude
+        self.match_include = match_include
+        self.match_exclude = match_exclude
         self.beautify = beautify
 
         self.validate_arguments()
@@ -79,10 +86,10 @@ class GetPosition:
                 if not isinstance(node, str):
                     raise UtilityHandler.InstanceStringError("node", node)
 
-        if self.sensitive:
-            # Raises an error when each 'sensitive' value is not a bool.
-            if not isinstance(self.sensitive, bool):
-                raise UtilityHandler.InstanceBooleanError("sensitive", self.sensitive)
+        if self.match_node:
+            # Raises an error when each 'match_node' value is not a bool.
+            if not isinstance(self.match_node, bool):
+                raise UtilityHandler.InstanceBooleanError("match_node", self.match_node)
 
         if self.includes:
             # If the value is not an instance of a list, set the value in the list.
@@ -103,6 +110,16 @@ class GetPosition:
                 # Raises an error when each 'exclude' value is not a string.
                 if not isinstance(exclude, str):
                     raise UtilityHandler.InstanceStringError("exclude", exclude)
+
+        if self.match_include:
+            # Raises an error when each 'match_include' value is not a bool.
+            if not isinstance(self.match_include, bool):
+                raise UtilityHandler.InstanceBooleanError("match_include", self.match_include)
+
+        if self.match_exclude:
+            # Raises an error when each 'match_exclude' value is not a bool.
+            if not isinstance(self.match_exclude, bool):
+                raise UtilityHandler.InstanceBooleanError("match_exclude", self.match_exclude)
 
         if self.beautify:
             # Raises an error when the 'beautify' value is not a bool.
@@ -199,19 +216,27 @@ class GetPosition:
 
             if self.includes:
                 for include in self.includes:
-                    # Skips the parent/node if it does not contain the value of 'include'.
-                    if include not in parent[:-15]:
+                    # Continues if the given 'include' value is in the parent value.
+                    if not self.match_include and include.lower() not in parent[:-15].lower():
+                        skip = True
+
+                    # Continues if the given 'include' value is an exact match with the parent value.
+                    if self.match_include and include != parent[:-15]:
                         skip = True
 
             if self.excludes:
                 for exclude in self.excludes:
-                    # Skips the parent/node if it does contain the value of 'exclude'.
-                    if exclude in parent[:-15]:
+                    # Continues if the given 'exclude' value is in the parent value.
+                    if not self.match_exclude and exclude.lower() in parent[:-15].lower():
+                        skip = True
+
+                    # Continues if the given 'exclude' value is an exact match with the parent value.
+                    if self.match_exclude and exclude == parent[:-15]:
                         skip = True
 
             if not skip:
-                if self.sensitive:
-                    # Checks if the parent node without uid is equal to the current node in case-sensitive mode.
+                if self.match_node:
+                    # Checks if the parent node without uid is equal to the current node is case-sensitive and words.
                     if parent[:-15] == node:
                         # If the first character contains a dot, it will be removed.
                         for character in visual_position:
@@ -280,14 +305,22 @@ class GetPosition:
 
             if self.includes:
                 for include in self.includes:
-                    # Skips the parent/node if it does not contain the value of 'include'.
-                    if include not in parent[:-15]:
+                    # Continues if the given 'include' value is in the parent value.
+                    if not self.match_include and include.lower() not in parent[:-15].lower():
+                        skip = True
+
+                    # Continues if the given 'include' value is an exact match with the parent value.
+                    if self.match_include and include != parent[:-15]:
                         skip = True
 
             if self.excludes:
                 for exclude in self.excludes:
-                    # Skips the parent/node if it does contain the value of 'exclude'.
-                    if exclude in parent[:-15]:
+                    # Continues if the given 'exclude' value is in the parent value.
+                    if not self.match_exclude and exclude.lower() in parent[:-15].lower():
+                        skip = True
+
+                    # Continues if the given 'exclude' value is an exact match with the parent value.
+                    if self.match_exclude and exclude == parent[:-15]:
                         skip = True
 
             if not skip:
