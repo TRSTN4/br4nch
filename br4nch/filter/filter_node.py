@@ -207,4 +207,4 @@ class FilterNode:
 
             if children:
                 # Continue the nested loop.
-                self.handle_excludes(children)
+                self.exclude_nested(children)
