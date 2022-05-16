@@ -21,18 +21,18 @@ You can easily make a simple branch. We recommend reading [Getting Started](guid
 > >>> br4nch.display.Tree(tree="Ukraine")
 > Ukraine <3
 > ┣━ Cities
-> ┃  ┣━ Donetsk Oblast
-> ┃  ┃  ┗━ Mariupol
-> ┃  ┗━ Kiev Oblast
-> ┃     ┣━ Bucha
-> ┃     ┗━ Tsjernobyl
+> ┃ˑˑ┣━ Donetsk Oblast
+> ┃ˑˑ┃ˑˑ┗━ Mariupol
+> ┃ˑˑ┗━ Kiev Oblast
+> ┃ˑˑˑˑˑ┣━ Bucha
+> ┃ˑˑˑˑˑ┗━ Tsjernobyl
 > ┗━ Information
->    ┣━ President
->    ┃  ┗━ Zelensky
->    ┣━ Area
->    ┃  ┗━ 603.628 km2
->    ┗━ Population
->       ┗━ 44 Million
+>    ˑˑˑ┣━ President
+>    ˑˑˑ┃ˑˑ┗━ Zelensky
+>    ˑˑˑ┣━ Area
+>    ˑˑˑ┃ˑˑ┗━ 603.628 km2
+>    ˑˑˑ┗━ Population
+>    ˑˑˑˑˑˑ┗━ 44 Million
 > ```
 >
 
