@@ -53,6 +53,8 @@
   - [get.Tree](functions/get/get_tree.md)
   - [get.Node](functions/get/get_node.md)
   - [get.Position](functions/get/get_position.md)
+- Filter
+  - [filter.Node](functions/filter/filter_node.md)
 - Display
   - [display.Assist](functions/display/display_assist.md)
   - [display.Tree](functions/display/display_tree.md)
