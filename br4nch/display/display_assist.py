@@ -105,7 +105,17 @@ class DisplayAssist:
             # If the 'level'/'height' of the current value in the loop is equal to or smaller than the previous
             # 'level'/'height' value in the loop, then the last number and dot in the 'position' variable is removed.
             if levels[trace[0]] <= levels[trace[0] - 1]:
-                position = position[:-2]
+                #find the length of the node num string
+                str_len = len(position)
+                #find the length of the string from the end to the nearest dot char
+                last_dot = position.rfind(".")
+                #find the number to subtract for the position
+                subtract_num =(str_len - last_dot)
+        
+                if (subtract_num > 2):
+                    position = position[:-subtract_num]
+                else:
+                    position = position[:-2]
             # Variable is added with the value of 'count' separated by a dot to the 'position' variable.
             position = position + "." + str(count)
 

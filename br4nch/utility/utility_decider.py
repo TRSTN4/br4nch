@@ -216,7 +216,17 @@ class UtilityDecider:
                 # 'level'/'height' value in the loop, then the last number and dot in the 'visual_position' variable is
                 # removed.
                 if levels[trace[0]] <= levels[trace[0] - 1]:
-                    visual_position = visual_position[:-2]
+                    #find the length of the node num string
+                    str_len = len(position)
+                    #find the length of the string from the end to the nearest dot char
+                    last_dot = position.rfind(".")
+                    #find the number to subtract for the position
+                    subtract_num =(str_len - last_dot)
+
+                    if (subtract_num > 2):
+                        visual_position = visual_position[:-subtract_num]
+                    else:
+                        visual_position = visual_position[:-2]
                 # Variable is added with the value of 'count' separated by a dot to the 'visual_position' variable.
                 visual_position = visual_position + "." + str(count)
 
